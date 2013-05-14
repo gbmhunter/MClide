@@ -5,7 +5,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/05/14
-- Version: v1.0.0.0
+- Version: v1.1.0.0
 - Company: CladLabs
 - Project: Free Code Libraries	.
 - Language: C++ (embedded library), C# (PC library)
