@@ -5,7 +5,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/05/14
-- Version: v1.1.0.0
+- Version: v1.1.1.0
 - Company: CladLabs
 - Project: Free Code Libraries	.
 - Language: C++ (embedded library), C# (PC library)
@@ -238,4 +238,6 @@ C# (PC)
 Changelog
 =========
 
-- v1.0.0.0.0 	-> (13/05/10) Initial version.
+- v1.0.0.0 	-> (2013/05/14) Initial version.
+- v1.1.0.0 	-> (2013/05/14) Support for options with values in C++  library.
+- v1.1.1.0  -> (2013/05/15) Message "...not registered with command" in Clide-Rx.c was missing the last double quote, breaking the message format standard. Fixed.

@@ -315,11 +315,11 @@ bool Rx::Run(char* cmdMsg)
 				#if(clideDEBUG_PRINT_ERROR == 1)
 					DebugPrint("CLIDE: ERROR - Option '");
 					DebugPrint(_argsPtr[optind-1]);
-					DebugPrint("' not registered with command.\r\n");
+					DebugPrint("' not registered with command.\"\r\n");
 				#endif
 				CmdLinePrint("error \"Option '");
 				CmdLinePrint(_argsPtr[optind-1]);
-				CmdLinePrint("' not registered with command.\r\n");
+				CmdLinePrint("' not registered with command.\"\r\n");
 			}
 				
 		}
