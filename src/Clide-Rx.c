@@ -296,8 +296,18 @@ bool Rx::Run(char* cmdMsg)
 				}
 				// Only run callback if it has been assigned, and not the help case
 				//! @todo Get rid of 20
-				else if(foundOption->callBackFunc != NULL)
-					foundOption->callBackFunc((char*)"20");	
+				else
+				{
+				
+					// Save option value if one
+					if(foundOption->associatedValue == true)
+					{
+						strcpy(foundOption->value, optarg);
+					}
+				
+					if(foundOption->callBackFunc != NULL)
+						foundOption->callBackFunc((char*)"20");	
+				}	
 			}
 			else
 			{
@@ -317,6 +327,7 @@ bool Rx::Run(char* cmdMsg)
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			// Debug stuff
 			UartDebug::PutChar(x);
+			UartDebug::PutChar(' ');
 			DebugPrint(optarg);
 			snprintf(tempBuff, sizeof(tempBuff), " Index=%i\r\n", optind); 
 			DebugPrint(tempBuff);
@@ -355,7 +366,7 @@ bool Rx::Run(char* cmdMsg)
 	//============= VALIDATE/PROCESS PARAMETERS =============//
 	
 	// Validate that there are the correct number of parameters
-	if((uint32)(numArgs - optind) != foundCmd->numParam)
+	if((uint32)(numArgs - optind) != foundCmd->numParams)
 	{
 		CmdLinePrint("error \"Num. of received parameters does not match num. registered for cmd.\"\r\n");
 		#if(clideDEBUG_PRINT_ERROR == 1)
@@ -365,7 +376,7 @@ bool Rx::Run(char* cmdMsg)
 	}
 	
 	// Copy parameters into cmd string
-	for(x = 0; x < foundCmd->numParam; x++)
+	for(x = 0; x < foundCmd->numParams; x++)
 	{
 		strcpy(foundCmd->paramA[x]->value, _argsPtr[optind + x]);
 	}
@@ -507,7 +518,6 @@ Cmd* Rx::ValidateCmd(char* cmdName, Cmd** cmdA, uint8 numCmds)
 	return NULL;
 }
 
-
 Option* Rx::ValidateOption(Cmd *detectedCmd, char* optionName)
 {
 	#if(clideDEBUG_PRINT_VERBOSE == 1)
@@ -518,13 +528,8 @@ Option* Rx::ValidateOption(Cmd *detectedCmd, char* optionName)
 	
 	#if(clideDEBUG_PRINT_VERBOSE == 1)
 		char tempBuff[50];
-		
 		DebugPrint("CLIDE: Received option = ");
 		DebugPrint(optionName);
-		DebugPrint("\r\n");
-		
-		DebugPrint("CLIDE: Registered option = ");
-		DebugPrint(detectedCmd->optionA[0]->name);
 		DebugPrint("\r\n");
 	#endif
 	// Iterate through all registered options for detected command
@@ -533,7 +538,11 @@ Option* Rx::ValidateOption(Cmd *detectedCmd, char* optionName)
 		// Compare received option name with all the registered option names in the detected command
 		uint8 val = strcmp(optionName, detectedCmd->optionA[x]->name);
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			snprintf(tempBuff, sizeof(tempBuff), "CLIDE: Value = %u\r\n", val);
+			DebugPrint("CLIDE: Compare '");
+			DebugPrint(optionName);
+			DebugPrint("' with '");
+			DebugPrint(detectedCmd->optionA[x]->name);
+			snprintf(tempBuff, sizeof(tempBuff), "'. Value = %u\r\n", val);
 			DebugPrint(tempBuff);
 		#endif
 		if(val == 0)
@@ -559,13 +568,19 @@ void Rx::BuildOptionString(char* optionString, Cmd* cmd)
 	#endif
 	
 	uint32 x;
+	uint32 optionStringPos = 0;
 	for(x = 0; x < cmd->numOptions; x++)
 	{
 		// Get character from each name
-		optionString[x] = cmd->optionA[x]->name[0];
+		optionString[optionStringPos++] = cmd->optionA[x]->name[0];
+		// Add ':' if option is expected with associated value
+		if(cmd->optionA[x]->associatedValue == true)
+		{
+			optionString[optionStringPos++] = ':';
+		}
 	}
 	// Add null character to terminate string
-	optionString[x] = '\0';
+	optionString[optionStringPos++] = '\0';
 }
 
 void Rx::PrintHelpForCmd(Cmd* cmd)
@@ -592,7 +607,7 @@ void Rx::PrintHelpForCmd(Cmd* cmd)
 	CmdLinePrint("Command Parameters:\r");
 	
 	// Special case if there are no parameters to list
-	if(cmd->numParam == 0)
+	if(cmd->numParams == 0)
 	{
 		CmdLinePrint("\t");
 		CmdLinePrint("NO PARAMS");
@@ -602,7 +617,7 @@ void Rx::PrintHelpForCmd(Cmd* cmd)
 	{
 		// Iterate through cmd array and print commands
 		uint32 x;
-		for(x = 0; x < cmd->numParam; x++)
+		for(x = 0; x < cmd->numParams; x++)
 		{
 			CmdLinePrint("\t");
 			char tempBuff[50];

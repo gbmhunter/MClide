@@ -95,9 +95,15 @@ namespace Clide
 //===============================================================================================//
 
 // Constructor
-// Register option
+// Register option. 
 Option::Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description)
 {	
+	Option::Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description, false)
+}
+
+// Base constructor
+Option::Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description, bool associatedValue)
+{
 	// NAME
 	
 	uint32_t stringLen = strlen(optionName);
@@ -141,7 +147,13 @@ Option::Option(const char* optionName, bool (*callBackFunc)(char *optionVal), co
 	// DETECTED?
 	
 	this->isDetected = false;
+	
+	// ASSOCIATED VALUE?
+	
+	this->associatedValue = associatedValue;
 }
+
+
 
 
 //===============================================================================================//

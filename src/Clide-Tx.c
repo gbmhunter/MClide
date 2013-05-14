@@ -329,7 +329,7 @@ bool Tx::Run(char* cmdMsg)
 	//============= VALIDATE/PROCESS PARAMETERS =============//
 	
 	// Validate that there are the correct number of parameters
-	if((uint32)(numArgs - optind) != foundCmd->numParam)
+	if((uint32)(numArgs - optind) != foundCmd->numParams)
 	{
 		CmdLinePrint("CLIDE: Error: Num. of received parameters does not match num. registered for cmd.\r\n");
 		#if(clideDEBUG_PRINT_ERROR == 1)
@@ -339,7 +339,7 @@ bool Tx::Run(char* cmdMsg)
 	}
 	
 	// Copy parameters into cmd string
-	for(x = 0; x < foundCmd->numParam; x++)
+	for(x = 0; x < foundCmd->numParams; x++)
 	{
 		strcpy(foundCmd->paramA[x]->value, _argsPtr[optind + x]);
 	}
@@ -566,7 +566,7 @@ void Tx::PrintHelpForCmd(Cmd* cmd)
 	CmdLinePrint("Command Parameters:\r");
 	
 	// Special case if there are no parameters to list
-	if(cmd->numParam == 0)
+	if(cmd->numParams == 0)
 	{
 		CmdLinePrint("\t");
 		CmdLinePrint("NO PARAMS");
@@ -576,7 +576,7 @@ void Tx::PrintHelpForCmd(Cmd* cmd)
 	{
 		// Iterate through cmd array and print commands
 		uint32 x;
-		for(x = 0; x < cmd->numParam; x++)
+		for(x = 0; x < cmd->numParams; x++)
 		{
 			CmdLinePrint("\t");
 			char tempBuff[50];

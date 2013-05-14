@@ -56,16 +56,18 @@ class Param
 		//! @brief		2nd overloaded constructor
 		Param(bool (*callBackFunc)(char *paramVal), const char* description);
 		
-		
 		//! Description of a parameter. Used with the "-h", "--help" flags.
 		char* description;
+		
 		//! String value of parameter. 
 		//! Parameters have no names
 		char value[clideMAX_STRING_LENGTH];
-		//! Optional callback function for when parameter is discovered.
-		//! Function is called before the callback function for the command that it 
-		//! was sent in is called.
+		
+		//! @brief		Optional callback function for when parameter is discovered.
+		//! @details	Function is called before the callback function for the command that it 
+		//! 			was sent in is called.
 		bool (*callBackFunc)(char* paramVal);
+		
 };
 
 //===============================================================================================//

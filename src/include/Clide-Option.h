@@ -43,32 +43,49 @@ class Option
 	private:
 	public:
 		//! @brief		Register an option with a command
+		//! @param		optionName		The character to look for in the command-line string.
+		//! @param		callBackFunc	Call-back function which is called when option is discovered.
+		//!								Can be set to NULL.
 		//! @details	Overload 1
-		//! @public
 		Option(const char* optionName, bool (*callBackFunc)(char *optionVal));
 
+		//! @brief		Register an option with a command.
+		//! @details	Overload 2, associatedValue set to true.
+		//! @param		optionName		The character to look for in the command-line string.
+		//! @param		callBackFunc	Call-back function which is called when option is discovered.
+		//!								Can be set to NULL.
+		//! @param		description		Used when help is requested.
+		Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description);
+	
 		//! @brief		Register an option with a command.
 		//! @details	Overload 2
 		//! @param		optionName		The character to look for in the command-line string.
 		//! @param		callBackFunc	Call-back function which is called when option is discovered.
 		//!								Can be set to NULL.
 		//! @param		description		Used when help is requested.
-		//! @public
-		Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description);
+		//! @param		associatedValue	Set to true if option has an associated value
+		Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description, bool associatedValue);
 	
-		//! Name of option
+		//! @brief		Name of option
 		char* name;
-		//! Description of an option. Used with the "-h", "--help" flags.
+		
+		//! @brief		Description of an option. Used with the "-h", "--help" flags.
 		char* description;
-		//! The value of the option. Assigned to when receiving commands.
-		//! @todo	Change so that dynamically allocated
+		
+		//! @brief		The value of the option. Assigned to when receiving commands.
+		//! @todo		Change so that dynamically allocated
 		char value[clideMAX_STRING_LENGTH];
-		//! Optional callback function for when option is discovered.
-		//! Function is called before the callback function for the command that it 
-		//! was sent in is called.
+		
+		//! @brief		Optional callback function for when option is discovered.
+		//! @details	Function is called before the callback function for the command that it 
+		//! 			was sent in is called.
 		bool (*callBackFunc)(char* optionVal);
-		//! True if option was present the last time the command it is registered to was detected.
+		
+		//! @brief		True if option was present the last time the command it is registered to was detected.
 		bool isDetected;
+		
+		//! @brief		Set to true if option has an associated value. Default is false.
+		bool associatedValue;
 };
 
 //===============================================================================================//

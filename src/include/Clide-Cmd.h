@@ -81,7 +81,7 @@ class Cmd
 		//! Pointer to an array of pointers to command parameters. Parameters are dynamically allocated.
 		Param** paramA;
 		//! Remembers the number of parameters
-		uint32 numParam;
+		uint32 numParams;
 		//! Pointer to an array of pointers to options. Options are dynamically allocated.
 		Option** optionA;
 		//! Remembers the number of options

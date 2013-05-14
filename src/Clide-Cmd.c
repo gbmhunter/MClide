@@ -110,7 +110,7 @@ Cmd::Cmd(const char *name, bool (*callBackFunc)(Cmd* foundCmd), const char *desc
 	
 	// INITIALISATION
 	
-	this->numParam = 0;
+	this->numParams = 0;
 	this->numOptions = 0;
 	
 	// Set pointers to null. If not NULL, this causes realloc() is exhibit undefined behaviour,
@@ -170,10 +170,10 @@ void Cmd::RegisterParam(Param* param)
 		DebugPrint("CLIDE: Registering parameter...\r\n");
 	#endif
 
-	//this->numParam = 0;
+	//this->numParams = 0;
 		
 	// MALLOC
-	this->paramA = (Param**)MemMang::AppendNewArrayElement(this->paramA, this->numParam, sizeof(Param*));
+	this->paramA = (Param**)MemMang::AppendNewArrayElement(this->paramA, this->numParams, sizeof(Param*));
 	
 	if(this->paramA == NULL)
 	{
@@ -185,10 +185,10 @@ void Cmd::RegisterParam(Param* param)
 	}
 	
 	// Increase parameter count
-	this->numParam++;
+	this->numParams++;
 	
 	// Remember the pointer
-	paramA[numParam - 1] = param;
+	paramA[numParams - 1] = param;
 }
 
 
