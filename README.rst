@@ -5,11 +5,11 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/05/15
-- Version: v1.2.0.0
+- Version: v1.2.0.1
 - Company: CladLabs
 - Project: Free Code Libraries	.
-- Language: C++ (embedded library), C# (PC library)
-- Compiler: GCC (embedded library), Microsoft VS .NET (PC library)	
+- Language: C++
+- Compiler: GCC	
 - uC Model: n/a
 - Computer Architecture: n/a
 - Operating System: n/a
@@ -49,12 +49,12 @@ Command data is stored in a contegious block
 All text is case-sensitive. It is recommended to use lower-case only to
 follow the UNIX command-line style.
 
-Special support for the "help" command, and "-h", "--help" flags for every registered
-command. No special support other UNIX commands such as "man", "whatis" or "info"
+Special support for the "help" command, and `-h`, `--help` flags for every registered
+command. No special support other UNIX commands such as `man`, `whatis` or `info`
 'help' is a special command which can be implemented by calling
 RegisterHelpCmd()
 
-Internal Dependancies
+Internal Dependencies
 =====================
 
 These are all included in the repository.
@@ -69,7 +69,7 @@ These are all included in the repository.
 - MemMang.c, .h 						-> Higher-level memory management functions
 - PowerString-Split.h					-> Higher-level string manipulation routines.
 
-External Dependancies
+External Dependencies
 =====================
 - <stdio.h> 	-> snprintf()
 - <stdlib.h> 	-> realloc(), malloc(), calloc(), free()
@@ -80,41 +80,28 @@ PACKET DECODING PROCESS (RX)
 =============================
 
 - Remove all non-alphanumeric characters from the start of the packet
-- Split packet into seperate arguments
+- Split packet into separate arguments
 - Make sure received command is registered
 - Extract options and values (if present), execute option callback functions
 - Check all parameters are present
 - Execute parameter callback functions
 - Execute command callback function
 
-BUGS
+ISSUES
 ====
-	- First-time behaviour to Rx::Run() is different (getopt returns a '?' even though opions are valid)
-		seems to be processing first element of argv (the command name), on the first call
+
+- See GitHub Issues
 
 LIMITATIONS
 ===========
 
-	- Maximum number of commands: 256
-	- Maximum number of parameters or options per command: 256
-	- Maximum string length of a command name, option name/value, parameter value: clideMAX_STRING_LENGTH
-
-TODO
-====
-	- Implement automatic help generation, without external help callback function
-	- On command registeration, check that command name hasn't already been registered
-	- Prevent option callback functions from being called if the number of parameters is incorrect
-		(currently all options are detected and callbacks run before parameters analysed)
-	- Provide bool checks for memory allocations
-	- Ability to restrict range of parameters (e.g. it can only be the text "on" or "off",
-		this will make help plenty better also)
- 
+- Maximum number of commands: 256
+- Maximum number of parameters or options per command: 256
+- Maximum string length of a command name, option name/value, parameter value: clideMAX_STRING_LENGTH
 
 Usage
 =====
 
-C++ (Embedded)
---------------
 
 **Includes**
 
@@ -228,13 +215,6 @@ C++ (Embedded)
 	CmdLinePrint(){ ... }
 	DebugPrint(){ ... }
 	
-C# (PC)
--------
-
-::
-
-	coming soon...
-	
 Changelog
 =========
 
@@ -242,3 +222,4 @@ Changelog
 - v1.1.0.0 	-> (2013/05/14) Support for options with values in C++  library.
 - v1.1.1.0  -> (2013/05/15) Message "...not registered with command" in Clide-Rx.c was missing the last double quote, breaking the message format standard. Fixed.
 - v1.2.0.0  -> (2013/05/29) Removed unneeded './cpp' root folder. Added unit test library UnitTest++ to './test/UnitTest++'"
+- v1.2.0.1  -> (2013/05/29) Removed C# notes in README (now in separate repo). Fixed README formatting issue. Fixed spelling mistakes.
