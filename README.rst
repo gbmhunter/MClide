@@ -4,8 +4,8 @@ Clide (Command Line Interface Development Environment) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2013/05/15
-- Version: v1.2.0.1
+- Last Modified: 2013/06/08
+- Version: v1.2.0.2
 - Company: CladLabs
 - Project: Free Code Libraries	.
 - Language: C++
@@ -218,8 +218,13 @@ Usage
 Changelog
 =========
 
-- v1.0.0.0 	-> (2013/05/14) Initial version.
-- v1.1.0.0 	-> (2013/05/14) Support for options with values in C++  library.
-- v1.1.1.0  -> (2013/05/15) Message "...not registered with command" in Clide-Rx.c was missing the last double quote, breaking the message format standard. Fixed.
-- v1.2.0.0  -> (2013/05/29) Removed unneeded './cpp' root folder. Added unit test library UnitTest++ to './test/UnitTest++'"
-- v1.2.0.1  -> (2013/05/29) Removed C# notes in README (now in separate repo). Fixed README formatting issue. Fixed spelling mistakes.
+======== ========== ===================================================================================================
+Version  Date       Comment
+======== ========== ===================================================================================================
+v1.2.0.2 2013/06/08 README is now in table format.
+v1.2.0.1 2013/05/29 Removed C# notes in README (now in separate repo). Fixed README formatting issue. Fixed spelling mistakes.
+v1.2.0.0 2013/05/29 Removed unneeded './cpp' root folder. Added unit test library UnitTest++ to './test/UnitTest++'"
+v1.1.1.0 2013/05/15 Message "...not registered with command" in Clide-Rx.c was missing the last double quote, breaking the message format standard. Fixed.
+v1.1.0.0 2013/05/14 Support for options with values in C++  library.
+v1.0.0.0 2013/05/14 Initial version.
+======== ========== ===================================================================================================
