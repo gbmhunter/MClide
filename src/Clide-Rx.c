@@ -159,16 +159,12 @@ void Rx::ResetArgsPointer()
 
 bool Rx::Run(char* cmdMsg)
 {
+	// Used for various snprintf() function calls
+	char tempBuff[100];
+
 	#if(clideDEBUG_PRINT_GENERAL == 1)
-		DebugPrint("CLIDE: Received msg: \"");
-		DebugPrint(cmdMsg);
-		DebugPrint("\"\r\n");
-	#endif
-	
-	
-	#if(clideDEBUG_PRINT_ANY == 1)
-		// Used for various snprintf() function calls
-		char tempBuff[50];
+		snprintf(tempBuff, sizeof(tempBuff), "CLIDE: Received msg = '%s'.\r\n", cmdMsg);
+		DebugPrint(tempBuff);
 	#endif
 	
 	//=========== RESET PARAMETERS ==============//
@@ -190,8 +186,23 @@ bool Rx::Run(char* cmdMsg)
 	ResetArgsPointer();
 	
 	// Strip all non-alphanumeric characters from the start of the packet
-	while(!isalnum(cmdMsg[0]) || cmdMsg[0] == '\0')
+	while(!isalnum(cmdMsg[0]))
 	{
+		// Check for null string terminator
+		if(cmdMsg[0] == '\0')
+		{
+			CmdLinePrint("error \"Received command contained no alpha-numeric characters.\"\r\n");
+			#if(clideDEBUG_PRINT_GENERAL == 1)
+				DebugPrint("CLIDE: WARNING: Received command contained no alpha-numeric characters.\r\n");
+			#endif
+			return false;
+		} 
+		
+		#if(clideDEBUG_PRINT_VERBOSE == 1)
+			DebugPrint("CLIDE: Removing char '");
+			UartDebug::PutChar(cmdMsg[0]);
+			DebugPrint("' from rx buffer.\r\n");
+		#endif
 		// Increment message pointer forward over non-alphanumeric char
 		cmdMsg++;
 	}
