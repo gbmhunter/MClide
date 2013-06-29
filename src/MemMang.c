@@ -59,78 +59,78 @@ extern "C" {
 namespace MemMang
 {
 
-//===============================================================================================//
-//==================================== PRIVATE DEFINES ==========================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//==================================== PRIVATE DEFINES ==========================================//
+	//===============================================================================================//
 
-// none
+	// none
 
-//===============================================================================================//
-//=================================== PRIVATE TYPEDEF's =========================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//=================================== PRIVATE TYPEDEF's =========================================//
+	//===============================================================================================//
 
-// none
+	// none
 
-//===============================================================================================//
-//============================= PRIVATE VARIABLES/STRUCTURES ====================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//============================= PRIVATE VARIABLES/STRUCTURES ====================================//
+	//===============================================================================================//
 
-// none
+	// none
 
-//===============================================================================================//
-//================================== PRIVATE FUNCTION PROTOTYPES ================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//================================== PRIVATE FUNCTION PROTOTYPES ================================//
+	//===============================================================================================//
 
-// none
+	// none
 
-//===============================================================================================//
-//===================================== PUBLIC FUNCTIONS ========================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//===================================== PUBLIC FUNCTIONS ========================================//
+	//===============================================================================================//
 
-char* MallocString(const char* string)
-{
-	uint32 stringLen = strlen(string);
-	
-	// Create memory for description and store
-	char* newString = (char*)calloc(1, stringLen + 1);
-	
-	// This is safe since newString will be of same size
-	strcpy(newString, string);
-	
-	// Return pointer to new string
-	return newString;
-}
+	char* MallocString(const char* string)
+	{
+		uint32 stringLen = strlen(string);
+		
+		// Create memory for description and store
+		char* newString = (char*)calloc(1, stringLen + 1);
+		
+		// This is safe since newString will be of same size
+		strcpy(newString, string);
+		
+		// Return pointer to new string
+		return newString;
+	}
 
 
-void* AppendNewArrayElement(void* arrayStart, uint32 currNumElements, uint32 sizeOfElement)
-{
-	#if(DEBUG_PRINT_VERBOSE)
-		char tempBuff[100];
-		snprintf(tempBuff, sizeof(tempBuff), "MEM: Curr num elements = %lu", currNumElements);
-		UartDebug::PutString(tempBuff);
-		snprintf(tempBuff, sizeof(tempBuff), "MEM: Size of element = %lu", sizeOfElement);
-		UartDebug::PutString(tempBuff);
-	#endif
+	void* AppendNewArrayElement(void* arrayStart, uint32 currNumElements, uint32 sizeOfElement)
+	{
+		#if(DEBUG_PRINT_VERBOSE)
+			char tempBuff[100];
+			snprintf(tempBuff, sizeof(tempBuff), "MEM: Curr num elements = %lu", currNumElements);
+			UartDebug::PutString(tempBuff);
+			snprintf(tempBuff, sizeof(tempBuff), "MEM: Size of element = %lu", sizeOfElement);
+			UartDebug::PutString(tempBuff);
+		#endif
 
-	// Create a new option at end of option array
-	arrayStart = realloc(arrayStart , (currNumElements+1)*sizeOfElement);
-	
-	// Check if malloc was successful
-	if(arrayStart == NULL)
-		return NULL;
-	
-	// Cast to char pointer to get around the "arthimetic on type void* compiler warning)
-	char* arrayStartChar = (char*)arrayStart;
-	// Set to 0
-	memset(arrayStartChar + (currNumElements*sizeOfElement), '\0', sizeOfElement);
-	// Return pointer to the start of array (realloc() could of changed this)
-	return arrayStart;
-}
+		// Create a new option at end of option array
+		arrayStart = realloc(arrayStart , (currNumElements+1)*sizeOfElement);
+		
+		// Check if malloc was successful
+		if(arrayStart == NULL)
+			return NULL;
+		
+		// Cast to char pointer to get around the "arthimetic on type void* compiler warning)
+		char* arrayStartChar = (char*)arrayStart;
+		// Set to 0
+		memset(arrayStartChar + (currNumElements*sizeOfElement), '\0', sizeOfElement);
+		// Return pointer to the start of array (realloc() could of changed this)
+		return arrayStart;
+	}
 
-//===============================================================================================//
-//==================================== PRIVATE FUNCTIONS ========================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//==================================== PRIVATE FUNCTIONS ========================================//
+	//===============================================================================================//
 
-// none
+	// none
 
 } // namespace Clide

@@ -36,42 +36,42 @@
 namespace MemMang
 {
 
-//===============================================================================================//
-//==================================== PUBLIC DEFINES ===========================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//==================================== PUBLIC DEFINES ===========================================//
+	//===============================================================================================//
 
-// none			
+	// none			
 
-//===============================================================================================//
-//=================================== PUBLIC TYPEDEFS ===========================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//=================================== PUBLIC TYPEDEFS ===========================================//
+	//===============================================================================================//
 
-// none
+	// none
 
-//===============================================================================================//
-//================================== PUBLIC VARIABLES/STRUCTURES ================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//================================== PUBLIC VARIABLES/STRUCTURES ================================//
+	//===============================================================================================//
 
-// none
+	// none
 
-//===============================================================================================//
-//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
+	//===============================================================================================//
 
-//! @brief		Dynamically appends a new element onto the end of an array.
-//! @details	Uses dynamic memory allocation.
-//! @param		arrayStart 			Pointer to the start of the array
-//! @param		currNumElements 	The number of elements in the array
-//! @param		sizeofElement		The size (in bytes) of the individual elements in the array.
-//!									This can be found by using sizeof(arrayType_t)
-//! @returns	Pointer to new position of array[0]. Remember to cast back to the original type.
-void* AppendNewArrayElement(void* arrayStart, uint32 currNumElements, uint32 sizeOfElement);
+	//! @brief		Dynamically appends a new element onto the end of an array.
+	//! @details	Uses dynamic memory allocation.
+	//! @param		arrayStart 			Pointer to the start of the array
+	//! @param		currNumElements 	The number of elements in the array
+	//! @param		sizeofElement		The size (in bytes) of the individual elements in the array.
+	//!									This can be found by using sizeof(arrayType_t)
+	//! @returns	Pointer to new position of array[0]. Remember to cast back to the original type.
+	void* AppendNewArrayElement(void* arrayStart, uint32 currNumElements, uint32 sizeOfElement);
 
-//! @brief		Essentially "copies" a string into a new memory location.
-//! @param		string				String to copy.
-//! @returns	Pointer to newly allocated and copied string.
-//! @public
-char* MallocString(const char* string);
+	//! @brief		Essentially "copies" a string into a new memory location.
+	//! @param		string				String to copy.
+	//! @returns	Pointer to newly allocated and copied string.
+	//! @public
+	char* MallocString(const char* string);
 
 } // namespace MemMang
 

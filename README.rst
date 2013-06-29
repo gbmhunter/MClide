@@ -4,8 +4,8 @@ Clide (Command Line Interface Development Environment) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2013/06/25
-- Version: v1.2.1.0
+- Last Modified: 2013/06/29
+- Version: v1.2.1.1
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -221,6 +221,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v1.2.1.1 2013/06/29 Indented all namespace objects by one tab in all files.
 v1.2.1.0 2013/06/25 Fixed lock-up on receiving empty message. Made tempBuff in Clide-Rx.c larger. Fixed a few spelling mistakes in README.
 v1.2.0.2 2013/06/08 README is now in table format.
 v1.2.0.1 2013/05/29 Removed C# notes in README (now in separate repo). Fixed README formatting issue. Fixed spelling mistakes.

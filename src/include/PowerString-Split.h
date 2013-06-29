@@ -35,20 +35,20 @@
 namespace PowerString
 {
 
-class Split 
-{
-	public:
-		//! @brief		Based of strtok() function
-		//! @details	Calls Int();
-		static char* Run(char* s, const char* delim);
-	private:
-		//! @brief		Internal function called by Run();
-		//! @details	Replaces "end of token" with null character and returns "start of token". Returns NULL
-		//!				when it has finished processing string (e.g. reached NULL character).
-		//! @param		s 		Input string
-		//! @param 		*delim 	Delimiters
-		static char* Int(char *s, const char *delim, char **last, char delimiterNull);
-};
+	class Split 
+	{
+		public:
+			//! @brief		Based of strtok() function
+			//! @details	Calls Int();
+			static char* Run(char* s, const char* delim);
+		private:
+			//! @brief		Internal function called by Run();
+			//! @details	Replaces "end of token" with null character and returns "start of token". Returns NULL
+			//!				when it has finished processing string (e.g. reached NULL character).
+			//! @param		s 		Input string
+			//! @param 		*delim 	Delimiters
+			static char* Int(char *s, const char *delim, char **last, char delimiterNull);
+	};
 
 } // namespace PowerString
 

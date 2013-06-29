@@ -36,61 +36,61 @@
 namespace Clide
 {
 
-//! @brief		Holds all parameter variables
-//! @details	Object of this type is created when RegisterParam() is called.
-class Param
-{
-	private:
-		//! @brief		Common code for constructors
-		void Init(bool (*callBackFunc)(char *paramVal), const char* description);
-	public:
-	
-		//===============================================================================================//
-		//======================================== CONSTRUCTOR ==========================================//
-		//===============================================================================================//
+	//! @brief		Holds all parameter variables
+	//! @details	Object of this type is created when RegisterParam() is called.
+	class Param
+	{
+		private:
+			//! @brief		Common code for constructors
+			void Init(bool (*callBackFunc)(char *paramVal), const char* description);
+		public:
 		
-		//! @brief		1st overloaded constructor
-		//! @details	Automatically sets the function pointer to NULL
-		Param(const char* description);
-		
-		//! @brief		2nd overloaded constructor
-		Param(bool (*callBackFunc)(char *paramVal), const char* description);
-		
-		//! Description of a parameter. Used with the "-h", "--help" flags.
-		char* description;
-		
-		//! String value of parameter. 
-		//! Parameters have no names
-		char value[clideMAX_STRING_LENGTH];
-		
-		//! @brief		Optional callback function for when parameter is discovered.
-		//! @details	Function is called before the callback function for the command that it 
-		//! 			was sent in is called.
-		bool (*callBackFunc)(char* paramVal);
-		
-};
+			//===============================================================================================//
+			//======================================== CONSTRUCTOR ==========================================//
+			//===============================================================================================//
+			
+			//! @brief		1st overloaded constructor
+			//! @details	Automatically sets the function pointer to NULL
+			Param(const char* description);
+			
+			//! @brief		2nd overloaded constructor
+			Param(bool (*callBackFunc)(char *paramVal), const char* description);
+			
+			//! Description of a parameter. Used with the "-h", "--help" flags.
+			char* description;
+			
+			//! String value of parameter. 
+			//! Parameters have no names
+			char value[clideMAX_STRING_LENGTH];
+			
+			//! @brief		Optional callback function for when parameter is discovered.
+			//! @details	Function is called before the callback function for the command that it 
+			//! 			was sent in is called.
+			bool (*callBackFunc)(char* paramVal);
+			
+	};
 
-//===============================================================================================//
-//==================================== PUBLIC DEFINES ===========================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//==================================== PUBLIC DEFINES ===========================================//
+	//===============================================================================================//
 
-// none			
+	// none			
 
-//===============================================================================================//
-//=================================== PUBLIC TYPEDEFS ===========================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//=================================== PUBLIC TYPEDEFS ===========================================//
+	//===============================================================================================//
 
-// none
+	// none
 
-//===============================================================================================//
-//================================== PUBLIC VARIABLES/STRUCTURES ================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//================================== PUBLIC VARIABLES/STRUCTURES ================================//
+	//===============================================================================================//
 
-// none
+	// none
 
-//===============================================================================================//
-//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
+	//===============================================================================================//
 
 
 } // namespace Clide

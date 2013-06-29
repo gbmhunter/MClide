@@ -36,79 +36,79 @@
 namespace Clide
 {
 
-//! @brief		Holds all option variables
-//! @details	Object of this type is created when RegisterOption() is called.
-class Option
-{
-	private:
-	public:
-		//! @brief		Register an option with a command
-		//! @param		optionName		The character to look for in the command-line string.
-		//! @param		callBackFunc	Call-back function which is called when option is discovered.
-		//!								Can be set to NULL.
-		//! @details	Overload 1
-		Option(const char* optionName, bool (*callBackFunc)(char *optionVal));
+	//! @brief		Holds all option variables
+	//! @details	Object of this type is created when RegisterOption() is called.
+	class Option
+	{
+		private:
+		public:
+			//! @brief		Register an option with a command
+			//! @param		optionName		The character to look for in the command-line string.
+			//! @param		callBackFunc	Call-back function which is called when option is discovered.
+			//!								Can be set to NULL.
+			//! @details	Overload 1
+			Option(const char* optionName, bool (*callBackFunc)(char *optionVal));
 
-		//! @brief		Register an option with a command.
-		//! @details	Overload 2, associatedValue set to true.
-		//! @param		optionName		The character to look for in the command-line string.
-		//! @param		callBackFunc	Call-back function which is called when option is discovered.
-		//!								Can be set to NULL.
-		//! @param		description		Used when help is requested.
-		Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description);
-	
-		//! @brief		Register an option with a command.
-		//! @details	Overload 2
-		//! @param		optionName		The character to look for in the command-line string.
-		//! @param		callBackFunc	Call-back function which is called when option is discovered.
-		//!								Can be set to NULL.
-		//! @param		description		Used when help is requested.
-		//! @param		associatedValue	Set to true if option has an associated value
-		Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description, bool associatedValue);
-	
-		//! @brief		Name of option
-		char* name;
+			//! @brief		Register an option with a command.
+			//! @details	Overload 2, associatedValue set to true.
+			//! @param		optionName		The character to look for in the command-line string.
+			//! @param		callBackFunc	Call-back function which is called when option is discovered.
+			//!								Can be set to NULL.
+			//! @param		description		Used when help is requested.
+			Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description);
 		
-		//! @brief		Description of an option. Used with the "-h", "--help" flags.
-		char* description;
+			//! @brief		Register an option with a command.
+			//! @details	Overload 2
+			//! @param		optionName		The character to look for in the command-line string.
+			//! @param		callBackFunc	Call-back function which is called when option is discovered.
+			//!								Can be set to NULL.
+			//! @param		description		Used when help is requested.
+			//! @param		associatedValue	Set to true if option has an associated value
+			Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description, bool associatedValue);
 		
-		//! @brief		The value of the option. Assigned to when receiving commands.
-		//! @todo		Change so that dynamically allocated
-		char value[clideMAX_STRING_LENGTH];
-		
-		//! @brief		Optional callback function for when option is discovered.
-		//! @details	Function is called before the callback function for the command that it 
-		//! 			was sent in is called.
-		bool (*callBackFunc)(char* optionVal);
-		
-		//! @brief		True if option was present the last time the command it is registered to was detected.
-		bool isDetected;
-		
-		//! @brief		Set to true if option has an associated value. Default is false.
-		bool associatedValue;
-};
+			//! @brief		Name of option
+			char* name;
+			
+			//! @brief		Description of an option. Used with the "-h", "--help" flags.
+			char* description;
+			
+			//! @brief		The value of the option. Assigned to when receiving commands.
+			//! @todo		Change so that dynamically allocated
+			char value[clideMAX_STRING_LENGTH];
+			
+			//! @brief		Optional callback function for when option is discovered.
+			//! @details	Function is called before the callback function for the command that it 
+			//! 			was sent in is called.
+			bool (*callBackFunc)(char* optionVal);
+			
+			//! @brief		True if option was present the last time the command it is registered to was detected.
+			bool isDetected;
+			
+			//! @brief		Set to true if option has an associated value. Default is false.
+			bool associatedValue;
+	};
 
-//===============================================================================================//
-//==================================== PUBLIC DEFINES ===========================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//==================================== PUBLIC DEFINES ===========================================//
+	//===============================================================================================//
 
-// none			
+	// none			
 
-//===============================================================================================//
-//=================================== PUBLIC TYPEDEFS ===========================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//=================================== PUBLIC TYPEDEFS ===========================================//
+	//===============================================================================================//
 
-// none
+	// none
 
-//===============================================================================================//
-//================================== PUBLIC VARIABLES/STRUCTURES ================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//================================== PUBLIC VARIABLES/STRUCTURES ================================//
+	//===============================================================================================//
 
-// none
+	// none
 
-//===============================================================================================//
-//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
+	//===============================================================================================//
 
 
 } // namespace Clide

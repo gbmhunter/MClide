@@ -36,43 +36,43 @@
 namespace Clide
 {
 
-//===============================================================================================//
-//==================================== PUBLIC DEFINES ===========================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//==================================== PUBLIC DEFINES ===========================================//
+	//===============================================================================================//
 
-//=============== DEBUG SWITCHES ============//
+	//=============== DEBUG SWITCHES ============//
 
-#define clideDEBUG_PRINT_GENERAL		0				//!< Print general debug msgs
-#define clideDEBUG_PRINT_VERBOSE		0				//!< Print verbose debug msgs
-#define clideDEBUG_PRINT_ERROR			1				//!< Print error debug msgs
+	#define clideDEBUG_PRINT_GENERAL		0				//!< Print general debug msgs
+	#define clideDEBUG_PRINT_VERBOSE		0				//!< Print verbose debug msgs
+	#define clideDEBUG_PRINT_ERROR			1				//!< Print error debug msgs
 
-#define clideDEBUG_PRINT_ANY	(clideDEBUG_PRINT_GENERAL | clideDEBUG_PRINT_VERBOSE | clideDEBUG_PRINT_ERROR)
+	#define clideDEBUG_PRINT_ANY	(clideDEBUG_PRINT_GENERAL | clideDEBUG_PRINT_VERBOSE | clideDEBUG_PRINT_ERROR)
 
-//! Sets the maximum string length for a single command, parameter, or option name/option value
-//! @todo Use dynamic allocation, so not required.
-#define clideMAX_STRING_LENGTH			(20)	
+	//! Sets the maximum string length for a single command, parameter, or option name/option value
+	//! @todo Use dynamic allocation, so not required.
+	#define clideMAX_STRING_LENGTH			(20)	
 
-//! Maximum length for the cmd name
-#define clideMAX_NAME_LENGTH		(20)
+	//! Maximum length for the cmd name
+	#define clideMAX_NAME_LENGTH		(20)
 
-//! Maximum length for the cmd description
-#define clideMAX_DESCRIPTION_LENGTH		(100)	
+	//! Maximum length for the cmd description
+	#define clideMAX_DESCRIPTION_LENGTH		(100)	
 
-//===============================================================================================//
-//=================================== PUBLIC TYPEDEFS ===========================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//=================================== PUBLIC TYPEDEFS ===========================================//
+	//===============================================================================================//
 
-// none
+	// none
 
-//===============================================================================================//
-//================================== PUBLIC VARIABLES/STRUCTURES ================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//================================== PUBLIC VARIABLES/STRUCTURES ================================//
+	//===============================================================================================//
 
-// none
+	// none
 
-//===============================================================================================//
-//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
+	//===============================================================================================//
 
 
 } // namespace Clide

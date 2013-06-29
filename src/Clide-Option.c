@@ -66,100 +66,100 @@ namespace Clide
 {
 
 
-//===============================================================================================//
-//==================================== PRIVATE DEFINES ==========================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//==================================== PRIVATE DEFINES ==========================================//
+	//===============================================================================================//
 
-// none
+	// none
 
-//===============================================================================================//
-//=================================== PRIVATE TYPEDEF's =========================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//=================================== PRIVATE TYPEDEF's =========================================//
+	//===============================================================================================//
 
-// none
+	// none
 
-//===============================================================================================//
-//============================= PRIVATE VARIABLES/STRUCTURES ====================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//============================= PRIVATE VARIABLES/STRUCTURES ====================================//
+	//===============================================================================================//
 
-// none
+	// none
 
-//===============================================================================================//
-//================================== PRIVATE FUNCTION PROTOTYPES ================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//================================== PRIVATE FUNCTION PROTOTYPES ================================//
+	//===============================================================================================//
 
-// none
+	// none
 
-//===============================================================================================//
-//===================================== PUBLIC FUNCTIONS ========================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//===================================== PUBLIC FUNCTIONS ========================================//
+	//===============================================================================================//
 
-// Constructor
-// Register option. 
-Option::Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description)
-{	
-	Option::Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description, false)
-}
-
-// Base constructor
-Option::Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description, bool associatedValue)
-{
-	// NAME
-	
-	uint32_t stringLen = strlen(optionName);
-	
-	// Make sure the description isn't to long
-	if(stringLen <= clideMAX_NAME_LENGTH)
-	{
-		// Create memory for name and store
-		this->name = MemMang::MallocString(optionName);
-	}
-	else
-	{
-		#if(clideDEBUG_PRINT_ERROR == 1)	
-			// Description too long, do not save it
-			DebugPrint("CLIDE: ERROR: Option name was too long.\r\n");
-		#endif
+	// Constructor
+	// Register option. 
+	Option::Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description)
+	{	
+		Option::Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description, false)
 	}
 
-	// DECRIPTION
-	
-	stringLen = strlen(description);
-	
-	// Make sure the description isn't to long
-	if(stringLen <= clideMAX_DESCRIPTION_LENGTH)
+	// Base constructor
+	Option::Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description, bool associatedValue)
 	{
-		// Create memory for description and store
-		this->description = MemMang::MallocString(description);
+		// NAME
+		
+		uint32_t stringLen = strlen(optionName);
+		
+		// Make sure the description isn't to long
+		if(stringLen <= clideMAX_NAME_LENGTH)
+		{
+			// Create memory for name and store
+			this->name = MemMang::MallocString(optionName);
+		}
+		else
+		{
+			#if(clideDEBUG_PRINT_ERROR == 1)	
+				// Description too long, do not save it
+				DebugPrint("CLIDE: ERROR: Option name was too long.\r\n");
+			#endif
+		}
+
+		// DECRIPTION
+		
+		stringLen = strlen(description);
+		
+		// Make sure the description isn't to long
+		if(stringLen <= clideMAX_DESCRIPTION_LENGTH)
+		{
+			// Create memory for description and store
+			this->description = MemMang::MallocString(description);
+		}
+		else
+		{
+			#if(clideDEBUG_PRINT_ERROR == 1)	
+				// Description too long, do not save it
+				DebugPrint("CLIDE: ERROR: Option description was too long.\r\n");
+			#endif
+		}
+		
+		// CALLBACK
+		
+		this->callBackFunc = callBackFunc;
+		
+		// DETECTED?
+		
+		this->isDetected = false;
+		
+		// ASSOCIATED VALUE?
+		
+		this->associatedValue = associatedValue;
 	}
-	else
-	{
-		#if(clideDEBUG_PRINT_ERROR == 1)	
-			// Description too long, do not save it
-			DebugPrint("CLIDE: ERROR: Option description was too long.\r\n");
-		#endif
-	}
-	
-	// CALLBACK
-	
-	this->callBackFunc = callBackFunc;
-	
-	// DETECTED?
-	
-	this->isDetected = false;
-	
-	// ASSOCIATED VALUE?
-	
-	this->associatedValue = associatedValue;
-}
 
 
 
 
-//===============================================================================================//
-//==================================== PRIVATE FUNCTIONS ========================================//
-//===============================================================================================//
+	//===============================================================================================//
+	//==================================== PRIVATE FUNCTIONS ========================================//
+	//===============================================================================================//
 
-// none
+	// none
 
 } // namespace Clide
