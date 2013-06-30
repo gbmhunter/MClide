@@ -23,26 +23,8 @@
 //========================================= INCLUDES ============================================//
 //===============================================================================================//
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-// PSoC includes
-#include <device.h>
-
 // System includes
 #include <stdio.h>		// snprintf()
-
-// FreeRTOS includes
-#include "FreeRTOS.h"
-#include "task.h"
-#include "queue.h"
-#include "semphr.h"
-#include "./FreeRTOS/FreeRTOS-Plus-CLI/FreeRTOS_CLI.h"
-
-#ifdef __cplusplus
-}
-#endif
 
 // User includes
 #include "./Comms/include/UartDebug.h"

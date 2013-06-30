@@ -23,41 +23,15 @@
 //========================================= INCLUDES ============================================//
 //===============================================================================================//
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-// PSoC includes
-#include <device.h>
-
 // System includes
 #include <stdio.h>		// snprintf()
 #include <stdlib.h>		// realloc(), malloc(), free()
 #include <cctype>		// isalnum() 
-
 #include <getopt.h>		// getopt()	
-
-// FreeRTOS includes
-#include "FreeRTOS.h"
-#include "task.h"
-#include "queue.h"
-#include "semphr.h"
-#include "./FreeRTOS/FreeRTOS-Plus-CLI/FreeRTOS_CLI.h"
-
-#ifdef __cplusplus
-}
-#endif
 
 // User includes
 #include "Global.h"
 #include "Config.h"
-//#include "./FixedPoint/include/Fp.h"
-#include "./Pid/include/Pid.h"
-#include "./Comms/include/UartDebug.h"
-#include "./Comms/include/UartComms.h"
-//#include "BldcController.h"
-#include "CommsInterface.h"
-#include "./Lights/include/Lights.h"
 #include "MemMang.h"
 #include "PowerString-Split.h"
 
