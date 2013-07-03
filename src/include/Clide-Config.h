@@ -17,6 +17,9 @@
 //!		<b>License:					</b> GPLv3						\n
 //!	
 
+#ifndef __cplusplus
+	#error Please build with C++ compiler
+#endif
 
 //===============================================================================================//
 //======================================== HEADER GUARD =========================================//
@@ -25,9 +28,11 @@
 #ifndef CLIDE_CONFIG_H
 #define CLIDE_CONFIG_H
 
-#ifndef __cplusplus
-	#error Please build with C++ compiler
-#endif
+//===============================================================================================//
+//========================================== INCLUDES ===========================================//
+//===============================================================================================//
+
+// none
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -44,7 +49,7 @@ namespace Clide
 
 	#define clideDEBUG_PRINT_GENERAL		0				//!< Print general debug msgs
 	#define clideDEBUG_PRINT_VERBOSE		0				//!< Print verbose debug msgs
-	#define clideDEBUG_PRINT_ERROR			1				//!< Print error debug msgs
+	#define clideDEBUG_PRINT_ERROR			0				//!< Print error debug msgs
 
 	#define clideDEBUG_PRINT_ANY	(clideDEBUG_PRINT_GENERAL | clideDEBUG_PRINT_VERBOSE | clideDEBUG_PRINT_ERROR)
 

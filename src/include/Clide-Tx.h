@@ -5,19 +5,11 @@
 //! @brief 		Clide TX controller. The main logic of the TX (sending)
 //!				part of Clide.
 //! @details
-//!		<b>Last Modified:			</b> 2013/05/14					\n
-//!		<b>File Version:			</b> v1.0.0.0					\n
-//!		<b>Company:					</b> CladLabs					\n
-//!		<b>Project:					</b> Free Code Libraries		\n
-//!		<b>Language:				</b> C++						\n
-//!		<b>Compiler:				</b> GCC						\n
-//! 	<b>uC Model:				</b> PSoC5						\n
-//!		<b>Computer Architecture:	</b> ARM						\n
-//! 	<b>Operating System:		</b> FreeRTOS v7.2.0			\n
-//!		<b>Documentation Format:	</b> Doxygen					\n
-//!		<b>License:					</b> GPLv3						\n
-//!	
+//!				See README.rst in root folder.
 
+#ifndef __cplusplus
+	#error Please build with C++ compiler
+#endif
 
 //===============================================================================================//
 //======================================== HEADER GUARD =========================================//
@@ -26,11 +18,14 @@
 #ifndef CLIDE_TX_H
 #define CLIDE_TX_H
 
-#ifndef __cplusplus
-	#error Please build with C++ compiler
-#endif
+//===============================================================================================//
+//========================================== INCLUDES ===========================================//
+//===============================================================================================//
 
+// System
+#include <stdint.h>
 
+// User
 #include "Clide-Config.h"
 #include "Clide-Param.h"
 #include "Clide-Option.h"
@@ -50,7 +45,7 @@ namespace Clide
 			//! @brief		Validates command.
 			//! @details	Makes sure cmd is in the registered command list
 			//! @private
-			Cmd* ValidateCmd(char* cmdName, Cmd** cmdA, uint8 numCmds);
+			Cmd* ValidateCmd(char* cmdName, Cmd** cmdA, uint8_t numCmds);
 			
 			//! @brief		Checks for option in registered command
 			Option* ValidateOption(Clide::Cmd *detectedCmd, char *optionName);
@@ -128,7 +123,7 @@ namespace Clide
 
 			//! @brief		The number of registered commands
 			//! @details	Incremented everytime RegisterCmd() is called
-			uint8 numCmds;
+			uint8_t numCmds;
 			
 			//! @brief		Determines whether help commands are automatically availiable
 			//! @details	Defaults to TRUE

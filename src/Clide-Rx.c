@@ -2,46 +2,36 @@
 //! @file 		Clide-Rx.c
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @date 		2012/03/19
-//! @brief 		Command-line style communications protocol
+//! @brief 		Clide RX controller. The main logic of the RX (decoding)
+//!				part of Clide. Commands can be registered with the controller.
 //! @details
-//!		<b>Last Modified:			</b> 2013/05/14					\n
-//!		<b>File Version:			</b> v1.0.0.0					\n
-//!		<b>Company:					</b> CladLabs					\n
-//!		<b>Project:					</b> Free Code Libraries		\n
-//!		<b>Language:				</b> C++						\n
-//!		<b>Compiler:				</b> GCC						\n
-//! 	<b>uC Model:				</b> PSoC5						\n
-//!		<b>Computer Architecture:	</b> ARM						\n
-//! 	<b>Operating System:		</b> FreeRTOS v7.2.0			\n
-//!		<b>Documentation Format:	</b> Doxygen					\n
-//!		<b>License:					</b> GPLv3						\n
-//!
-//! See Clide-Rx.h for more information.
-//!
+//!				See README.rst in root dir for more information.
+
+#ifndef __cplusplus
+	#error Please build with C++ compiler
+#endif
 
 //===============================================================================================//
 //========================================= INCLUDES ============================================//
 //===============================================================================================//
 
 // System includes
+#include <stdint.h>		// int8_t, int32_t e.t.c
 #include <stdio.h>		// snprintf()
 #include <stdlib.h>		// realloc(), malloc(), free()
 #include <cctype>		// isalnum() 
 #include <getopt.h>		// getopt()	
+#include <cstring>		// memset()
 
 // User includes
-#include "Global.h"
-#include "Config.h"
-#include "MemMang.h"
-#include "PowerString-Split.h"
-
-#include "Clide-Config.h"
-#include "Clide-Param.h"
-#include "Clide-Option.h"
-#include "Clide-Cmd.h"
-#include "Clide-Port.h"
-#include "Clide-Rx.h"
-
+#include "./include/MemMang.h"
+#include "./include/PowerString-Split.h"
+#include "./include/Clide-Config.h"
+#include "./include/Clide-Param.h"
+#include "./include/Clide-Option.h"
+#include "./include/Clide-Cmd.h"
+#include "./include/Clide-Port.h"
+#include "./include/Clide-Rx.h"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -50,7 +40,6 @@
 namespace Clide
 {
 
-	//using namespace boost::xpressive;
 	using namespace std;
 
 	//===============================================================================================//
@@ -69,16 +58,13 @@ namespace Clide
 	//============================= PRIVATE VARIABLES/STRUCTURES ====================================//
 	//===============================================================================================//
 
-
-
-
 	//! @brief		Holds the split arguments from the command line
 	//! @todo 		Replace with malloc() calls, remove magic numbers
 	static char _args[10][clideMAX_STRING_LENGTH];
 
 	static char _paramA[10][10];
 
-	static uint8 _paramAIndex = 0;
+	static uint8_t _paramAIndex = 0;
 
 	//! @brief		Array of pointers to the arguments
 	static char *(_argsPtr[10]);
@@ -161,7 +147,7 @@ namespace Clide
 			// Check for null string terminator
 			if(cmdMsg[0] == '\0')
 			{
-				CmdLinePrint("error \"Received command contained no alpha-numeric characters.\"\r\n");
+				Port::CmdLinePrint("error \"Received command contained no alpha-numeric characters.\"\r\n");
 				#if(clideDEBUG_PRINT_GENERAL == 1)
 					DebugPrint("CLIDE: WARNING: Received command contained no alpha-numeric characters.\r\n");
 				#endif
@@ -187,12 +173,16 @@ namespace Clide
 		// Check for registered command
 		if(foundCmd == NULL)
 		{
-			CmdLinePrint("error \"Command not recognised.\"\r\n");
+			Port::CmdLinePrint("error \"Command not recognised.\"\r\n");
 			return false;
 		}
 		
 		#if(clideDEBUG_PRINT_GENERAL == 1)
-			snprintf(tempBuff, sizeof(tempBuff), "CLIDE: Num args = %i\r\n", numArgs); 
+			snprintf(
+				tempBuff, 
+				sizeof(tempBuff),
+				"CLIDE: Num args = %i\r\n",
+				numArgs); 
 			DebugPrint(tempBuff);
 		#endif
 		
@@ -204,7 +194,7 @@ namespace Clide
 		
 		// Clear the isDetected for all options registered with incoming cmd
 		// Set true later in function if the option is detected
-		int x;
+		int32_t x;
 		for(x = 0; x < foundCmd->numOptions; x++)
 		{
 			foundCmd->optionA[x]->isDetected = false;
@@ -213,7 +203,7 @@ namespace Clide
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			DebugPrint("CLIDE: Printing arguments pointer...\r\n");
 			// Print re-arranged arguments
-			uint8 count = 0;
+			uint8_t count = 0;
 			while(*_argsPtr[count] != '\0')
 			{
 				DebugPrint(_argsPtr[count]);
@@ -294,13 +284,13 @@ namespace Clide
 				{
 					// Error message
 					#if(clideDEBUG_PRINT_ERROR == 1)
-						DebugPrint("CLIDE: ERROR - Option '");
-						DebugPrint(_argsPtr[optind-1]);
-						DebugPrint("' not registered with command.\"\r\n");
+						Port::DebugPrint("CLIDE: ERROR - Option '");
+						Port::DebugPrint(_argsPtr[optind-1]);
+						Port::DebugPrint("' not registered with command.\"\r\n");
 					#endif
-					CmdLinePrint("error \"Option '");
-					CmdLinePrint(_argsPtr[optind-1]);
-					CmdLinePrint("' not registered with command.\"\r\n");
+					Port::CmdLinePrint("error \"Option '");
+					Port::CmdLinePrint(_argsPtr[optind-1]);
+					Port::CmdLinePrint("' not registered with command.\"\r\n");
 				}
 					
 			}
@@ -309,49 +299,53 @@ namespace Clide
 				// Debug stuff
 				UartDebug::PutChar(x);
 				UartDebug::PutChar(' ');
-				DebugPrint(optarg);
-				snprintf(tempBuff, sizeof(tempBuff), " Index=%i\r\n", optind); 
-				DebugPrint(tempBuff);
+				Port::DebugPrint(optarg);
+				snprintf(
+					tempBuff,
+					sizeof(tempBuff),
+					" Index=%i\r\n",
+					optind); 
+				Port::DebugPrint(tempBuff);
 			#endif
 		}
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			// Insert new line
-			DebugPrint("\r\n");
+			Port::DebugPrint("\r\n");
 		#endif
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			DebugPrint("CLIDE: Printing arguments...\r\n");
+			Port::DebugPrint("CLIDE: Printing arguments...\r\n");
 			// Print arguments
 			count = 0;
 			while(_args[count][0] != '\0')
 			{
-				DebugPrint(_args[count]);
-				DebugPrint(", ");
+				Port::DebugPrint(_args[count]);
+				Port::DebugPrint(", ");
 				count++;
 			}
-			DebugPrint("\r\n");
+			Port::DebugPrint("\r\n");
 			
-			DebugPrint("CLIDE: Printing re-arranged arguments...\r\n");
+			Port::DebugPrint("CLIDE: Printing re-arranged arguments...\r\n");
 			// Print re-arranged arguments
 			count = 0;
 			while(*_argsPtr[count] != '\0')
 			{
-				DebugPrint(_argsPtr[count]);
-				DebugPrint(", ");
+				Port::DebugPrint(_argsPtr[count]);
+				Port::DebugPrint(", ");
 				count++;
 			}
-			DebugPrint("\r\n");
+			Port::DebugPrint("\r\n");
 		#endif
 		
 		//============= VALIDATE/PROCESS PARAMETERS =============//
 		
 		// Validate that there are the correct number of parameters
-		if((uint32)(numArgs - optind) != foundCmd->numParams)
+		if((uint32_t)(numArgs - optind) != foundCmd->numParams)
 		{
-			CmdLinePrint("error \"Num. of received parameters does not match num. registered for cmd.\"\r\n");
+			Port::CmdLinePrint("error \"Num. of received parameters does not match num. registered for cmd.\"\r\n");
 			#if(clideDEBUG_PRINT_ERROR == 1)
-				DebugPrint("CLIDE: Error: Num. of received parameters does not match num. registered for cmd.\r\n");
+				Port::DebugPrint("CLIDE: Error: Num. of received parameters does not match num. registered for cmd.\r\n");
 			#endif
 			return false;
 		}
@@ -363,14 +357,14 @@ namespace Clide
 		}
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			DebugPrint("CLIDE: Printing parameters...\r\n");
+			Port::DebugPrint("CLIDE: Printing parameters...\r\n");
 			// Get parameters
 			for(count = optind; count < numArgs; count++)
 			{
-				DebugPrint(_argsPtr[count]);
-				DebugPrint(", ");
+				Port::DebugPrint(_argsPtr[count]);
+				Port::DebugPrint(", ");
 			}
-			DebugPrint("\r\n");
+			Port::DebugPrint("\r\n");
 		#endif
 		
 		// Execute command callback function
@@ -407,24 +401,24 @@ namespace Clide
 	void Rx::PrintHelp()
 	{
 		#if(clideDEBUG_PRINT_GENERAL == 1)	
-			DebugPrint("CLIDE: Print help function called.");
+			Port::DebugPrint("CLIDE: Print help function called.");
 		#endif
 		
 		// Title
-		CmdLinePrint("List of commands:\r\n");
+		Port::CmdLinePrint("List of commands:\r\n");
 		
 		// Iterate through cmd array and print commands
-		uint32 x;
+		uint32_t x;
 		for(x = 0; x < numCmds; x++)
 		{
-			CmdLinePrint(cmdA[x]->name);
+			Port::CmdLinePrint(cmdA[x]->name);
 			// Add tab character
-			CmdLinePrint("\t- ");
+			Port::CmdLinePrint("\t- ");
 			// Print description
-			CmdLinePrint(cmdA[x]->description);
+			Port::CmdLinePrint(cmdA[x]->description);
 			// \r is enough for PuTTy to format onto a newline also
 			// (adding \n causes it to add two new lines)
-			CmdLinePrint("\r");
+			Port::CmdLinePrint("\r");
 		}
 	}
 
@@ -440,7 +434,7 @@ namespace Clide
 		// Split string into arguments using white space as the seperator
 		char* ptrToArgument = PowerString::Split::Run(packet, " ");
 		
-		uint8 argCount = 0;
+		uint8_t argCount = 0;
 		while(ptrToArgument != 0)
 		{
 			// Copy argument into argument array
@@ -458,42 +452,50 @@ namespace Clide
 	}
 
 
-	Cmd* Rx::ValidateCmd(char* cmdName, Cmd** cmdA, uint8 numCmds)
+	Cmd* Rx::ValidateCmd(char* cmdName, Cmd** cmdA, uint8_t numCmds)
 	{
-		uint8 x = 0;
+		uint8_t x = 0;
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
 			char tempBuff[50];
-			DebugPrint("CLIDE: Validating command...\r\n");
-			DebugPrint("CLIDE: Input = ");
-			DebugPrint(cmdName);
-			DebugPrint("\r\n");
-			snprintf(tempBuff, sizeof(tempBuff), "CLIDE: Num. registered cmds = %u\r\n", numCmds);
-			DebugPrint(tempBuff);
+			Port::DebugPrint("CLIDE: Validating command...\r\n");
+			Port::DebugPrint("CLIDE: Input = ");
+			Port::DebugPrint(cmdName);
+			Port::DebugPrint("\r\n");
+			snprintf(
+				tempBuff,
+				sizeof(tempBuff),
+				"CLIDE: Num. registered cmds = %u\r\n",
+				numCmds);
+			Port::DebugPrint(tempBuff);
 		#endif
 		
 		for(x = 0; x < numCmds; x++)
 		{
-			uint8 val = strcmp(cmdName, cmdA[x]->name);
+			uint8_t val = strcmp(cmdName, cmdA[x]->name);
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
-				DebugPrint("CLIDE: Compared Name = ");
-				DebugPrint(cmdA[x]->name);
-				DebugPrint("\r\n");
-				snprintf(tempBuff, sizeof(tempBuff), "CLIDE: Compared value = %u\r\n", val);
-				DebugPrint(tempBuff);
+				Port::DebugPrint("CLIDE: Compared Name = ");
+				Port::DebugPrint(cmdA[x]->name);
+				Port::DebugPrint("\r\n");
+				snprintf(
+					tempBuff,
+					sizeof(tempBuff),
+					"CLIDE: Compared value = %u\r\n",
+					val);
+				Port::DebugPrint(tempBuff);
 			#endif
 			if(val == 0)
 			{
 				// Match found, return pointer to the discovered cmd structure
 				#if(clideDEBUG_PRINT_VERBOSE == 1)	
-					DebugPrint("CLIDE: Command recognised.\r\n");
+					Port::DebugPrint("CLIDE: Command recognised.\r\n");
 				#endif
 				return cmdA[x];
 			}
 		}
 		// No match found, return NULL
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
-			DebugPrint("CLIDE: Command not recognised.\r\n");
+			Port::DebugPrint("CLIDE: Command not recognised.\r\n");
 		#endif
 		
 		return NULL;
@@ -502,42 +504,46 @@ namespace Clide
 	Option* Rx::ValidateOption(Cmd *detectedCmd, char* optionName)
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			DebugPrint("CLIDE: Validating option.\r\n");
+			Port::DebugPrint("CLIDE: Validating option.\r\n");
 		#endif
 		
-		uint8 x = 0;
+		uint8_t x = 0;
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			char tempBuff[50];
-			DebugPrint("CLIDE: Received option = ");
-			DebugPrint(optionName);
-			DebugPrint("\r\n");
+			Port::DebugPrint("CLIDE: Received option = ");
+			Port::DebugPrint(optionName);
+			Port::DebugPrint("\r\n");
 		#endif
 		// Iterate through all registered options for detected command
 		for(x = 0; x < detectedCmd->numOptions; x++)
 		{
 			// Compare received option name with all the registered option names in the detected command
-			uint8 val = strcmp(optionName, detectedCmd->optionA[x]->name);
+			uint8_t val = strcmp(optionName, detectedCmd->optionA[x]->name);
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
-				DebugPrint("CLIDE: Compare '");
-				DebugPrint(optionName);
-				DebugPrint("' with '");
-				DebugPrint(detectedCmd->optionA[x]->name);
-				snprintf(tempBuff, sizeof(tempBuff), "'. Value = %u\r\n", val);
-				DebugPrint(tempBuff);
+				Port::DebugPrint("CLIDE: Compare '");
+				Port::DebugPrint(optionName);
+				Port::DebugPrint("' with '");
+				Port::DebugPrint(detectedCmd->optionA[x]->name);
+				snprintf(
+					tempBuff,
+					sizeof(tempBuff),
+					"'. Value = %u\r\n",
+					val);
+				Port::DebugPrint(tempBuff);
 			#endif
 			if(val == 0)
 			{
 				// Match found, return found option
 				#if(clideDEBUG_PRINT_VERBOSE == 1)
-					DebugPrint("CLIDE: Option recognised.\r\n");
+					Port::DebugPrint("CLIDE: Option recognised.\r\n");
 				#endif
 				return detectedCmd->optionA[x];
 			}
 		}
 		// No match found, return NULL
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			DebugPrint("CLIDE: Option not recognised.\r\n");
+			Port::DebugPrint("CLIDE: Option not recognised.\r\n");
 		#endif
 		return NULL;
 	}
@@ -545,11 +551,11 @@ namespace Clide
 	void Rx::BuildOptionString(char* optionString, Cmd* cmd)
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			DebugPrint("CLIDE: Building option string...\r\n");
+			Port::DebugPrint("CLIDE: Building option string...\r\n");
 		#endif
 		
-		uint32 x;
-		uint32 optionStringPos = 0;
+		uint32_t x;
+		uint32_t optionStringPos = 0;
 		for(x = 0; x < cmd->numOptions; x++)
 		{
 			// Get character from each name
@@ -567,79 +573,83 @@ namespace Clide
 	void Rx::PrintHelpForCmd(Cmd* cmd)
 	{
 		#if(clideDEBUG_PRINT_GENERAL == 1)	
-			DebugPrint("CLIDE: Printing help for command.\r\n");
+			Port::DebugPrint("CLIDE: Printing help for command.\r\n");
 		#endif
 		
-		CmdLinePrint("COMMAND HELP:\r\r");
+		Port::CmdLinePrint("COMMAND HELP:\r\r");
 		
 		// CMD NAME AND DESCRIPTION
 		
-		CmdLinePrint(cmd->name);
+		Port::CmdLinePrint(cmd->name);
 		// Add tab character
-		CmdLinePrint("\t- ");
+		Port::CmdLinePrint("\t- ");
 		// Print description
-		CmdLinePrint(cmd->description);
+		Port::CmdLinePrint(cmd->description);
 		// \r is enough for PuTTy to format onto a newline also
 		// (adding \n causes it to add two new lines)
-		CmdLinePrint("\r\r");
+		Port::CmdLinePrint("\r\r");
 		
 		// CMD PARAMETERS
 		
-		CmdLinePrint("Command Parameters:\r");
+		Port::CmdLinePrint("Command Parameters:\r");
 		
 		// Special case if there are no parameters to list
 		if(cmd->numParams == 0)
 		{
-			CmdLinePrint("\t");
-			CmdLinePrint("NO PARAMS");
-			CmdLinePrint("\r");
+			Port::CmdLinePrint("\t");
+			Port::CmdLinePrint("NO PARAMS");
+			Port::CmdLinePrint("\r");
 		}
 		else
 		{
 			// Iterate through cmd array and print commands
-			uint32 x;
+			uint32_t x;
 			for(x = 0; x < cmd->numParams; x++)
 			{
-				CmdLinePrint("\t");
+				Port::CmdLinePrint("\t");
 				char tempBuff[50];
-				snprintf(tempBuff, sizeof(tempBuff), "%lu", x);
-				CmdLinePrint(tempBuff);
+				snprintf(
+					tempBuff,
+					sizeof(tempBuff),
+					"%" STR(ClidePort_PF_UINT32_T),
+					x);
+				Port::CmdLinePrint(tempBuff);
 				// Add tab character
-				CmdLinePrint("\t- ");
+				Port::CmdLinePrint("\t- ");
 				// Print description
-				CmdLinePrint(cmd->paramA[x]->description);
+				Port::CmdLinePrint(cmd->paramA[x]->description);
 				// \r is enough for PuTTy to format onto a newline also
 				// (adding \n causes it to add two new lines)
-				CmdLinePrint("\r");
+				Port::CmdLinePrint("\r");
 			}
 		}
 		
 		// CMD OPTIONS
 		
-		CmdLinePrint("Command Options:\r");
+		Port::CmdLinePrint("Command Options:\r");
 		
 		// Special case if there are no parameters to list
 		if(cmd->numOptions == 0)
 		{
-			CmdLinePrint("\t");
-			CmdLinePrint("NO OPTIONS");
-			CmdLinePrint("\r");
+			Port::CmdLinePrint("\t");
+			Port::CmdLinePrint("NO OPTIONS");
+			Port::CmdLinePrint("\r");
 		}
 		else
 		{
 			// Iterate through cmd array and print commands
-			uint32 x;
+			uint32_t x;
 			for(x = 0; x < cmd->numOptions; x++)
 			{
-				CmdLinePrint("\t");
-				CmdLinePrint(cmd->optionA[x]->name);
+				Port::CmdLinePrint("\t");
+				Port::CmdLinePrint(cmd->optionA[x]->name);
 				// Add tab character
-				CmdLinePrint("\t- ");
+				Port::CmdLinePrint("\t- ");
 				// Print description
-				CmdLinePrint(cmd->optionA[x]->description);
+				Port::CmdLinePrint(cmd->optionA[x]->description);
 				// \r is enough for PuTTy to format onto a newline also
 				// (adding \n causes it to add two new lines)
-				CmdLinePrint("\r");
+				Port::CmdLinePrint("\r");
 			}
 		}
 		

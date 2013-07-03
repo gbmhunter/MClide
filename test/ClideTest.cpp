@@ -8,9 +8,16 @@
 
 #include "./UnitTest++/src/UnitTest++.h"
 
+using namespace Clide;
+
+bool Callback(Cmd *cmd)
+{
+
+}
+
 TEST(BasicTest)
 {
-	
+	Cmd cmd("test", &Callback, "A test command.");
 }
 
 int main()

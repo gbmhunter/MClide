@@ -41,13 +41,23 @@ namespace Clide
 	class Option
 	{
 		private:
+		
+			void Init(
+				const char* optionName,
+				bool (*callBackFunc)(char *optionVal),
+				const char* description,
+				bool associatedValue);
+		
 		public:
+		
 			//! @brief		Register an option with a command
 			//! @param		optionName		The character to look for in the command-line string.
 			//! @param		callBackFunc	Call-back function which is called when option is discovered.
 			//!								Can be set to NULL.
 			//! @details	Overload 1
-			Option(const char* optionName, bool (*callBackFunc)(char *optionVal));
+			Option(
+				const char* optionName,
+				bool (*callBackFunc)(char *optionVal));
 
 			//! @brief		Register an option with a command.
 			//! @details	Overload 2, associatedValue set to true.
@@ -55,7 +65,10 @@ namespace Clide
 			//! @param		callBackFunc	Call-back function which is called when option is discovered.
 			//!								Can be set to NULL.
 			//! @param		description		Used when help is requested.
-			Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description);
+			Option(
+				const char* optionName,
+				bool (*callBackFunc)(char *optionVal),
+				const char* description);
 		
 			//! @brief		Register an option with a command.
 			//! @details	Overload 2
@@ -64,7 +77,11 @@ namespace Clide
 			//!								Can be set to NULL.
 			//! @param		description		Used when help is requested.
 			//! @param		associatedValue	Set to true if option has an associated value
-			Option(const char* optionName, bool (*callBackFunc)(char *optionVal), const char* description, bool associatedValue);
+			Option(
+				const char* optionName,
+				bool (*callBackFunc)(char *optionVal),
+				const char* description,
+				bool associatedValue);
 		
 			//! @brief		Name of option
 			char* name;

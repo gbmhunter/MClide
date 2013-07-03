@@ -2,22 +2,9 @@
 //! @file 		Clide-Port.c
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @date 		2012/03/19
-//! @brief 		Command-line style communications protocol
+//! @brief 		Contains port-specific skeleton functions.
 //! @details
-//!		<b>Last Modified:			</b> 2013/05/14					\n
-//!		<b>File Version:			</b> v1.0.0.0					\n
-//!		<b>Company:					</b> CladLabs					\n
-//!		<b>Project:					</b> Free Code Libraries		\n
-//!		<b>Language:				</b> C++						\n
-//!		<b>Compiler:				</b> GCC						\n
-//! 	<b>uC Model:				</b> PSoC5						\n
-//!		<b>Computer Architecture:	</b> ARM						\n
-//! 	<b>Operating System:		</b> FreeRTOS v7.2.0			\n
-//!		<b>Documentation Format:	</b> Doxygen					\n
-//!		<b>License:					</b> GPLv3						\n
-//!
-//! See Clide-Port.h for more information.
-//!
+//!				See README.rst in root dir for more info.
 
 //===============================================================================================//
 //========================================= INCLUDES ============================================//
@@ -81,13 +68,13 @@ namespace Clide
 
 
 	// Port specific
-	void DebugPrint(const char* msg) 
+	void Port::DebugPrint(const char* msg) 
 	{
 		UartDebug::PutString(msg);
 	}
 
 	// Port specific
-	void CmdLinePrint(const char* msg)
+	void Port::CmdLinePrint(const char* msg)
 	{
 		UartComms::PutString(msg);
 	}

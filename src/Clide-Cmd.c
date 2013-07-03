@@ -4,20 +4,7 @@
 //! @date 		2013/04/02
 //! @brief 		Command-line style communications protocol
 //! @details
-//!		<b>Last Modified:			</b> 2013/05/14					\n
-//!		<b>File Version:			</b> v1.0.0.0					\n
-//!		<b>Company:					</b> CladLabs					\n
-//!		<b>Project:					</b> Free Code Libraries		\n
-//!		<b>Language:				</b> C++						\n
-//!		<b>Compiler:				</b> GCC						\n
-//! 	<b>uC Model:				</b> PSoC5						\n
-//!		<b>Computer Architecture:	</b> ARM						\n
-//! 	<b>Operating System:		</b> FreeRTOS v7.2.0			\n
-//!		<b>Documentation Format:	</b> Doxygen					\n
-//!		<b>License:					</b> GPLv3						\n
-//!
-//! See Clide-Cmd.h for more information.
-//!
+//!				See README.rst in root folder.
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler
@@ -28,20 +15,20 @@
 //===============================================================================================//
 
 // System includes
+#include <stdint.h>		// int8_t, int32_t e.t.c
 #include <stdio.h>		// snprintf()
 #include <stdlib.h>		// realloc(), malloc(), free()
 #include <cctype>		// isalnum() 
 #include <getopt.h>		// getopt()	
+#include <string.h>		// strlen()
 
 // User includes
-#include "./Comms/include/UartDebug.h"
-#include "./Comms/include/UartComms.h"
-#include "MemMang.h"
-#include "Clide-Config.h"
-#include "Clide-Port.h"
-#include "Clide-Option.h"
-#include "Clide-Param.h"
-#include "Clide-Cmd.h"
+#include "include/MemMang.h"
+#include "include/Clide-Config.h"
+#include "include/Clide-Port.h"
+#include "include/Clide-Option.h"
+#include "include/Clide-Param.h"
+#include "include/Clide-Cmd.h"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//

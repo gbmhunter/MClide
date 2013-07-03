@@ -4,19 +4,11 @@
 //! @date 		2013/03/19
 //! @brief 		Contains port-specific skeleton functions.
 //! @details
-//!		<b>Last Modified:			</b> 2013/05/14					\n
-//!		<b>File Version:			</b> v1.0.0.0					\n
-//!		<b>Company:					</b> CladLabs					\n
-//!		<b>Project:					</b> Free Code Libraries		\n
-//!		<b>Language:				</b> C++						\n
-//!		<b>Compiler:				</b> GCC						\n
-//! 	<b>uC Model:				</b> PSoC5						\n
-//!		<b>Computer Architecture:	</b> ARM						\n
-//! 	<b>Operating System:		</b> FreeRTOS v7.2.0			\n
-//!		<b>Documentation Format:	</b> Doxygen					\n
-//!		<b>License:					</b> GPLv3						\n
-//!	
+//!				See README.rst in root dir for more info.
 
+#ifndef __cplusplus
+	#error Please build with C++ compiler
+#endif
 
 //===============================================================================================//
 //======================================== HEADER GUARD =========================================//
@@ -24,13 +16,6 @@
 
 #ifndef CLIDE_PORT_H
 #define CLIDE_PORT_H
-
-#ifndef __cplusplus
-	#error Please build with C++ compiler
-#endif
-
-//void* operator new(size_t size);
-//void operator delete(void* ptr);
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -43,7 +28,10 @@ namespace Clide
 	//==================================== PUBLIC DEFINES ===========================================//
 	//===============================================================================================//
 
-	// none			
+	#define STR_EXPAND(tok) #tok
+	#define STR(tok) STR_EXPAND(tok)
+	
+	#define ClidePort_PF_UINT32_T		u
 
 	//===============================================================================================//
 	//=================================== PUBLIC TYPEDEFS ===========================================//
@@ -61,14 +49,17 @@ namespace Clide
 	//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
 	//===============================================================================================//
 
+	class Port
+	{
 
+		public:
+			//! @brief		Prints debug messages. Port specific.
+			//! @public
+			static void DebugPrint(const char* msg);
 
-	//! @brief		Prints debug messages. Port specific.
-	//! @public
-	void DebugPrint(const char* msg);
-
-	//! @brief		Prints messages to the command-line.
-	void CmdLinePrint(const char* msg);
+			//! @brief		Prints messages to the command-line.
+			static void CmdLinePrint(const char* msg);
+	};
 
 } // namespace Clide
 

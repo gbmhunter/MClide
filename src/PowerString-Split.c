@@ -3,21 +3,12 @@
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @date 		2013/04/10
 //! @brief 		Powerful string manipulation functions.
-//! @details
-//!		<b>Last Modified:			</b> 2013/05/14					\n
-//!		<b>File Version:			</b> v1.0.0.0					\n
-//!		<b>Company:					</b> CladLabs					\n
-//!		<b>Project:					</b> Free Code Libraries		\n
-//!		<b>Language:				</b> C++						\n
-//!		<b>Compiler:				</b> GCC						\n
-//! 	<b>uC Model:				</b> PSoC5						\n
-//!		<b>Computer Architecture:	</b> ARM						\n
-//! 	<b>Operating System:		</b> FreeRTOS v7.2.0			\n
-//!		<b>Documentation Format:	</b> Doxygen					\n
-//!		<b>License:					</b> GPLv3						\n
-//!
-//! See PowerString-Split.h for more information.
-//!
+//! @details	
+//!				See README.rst in root dir for more information.
+
+#ifndef __cplusplus
+	#error Please build with C++ compiler
+#endif
 
 //===============================================================================================//
 //========================================= INCLUDES ============================================//
@@ -27,9 +18,8 @@
 #include <stdio.h>		// snprintf()
 
 // User includes
-#include "./Comms/include/UartDebug.h"
-#include "./Comms/include/UartComms.h"
-#include "PowerString-Split.h"
+#include "./include/Clide-Port.h"
+#include "./include/PowerString-Split.h"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
