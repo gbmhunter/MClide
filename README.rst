@@ -5,7 +5,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/07/03
-- Version: v1.3.0.0
+- Version: v1.3.0.1
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -221,7 +221,8 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
-v1.3.0.0 2013/07/03 Made Clide compilable on Linux. Added Makefile which compiles static Clide library, static UnitTest++ library, then runs unit test code. Added own getopt() function (doesn't work yet).
+v1.3.0.1 2013/07/03 Forgot to save README.rst.
+v1.3.0.0 2013/07/03 Made Clide compilable on Linux. Added Makefile which compiles static Clide library, static UnitTest++ library, then runs unit test code. Added own getopt() file (doesn't work yet).
 v1.2.2.0 2013/07/01 Deleted unnecessary header file includes from .c files.
 v1.2.1.1 2013/06/29 Indented all namespace objects by one tab in all files.
 v1.2.1.0 2013/06/25 Fixed lock-up on receiving empty message. Made tempBuff in Clide-Rx.c larger. Fixed a few spelling mistakes in README.
