@@ -15,6 +15,7 @@
 //========================================= INCLUDES ============================================//
 //===============================================================================================//
 
+
 // System includes
 #include <stdint.h>		// int8_t, int32_t e.t.c
 #include <stdio.h>		// snprintf()
@@ -24,14 +25,15 @@
 #include <cstring>		// memset()
 
 // User includes
+#include "./include/Clide-Config.hpp"
 #include "./include/Clide-MemMang.hpp"
 #include "./include/Clide-StringSplit.hpp"
-#include "./include/Clide-Config.hpp"
 #include "./include/Clide-Param.hpp"
 #include "./include/Clide-Option.hpp"
 #include "./include/Clide-Cmd.hpp"
 #include "./include/Clide-Port.hpp"
 #include "./include/Clide-Rx.hpp"
+
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -58,19 +60,7 @@ namespace Clide
 	//============================= PRIVATE VARIABLES/STRUCTURES ====================================//
 	//===============================================================================================//
 
-	//! @brief		Holds the split arguments from the command line
-	//! @todo 		Replace with malloc() calls, remove magic numbers
-	static char _args[10][clideMAX_STRING_LENGTH];
-
-	static char _paramA[10][10];
-
-	static uint8_t _paramAIndex = 0;
-
-	//! @brief		Array of pointers to the arguments
-	static char *(_argsPtr[10]);
-
-	//! @todo Remove
-	//Cmd _cmdTest;
+	// none
 
 	//===============================================================================================//
 	//================================== PRIVATE FUNCTION PROTOTYPES ================================//
@@ -87,30 +77,16 @@ namespace Clide
 	{
 		this->numCmds = 0;
 		this->cmdA = NULL;
+		
+		#if(clideDEBUG_PRINT_ERROR == 1)
+			// Enable getopt() to print error messages
+			opterr = 1;
+		#endif
 	}
 
 	void Rx::Init()
 	{
-		ResetArgsPointer();
-			 
-		  
-	}
-
-	// Reset args pointer (to undo what getopt does)
-	void Rx::ResetArgsPointer()
-	{
-		// Maps args pointer to second element (first is command name),
-		// and not used by getopt
-		_argsPtr[0] = _args[0];
-		_argsPtr[1] = _args[1];
-		_argsPtr[2] = _args[2];
-		_argsPtr[3] = _args[3];
-		_argsPtr[4] = _args[4];
-		_argsPtr[5] = _args[5];
-		_argsPtr[6] = _args[6];
-		_argsPtr[7] = _args[7];
-		_argsPtr[8] = _args[8];
-		_argsPtr[9] = _args[9];
+		//ResetArgsPointer();  
 	}
 
 	bool Rx::Run(char* cmdMsg)
@@ -126,21 +102,27 @@ namespace Clide
 		
 		//=========== RESET PARAMETERS ==============//
 		
-		// Reset parameter index
-		_paramAIndex = 0;
+		//! @brief		Holds the split arguments from the command line
+		//! @todo 		Replace with malloc() calls, remove magic numbers
+		char _args[10][clideMAX_STRING_LENGTH];
+		
+		char _paramA[10][10];
+		
+		//! @brief		Array of pointers to the arguments
+		char *(_argsPtr[10]);
 		
 		// Clear parameters
-		memset(_paramA, '\0', sizeof(_paramA));
+		//memset(_paramA, '\0', sizeof(_paramA));
 		
 		// Clear args
-		memset(_args, '\0', sizeof(_args));
+		//memset(_args, '\0', sizeof(_args));
 		
 		// Reset getopt() for next call of Run()
 		// getopt() was only ever designed to be run once
 		optind = 1;
 		
 		// Reset args pointers (getopt() rearranges the pointers)
-		ResetArgsPointer();
+		//ResetArgsPointer(_args);
 		
 		// Reset cmdDetected flag for all commands
 		int32_t x;
@@ -195,7 +177,7 @@ namespace Clide
 			snprintf(
 				tempBuff, 
 				sizeof(tempBuff),
-				"CLIDE: Num args = %i\r\n",
+				"CLIDE: Num arguments = %i\r\n",
 				numArgs); 
 			Port::DebugPrint(tempBuff);
 		#endif
@@ -214,7 +196,7 @@ namespace Clide
 		}
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			Port::DebugPrint("CLIDE: Printing arguments pointer...\r\n");
+			Port::DebugPrint("CLIDE: Re-arranged arguments = ");
 			// Print re-arranged arguments
 			uint8_t count = 0;
 			while(*_argsPtr[count] != '\0')
@@ -231,9 +213,6 @@ namespace Clide
 				"CLIDE: Num registered options = %" STR(ClidePort_PF_UINT32_T) "\r\n",
 				foundCmd->numOptions); 
 			Port::DebugPrint(tempBuff);
-			
-			Port::DebugPrint("CLIDE: Printing found options...\r\n");
-		
 		#endif
 		
 		//==================== BUILD OPTION STRING ===================//
@@ -242,11 +221,15 @@ namespace Clide
 		char optionString[foundCmd->numOptions + 1];
 		
 		this->BuildOptionString(optionString, foundCmd);
+		optionString[foundCmd->numOptions] = '\0';
 		
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			Port::DebugPrint("CLIDE: Option string = ");
-			Port::DebugPrint(optionString);
-			Port::DebugPrint("\r\n");
+		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+			snprintf(
+				tempBuff,
+				sizeof(tempBuff),
+				"CLIDE: Option string = '%s'\r\n",
+				optionString);
+			Port::DebugPrint(tempBuff);
 		#endif
 		
 		//============== USE THE GETOPT FUNCTION =================//
@@ -313,11 +296,10 @@ namespace Clide
 			}
 
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
-				// Debug stuff
 				snprintf(
 					tempBuff,
 					sizeof(tempBuff),
-					" %c %s Index=%i\r\n",
+					"CLIDE: Found option: Name = '%c'. Option Argument = '%s'. Index = '%i'\r\n",
 					x,
 					optarg,
 					optind); 
@@ -326,12 +308,7 @@ namespace Clide
 		}
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			// Insert new line
-			Port::DebugPrint("\r\n");
-		#endif
-		
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			Port::DebugPrint("CLIDE: Printing arguments...\r\n");
+			Port::DebugPrint("CLIDE: Arguments = ");
 			// Print arguments
 			count = 0;
 			while(_args[count][0] != '\0')
@@ -342,7 +319,7 @@ namespace Clide
 			}
 			Port::DebugPrint("\r\n");
 			
-			Port::DebugPrint("CLIDE: Printing re-arranged arguments...\r\n");
+			Port::DebugPrint("CLIDE: Re-arranged arguments = ");
 			// Print re-arranged arguments
 			count = 0;
 			while(*_argsPtr[count] != '\0')
@@ -373,12 +350,17 @@ namespace Clide
 		}
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			Port::DebugPrint("CLIDE: Printing parameters...\r\n");
+			Port::DebugPrint("CLIDE: Parameters = ");
 			// Get parameters
-			for(count = optind; count < numArgs; count++)
+			if(optind == numArgs)
+				Port::DebugPrint("(none)");
+			else
 			{
-				Port::DebugPrint(_argsPtr[count]);
-				Port::DebugPrint(", ");
+				for(count = optind; count < numArgs; count++)
+				{
+					Port::DebugPrint(_argsPtr[count]);
+					Port::DebugPrint(", ");
+				}
 			}
 			Port::DebugPrint("\r\n");
 		#endif

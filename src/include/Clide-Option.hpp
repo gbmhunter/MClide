@@ -98,6 +98,7 @@ namespace Clide
 			bool (*callBackFunc)(char* optionVal);
 			
 			//! @brief		True if option was present the last time the command it is registered to was detected.
+			//! @note		This is cleared whenever the command is received again by the RX controller.
 			bool isDetected;
 			
 			//! @brief		Set to true if option has an associated value. Default is false.

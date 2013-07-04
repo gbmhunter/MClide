@@ -125,9 +125,11 @@ namespace Clide
 		// CALLBACK
 		this->callBackFunc = callBackFunc;
 		
-		// HELP OPTION
-		Option* help = new Option("h", NULL, "Prints help for the command.");
-		this->RegisterOption(help);
+		#if(clide_ENABLE_AUTO_HELP == 1)
+			// HELP OPTION
+			Option* help = new Option("h", NULL, "Prints help for the command.");
+			this->RegisterOption(help);
+		#endif
 		
 		// DETECTED FLAG
 		this->isDetected = false;
@@ -137,6 +139,9 @@ namespace Clide
 	Cmd::~Cmd()
 	{
 		// Destructor
+		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+			Port::DebugPrint("CLIDE: Cmd destructor called.\r\n");
+		#endif
 		
 		// Free up memory
 		free(paramA);

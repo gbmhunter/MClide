@@ -54,6 +54,9 @@ namespace Clide
 	Param::~Param()
 	{
 		// Destructor
+		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+			Port::DebugPrint("CLIDE: Parameter destructor called.\r\n");
+		#endif
 		
 		// Deallocate memory
 		free(this->description);
@@ -66,7 +69,7 @@ namespace Clide
 	void Param::Init(bool (*callBackFunc)(char *paramVal), const char* description)
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
-			Port::DebugPrint("CLIDE: Param constructor called.\r\n");
+			Port::DebugPrint("CLIDE: Parameter constructor called.\r\n");
 		#endif
 
 		// DECRIPTION

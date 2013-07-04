@@ -110,11 +110,6 @@ namespace Clide
 			//! @returns	Number of arguments found
 			int SplitPacket(char* packet, char(*args)[clideMAX_STRING_LENGTH]);
 			
-			//! @brief		Sets all of the char* pointers back to the original order
-			//! @details	Order is changed by getopt(). Make sure to call everytime before
-			//!				using getopt()
-			void ResetArgsPointer();
-			
 			//! @brief		Builds the option string for the getopt() function from the list
 			//!				of the registered commands.
 			void BuildOptionString(char* optionString, Cmd* cmd);

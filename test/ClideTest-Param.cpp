@@ -28,6 +28,7 @@ namespace ClideTest
 		
 		return true;
 	}
+	
 
 	TEST(BasicRxTest)
 	{
@@ -50,6 +51,7 @@ namespace ClideTest
 		CHECK_EQUAL(true, _cmd->isDetected);
 	}
 
+	
 	TEST(OneParamRxTest)
 	{
 		Rx rxController;
@@ -72,7 +74,7 @@ namespace ClideTest
 		
 		CHECK_EQUAL(true, _cmd->isDetected);
 	}
-
+	
 	TEST(TwoParamRxTest)
 	{
 		Rx rxController;
@@ -99,4 +101,5 @@ namespace ClideTest
 		
 		CHECK_EQUAL(true, _cmd->isDetected);
 	}	
+	
 }

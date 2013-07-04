@@ -53,6 +53,9 @@ namespace Clide
 
 	#define clideDEBUG_PRINT_ANY	(clideDEBUG_PRINT_GENERAL | clideDEBUG_PRINT_VERBOSE | clideDEBUG_PRINT_ERROR)
 
+	//! @brief		Set to 1 to enable automatic help generation.
+	#define clide_ENABLE_AUTO_HELP			0	
+	
 	//! Sets the maximum string length for a single command, parameter, or option name/option value
 	//! @todo Use dynamic allocation, so not required.
 	#define clideMAX_STRING_LENGTH			(20)	
@@ -62,22 +65,7 @@ namespace Clide
 
 	//! Maximum length for the cmd description
 	#define clideMAX_DESCRIPTION_LENGTH		(100)	
-
-	//===============================================================================================//
-	//=================================== PUBLIC TYPEDEFS ===========================================//
-	//===============================================================================================//
-
-	// none
-
-	//===============================================================================================//
-	//================================== PUBLIC VARIABLES/STRUCTURES ================================//
-	//===============================================================================================//
-
-	// none
-
-	//===============================================================================================//
-	//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
-	//===============================================================================================//
+		
 
 
 } // namespace Clide

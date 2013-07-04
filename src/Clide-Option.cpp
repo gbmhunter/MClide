@@ -96,6 +96,9 @@ namespace Clide
 	Option::~Option()
 	{
 		// Destructor
+		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+			Port::DebugPrint("CLIDE: Option destructor called.\r\n");
+		#endif
 		
 		// Free memory
 		free(this->name);
@@ -112,6 +115,10 @@ namespace Clide
 		const char* description,
 		bool associatedValue)
 	{
+		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+			Port::DebugPrint("CLIDE: Option constructor called.\r\n");
+		#endif
+	
 		// NAME
 		
 		uint32_t stringLen = strlen(optionName);

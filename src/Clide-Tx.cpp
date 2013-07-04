@@ -312,7 +312,7 @@ namespace Clide
 		}
 		
 		// Copy parameters into cmd string
-		for(x = 0; x < foundCmd->numParams; x++)
+		for(x = 0; (uint32_t)x < foundCmd->numParams; x++)
 		{
 			strcpy(foundCmd->paramA[x]->value, _argsPtr[optind + x]);
 		}
