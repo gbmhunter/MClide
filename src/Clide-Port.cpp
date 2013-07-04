@@ -17,8 +17,7 @@
 #include <getopt.h>		// getopt()	
 
 // User includes
-#include "./Comms/include/UartDebug.h"
-#include "./Comms/include/UartComms.h"
+#include "./include/Clide-Port.h"
 
 void* operator new(size_t size) 
 { 
@@ -70,13 +69,13 @@ namespace Clide
 	// Port specific
 	void Port::DebugPrint(const char* msg) 
 	{
-		UartDebug::PutString(msg);
+		//UartDebug::PutString(msg);
 	}
 
 	// Port specific
 	void Port::CmdLinePrint(const char* msg)
 	{
-		UartComms::PutString(msg);
+		//UartComms::PutString(msg);
 	}
 
 	//===============================================================================================//

@@ -18,8 +18,7 @@ LFLAGS = -L./test/UnitTest++
 #   option, something like (this will link in libmylib.so and libm.so:
 LIBS = -lUnitTest++
 
-SRC_CPP_FILES := $(wildcard src/*.cpp)
-SRC_OBJ_FILES := $(addprefix obj/,$(notdir $(SRC_CPP_FILES:.cpp=.o)))
+SRC_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard src/*.cpp))
 SRC_LD_FLAGS := 
 SRC_CC_FLAGS := -Wall -g
 
@@ -36,10 +35,15 @@ all: ClideLib Test
 	
 	# Run unit tests:
 	@./test/ClideTest.out
-
-ClideLib : ./src/Clide-Cmd.o ./src/Clide-Param.o ./src/Clide-Option.o ./src/Clide-Tx.o ./src/Clide-Rx.o ./src/MemMang.o ./src/PowerString-Split.o
+	
+ClideLib : $(SRC_OBJ_FILES)
 	# Make Clide library
-	ar r libClide.a ./src/Clide-Cmd.o ./src/Clide-Param.o ./src/Clide-Option.o ./src/Clide-Tx.o ./src/Clide-Rx.o ./src/MemMang.o ./src/PowerString-Split.o
+	ar r libClide.a $(SRC_OBJ_FILES)
+	
+# Generic rule for src object files
+src/%.o: src/%.cpp
+	# Compiling src2
+	g++ $(SRC_CC_FLAGS) -c -o $@ $<
 	
 # Compiles unit test code
 Test : ./test/ClideTest.o | ClideLib UnitTestLib
@@ -49,15 +53,10 @@ Test : ./test/ClideTest.o | ClideLib UnitTestLib
 	
 	# Run unit tests:
 	@./test/ClideTest.out
-
-# Generic rule for src object files
-obj/%.o: src/%.cpp
-	# Compiling src2
-	g++ $(SRC_CC_FLAGS) -c -o $@ $<
 	
 # Generic rule for test object files
-obj/%.o: test/%.cpp
-	#g++ $(TEST_CC_FLAGS) -c -o $@ $<
+test/%.o: test/%.cpp
+	g++ $(TEST_CC_FLAGS) -c -o $@ $<
 	
 UnitTestLib:
 	# Compile UnitTest++ library (has it's own Makefile)
