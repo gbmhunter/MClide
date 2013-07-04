@@ -47,9 +47,9 @@ namespace Clide
 
 	//=============== DEBUG SWITCHES ============//
 
-	#define clideDEBUG_PRINT_GENERAL		0				//!< Print general debug msgs
+	#define clideDEBUG_PRINT_GENERAL		1				//!< Print general debug msgs
 	#define clideDEBUG_PRINT_VERBOSE		0				//!< Print verbose debug msgs
-	#define clideDEBUG_PRINT_ERROR			0				//!< Print error debug msgs
+	#define clideDEBUG_PRINT_ERROR			1				//!< Print error debug msgs
 
 	#define clideDEBUG_PRINT_ANY	(clideDEBUG_PRINT_GENERAL | clideDEBUG_PRINT_VERBOSE | clideDEBUG_PRINT_ERROR)
 
@@ -58,7 +58,7 @@ namespace Clide
 	#define clideMAX_STRING_LENGTH			(20)	
 
 	//! Maximum length for the cmd name
-	#define clideMAX_NAME_LENGTH		(20)
+	#define clideMAX_NAME_LENGTH			(20)
 
 	//! Maximum length for the cmd description
 	#define clideMAX_DESCRIPTION_LENGTH		(100)	

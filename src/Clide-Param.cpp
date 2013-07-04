@@ -85,7 +85,7 @@ namespace Clide
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
 			// Description too long, do not save it
-			DebugPrint("CLIDE: Param constructor called.\r\n");
+			Port::DebugPrint("CLIDE: Param constructor called.\r\n");
 		#endif
 
 
@@ -104,7 +104,7 @@ namespace Clide
 		{
 			#if(clideDEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				DebugPrint("CLIDE: ERROR: Parameter description was too long.\r\n");
+				Port::DebugPrint("CLIDE: ERROR: Parameter description was too long.\r\n");
 			#endif
 		}
 		

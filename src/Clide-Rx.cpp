@@ -120,7 +120,7 @@ namespace Clide
 
 		#if(clideDEBUG_PRINT_GENERAL == 1)
 			snprintf(tempBuff, sizeof(tempBuff), "CLIDE: Received msg = '%s'.\r\n", cmdMsg);
-			DebugPrint(tempBuff);
+			Port::DebugPrint(tempBuff);
 		#endif
 		
 		//=========== RESET PARAMETERS ==============//
@@ -149,15 +149,15 @@ namespace Clide
 			{
 				Port::CmdLinePrint("error \"Received command contained no alpha-numeric characters.\"\r\n");
 				#if(clideDEBUG_PRINT_GENERAL == 1)
-					DebugPrint("CLIDE: WARNING: Received command contained no alpha-numeric characters.\r\n");
+					Port::DebugPrint("CLIDE: WARNING: Received command contained no alpha-numeric characters.\r\n");
 				#endif
 				return false;
 			} 
 			
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
-				DebugPrint("CLIDE: Removing char '");
+				Port::DebugPrint("CLIDE: Removing char '");
 				UartDebug::PutChar(cmdMsg[0]);
-				DebugPrint("' from rx buffer.\r\n");
+				Port::DebugPrint("' from rx buffer.\r\n");
 			#endif
 			// Increment message pointer forward over non-alphanumeric char
 			cmdMsg++;
@@ -183,7 +183,7 @@ namespace Clide
 				sizeof(tempBuff),
 				"CLIDE: Num args = %i\r\n",
 				numArgs); 
-			DebugPrint(tempBuff);
+			Port::DebugPrint(tempBuff);
 		#endif
 		
 		// Holds pointers to parameters
@@ -201,21 +201,21 @@ namespace Clide
 		}
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			DebugPrint("CLIDE: Printing arguments pointer...\r\n");
+			Port::DebugPrint("CLIDE: Printing arguments pointer...\r\n");
 			// Print re-arranged arguments
 			uint8_t count = 0;
 			while(*_argsPtr[count] != '\0')
 			{
-				DebugPrint(_argsPtr[count]);
-				DebugPrint(", ");
+				Port::DebugPrint(_argsPtr[count]);
+				Port::DebugPrint(", ");
 				count++;
 			}
-			DebugPrint("\r\n");
+			Port::DebugPrint("\r\n");
 			
 			snprintf(tempBuff, sizeof(tempBuff), "CLIDE: Num registered options = %lu\r\n", foundCmd->numOptions); 
-			DebugPrint(tempBuff);
+			Port::DebugPrint(tempBuff);
 			
-			DebugPrint("CLIDE: Printing found options...\r\n");
+			Port::DebugPrint("CLIDE: Printing found options...\r\n");
 		
 		#endif
 		
@@ -227,9 +227,9 @@ namespace Clide
 		this->BuildOptionString(optionString, foundCmd);
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			DebugPrint("CLIDE: Option string = ");
-			DebugPrint(optionString);
-			DebugPrint("\r\n");
+			Port::DebugPrint("CLIDE: Option string = ");
+			Port::DebugPrint(optionString);
+			Port::DebugPrint("\r\n");
 		#endif
 		
 		//============== USE THE GETOPT FUNCTION =================//

@@ -120,9 +120,9 @@ namespace Clide
 	bool Tx::Run(char* cmdMsg)
 	{
 		#if(clideDEBUG_PRINT_GENERAL == 1)
-			DebugPrint("CLIDE: Received msg: \"");
-			DebugPrint(cmdMsg);
-			DebugPrint("\"\r\n");
+			Port::DebugPrint("CLIDE: Received msg: \"");
+			Port::DebugPrint(cmdMsg);
+			Port::DebugPrint("\"\r\n");
 		#endif
 		
 		
@@ -172,7 +172,7 @@ namespace Clide
 		
 		#if(clideDEBUG_PRINT_GENERAL == 1)
 			snprintf(tempBuff, sizeof(tempBuff), "CLIDE: Num args = %i\r\n", numArgs); 
-			DebugPrint(tempBuff);
+			Port::DebugPrint(tempBuff);
 		#endif
 		
 		// Holds pointers to parameters
@@ -182,21 +182,21 @@ namespace Clide
 		//uint8 indexLastOption = 0;
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			DebugPrint("CLIDE: Printing arguments pointer...\r\n");
+			Port::DebugPrint("CLIDE: Printing arguments pointer...\r\n");
 			// Print re-arranged arguments
 			uint8 count = 0;
 			while(*_argsPtr[count] != '\0')
 			{
-				DebugPrint(_argsPtr[count]);
-				DebugPrint(", ");
+				Port::DebugPrint(_argsPtr[count]);
+				Port::DebugPrint(", ");
 				count++;
 			}
-			DebugPrint("\r\n");
+			Port::DebugPrint("\r\n");
 			
 			snprintf(tempBuff, sizeof(tempBuff), "CLIDE: Num registered options = %lu\r\n", foundCmd->numOptions); 
-			DebugPrint(tempBuff);
+			Port::DebugPrint(tempBuff);
 			
-			DebugPrint("CLIDE: Printing found options...\r\n");
+			Port::DebugPrint("CLIDE: Printing found options...\r\n");
 		
 		#endif
 		
@@ -208,9 +208,9 @@ namespace Clide
 		this->BuildOptionString(optionString, foundCmd);
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			DebugPrint("CLIDE: Option string = ");
-			DebugPrint(optionString);
-			DebugPrint("\r\n");
+			Port::DebugPrint("CLIDE: Option string = ");
+			Port::DebugPrint(optionString);
+			Port::DebugPrint("\r\n");
 		#endif
 		
 		//============== USE THE GETOPT FUNCTION =================//
@@ -256,39 +256,39 @@ namespace Clide
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
 				// Debug stuff
 				UartDebug::PutChar(x);
-				DebugPrint(optarg);
+				Port::DebugPrint(optarg);
 				snprintf(tempBuff, sizeof(tempBuff), " Index=%i\r\n", optind); 
-				DebugPrint(tempBuff);
+				Port::DebugPrint(tempBuff);
 			#endif
 		}
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			// Insert new line
-			DebugPrint("\r\n");
+			Port::DebugPrint("\r\n");
 		#endif
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			DebugPrint("CLIDE: Printing arguments...\r\n");
+			Port::DebugPrint("CLIDE: Printing arguments...\r\n");
 			// Print arguments
 			count = 0;
 			while(_args[count][0] != '\0')
 			{
-				DebugPrint(_args[count]);
-				DebugPrint(", ");
+				Port::DebugPrint(_args[count]);
+				Port::DebugPrint(", ");
 				count++;
 			}
-			DebugPrint("\r\n");
+			Port::DebugPrint("\r\n");
 			
-			DebugPrint("CLIDE: Printing re-arranged arguments...\r\n");
+			Port::DebugPrint("CLIDE: Printing re-arranged arguments...\r\n");
 			// Print re-arranged arguments
 			count = 0;
 			while(*_argsPtr[count] != '\0')
 			{
-				DebugPrint(_argsPtr[count]);
-				DebugPrint(", ");
+				Port::DebugPrint(_argsPtr[count]);
+				Port::DebugPrint(", ");
 				count++;
 			}
-			DebugPrint("\r\n");
+			Port::DebugPrint("\r\n");
 		#endif
 		
 		//============= VALIDATE/PROCESS PARAMETERS =============//
@@ -310,14 +310,14 @@ namespace Clide
 		}
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			DebugPrint("CLIDE: Printing parameters...\r\n");
+			Port::DebugPrint("CLIDE: Printing parameters...\r\n");
 			// Get parameters
 			for(count = optind; count < numArgs; count++)
 			{
-				DebugPrint(_argsPtr[count]);
-				DebugPrint(", ");
+				Port::DebugPrint(_argsPtr[count]);
+				Port::DebugPrint(", ");
 			}
-			DebugPrint("\r\n");
+			Port::DebugPrint("\r\n");
 		#endif
 		
 		// Execute command callback function
@@ -354,7 +354,7 @@ namespace Clide
 	void Tx::PrintHelp()
 	{
 		#if(clideDEBUG_PRINT_GENERAL == 1)	
-			DebugPrint("CLIDE: Print help function called.");
+			Port::DebugPrint("CLIDE: Print help function called.");
 		#endif
 		
 		// Title
@@ -411,36 +411,36 @@ namespace Clide
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
 			char tempBuff[50];
-			DebugPrint("CLIDE: Validating command...\r\n");
-			DebugPrint("CLIDE: Input = ");
-			DebugPrint(cmdName);
-			DebugPrint("\r\n");
+			Port::DebugPrint("CLIDE: Validating command...\r\n");
+			Port::DebugPrint("CLIDE: Input = ");
+			Port::DebugPrint(cmdName);
+			Port::DebugPrint("\r\n");
 			snprintf(tempBuff, sizeof(tempBuff), "CLIDE: Num. registered cmds = %u\r\n", numCmds);
-			DebugPrint(tempBuff);
+			Port::DebugPrint(tempBuff);
 		#endif
 		
 		for(x = 0; x < numCmds; x++)
 		{
 			uint8_t val = strcmp(cmdName, cmdA[x]->name);
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
-				DebugPrint("CLIDE: Compared Name = ");
-				DebugPrint(cmdA[x]->name);
-				DebugPrint("\r\n");
+				Port::DebugPrint("CLIDE: Compared Name = ");
+				Port::DebugPrint(cmdA[x]->name);
+				Port::DebugPrint("\r\n");
 				snprintf(tempBuff, sizeof(tempBuff), "CLIDE: Compared value = %u\r\n", val);
-				DebugPrint(tempBuff);
+				Port::DebugPrint(tempBuff);
 			#endif
 			if(val == 0)
 			{
 				// Match found, return pointer to the discovered cmd structure
 				#if(clideDEBUG_PRINT_VERBOSE == 1)	
-					DebugPrint("CLIDE: Command recognised.\r\n");
+					Port::DebugPrint("CLIDE: Command recognised.\r\n");
 				#endif
 				return cmdA[x];
 			}
 		}
 		// No match found, return NULL
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
-			DebugPrint("CLIDE: Command not recognised.\r\n");
+			Port::DebugPrint("CLIDE: Command not recognised.\r\n");
 		#endif
 		
 		return NULL;
@@ -450,7 +450,7 @@ namespace Clide
 	Option* Tx::ValidateOption(Cmd *detectedCmd, char* optionName)
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			DebugPrint("CLIDE: Validating option.\r\n");
+			Port::DebugPrint("CLIDE: Validating option.\r\n");
 		#endif
 		
 		uint8_t x = 0;
@@ -458,13 +458,13 @@ namespace Clide
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			char tempBuff[50];
 			
-			DebugPrint("CLIDE: Received option = ");
-			DebugPrint(optionName);
-			DebugPrint("\r\n");
+			Port::DebugPrint("CLIDE: Received option = ");
+			Port::DebugPrint(optionName);
+			Port::DebugPrint("\r\n");
 			
-			DebugPrint("CLIDE: Registered option = ");
-			DebugPrint(detectedCmd->optionA[0]->name);
-			DebugPrint("\r\n");
+			Port::DebugPrint("CLIDE: Registered option = ");
+			Port::DebugPrint(detectedCmd->optionA[0]->name);
+			Port::DebugPrint("\r\n");
 		#endif
 		// Iterate through all registered options for detected command
 		for(x = 0; x < detectedCmd->numOptions; x++)
@@ -473,20 +473,20 @@ namespace Clide
 			uint8_t val = strcmp(optionName, detectedCmd->optionA[x]->name);
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
 				snprintf(tempBuff, sizeof(tempBuff), "CLIDE: Value = %u\r\n", val);
-				DebugPrint(tempBuff);
+				Port::DebugPrint(tempBuff);
 			#endif
 			if(val == 0)
 			{
 				// Match found, return found option
 				#if(clideDEBUG_PRINT_VERBOSE == 1)
-					DebugPrint("CLIDE: Option recognised.\r\n");
+					Port::DebugPrint("CLIDE: Option recognised.\r\n");
 				#endif
 				return detectedCmd->optionA[x];
 			}
 		}
 		// No match found, return NULL
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			DebugPrint("CLIDE: Option not recognised.\r\n");
+			Port::DebugPrint("CLIDE: Option not recognised.\r\n");
 		#endif
 		return NULL;
 	}
@@ -494,7 +494,7 @@ namespace Clide
 	void Tx::BuildOptionString(char* optionString, Cmd* cmd)
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			DebugPrint("CLIDE: Building option string...\r\n");
+			Port::DebugPrint("CLIDE: Building option string...\r\n");
 		#endif
 		
 		uint32_t x;
@@ -510,7 +510,7 @@ namespace Clide
 	void Tx::PrintHelpForCmd(Cmd* cmd)
 	{
 		#if(clideDEBUG_PRINT_GENERAL == 1)	
-			DebugPrint("CLIDE: Printing help for command.\r\n");
+			Port::DebugPrint("CLIDE: Printing help for command.\r\n");
 		#endif
 		
 		Port::CmdLinePrint("COMMAND HELP:\r\r");

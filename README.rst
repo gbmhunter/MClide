@@ -5,7 +5,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/07/04
-- Version: v1.4.1.0
+- Version: v1.5.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -221,6 +221,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v1.5.0.0 2013/07/04 Added first unit tests (3 of them). They run automatically when 'make all' is called.
 v1.4.1.0 2013/07/04 Fixed the '.h' includes to '.hpp'. Fixed 'make clean', it is now removing the correct files.
 v1.4.0.0 2013/07/04 Renamed all .c files to .cpp and .h to .hpp. Automated some of the file finding processes in the Makefile.
 v1.3.0.1 2013/07/03 Forgot to save README.rst.

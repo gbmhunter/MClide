@@ -66,13 +66,16 @@ namespace Clide
 
 
 
-	// Port specific
+	//! @brief 		Port specific
 	void Port::DebugPrint(const char* msg) 
 	{
 		//UartDebug::PutString(msg);
+		#ifdef __linux__
+			printf("%s", msg);
+		#endif
 	}
 
-	// Port specific
+	//! @brief 		Port specific
 	void Port::CmdLinePrint(const char* msg)
 	{
 		//UartComms::PutString(msg);

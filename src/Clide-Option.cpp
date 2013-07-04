@@ -118,7 +118,7 @@ namespace Clide
 		{
 			#if(clideDEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				DebugPrint("CLIDE: ERROR: Option name was too long.\r\n");
+				Port::DebugPrint("CLIDE: ERROR: Option name was too long.\r\n");
 			#endif
 		}
 
@@ -136,7 +136,7 @@ namespace Clide
 		{
 			#if(clideDEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				DebugPrint("CLIDE: ERROR: Option description was too long.\r\n");
+				Port::DebugPrint("CLIDE: ERROR: Option description was too long.\r\n");
 			#endif
 		}
 		

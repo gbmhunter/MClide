@@ -73,7 +73,7 @@ namespace Clide
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
 			// Description too long, do not save it
-			DebugPrint("CLIDE: Cmd constructor called.\r\n");
+			Port::DebugPrint("CLIDE: Cmd constructor called.\r\n");
 		#endif
 		
 		// INITIALISATION
@@ -100,7 +100,7 @@ namespace Clide
 		{
 			#if(clideDEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				DebugPrint("CLIDE: ERROR: Command name was too long.\r\n");
+				Port::DebugPrint("CLIDE: ERROR: Command name was too long.\r\n");
 			#endif
 		}
 		
@@ -118,7 +118,7 @@ namespace Clide
 		{
 			#if(clideDEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				DebugPrint("CLIDE: ERROR: Command description was too long.\r\n");
+				Port::DebugPrint("CLIDE: ERROR: Command description was too long.\r\n");
 			#endif
 		}
 		
@@ -135,7 +135,7 @@ namespace Clide
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
 			// Description too long, do not save it
-			DebugPrint("CLIDE: Registering parameter...\r\n");
+			Port::DebugPrint("CLIDE: Registering parameter...\r\n");
 		#endif
 
 		//this->numParams = 0;
@@ -147,7 +147,7 @@ namespace Clide
 		{
 			#if(clideDEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				DebugPrint("CLIDE: ERROR - Malloc failed while registering parameter.\r\n");
+				Port::DebugPrint("CLIDE: ERROR - Malloc failed while registering parameter.\r\n");
 			#endif
 			return;	
 		}
@@ -165,7 +165,7 @@ namespace Clide
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
 			// Description too long, do not save it
-			DebugPrint("CLIDE: Registering option...\r\n");
+			Port::DebugPrint("CLIDE: Registering option...\r\n");
 		#endif
 
 		// Create option pointer at end of option pointer array.
@@ -178,9 +178,9 @@ namespace Clide
 		optionA[this->numOptions - 1] = option;
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
-			DebugPrint("CLIDE: Option name = ");
-			DebugPrint(optionA[this->numOptions - 1]->name);
-			DebugPrint("\r\n");
+			Port::DebugPrint("CLIDE: Option name = ");
+			Port::DebugPrint(optionA[this->numOptions - 1]->name);
+			Port::DebugPrint("\r\n");
 		#endif
 	}
 
