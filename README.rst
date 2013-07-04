@@ -5,7 +5,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/07/04
-- Version: v1.5.0.0
+- Version: v1.6.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -76,23 +76,25 @@ External Dependencies
 - <cctype>		-> isalnum()
 - <getopt.h>	-> getopt()
 
-PACKET DECODING PROCESS (RX)
-=============================
+Packet Decoding Process (RX)
+============================
+
+When Rx.Run() is called...
 
 - Remove all non-alphanumeric characters from the start of the packet
 - Split packet into separate arguments
-- Make sure received command is registered
+- Make sure received command is registered. If so, set cmdReceived = TRUE. It not, return FALSE.
 - Extract options and values (if present), execute option callback functions
 - Check all parameters are present
 - Execute parameter callback functions
 - Execute command callback function
 
-ISSUES
-====
+Issues
+======
 
-- See GitHub Issues
+See GitHub Issues.
 
-LIMITATIONS
+Limitations
 ===========
 
 - Maximum number of commands: 256
@@ -221,6 +223,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v1.6.0.0 2013/07/04 Deleted un-needed @public and @private comments. Put public objects first in classes. Added cmdDetected variable to Cmd object, and info about it to README. Formatted all-caps section titles in README correctly. Made Makefile file finding more automatic. Added more unit test files. Removed port-specific UartDebug function calls. Added destructor for Cmd object that frees up allocated memory. Renamed MemMang and PowerString-Split libraries to be part of Clide.
 v1.5.0.0 2013/07/04 Added first unit tests (3 of them). They run automatically when 'make all' is called.
 v1.4.1.0 2013/07/04 Fixed the '.h' includes to '.hpp'. Fixed 'make clean', it is now removing the correct files.
 v1.4.0.0 2013/07/04 Renamed all .c files to .cpp and .h to .hpp. Automated some of the file finding processes in the Makefile.

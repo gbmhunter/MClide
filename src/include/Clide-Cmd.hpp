@@ -39,14 +39,12 @@ namespace Clide
 	//!				when RegisterCmd() is called, and removed
 	//!				with RemoveCmd(). A command needs to be registered to a controller.
 	class Cmd
-	{
-		private:
-		
+	{	
 		
 		public:
 			
 			//===============================================================================================//
-			//========================================= PUBLIC METHODS ======================================//
+			//==================================== CONSTRUCTORS/DESTRUCTOR ==================================//
 			//===============================================================================================//
 			
 			//! @brief		Constructor
@@ -60,6 +58,14 @@ namespace Clide
 				const char *name,
 				bool (*callBackFunc)(Cmd* foundCmd),
 				const char *description);
+				
+			//! @brief		Destructor. Deallocates memory.
+			~Cmd();
+			
+			//===============================================================================================//
+			//========================================= PUBLIC METHODS ======================================//
+			//===============================================================================================//
+			
 		
 			//! @brief		Register a parameter with a cmd.
 			//! @param		param	Parameter to register.
@@ -95,6 +101,16 @@ namespace Clide
 			//! Optional callback function for when command is discovered. Called
 			//! after all callback functions for individual options are executed.
 			bool (*callBackFunc)(Cmd* foundCmd);
+			
+			//! @brief		True if command was detected the last time Rx.Run() was called.
+			//! @details	You can use this for basic determination if a command was received,
+			//!				without having to use a callback function.
+			//! @note		This flag is reset for ALL commands every time Rx.Run() is called.
+			bool isDetected;
+			
+		private:
+		
+		// none
 	};
 
 

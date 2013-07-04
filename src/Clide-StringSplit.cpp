@@ -19,13 +19,13 @@
 
 // User includes
 #include "./include/Clide-Port.hpp"
-#include "./include/PowerString-Split.hpp"
+#include "./include/Clide-StringSplit.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
 //===============================================================================================//
 
-namespace PowerString
+namespace Clide
 {
 
 	//===============================================================================================//
@@ -57,7 +57,7 @@ namespace PowerString
 	//===============================================================================================//
 
 
-	char* Split::Run(char *s, const char *delim)
+	char* StringSplit::Run(char *s, const char *delim)
 	{
 		static char *last;
 
@@ -65,7 +65,7 @@ namespace PowerString
 	}
 
 
-	char* Split::Int(char *s, const char *delim, char **last, char delimiterNull)
+	char* StringSplit::Int(char *s, const char *delim, char **last, char delimiterNull)
 	{
 		char *spanp;
 		char c, sc;

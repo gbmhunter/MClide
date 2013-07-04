@@ -21,8 +21,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef POWER_STRING_SPLIT_H
-#define POWER_STRING_SPLIT_H
+#ifndef CLIDE_STRING_SPLIT_H
+#define CLIDE_STRING_SPLIT_H
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler
@@ -32,10 +32,10 @@
 //======================================== NAMESPACE ============================================//
 //===============================================================================================//
 
-namespace PowerString
+namespace Clide
 {
 
-	class Split 
+	class StringSplit 
 	{
 		public:
 			//! @brief		Based of strtok() function
@@ -50,8 +50,8 @@ namespace PowerString
 			static char* Int(char *s, const char *delim, char **last, char delimiterNull);
 	};
 
-} // namespace PowerString
+} // namespace Clide
 
-#endif	// #ifndef POWER_STRING_SPLIT_H
+#endif	// #ifndef CLIDE_STRING_SPLIT_H
 
 // EOF

@@ -23,7 +23,7 @@
 #include <string.h>		// strlen()
 
 // User includes
-#include "include/MemMang.hpp"
+#include "include/Clide-MemMang.hpp"
 #include "include/Clide-Config.hpp"
 #include "include/Clide-Port.hpp"
 #include "include/Clide-Option.hpp"
@@ -129,8 +129,20 @@ namespace Clide
 		Option* help = new Option("h", NULL, "Prints help for the command.");
 		this->RegisterOption(help);
 		
+		// DETECTED FLAG
+		this->isDetected = false;
+		
 	}
 
+	Cmd::~Cmd()
+	{
+		// Destructor
+		
+		// Free up memory
+		free(paramA);
+		free(optionA);
+	}
+	
 	void Cmd::RegisterParam(Param* param)
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	

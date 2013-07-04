@@ -22,7 +22,7 @@
 #include <string.h>		// strlen()
 
 // User includes
-#include "include/MemMang.hpp"
+#include "include/Clide-MemMang.hpp"
 #include "include/Clide-Config.hpp"
 #include "include/Clide-Port.hpp"
 #include "include/Clide-Option.hpp"
@@ -77,7 +77,6 @@ namespace Clide
 			callBackFunc,
 			description,
 			false);
-		
 	}
 	
 	// Base constructor
@@ -94,6 +93,15 @@ namespace Clide
 			associatedValue);
 	}
 
+	Option::~Option()
+	{
+		// Destructor
+		
+		// Free memory
+		free(this->name);
+		free(this->description);
+	}
+	
 	//===============================================================================================//
 	//==================================== PRIVATE FUNCTIONS ========================================//
 	//===============================================================================================//

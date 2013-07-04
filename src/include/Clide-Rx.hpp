@@ -41,10 +41,66 @@ namespace Clide
 
 	class Rx
 	{
+	
+		public:
+		
+			//===============================================================================================//
+			//==================================== CONSTRUCTORS/DESTRUCTOR ==================================//
+			//===============================================================================================//
+			
+			//! @brief		Constructor
+			Rx();
+			
+			//===============================================================================================//
+			//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
+			//===============================================================================================//
+			
+			//! @brief		Prints help information.
+			void PrintHelp();
+			
+			//! @brief		Initialises the Clide library for use.
+			//! @warning	Call before using any other Clide function.
+			void Init();
+			
+			//! @brief		Register a command with Clide. 
+			//! @warning	Command must persist in memory while Rx object is used.
+			void RegisterCmd(Cmd* cmd);
+
+			//! @brief		Removes a previously registered command.
+			//! @details	Uses free().
+			//! @param		cmd		The command to de-register.
+			//! @warning	Make sure command was previously registered with R!
+			void RemoveCmd(Cmd* cmd);
+
+			//! @brief		Runs the algorithm. Call this with the recieved command msg.
+			//! @param		cmdMsg	The message to process.
+			bool Run(char* cmdMsg);
+
+			//! @brief		Registers the help command.
+			//! @details	This is an automatically generated command which prints
+			//!				help information about the registered commands to the 
+			//!				command-line.
+			void RegisterHelpCmd();
+			
+			//===============================================================================================//
+			//================================== PUBLIC VARIABLES/STRUCTURES ================================//
+			//===============================================================================================//
+			
+			//! @brief		Points to an array of pointers to registered commands
+			//! @details	This is updated everytime RegisterCmd() is called
+			Cmd **cmdA;
+
+			//! @brief		The number of registered commands
+			//! @details	Incremented everytime RegisterCmd() is called
+			uint8_t numCmds;
+			
+			//! @brief		Determines whether help commands are automatically availiable
+			//! @details	Defaults to TRUE
+			bool helpEnabled;
+			
 		private:
 			//! @brief		Validates command.
 			//! @details	Makes sure cmd is in the registered command list
-			//! @private
 			Cmd* ValidateCmd(char* cmdName, Cmd** cmdA, uint8_t numCmds);
 			
 			//! @brief		Checks for option in registered command
@@ -57,7 +113,6 @@ namespace Clide
 			//! @brief		Sets all of the char* pointers back to the original order
 			//! @details	Order is changed by getopt(). Make sure to call everytime before
 			//!				using getopt()
-			//! @private
 			void ResetArgsPointer();
 			
 			//! @brief		Builds the option string for the getopt() function from the list
@@ -65,69 +120,6 @@ namespace Clide
 			void BuildOptionString(char* optionString, Cmd* cmd);
 			
 			void PrintHelpForCmd(Cmd* cmd);
-		
-		public:
-		
-			//===============================================================================================//
-			//======================================== CONSTRUCTOR ==========================================//
-			//===============================================================================================//
-			
-			Rx();
-			
-			//===============================================================================================//
-			//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
-			//===============================================================================================//
-			
-			//! @brief		Prints help information.
-			//! @private
-			void PrintHelp();
-			
-			//! @brief		Initialises the Clide library for use.
-			//! @warning	Call before using any other Clide function.
-			//! @public
-			void Init();
-			
-			void RegisterCmd(Cmd* cmd);
-			
-			//! @brief		Register a command with Clide
-			//! @public
-			//Cmd* RegisterCmd(const char *name, bool (*callBackFunc)(Cmd* foundCmd));
-
-			//! @brief		Register a command with Clide
-			//! @public
-			//Cmd* RegisterCmd(const char *name, bool (*callBackFunc)(Cmd* foundCmd), const char *description);
-
-			//! @brief		Removes a previously registered command
-			//! @details	Uses free()
-			//! @public
-			void RemoveCmd(Cmd* cmd);
-
-			//! @brief		Runs the algorithm
-			//! @public
-			bool Run(char* cmdMsg);
-
-			//! @brief		Registers the help command.
-			//! @details	This is an automatically generated command which prints
-			//!				help information about the registered commands to the 
-			//!				command-line.
-			void RegisterHelpCmd();
-			
-			//===============================================================================================//
-		//================================== PUBLIC VARIABLES/STRUCTURES ================================//
-		//===============================================================================================//
-			
-			//! @brief		Points to an array of pointers to registered commands
-			//! @details	This is updated everytime RegisterCmd() is called
-			Cmd **cmdA;
-
-			//! @brief		The number of registered commands
-			//! @details	Incremented everytime RegisterCmd() is called
-			uint8_t numCmds;
-			
-			//! @brief		Determines whether help commands are automatically availiable
-			//! @details	Defaults to TRUE
-			//! @public
-			bool helpEnabled;
 		
 	};
 

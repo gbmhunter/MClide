@@ -24,8 +24,8 @@
 #include <cstring>		// memset()
 
 // User includes
-#include "./include/MemMang.hpp"
-#include "./include/PowerString-Split.hpp"
+#include "./include/Clide-MemMang.hpp"
+#include "./include/Clide-StringSplit.hpp"
 #include "./include/Clide-Config.hpp"
 #include "./include/Clide-Param.hpp"
 #include "./include/Clide-Option.hpp"
@@ -184,7 +184,7 @@ namespace Clide
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			Port::DebugPrint("CLIDE: Printing arguments pointer...\r\n");
 			// Print re-arranged arguments
-			uint8 count = 0;
+			uint8_t count = 0;
 			while(*_argsPtr[count] != '\0')
 			{
 				Port::DebugPrint(_argsPtr[count]);
@@ -193,7 +193,11 @@ namespace Clide
 			}
 			Port::DebugPrint("\r\n");
 			
-			snprintf(tempBuff, sizeof(tempBuff), "CLIDE: Num registered options = %lu\r\n", foundCmd->numOptions); 
+			snprintf(
+				tempBuff,
+				sizeof(tempBuff),
+				"CLIDE: Num registered options = %" STR(ClidePort_PF_UINT32_T) "\r\n",
+				foundCmd->numOptions); 
 			Port::DebugPrint(tempBuff);
 			
 			Port::DebugPrint("CLIDE: Printing found options...\r\n");
@@ -255,9 +259,13 @@ namespace Clide
 
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
 				// Debug stuff
-				UartDebug::PutChar(x);
-				Port::DebugPrint(optarg);
-				snprintf(tempBuff, sizeof(tempBuff), " Index=%i\r\n", optind); 
+				snprintf(
+					tempBuff,
+					sizeof(tempBuff),
+					"%c %s Index=%i\r\n",
+					x,
+					optarg,
+					optind); 
 				Port::DebugPrint(tempBuff);
 			#endif
 		}
@@ -375,17 +383,15 @@ namespace Clide
 		}
 	}
 
-
 	//===============================================================================================//
 	//==================================== PRIVATE FUNCTIONS ========================================//
 	//===============================================================================================//
-
 
 	int Tx::SplitPacket(char* packet, char(*args)[clideMAX_STRING_LENGTH])
 	{
 
 		// Split string into arguments using white space as the seperator
-		char* ptrToArgument = PowerString::Split::Run(packet, " ");
+		char* ptrToArgument = StringSplit::Run(packet, " ");
 		
 		uint8_t argCount = 0;
 		while(ptrToArgument != 0)
@@ -394,7 +400,7 @@ namespace Clide
 			strcpy(args[argCount], ptrToArgument);
 			
 			// Repeat. Pass in null as first parameter after first call
-			ptrToArgument = PowerString::Split::Run(0, " ");
+			ptrToArgument = StringSplit::Run(0, " ");
 			argCount++;
 		}
 		
@@ -403,7 +409,6 @@ namespace Clide
 		
 		return argCount;
 	}
-
 
 	Cmd* Tx::ValidateCmd(char* cmdName, Cmd** cmdA, uint8_t numCmds)
 	{
@@ -445,7 +450,6 @@ namespace Clide
 		
 		return NULL;
 	}
-
 
 	Option* Tx::ValidateOption(Cmd *detectedCmd, char* optionName)
 	{

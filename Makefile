@@ -23,7 +23,7 @@ SRC_LD_FLAGS :=
 SRC_CC_FLAGS := -Wall -g
 
 TEST_CPP_FILES := $(wildcard test/*.cpp)
-TEST_OBJ_FILES := $(addprefix obj/,$(notdir $(TEST_CPP_FILES:.cpp=.o)))
+TEST_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard test/*.cpp))
 TEST_LD_FLAGS := 
 TEST_CC_FLAGS := -Wall -g
 
@@ -46,10 +46,9 @@ src/%.o: src/%.cpp
 	g++ $(SRC_CC_FLAGS) -c -o $@ $<
 	
 # Compiles unit test code
-Test : ./test/ClideTest.o | ClideLib UnitTestLib
+Test : $(TEST_OBJ_FILES) | ClideLib UnitTestLib
 	# Compiling unit test code
-	#g++ $(TEST_LD_FLAGS) -o $@ $^ -L./test/UnitTest++ -lUnitTest++
-	g++ $(TEST_LD_FLAGS) -o ./test/ClideTest.elf ./test/ClideTest.o -L./test/UnitTest++ -lUnitTest++ -L./ -lClide
+	g++ $(TEST_LD_FLAGS) -o ./test/ClideTest.elf $(TEST_OBJ_FILES) -L./test/UnitTest++ -lUnitTest++ -L./ -lClide
 	
 # Generic rule for test object files
 test/%.o: test/%.cpp

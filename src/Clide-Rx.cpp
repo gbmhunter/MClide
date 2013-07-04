@@ -24,8 +24,8 @@
 #include <cstring>		// memset()
 
 // User includes
-#include "./include/MemMang.hpp"
-#include "./include/PowerString-Split.hpp"
+#include "./include/Clide-MemMang.hpp"
+#include "./include/Clide-StringSplit.hpp"
 #include "./include/Clide-Config.hpp"
 #include "./include/Clide-Param.hpp"
 #include "./include/Clide-Option.hpp"
@@ -119,13 +119,14 @@ namespace Clide
 		char tempBuff[100];
 
 		#if(clideDEBUG_PRINT_GENERAL == 1)
+			Port::DebugPrint("CLIDE: Rx.Run() called.\r\n");
 			snprintf(tempBuff, sizeof(tempBuff), "CLIDE: Received msg = '%s'.\r\n", cmdMsg);
 			Port::DebugPrint(tempBuff);
 		#endif
 		
 		//=========== RESET PARAMETERS ==============//
 		
-		// Reset paramter index
+		// Reset parameter index
 		_paramAIndex = 0;
 		
 		// Clear parameters
@@ -141,6 +142,13 @@ namespace Clide
 		// Reset args pointers (getopt() rearranges the pointers)
 		ResetArgsPointer();
 		
+		// Reset cmdDetected flag for all commands
+		int32_t x;
+		for(x = 0; x < numCmds; x++)
+		{
+			cmdA[x]->isDetected = false;
+		}
+		
 		// Strip all non-alphanumeric characters from the start of the packet
 		while(!isalnum(cmdMsg[0]))
 		{
@@ -155,9 +163,12 @@ namespace Clide
 			} 
 			
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
-				Port::DebugPrint("CLIDE: Removing char '");
-				UartDebug::PutChar(cmdMsg[0]);
-				Port::DebugPrint("' from rx buffer.\r\n");
+				snprintf(
+					tempBuff, 
+					sizeof(tempBuff),
+					"CLIDE: Removing char '%c' from rx buffer.\r\n",
+					cmdMsg[0]); 
+				Port::DebugPrint(tempBuff);
 			#endif
 			// Increment message pointer forward over non-alphanumeric char
 			cmdMsg++;
@@ -177,6 +188,9 @@ namespace Clide
 			return false;
 		}
 		
+		// Valid command found, set detected flag to true.
+		foundCmd->isDetected = true;
+		
 		#if(clideDEBUG_PRINT_GENERAL == 1)
 			snprintf(
 				tempBuff, 
@@ -194,8 +208,7 @@ namespace Clide
 		
 		// Clear the isDetected for all options registered with incoming cmd
 		// Set true later in function if the option is detected
-		int32_t x;
-		for(x = 0; x < foundCmd->numOptions; x++)
+		for(x = 0; (uint32_t)x < foundCmd->numOptions; x++)
 		{
 			foundCmd->optionA[x]->isDetected = false;
 		}
@@ -212,7 +225,11 @@ namespace Clide
 			}
 			Port::DebugPrint("\r\n");
 			
-			snprintf(tempBuff, sizeof(tempBuff), "CLIDE: Num registered options = %lu\r\n", foundCmd->numOptions); 
+			snprintf(
+				tempBuff,
+				sizeof(tempBuff),
+				"CLIDE: Num registered options = %" STR(ClidePort_PF_UINT32_T) "\r\n",
+				foundCmd->numOptions); 
 			Port::DebugPrint(tempBuff);
 			
 			Port::DebugPrint("CLIDE: Printing found options...\r\n");
@@ -297,13 +314,12 @@ namespace Clide
 
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
 				// Debug stuff
-				UartDebug::PutChar(x);
-				UartDebug::PutChar(' ');
-				Port::DebugPrint(optarg);
 				snprintf(
 					tempBuff,
 					sizeof(tempBuff),
-					" Index=%i\r\n",
+					" %c %s Index=%i\r\n",
+					x,
+					optarg,
 					optind); 
 				Port::DebugPrint(tempBuff);
 			#endif
@@ -351,7 +367,7 @@ namespace Clide
 		}
 		
 		// Copy parameters into cmd string
-		for(x = 0; x < foundCmd->numParams; x++)
+		for(x = 0; (uint32_t)x < foundCmd->numParams; x++)
 		{
 			strcpy(foundCmd->paramA[x]->value, _argsPtr[optind + x]);
 		}
@@ -432,7 +448,7 @@ namespace Clide
 	{
 
 		// Split string into arguments using white space as the seperator
-		char* ptrToArgument = PowerString::Split::Run(packet, " ");
+		char* ptrToArgument = StringSplit::Run(packet, " ");
 		
 		uint8_t argCount = 0;
 		while(ptrToArgument != 0)
@@ -441,7 +457,7 @@ namespace Clide
 			strcpy(args[argCount], ptrToArgument);
 			
 			// Repeat. Pass in null as first parameter after first call
-			ptrToArgument = PowerString::Split::Run(0, " ");
+			ptrToArgument = StringSplit::Run(0, " ");
 			argCount++;
 		}
 		

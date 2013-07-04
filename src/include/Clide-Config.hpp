@@ -48,7 +48,7 @@ namespace Clide
 	//=============== DEBUG SWITCHES ============//
 
 	#define clideDEBUG_PRINT_GENERAL		1				//!< Print general debug msgs
-	#define clideDEBUG_PRINT_VERBOSE		0				//!< Print verbose debug msgs
+	#define clideDEBUG_PRINT_VERBOSE		1				//!< Print verbose debug msgs
 	#define clideDEBUG_PRINT_ERROR			1				//!< Print error debug msgs
 
 	#define clideDEBUG_PRINT_ANY	(clideDEBUG_PRINT_GENERAL | clideDEBUG_PRINT_VERBOSE | clideDEBUG_PRINT_ERROR)

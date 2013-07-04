@@ -4,19 +4,11 @@
 //! @date 		2013/04/02
 //! @brief 		 
 //! @details
-//!		<b>Last Modified:			</b> 2013/05/14					\n
-//!		<b>File Version:			</b> v1.0.0.0					\n
-//!		<b>Company:					</b> CladLabs					\n
-//!		<b>Project:					</b> Free Code Libraries		\n
-//!		<b>Language:				</b> C++						\n
-//!		<b>Compiler:				</b> GCC						\n
-//! 	<b>uC Model:				</b> PSoC5						\n
-//!		<b>Computer Architecture:	</b> ARM						\n
-//! 	<b>Operating System:		</b> FreeRTOS v7.2.0			\n
-//!		<b>Documentation Format:	</b> Doxygen					\n
-//!		<b>License:					</b> GPLv3						\n
-//!	
+//!				See README.rst in root dir for more info.
 
+#ifndef __cplusplus
+	#error Please build with C++ compiler
+#endif
 
 //===============================================================================================//
 //======================================== HEADER GUARD =========================================//
@@ -24,10 +16,6 @@
 
 #ifndef CLIDE_OPTION_H
 #define CLIDE_OPTION_H
-
-#ifndef __cplusplus
-	#error Please build with C++ compiler
-#endif
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -40,15 +28,12 @@ namespace Clide
 	//! @details	Object of this type is created when RegisterOption() is called.
 	class Option
 	{
-		private:
-		
-			void Init(
-				const char* optionName,
-				bool (*callBackFunc)(char *optionVal),
-				const char* description,
-				bool associatedValue);
 		
 		public:
+		
+			//===============================================================================================//
+			//=================================== CONSTRUCTORS/DESTRUCTOR ===================================//
+			//===============================================================================================//
 		
 			//! @brief		Register an option with a command
 			//! @param		optionName		The character to look for in the command-line string.
@@ -83,6 +68,20 @@ namespace Clide
 				const char* description,
 				bool associatedValue);
 		
+			//! @brief		Destructor.
+			//! @details	Deallocates memory.
+			~Option();
+		
+			//===============================================================================================//
+			//========================================= PUBLIC METHODS ======================================//
+			//===============================================================================================//
+			
+			// none
+			
+			//===============================================================================================//
+			//======================================= PUBLIC VARIABLES ======================================//
+			//===============================================================================================//
+		
 			//! @brief		Name of option
 			char* name;
 			
@@ -103,6 +102,14 @@ namespace Clide
 			
 			//! @brief		Set to true if option has an associated value. Default is false.
 			bool associatedValue;
+			
+		private:
+		
+			void Init(
+				const char* optionName,
+				bool (*callBackFunc)(char *optionVal),
+				const char* description,
+				bool associatedValue);
 	};
 
 	//===============================================================================================//
