@@ -34,7 +34,7 @@ TEST_CC_FLAGS := -Wall -g
 all: ClideLib Test
 	
 	# Run unit tests:
-	@./test/ClideTest.out
+	@./test/ClideTest.elf
 	
 ClideLib : $(SRC_OBJ_FILES)
 	# Make Clide library
@@ -49,10 +49,7 @@ src/%.o: src/%.cpp
 Test : ./test/ClideTest.o | ClideLib UnitTestLib
 	# Compiling unit test code
 	#g++ $(TEST_LD_FLAGS) -o $@ $^ -L./test/UnitTest++ -lUnitTest++
-	g++ $(TEST_LD_FLAGS) -o ./test/ClideTest.out ./test/ClideTest.o -L./test/UnitTest++ -lUnitTest++ -L./ -lClide
-	
-	# Run unit tests:
-	@./test/ClideTest.out
+	g++ $(TEST_LD_FLAGS) -o ./test/ClideTest.elf ./test/ClideTest.o -L./test/UnitTest++ -lUnitTest++ -L./ -lClide
 	
 # Generic rule for test object files
 test/%.o: test/%.cpp
@@ -67,5 +64,7 @@ clean:
 	$(MAKE) -C ./test/UnitTest++/ clean
 	
 	# Clean everything else
-	@echo " Cleaning..."; $(RM) *.o *~
-	@echo " Cleaning..."; $(RM) ./obj/*
+	@echo " Cleaning src object files..."; $(RM) ./src/*.o
+	@echo " Cleaning Clide static library..."; $(RM) ./*.a
+	@echo " Cleaning test object files..."; $(RM) ./test/*.o
+	@echo " Cleaning test executable..."; $(RM) ./test/*.elf

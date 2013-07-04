@@ -18,8 +18,8 @@
 #include <stdio.h>		// snprintf()
 
 // User includes
-#include "./include/Clide-Port.h"
-#include "./include/PowerString-Split.h"
+#include "./include/Clide-Port.hpp"
+#include "./include/PowerString-Split.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//

@@ -1,10 +1,10 @@
 
-#include "../src/include/Clide-Cmd.h"
-#include "../src/include/Clide-Param.h"
-#include "../src/include/Clide-Option.h"
-#include "../src/include/Clide-Port.h"
-#include "../src/include/Clide-Tx.h"
-#include "../src/include/Clide-Rx.h"
+#include "../src/include/Clide-Cmd.hpp"
+#include "../src/include/Clide-Param.hpp"
+#include "../src/include/Clide-Option.hpp"
+#include "../src/include/Clide-Port.hpp"
+#include "../src/include/Clide-Tx.hpp"
+#include "../src/include/Clide-Rx.hpp"
 
 #include "./UnitTest++/src/UnitTest++.h"
 

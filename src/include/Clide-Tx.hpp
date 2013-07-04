@@ -26,11 +26,11 @@
 #include <stdint.h>
 
 // User
-#include "Clide-Config.h"
-#include "Clide-Param.h"
-#include "Clide-Option.h"
-#include "Clide-Cmd.h"
-#include "Clide-Port.h"
+#include "Clide-Config.hpp"
+#include "Clide-Param.hpp"
+#include "Clide-Option.hpp"
+#include "Clide-Cmd.hpp"
+#include "Clide-Port.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//

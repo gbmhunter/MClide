@@ -24,14 +24,14 @@
 #include <cstring>		// memset()
 
 // User includes
-#include "./include/MemMang.h"
-#include "./include/PowerString-Split.h"
-#include "./include/Clide-Config.h"
-#include "./include/Clide-Param.h"
-#include "./include/Clide-Option.h"
-#include "./include/Clide-Cmd.h"
-#include "./include/Clide-Port.h"
-#include "./include/Clide-Tx.h"
+#include "./include/MemMang.hpp"
+#include "./include/PowerString-Split.hpp"
+#include "./include/Clide-Config.hpp"
+#include "./include/Clide-Param.hpp"
+#include "./include/Clide-Option.hpp"
+#include "./include/Clide-Cmd.hpp"
+#include "./include/Clide-Port.hpp"
+#include "./include/Clide-Tx.hpp"
 
 
 //===============================================================================================//

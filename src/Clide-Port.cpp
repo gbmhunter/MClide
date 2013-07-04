@@ -17,7 +17,7 @@
 #include <getopt.h>		// getopt()	
 
 // User includes
-#include "./include/Clide-Port.h"
+#include "./include/Clide-Port.hpp"
 
 void* operator new(size_t size) 
 { 
