@@ -38,7 +38,8 @@
 
 namespace Clide
 {
-
+	//! @brief		Class deals with receiving of command-line strings and the decoding/processing of them.
+	//1 @details	This is one of the most important objects in the Clide library.
 	class Rx
 	{
 	

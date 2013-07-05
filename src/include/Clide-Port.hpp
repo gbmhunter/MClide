@@ -31,8 +31,15 @@ namespace Clide
 	#define STR_EXPAND(tok) #tok
 	#define STR(tok) STR_EXPAND(tok)
 	
-	#define ClidePort_PF_UINT32_T		u
-
+	#if(defined __linux__)
+		#define ClidePort_PF_UINT32_T		u
+	#elif(CY_PSOC5)
+		#define ClidePort_PF_UINT32_T		lu
+	#else
+		#warning No platform defined.
+		#define ClidePort_PF_UINT32_T		u
+	#endif
+		
 	//===============================================================================================//
 	//=================================== PUBLIC TYPEDEFS ===========================================//
 	//===============================================================================================//

@@ -5,7 +5,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/07/05
-- Version: v1.6.3.0
+- Version: v1.6.4.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -223,6 +223,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v1.6.4.0 2013/07/05 Added 'SpasticInput' unit tests. Added Doxygen '@brief' tags to documentation in `Clide-Cmd.h`. Added more documentation. Added C++ check to Clide-Port.cpp. Added port-specific code for PSoC5/5LP `printf()` functions in `Clide-Port.hpp`. Renamed namespace in Clide-MemMang from 'MemMang' to 'Clide'. Put MemMang functions inside a class. Added unit tests for commands with both parameters and options. 1 unit test currently failing.
 v1.6.3.0 2013/07/05 Grouped all unit tests into test suites.
 v1.6.2.0 2013/07/05 Re-added argsPtr assignment which was removed in last commit and caused Rx.Run() to crash on every call.
 v1.6.1.0 2013/07/05 Added destructor debug messages. Add macro to enable/disable automatic help generation. Removed static global variables in Rx class and put them in Rx.Run() instead. This fixed the issues with some of the unit tests failing.

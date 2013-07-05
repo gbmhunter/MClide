@@ -17,27 +17,24 @@
 
 namespace ClideTest
 {
-	SUITE(OptionTests)
+	SUITE(OptionsWithValuesTests)
 	{
 		using namespace Clide;
 
-		static Cmd *_cmd = NULL;
-
-		bool Callback2(Cmd *cmd)
-		{
-			_cmd = cmd; 
-			
+		bool Callback(Cmd *cmd)
+		{	
 			return true;
 		}
 
-		TEST(BasicOptionTest)
+		
+		TEST(OnePosOptionTest)
 		{
 			
 			Rx rxController;
 			Tx txController;
 			
-			Cmd cmdTest("test", &Callback2, "A test command.");
-			Option testOption("z", NULL, "A test option.");
+			Cmd cmdTest("test", &Callback, "A test command.");
+			Option testOption("a", NULL, "A test option.", true);
 			
 			// Register option
 			cmdTest.RegisterOption(&testOption);
@@ -46,19 +43,16 @@ namespace ClideTest
 			rxController.RegisterCmd(&cmdTest);
 			
 			// Create fake input buffer
-			char rxBuff[50] = "test -z";
-			
-			_cmd = NULL;
+			char rxBuff[50] = "test -a optVal";
 			
 			// Run rx controller
 			rxController.Run(rxBuff);
 			
-			if(_cmd != NULL)
-				CHECK_EQUAL(true, testOption.isDetected);
-			else
-				CHECK(false);
+			//CHECK_EQUAL(true, testOption.isDetected);
+			//CHECK_EQUAL("opyVal", testOption.value);
 		}
 		
+		/*
 		TEST(TwoPosOptionTest)
 		{
 			
@@ -128,5 +122,6 @@ namespace ClideTest
 				CHECK(false);
 			
 		}
+		*/
 	} // SUITE(OptionTests)
 } // namespace ClideTest

@@ -31,7 +31,7 @@ namespace Clide
 {
 
 	//! @brief		Holds all parameter variables
-	//! @details	Object of this type is created when RegisterParam() is called.
+	//! @details	Object of this type is passed into Rx.RegisterParam() or Tx.Register.Param().
 	class Param
 	{
 		public:
@@ -74,6 +74,7 @@ namespace Clide
 			bool (*callBackFunc)(char* paramVal);
 			
 		private:
+		
 			//! @brief		Common code for constructors
 			void Init(bool (*callBackFunc)(char *paramVal), const char* description);
 	};

@@ -25,7 +25,7 @@ namespace Clide
 {
 
 	//! @brief		Holds all option variables
-	//! @details	Object of this type is created when RegisterOption() is called.
+	//! @details	Object of this type is passed into Rx.RegisterOption() or Tx.RegisterOption().
 	class Option
 	{
 		

@@ -14,8 +14,24 @@
 #include "../src/include/Clide-Rx.hpp"
 
 #include "./UnitTest++/src/UnitTest++.h"
+#include "./UnitTest++/src/TestReporterStdout.h"
 
 int main()
 {
 	return UnitTest::RunAllTests();
+	
+	/*
+	//return UnitTest::RunAllTests(UnitTest::Test::GetTestList(), NULL, "OptionsWithValuesTests", 0);
+	
+	UnitTest::TestReporterStdout reporter;
+	UnitTest::TestRunner runner(reporter);
+	
+	
+	
+    return runner.RunTestsIf(
+		UnitTest::Test::GetTestList(),
+        "OptionsWithValuesTests",
+		UnitTest::True(),
+        0);
+	*/
 }

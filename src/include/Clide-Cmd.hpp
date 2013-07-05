@@ -5,7 +5,7 @@
 //! @brief 		Contains the command object, which can be registered with 
 //!				the RX or TX controller (or both).
 //! @details
-//!				See README.rst in root dir.
+//!				See README.rst in root dir for more info.
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler
@@ -79,27 +79,27 @@ namespace Clide
 			//======================================= PUBLIC VARIABLES ======================================//
 			//===============================================================================================//
 			
-			//! The name. Used for recognising command in command-line input. This must
-			//! be the first word sent on the command-line, followed by a space.
+			//! @brief		The command name. Used for recognising command in command-line input. 
+			//! @details	This must be the first word sent on the command-line, followed by a space.
 			char* name;
 			
-			//! Points to the description. Used when the help command is called.
+			//! @brief		Points to the description. Used when the help command is called.
 			char* description;
 			
-			//! Pointer to an array of pointers to command parameters. Parameters are dynamically allocated.
+			//! @brief 		Pointer to an array of pointers to command parameters. Parameters are dynamically allocated.
 			Param** paramA;
 			
-			//! Remembers the number of parameters
+			//! @brief		Remembers the number of parameters
 			uint32_t numParams;
 			
-			//! Pointer to an array of pointers to options. Options are dynamically allocated.
+			//! @brief		Pointer to an array of pointers to options. Options are dynamically allocated.
 			Option** optionA;
 			
-			//! Remembers the number of options
+			//! @brief		Remembers the number of options
 			uint32_t numOptions;
 			
-			//! Optional callback function for when command is discovered. Called
-			//! after all callback functions for individual options are executed.
+			//! @brief		Optional callback function for when command is discovered. 
+			//! @details	Called after all callback functions for individual options are executed.
 			bool (*callBackFunc)(Cmd* foundCmd);
 			
 			//! @brief		True if command was detected the last time Rx.Run() was called.
