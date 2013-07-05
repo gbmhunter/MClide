@@ -17,89 +17,89 @@
 
 namespace ClideTest
 {
-
-	using namespace Clide;
-
-	Cmd *_cmd = NULL;
-
-	bool Callback(Cmd *cmd)
+	SUITE(ParamTests)
 	{
-		_cmd = cmd; 
-		
-		return true;
-	}
-	
+		using namespace Clide;
 
-	TEST(BasicRxTest)
-	{
-		Rx rxController;
-		Tx txController;
-		
-		Cmd cmdTest("test", &Callback, "A test command.");
-		
-		// Register command
-		rxController.RegisterCmd(&cmdTest);
-		
-		// Create fake input buffer
-		char rxBuff[50] = "test";
-		
-		_cmd = NULL;
-		
-		// Run rx controller
-		rxController.Run(rxBuff);
-		
-		CHECK_EQUAL(true, _cmd->isDetected);
-	}
+		Cmd *_cmd = NULL;
 
-	
-	TEST(OneParamRxTest)
-	{
-		Rx rxController;
-		Tx txController;
+		bool Callback(Cmd *cmd)
+		{
+			_cmd = cmd; 
+			
+			return true;
+		}
 		
-		Cmd cmdTest("test", &Callback, "A test command.");
-		Param cmdTestParam("A test parameter");
-		cmdTest.RegisterParam(&cmdTestParam);
+		TEST(BasicRxTest)
+		{
+			Rx rxController;
+			Tx txController;
+			
+			Cmd cmdTest("test", &Callback, "A test command.");
+			
+			// Register command
+			rxController.RegisterCmd(&cmdTest);
+			
+			// Create fake input buffer
+			char rxBuff[50] = "test";
+			
+			_cmd = NULL;
+			
+			// Run rx controller
+			rxController.Run(rxBuff);
+			
+			CHECK_EQUAL(true, _cmd->isDetected);
+		}
+
 		
-		// Register command
-		rxController.RegisterCmd(&cmdTest);
+		TEST(OneParamRxTest)
+		{
+			Rx rxController;
+			Tx txController;
+			
+			Cmd cmdTest("test", &Callback, "A test command.");
+			Param cmdTestParam("A test parameter");
+			cmdTest.RegisterParam(&cmdTestParam);
+			
+			// Register command
+			rxController.RegisterCmd(&cmdTest);
+			
+			// Create fake input buffer
+			char rxBuff[50] = "test param1";
+			
+			_cmd = NULL;
+			
+			// Run rx controller
+			rxController.Run(rxBuff);
+			
+			CHECK_EQUAL(true, _cmd->isDetected);
+		}
 		
-		// Create fake input buffer
-		char rxBuff[50] = "test param1";
-		
-		_cmd = NULL;
-		
-		// Run rx controller
-		rxController.Run(rxBuff);
-		
-		CHECK_EQUAL(true, _cmd->isDetected);
-	}
-	
-	TEST(TwoParamRxTest)
-	{
-		Rx rxController;
-		Tx txController;
-		
-		Cmd cmdTest("test", &Callback, "A test command.");
-		
-		Param cmdTestParam1("Test parameter 1");
-		cmdTest.RegisterParam(&cmdTestParam1);
-		
-		Param cmdTestParam2("Test parameter 2");
-		cmdTest.RegisterParam(&cmdTestParam2);
-		
-		// Register command
-		rxController.RegisterCmd(&cmdTest);
-		
-		// Create fake input buffer
-		char rxBuff[50] = "test param1 param2";
-		
-		_cmd = NULL;
-		
-		// Run rx controller
-		rxController.Run(rxBuff);
-		
-		CHECK_EQUAL(true, _cmd->isDetected);
-	}	
-	
-}
+		TEST(TwoParamRxTest)
+		{
+			Rx rxController;
+			Tx txController;
+			
+			Cmd cmdTest("test", &Callback, "A test command.");
+			
+			Param cmdTestParam1("Test parameter 1");
+			cmdTest.RegisterParam(&cmdTestParam1);
+			
+			Param cmdTestParam2("Test parameter 2");
+			cmdTest.RegisterParam(&cmdTestParam2);
+			
+			// Register command
+			rxController.RegisterCmd(&cmdTest);
+			
+			// Create fake input buffer
+			char rxBuff[50] = "test param1 param2";
+			
+			_cmd = NULL;
+			
+			// Run rx controller
+			rxController.Run(rxBuff);
+			
+			CHECK_EQUAL(true, _cmd->isDetected);
+		}	
+	} // SUITE(ParamTests)
+} // namespace ClideTest

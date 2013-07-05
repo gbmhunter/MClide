@@ -17,7 +17,8 @@
 
 namespace ClideTest
 {
-	
+	SUITE(OptionTests)
+	{
 		using namespace Clide;
 
 		static Cmd *_cmd = NULL;
@@ -127,4 +128,5 @@ namespace ClideTest
 				CHECK(false);
 			
 		}
-}
+	} // SUITE(OptionTests)
+} // namespace ClideTest

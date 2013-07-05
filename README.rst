@@ -5,7 +5,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/07/05
-- Version: v1.6.2.0
+- Version: v1.6.3.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -223,6 +223,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v1.6.3.0 2013/07/05 Grouped all unit tests into test suites.
 v1.6.2.0 2013/07/05 Re-added argsPtr assignment which was removed in last commit and caused Rx.Run() to crash on every call.
 v1.6.1.0 2013/07/05 Added destructor debug messages. Add macro to enable/disable automatic help generation. Removed static global variables in Rx class and put them in Rx.Run() instead. This fixed the issues with some of the unit tests failing.
 v1.6.0.0 2013/07/04 Deleted un-needed @public and @private comments. Put public objects first in classes. Added cmdDetected variable to Cmd object, and info about it to README. Formatted all-caps section titles in README correctly. Made Makefile file finding more automatic. Added more unit test files. Removed port-specific UartDebug function calls. Added destructor for Cmd object that frees up allocated memory. Renamed MemMang and PowerString-Split libraries to be part of Clide.
