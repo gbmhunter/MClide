@@ -111,11 +111,22 @@ namespace Clide
 		//! @brief		Array of pointers to the arguments
 		char *(_argsPtr[10]);
 		
+		_argsPtr[0] = _args[0];
+		_argsPtr[1] = _args[1];
+		_argsPtr[2] = _args[2];
+		_argsPtr[3] = _args[3];
+		_argsPtr[4] = _args[4];
+		_argsPtr[5] = _args[5];
+		_argsPtr[6] = _args[6];
+		_argsPtr[7] = _args[7];
+		_argsPtr[8] = _args[8];
+		_argsPtr[9] = _args[9];
+		
 		// Clear parameters
-		//memset(_paramA, '\0', sizeof(_paramA));
+		memset(_paramA, '\0', sizeof(_paramA));
 		
 		// Clear args
-		//memset(_args, '\0', sizeof(_args));
+		memset(_args, '\0', sizeof(_args));
 		
 		// Reset getopt() for next call of Run()
 		// getopt() was only ever designed to be run once
