@@ -20,8 +20,6 @@ int main()
 {
 	return UnitTest::RunAllTests();
 	
-	/*
-	//return UnitTest::RunAllTests(UnitTest::Test::GetTestList(), NULL, "OptionsWithValuesTests", 0);
 	
 	UnitTest::TestReporterStdout reporter;
 	UnitTest::TestRunner runner(reporter);
@@ -30,8 +28,8 @@ int main()
 	
     return runner.RunTestsIf(
 		UnitTest::Test::GetTestList(),
-        "OptionsWithValuesTests",
+        "LongOptionsWithValuesTests",
 		UnitTest::True(),
         0);
-	*/
+	
 }

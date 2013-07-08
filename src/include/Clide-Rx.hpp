@@ -24,6 +24,7 @@
 
 // System
 #include <stdint.h>
+#include <getopt.h>		// getopt()	
 
 // User
 #include "Clide-Config.hpp"
@@ -111,11 +112,15 @@ namespace Clide
 			//! @returns	Number of arguments found
 			int SplitPacket(char* packet, char(*args)[clideMAX_STRING_LENGTH]);
 			
-			//! @brief		Builds the option string for the getopt() function from the list
+			//! @brief		Builds the short option string for the getopt_long() function from the list
 			//!				of the registered commands.
-			void BuildOptionString(char* optionString, Cmd* cmd);
+			void BuildShortOptionString(char* optionString, Cmd* cmd);
 			
+			//! @brief		Prints help for the given command.
 			void PrintHelpForCmd(Cmd* cmd);
+			
+			//! @brief		Builds the structure of long options that is required by getopt_long().
+			void BuildLongOptionStruct(option* longOptStructA, Cmd* cmd);
 		
 	};
 

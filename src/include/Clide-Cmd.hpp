@@ -75,6 +75,10 @@ namespace Clide
 			//! @param		option	Option to register.
 			void RegisterOption(Option* option);
 			
+			//! @brief		Returns the number of options registered to the command which have long option names.
+			//! @returns	Number of options with long options names (i.e. longName != NULL).
+			uint32_t NumLongOptions();
+			
 			//===============================================================================================//
 			//======================================= PUBLIC VARIABLES ======================================//
 			//===============================================================================================//
@@ -110,7 +114,7 @@ namespace Clide
 			
 		private:
 		
-		// none
+			// none
 	};
 
 

@@ -44,7 +44,7 @@ namespace ClideTest
 			cmdTest.RegisterParam(&cmdTestParam);
 			
 			// Create option
-			Option cmdTestOption("a", NULL, "A test option.");
+			Option cmdTestOption('a', NULL, "A test option.");
 			cmdTest.RegisterOption(&cmdTestOption);
 			
 			// Register command
@@ -75,7 +75,7 @@ namespace ClideTest
 			cmdTest.RegisterParam(&cmdTestParam);
 			
 			// Create option
-			Option cmdTestOption("a", NULL, "A test option.");
+			Option cmdTestOption('a', NULL, "A test option.");
 			cmdTest.RegisterOption(&cmdTestOption);
 			
 			// Register command
@@ -109,10 +109,10 @@ namespace ClideTest
 			cmdTest.RegisterParam(&cmdTestParam2);
 			
 			// Create option
-			Option cmdTestOption1("a", NULL, "Test option 1");
+			Option cmdTestOption1('a', NULL, "Test option 1");
 			cmdTest.RegisterOption(&cmdTestOption1);
 			
-			Option cmdTestOption2("b", NULL, "Test option 2.");
+			Option cmdTestOption2('b', NULL, "Test option 2.");
 			cmdTest.RegisterOption(&cmdTestOption2);
 			
 			// Register command
@@ -148,10 +148,10 @@ namespace ClideTest
 			cmdTest.RegisterParam(&cmdTestParam2);
 			
 			// Create option
-			Option cmdTestOption1("a", NULL, "Test option 1");
+			Option cmdTestOption1('a', NULL, "Test option 1");
 			cmdTest.RegisterOption(&cmdTestOption1);
 			
-			Option cmdTestOption2("b", NULL, "Test option 2.");
+			Option cmdTestOption2('b', NULL, "Test option 2.");
 			cmdTest.RegisterOption(&cmdTestOption2);
 			
 			// Register command
@@ -187,10 +187,10 @@ namespace ClideTest
 			cmdTest.RegisterParam(&cmdTestParam2);
 			
 			// Create option
-			Option cmdTestOption1("a", NULL, "Test option 1");
+			Option cmdTestOption1('a', NULL, "Test option 1");
 			cmdTest.RegisterOption(&cmdTestOption1);
 			
-			Option cmdTestOption2("b", NULL, "Test option 2.");
+			Option cmdTestOption2('b', NULL, "Test option 2.");
 			cmdTest.RegisterOption(&cmdTestOption2);
 			
 			// Register command

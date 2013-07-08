@@ -4,8 +4,8 @@ Clide (Command Line Interface Development Environment) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2013/07/05
-- Version: v1.6.4.0
+- Last Modified: 2013/07/08
+- Version: v2.0.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -23,11 +23,12 @@ A command-line style communication interface designed to make it easy to send me
 data between two micro-controllers, a microcontroller and computer, or two computers, via
 a serial interface that supports ASCII characters (e.g. UART, I2C, SPI).
 
-Two functionally identical parts to Clide exist, one written in C++ for an embedded system,
-and the other part written in C# for running on a PC.
+Two functionally identical Clide projects exist, this one written in C++ for an embedded system,
+and the other one (Cs-Clide) written in C# for running on a PC.
 
-Uses a both human readable and computer readable format (UNIX command-line style)
-for easy implementation and debugging. Automatically generates UNIX-style help text
+Uses a both human readable and computer readable format (POSIX.2 command-line style, with
+GNU extensions) for easy implementation and debugging. 
+Automatically generates UNIX-style help text
 which is useful if system is being controlled by a human (see below).
 
 Useful for working with and controlling embedded systems.
@@ -43,38 +44,31 @@ that the value is in rpm, "2000" is a non-optional parameter which specifies the
 speed, and "\n" is the new-line character which signifies the end of a message
 (which is normally inserted automatically by command-lines when enter is pressed).
 
+Another which uses long options is:
+
+::
+
+	on --led1==on
+
 Uses dynamic memory allocation for creating commands/options/parameters e.t.c
 Command data is stored in a contiguous block
 
 All text is case-sensitive. It is recommended to use lower-case only to
-follow the UNIX command-line style.
+follow the POSIX command-line style.
 
 Special support for the "help" command, and `-h`, `--help` flags for every registered
 command. No special support other UNIX commands such as `man`, `whatis` or `info`
-'help' is a special command which can be implemented by calling
-RegisterHelpCmd()
+'help' is a special command which can be implemented by calling RegisterHelpCmd().
 
-Internal Dependencies
-=====================
+Supports long options (GNU extension to the POSIX.2 standard).
 
-These are all included in the repository.
-
-- Clide-Config.h						-> Configuration file.
-- Clide-Rx.c, .h						-> Receieve object.
-- Clide-Tx.c, .h						-> Transmit object.
-- Clide-Cmd.c, .h						-> Command object.
-- Clide-Param.c, .h						-> Parameter object.
-- Clide-Option.c, .h					-> Option object.
-- Clide-Port.c, .h 						-> Contains port-specfic code. Change this to fit application.
-- MemMang.c, .h 						-> Higher-level memory management functions
-- PowerString-Split.h					-> Higher-level string manipulation routines.
 
 External Dependencies
 =====================
 - <stdio.h> 	-> snprintf()
 - <stdlib.h> 	-> realloc(), malloc(), calloc(), free()
 - <cctype>		-> isalnum()
-- <getopt.h>	-> getopt()
+- <getopt.h>	-> getopt_long()
 
 Packet Decoding Process (RX)
 ============================
@@ -223,6 +217,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v2.0.0.0 2013/07/08 Long options are now supported in the command-line interface (now used getopt_long). Various code to Option class and RX decoding has been added/changed to support this. Added Clide-Global.h. Deleted internal dependency section in README (not useful). Added mention of POSIX.2 standard in README. Fixed unit test that was failing (strcpy() was being passed a NULL). Added new Makefile option clean-ut, which just cleans the unit test code. Added unit tests for long options.
 v1.6.4.0 2013/07/05 Added 'SpasticInput' unit tests. Added Doxygen '@brief' tags to documentation in `Clide-Cmd.h`. Added more documentation. Added C++ check to Clide-Port.cpp. Added port-specific code for PSoC5/5LP `printf()` functions in `Clide-Port.hpp`. Renamed namespace in Clide-MemMang from 'MemMang' to 'Clide'. Put MemMang functions inside a class. Added unit tests for commands with both parameters and options. 1 unit test currently failing.
 v1.6.3.0 2013/07/05 Grouped all unit tests into test suites.
 v1.6.2.0 2013/07/05 Re-added argsPtr assignment which was removed in last commit and caused Rx.Run() to crash on every call.

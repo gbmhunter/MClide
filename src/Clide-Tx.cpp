@@ -119,6 +119,7 @@ namespace Clide
 
 	bool Tx::Run(char* cmdMsg)
 	{
+	/*
 		#if(clideDEBUG_PRINT_GENERAL == 1)
 			Port::DebugPrint("CLIDE: Received msg: \"");
 			Port::DebugPrint(cmdMsg);
@@ -243,7 +244,7 @@ namespace Clide
 				if(foundOption != NULL)
 				{
 					// Special help case
-					if(foundOption->name[0] == 'h')
+					if(foundOption->shortName == 'h')
 					{
 						this->PrintHelpForCmd(foundCmd);
 						// No further processing required, exit
@@ -333,6 +334,7 @@ namespace Clide
 		foundCmd->callBackFunc(foundCmd);
 
 		return true;
+		*/
 	}
 
 
@@ -389,7 +391,7 @@ namespace Clide
 
 	int Tx::SplitPacket(char* packet, char(*args)[clideMAX_STRING_LENGTH])
 	{
-
+/*
 		// Split string into arguments using white space as the seperator
 		char* ptrToArgument = StringSplit::Run(packet, " ");
 		
@@ -408,10 +410,12 @@ namespace Clide
 		args[argCount][0] = '\0';
 		
 		return argCount;
+		*/
 	}
 
 	Cmd* Tx::ValidateCmd(char* cmdName, Cmd** cmdA, uint8_t numCmds)
 	{
+	/*
 		uint8_t x = 0;
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
@@ -448,9 +452,10 @@ namespace Clide
 			Port::DebugPrint("CLIDE: Command not recognised.\r\n");
 		#endif
 		
-		return NULL;
+		return NULL;*/
 	}
 
+	/*
 	Option* Tx::ValidateOption(Cmd *detectedCmd, char* optionName)
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
@@ -494,7 +499,8 @@ namespace Clide
 		#endif
 		return NULL;
 	}
-
+	*/
+/*
 	void Tx::BuildOptionString(char* optionString, Cmd* cmd)
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
@@ -591,5 +597,6 @@ namespace Clide
 		}
 		
 	}
+	*/
 
 } // namespace Clide

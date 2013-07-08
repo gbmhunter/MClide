@@ -25,6 +25,7 @@
 // User includes
 #include "include/Clide-MemMang.hpp"
 #include "include/Clide-Config.hpp"
+#include "include/Clide-Global.hpp"
 #include "include/Clide-Port.hpp"
 #include "include/Clide-Option.hpp"
 #include "include/Clide-Param.hpp"
@@ -37,33 +38,8 @@
 namespace Clide
 {
 
-
 	//===============================================================================================//
-	//==================================== PRIVATE DEFINES ==========================================//
-	//===============================================================================================//
-
-	// none
-
-	//===============================================================================================//
-	//=================================== PRIVATE TYPEDEF's =========================================//
-	//===============================================================================================//
-
-	// none
-
-	//===============================================================================================//
-	//============================= PRIVATE VARIABLES/STRUCTURES ====================================//
-	//===============================================================================================//
-
-	// none
-
-	//===============================================================================================//
-	//================================== PRIVATE FUNCTION PROTOTYPES ================================//
-	//===============================================================================================//
-
-	// none
-
-	//===============================================================================================//
-	//===================================== PUBLIC FUNCTIONS ========================================//
+	//======================================= PUBLIC METHODS ========================================//
 	//===============================================================================================//
 
 
@@ -195,12 +171,57 @@ namespace Clide
 		optionA[this->numOptions - 1] = option;
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
-			Port::DebugPrint("CLIDE: Option name = ");
-			Port::DebugPrint(optionA[this->numOptions - 1]->name);
-			Port::DebugPrint("\r\n");
+			if(optionA[this->numOptions - 1]->shortName != '\0')
+			{
+				snprintf(
+					Global::debugBuff,
+					sizeof(Global::debugBuff),
+					"CLIDE: Option short name = '%c'. Option long name = '%s'.\r\n",
+					optionA[this->numOptions - 1]->shortName,
+					optionA[this->numOptions - 1]->longName);
+			}
+			else
+			{
+				snprintf(
+					Global::debugBuff,
+					sizeof(Global::debugBuff),
+					"CLIDE: Option short name = '%s'. Option long name = '%s'.\r\n",
+					"none",
+					optionA[this->numOptions - 1]->longName);
+			}
+			
+			Port::DebugPrint(Global::debugBuff);
+			
 		#endif
 	}
 
+	uint32_t Cmd::NumLongOptions()
+	{
+		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+			// Description too long, do not save it
+			Port::DebugPrint("CLIDE: Calculating num. of long options...\r\n");
+		#endif
+		
+		uint32_t numLongOptions = 0;
+		
+		uint32_t x;
+		for(x = 0; x < this->numOptions; x++)
+		{
+			if(this->optionA[x]->longName != NULL)
+				numLongOptions++;
+		}
+		
+		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+			snprintf(
+				Global::debugBuff,
+				sizeof(Global::debugBuff),
+				"CLIDE: Num. long options = '%" STR(ClidePort_PF_UINT32_T) "'.\r\n",
+				numLongOptions);
+			Port::DebugPrint(Global::debugBuff);
+		#endif
+		
+		return numLongOptions;		
+	}
 
 	//===============================================================================================//
 	//==================================== PRIVATE FUNCTIONS ========================================//

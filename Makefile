@@ -22,7 +22,6 @@ SRC_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard src/*.cpp))
 SRC_LD_FLAGS := 
 SRC_CC_FLAGS := -Wall -g
 
-TEST_CPP_FILES := $(wildcard test/*.cpp)
 TEST_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard test/*.cpp))
 TEST_LD_FLAGS := 
 TEST_CC_FLAGS := -Wall -g
@@ -65,5 +64,9 @@ clean:
 	# Clean everything else
 	@echo " Cleaning src object files..."; $(RM) ./src/*.o
 	@echo " Cleaning Clide static library..."; $(RM) ./*.a
+	@echo " Cleaning test object files..."; $(RM) ./test/*.o
+	@echo " Cleaning test executable..."; $(RM) ./test/*.elf
+	
+clean-ut:
 	@echo " Cleaning test object files..."; $(RM) ./test/*.o
 	@echo " Cleaning test executable..."; $(RM) ./test/*.elf

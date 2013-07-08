@@ -1,8 +1,8 @@
 //!
-//! @file 		ClideTest-Options.cpp
+//! @file 		ClideTest-LongOptionsWithValues.cpp
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @date 		2013/07/04
-//! @brief 		Contains test functions for Clide command options.
+//! @date 		2013/07/08
+//! @brief 		Contains test functions for Clide command long options with no values.
 //! @details
 //!				See README.rst in root dir for more info.
 
@@ -17,27 +17,22 @@
 
 namespace ClideTest
 {
-	SUITE(OptionsNoValuesTests)
+	SUITE(LongOptionsWithValuesTests)
 	{
 		using namespace Clide;
-
-		static Cmd *_cmd = NULL;
-
-		bool Callback2(Cmd *cmd)
+		
+		bool Callback(Cmd* cmd)
 		{
-			_cmd = cmd; 
-			
 			return true;
 		}
-
-		TEST(OnePosOptionTest)
-		{
-			
+		
+		TEST(OnePosLongOptionWithValueTest)
+		{			
 			Rx rxController;
 			Tx txController;
 			
-			Cmd cmdTest("test", &Callback2, "A test command.");
-			Option testOption('z', NULL, "A test option.");
+			Cmd cmdTest("test", &Callback, "A test command.");
+			Option testOption('\0', "long1", NULL, "A test long option.", true);
 			
 			// Register option
 			cmdTest.RegisterOption(&testOption);
@@ -46,29 +41,23 @@ namespace ClideTest
 			rxController.RegisterCmd(&cmdTest);
 			
 			// Create fake input buffer
-			char rxBuff[50] = "test -z";
-			
-			_cmd = NULL;
+			char rxBuff[50] = "test --long=optVal";
 			
 			// Run rx controller
 			rxController.Run(rxBuff);
 			
-			if(_cmd != NULL)
-				CHECK_EQUAL(true, testOption.isDetected);
-			else
-				CHECK(false);
-				
+			CHECK_EQUAL(true, testOption.isDetected);
+			CHECK_EQUAL("optVal", testOption.value);
 		}
 		
-		TEST(TwoPosOptionTest)
-		{
-			
+		TEST(TwoPosLongOptionTest)
+		{		
 			Rx rxController;
 			Tx txController;
 			
-			Cmd cmdTest("test", &Callback2, "A test command.");
-			Option testOption1('a', NULL, "Test option 1.");
-			Option testOption2('b', NULL, "Test option 2.");
+			Cmd cmdTest("test", &Callback, "A test command.");
+			Option testOption1('\0', "long1", NULL, "Test option 1.", true);
+			Option testOption2('\0', "long2", NULL, "Test option 2.", true);
 			
 			// Register options
 			cmdTest.RegisterOption(&testOption1);
@@ -78,32 +67,25 @@ namespace ClideTest
 			rxController.RegisterCmd(&cmdTest);
 			
 			// Create fake input buffer
-			char rxBuff[50] = "test -a -b";
-			
-			_cmd = NULL;
+			char rxBuff[50] = "test --long1=optVal1 --long2=optVal2";
 			
 			// Run rx controller
 			rxController.Run(rxBuff);
 			
-			if(_cmd != NULL)
-			{
-				CHECK_EQUAL(true, testOption1.isDetected);
-				CHECK_EQUAL(true, testOption2.isDetected);
-			}
-			else
-				CHECK(false);
-			
+			CHECK_EQUAL(true, testOption1.isDetected);
+			CHECK_EQUAL("optVal1", testOption1.value);
+			CHECK_EQUAL(true, testOption2.isDetected);	
+			CHECK_EQUAL("optVal2", testOption2.value);
 		}
-		
+				
 		TEST(OnePosOneNegOptionTest)
-		{
-			
+		{			
 			Rx rxController;
 			Tx txController;
 			
-			Cmd cmdTest("test", &Callback2, "A test command.");
-			Option testOption1('a', NULL, "Test option 1.");
-			Option testOption2('b', NULL, "Test option 2.");
+			Cmd cmdTest("test", &Callback, "A test command.");
+			Option testOption1('\0', "long1", NULL, "Test option 1.", true);
+			Option testOption2('\0', "long2", NULL, "Test option 2.", true);
 			
 			// Register options
 			cmdTest.RegisterOption(&testOption1);
@@ -113,22 +95,15 @@ namespace ClideTest
 			rxController.RegisterCmd(&cmdTest);
 			
 			// Create input buffer
-			char rxBuff[50] = "test -a";
-			
-			_cmd = NULL;
+			char rxBuff[50] = "test --long1=optVal1";
 			
 			// Run rx controller
 			rxController.Run(rxBuff);
 			
-			if(_cmd != NULL)
-			{
-				CHECK_EQUAL(true, testOption1.isDetected);
-				CHECK_EQUAL(false, testOption2.isDetected);
-			}
-			else
-				CHECK(false);
-			
+			CHECK_EQUAL(true, testOption1.isDetected);
+			CHECK_EQUAL("optVal1", testOption1.value);
+			CHECK_EQUAL(false, testOption2.isDetected);
 		}
 		
-	} // SUITE(OptionTests)
+	} // SUITE(LongOptionsNoValuesTests)
 } // namespace ClideTest

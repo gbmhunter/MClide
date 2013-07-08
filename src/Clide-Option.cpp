@@ -1,5 +1,5 @@
 //!
-//! @file 		Clide-Param.c
+//! @file 		Clide-Option.cpp
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @date 		2013/04/02
 //! @brief 		Command-line style communications protocol
@@ -36,62 +36,67 @@
 namespace Clide
 {
 
-
 	//===============================================================================================//
-	//==================================== PRIVATE DEFINES ==========================================//
-	//===============================================================================================//
-
-	// none
-
-	//===============================================================================================//
-	//=================================== PRIVATE TYPEDEF's =========================================//
+	//===================================== MEMBER FUNCTIONS ========================================//
 	//===============================================================================================//
 
-	// none
-
-	//===============================================================================================//
-	//============================= PRIVATE VARIABLES/STRUCTURES ====================================//
-	//===============================================================================================//
-
-	// none
-
-	//===============================================================================================//
-	//================================== PRIVATE FUNCTION PROTOTYPES ================================//
-	//===============================================================================================//
-
-	// none
-
-	//===============================================================================================//
-	//===================================== PUBLIC FUNCTIONS ========================================//
-	//===============================================================================================//
-
-	// Constructor
-	// Register option. 
 	Option::Option(
-		const char* optionName,
+		const char shortName,
+		const char* longName,
+		bool (*callBackFunc)(char *optionVal),
+		const char* description,
+		bool associatedValue)
+	{
+		// Base constructor
+		
+		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+			Port::DebugPrint("CLIDE: Base option constructor called.\r\n");
+		#endif
+		Init(
+			shortName,
+			longName,
+			callBackFunc,
+			description,
+			associatedValue);
+	}
+	
+	Option::Option(
+		const char* longName,
 		bool (*callBackFunc)(char *optionVal),
 		const char* description)
 	{	
+		// Simplified constructor. No short name.
+		
+		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+			Port::DebugPrint("CLIDE: Simplified option constructor called (no short name).\r\n");
+		#endif
 		Init(
-			optionName,
+			'\0',
+			longName,
 			callBackFunc,
 			description,
 			false);
 	}
 	
-	// Base constructor
 	Option::Option(
-		const char* optionName,
+		const char shortName,
 		bool (*callBackFunc)(char *optionVal),
-		const char* description,
-		bool associatedValue)
-	{
+		const char* description)
+	{	
+		// Simplified constructor. No long name.
+		
+		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+			Port::DebugPrint("CLIDE: Simplified option constructor called (no long name).\r\n");
+		#endif
 		Init(
-			optionName,
+			shortName,
+			NULL,
 			callBackFunc,
 			description,
-			associatedValue);
+			false);
 	}
+	
+	
 
 	Option::~Option()
 	{
@@ -101,7 +106,7 @@ namespace Clide
 		#endif
 		
 		// Free memory
-		free(this->name);
+		free(this->longName);
 		free(this->description);
 	}
 	
@@ -110,50 +115,69 @@ namespace Clide
 	//===============================================================================================//
 
 	void Option::Init(
-		const char* optionName,
+		const char shortName,
+		const char* longName,
 		bool (*callBackFunc)(char *optionVal),
 		const char* description,
 		bool associatedValue)
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
 			Port::DebugPrint("CLIDE: Option constructor called.\r\n");
-		#endif
+		#endif		
+		
+		// Input checks
+		uint32_t stringLen = 0;
+		
+		// Check long name length
+		if(longName != NULL)
+		{
+			stringLen = strlen(longName);
+			if(stringLen > clideMAX_NAME_LENGTH)
+			{
+				#if(clideDEBUG_PRINT_ERROR == 1)	
+					// Description too long, do not save it
+					Port::DebugPrint("CLIDE: ERROR: Option name was too long.\r\n");
+				#endif
+				
+				return;
+			}
+		}
+		
+		// Check too-long description
+		if(description != NULL)
+		{
+			stringLen = strlen(description);
+			if(stringLen > clideMAX_DESCRIPTION_LENGTH)
+			{
+				#if(clideDEBUG_PRINT_ERROR == 1)	
+					// Description too long, do not save it
+					Port::DebugPrint("CLIDE: ERROR: Option description was too long.\r\n");
+				#endif
+				
+				return;
+			}
+		}
 	
 		// NAME
-		
-		uint32_t stringLen = strlen(optionName);
-		
-		// Make sure the description isn't to long
-		if(stringLen <= clideMAX_NAME_LENGTH)
-		{
-			// Create memory for name and store
-			this->name = MemMang::MallocString(optionName);
-		}
-		else
-		{
-			#if(clideDEBUG_PRINT_ERROR == 1)	
-				// Description too long, do not save it
-				Port::DebugPrint("CLIDE: ERROR: Option name was too long.\r\n");
-			#endif
-		}
 
+		// Store short name directly (only one char, no memory alloc needed)
+		this->shortName = shortName;
+		
+		// Create memory for long name and store
+		if(longName != NULL)
+			this->longName = MemMang::MallocString(longName);
+		else
+			this->longName = NULL;
+		
 		// DECRIPTION
 		
-		stringLen = strlen(description);
 		
-		// Make sure the description isn't to long
-		if(stringLen <= clideMAX_DESCRIPTION_LENGTH)
-		{
-			// Create memory for description and store
+		
+		// Create memory for description and store
+		if(description != NULL)
 			this->description = MemMang::MallocString(description);
-		}
 		else
-		{
-			#if(clideDEBUG_PRINT_ERROR == 1)	
-				// Description too long, do not save it
-				Port::DebugPrint("CLIDE: ERROR: Option description was too long.\r\n");
-			#endif
-		}
+			description = NULL;
 		
 		// CALLBACK
 		
@@ -166,6 +190,10 @@ namespace Clide
 		// ASSOCIATED VALUE?
 		
 		this->associatedValue = associatedValue;
+		
+		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+			Port::DebugPrint("CLIDE: Option constructor finished.\r\n");
+		#endif
 	}
 
 } // namespace Clide

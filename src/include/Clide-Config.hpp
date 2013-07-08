@@ -65,6 +65,10 @@ namespace Clide
 
 	//! Maximum length for the cmd description
 	#define clideMAX_DESCRIPTION_LENGTH		(100)	
+	
+	//! @brief		The size of the debug buffer.
+	//! @details	All writes use snprintf so should be safe if too small.
+	#define clide_DEBUG_BUFF_SIZE			(200)
 		
 
 

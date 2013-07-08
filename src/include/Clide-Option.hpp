@@ -1,5 +1,5 @@
 //!
-//! @file 		Clide-Option.h
+//! @file 		Clide-Option.hpp
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @date 		2013/04/02
 //! @brief 		 
@@ -35,6 +35,21 @@ namespace Clide
 			//=================================== CONSTRUCTORS/DESTRUCTOR ===================================//
 			//===============================================================================================//
 		
+			//! @brief		Base constructor.
+			//! @details	
+			//! @param		shortName		The short name of this option (to look for in command-line).
+			//! @param		longName		The long name of this option (to look for in command-line).
+			//! @param		callBackFunc	Call-back function which is called when option is discovered.
+			//!								Can be set to NULL.
+			//! @param		description		Used when help is requested.
+			//! @param		associatedValue	Set to true if option has an associated value
+			Option(
+				const char shortName,
+				const char* longName,
+				bool (*callBackFunc)(char *optionVal),
+				const char* description,
+				bool associatedValue);
+		
 			//! @brief		Register an option with a command
 			//! @param		optionName		The character to look for in the command-line string.
 			//! @param		callBackFunc	Call-back function which is called when option is discovered.
@@ -44,29 +59,27 @@ namespace Clide
 				const char* optionName,
 				bool (*callBackFunc)(char *optionVal));
 
-			//! @brief		Register an option with a command.
-			//! @details	Overload 2, associatedValue set to true.
-			//! @param		optionName		The character to look for in the command-line string.
+			//! @brief		Simplified constructor. Short name set to NULL, assoicatedValue set to false.
+			//! @details	
+			//! @param		longName		The long name of this option (to look for in command-line).
 			//! @param		callBackFunc	Call-back function which is called when option is discovered.
 			//!								Can be set to NULL.
 			//! @param		description		Used when help is requested.
 			Option(
-				const char* optionName,
+				const char* longName,
 				bool (*callBackFunc)(char *optionVal),
 				const char* description);
-		
-			//! @brief		Register an option with a command.
-			//! @details	Overload 2
-			//! @param		optionName		The character to look for in the command-line string.
+			
+			//! @brief		Simplified constructor. Long name set to NULL, assoicatedValue set to false.
+			//! @details	
+			//! @param		shortName		The short name of this option (to look for in command-line).
 			//! @param		callBackFunc	Call-back function which is called when option is discovered.
 			//!								Can be set to NULL.
 			//! @param		description		Used when help is requested.
-			//! @param		associatedValue	Set to true if option has an associated value
 			Option(
-				const char* optionName,
+				const char shortName,
 				bool (*callBackFunc)(char *optionVal),
-				const char* description,
-				bool associatedValue);
+				const char* description);
 		
 			//! @brief		Destructor.
 			//! @details	Deallocates memory.
@@ -82,8 +95,13 @@ namespace Clide
 			//======================================= PUBLIC VARIABLES ======================================//
 			//===============================================================================================//
 		
-			//! @brief		Name of option
-			char* name;
+			//! @brief		The short name of the option. Just a single character.
+			//! @details	Optional, but at least 1 of shortName or longName must ne non-null.
+			char shortName;
+		
+			//! @brief		The long name of the option. Optional, but at least 1 of shortName or longName must ne non-null.
+			//! @details	Optional, but at least 1 of shortName or longName must ne non-null.
+			char* longName;
 			
 			//! @brief		Description of an option. Used with the "-h", "--help" flags.
 			char* description;
@@ -104,13 +122,22 @@ namespace Clide
 			//! @brief		Set to true if option has an associated value. Default is false.
 			bool associatedValue;
 			
+			//! @brief		Passed into getopt_long() so that it can be set if the function
+			// 				detects the long option.
+			//! @details	If this is set, than isDetected is set. isDetected cannot be passed
+			//!				directly into getopt_long() (incompatible types).
+			int longOptionDetected;
+			
 		private:
 		
 			void Init(
-				const char* optionName,
+				const char shortName,
+				const char* longName,
 				bool (*callBackFunc)(char *optionVal),
 				const char* description,
 				bool associatedValue);
+				
+			
 	};
 
 	//===============================================================================================//
