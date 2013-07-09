@@ -84,9 +84,9 @@ namespace Clide
 		
 		//! @brief		Holds the split arguments from the command line
 		//! @todo 		Replace with malloc() calls, remove magic numbers
-		char _args[10][clideMAX_STRING_LENGTH] = {0};
+		char _args[10][clideMAX_STRING_LENGTH] = {{0}};
 		
-		char _paramA[10][10] = {0};
+		char _paramA[10][10] = {{0}};
 		
 		//! @brief		Array of pointers to the arguments
 		char *(_argsPtr[10]);
@@ -329,7 +329,7 @@ namespace Clide
 						Global::debugBuff,
 						sizeof(Global::debugBuff),
 						"CLIDE: ERROR: getopt_long() returned '?'. Did not recognise received option '%s' or missing option value. Num args = '%u'. Option string = '%s'.\r\n",
-						_argsPtr[optind],
+						_argsPtr[optind - 1],
 						numArgs,
 						optionString);
 					Port::DebugPrint(Global::debugBuff);
@@ -350,7 +350,7 @@ namespace Clide
 					snprintf (
 						Global::debugBuff,
 						sizeof(Global::debugBuff),
-						"CLIDE: Short option '%c' found with optarg '%s'.\r\n",
+						"CLIDE: Short option '%" STR(ClidePort_PF_CHAR_T) "' found with optarg '%s'.\r\n",
 						x,
 						optarg);
 					Port::DebugPrint(Global::debugBuff);
@@ -502,7 +502,8 @@ namespace Clide
 				snprintf (
 					Global::debugBuff,
 					sizeof(Global::debugBuff),
-					"CLIDE: Error: Num. of received parameters ('%u') for cmd '%s' does not match num. registered ('%u').\r\n",
+					"CLIDE: Error: Num. of received parameters ('%" STR(ClidePort_PF_UINT32_T) 
+					"') for cmd '%s' does not match num. registered ('%" STR(ClidePort_PF_UINT32_T) "').\r\n",
 					(uint32_t)(numArgs - optind),
 					foundCmd->name,
 					foundCmd->numParams);							
@@ -642,7 +643,7 @@ namespace Clide
 				snprintf(
 					Global::debugBuff,
 					sizeof(Global::debugBuff),
-					"CLIDE: Compared name = '%s', compared value = '%u'.\r\n",
+					"CLIDE: Compared name = '%s', compared value = '%" STR(ClidePort_PF_UINT32_T) "'.\r\n",
 					cmdA[x]->name,
 					(uint32_t)val);
 				Port::DebugPrint(Global::debugBuff);			

@@ -33,10 +33,14 @@ namespace Clide
 	
 	#if(defined __linux__)
 		#define ClidePort_PF_UINT32_T		u
+		#define ClidePort_PF_INT32_T		i
+		#define ClidePort_PF_CHAR_T			c
 	#elif(CY_PSOC5)
 		#define ClidePort_PF_UINT32_T		lu
+		#define ClidePort_PF_INT32_T		li
+		#define ClidePort_PF_CHAR_T			li
 	#else
-		#warning No platform defined.
+		#warning No platform defined. Using defaults.
 		#define ClidePort_PF_UINT32_T		u
 	#endif
 		

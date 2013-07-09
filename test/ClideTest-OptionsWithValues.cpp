@@ -29,7 +29,6 @@ namespace ClideTest
 		
 		TEST(OnePosOptionTest)
 		{
-			
 			Rx rxController;
 			Tx txController;
 			
@@ -43,13 +42,21 @@ namespace ClideTest
 			rxController.RegisterCmd(&cmdTest);
 			
 			// Create fake input buffer
-			char rxBuff[50] = "test -a optVal";
+			char rxBuff1[50] = "test -a optVal";
 			
 			// Run rx controller
-			rxController.Run(rxBuff);
+			rxController.Run(rxBuff1);
 			
-			//CHECK_EQUAL(true, testOption.isDetected);
-			//CHECK_EQUAL("opyVal", testOption.value);
+			CHECK_EQUAL(true, testOption.isDetected);
+			CHECK_EQUAL("optVal", testOption.value);
+			
+			// Create fake input buffer
+			char rxBuff2[50] = "test";
+			
+			// Run rx controller
+			rxController.Run(rxBuff2);
+			
+			CHECK_EQUAL(false, testOption.isDetected);
 		}
 		
 		

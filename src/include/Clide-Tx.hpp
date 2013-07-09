@@ -41,30 +41,6 @@ namespace Clide
 
 	class Tx
 	{
-		private:
-			//! @brief		Validates command.
-			//! @details	Makes sure cmd is in the registered command list
-			//! @private
-			Cmd* ValidateCmd(char* cmdName, Cmd** cmdA, uint8_t numCmds);
-			
-			//! @brief		Checks for option in registered command
-			Option* ValidateOption(Clide::Cmd *detectedCmd, char *optionName);
-			
-			//! @brief		Splits packet into arguments, which can be options and/or parameters.
-			//! @returns	Number of arguments found
-			int SplitPacket(char* packet, char(*args)[clideMAX_STRING_LENGTH]);
-			
-			//! @brief		Sets all of the char* pointers back to the original order
-			//! @details	Order is changed by getopt(). Make sure to call everytime before
-			//!				using getopt()
-			//! @private
-			void ResetArgsPointer();
-			
-			//! @brief		Builds the option string for the getopt() function from the list
-			//!				of the registered commands.
-			void BuildOptionString(char* optionString, Cmd* cmd);
-			
-			void PrintHelpForCmd(Cmd* cmd);
 		
 		public:
 		
@@ -83,29 +59,12 @@ namespace Clide
 			//! @private
 			void PrintHelp();
 			
-			//! @brief		Initialises the Clide library for use.
-			//! @warning	Call before using any other Clide function.
-			//! @public
-			void Init();
-			
-			void RegisterCmd(Cmd* cmd);
-			
-			//! @brief		Register a command with Clide
-			//! @public
-			//Cmd* RegisterCmd(const char *name, bool (*callBackFunc)(Cmd* foundCmd));
-
-			//! @brief		Register a command with Clide
-			//! @public
-			//Cmd* RegisterCmd(const char *name, bool (*callBackFunc)(Cmd* foundCmd), const char *description);
+			void RegisterCmd(Cmd* cmd);		
 
 			//! @brief		Removes a previously registered command
 			//! @details	Uses free()
 			//! @public
 			void RemoveCmd(Cmd* cmd);
-
-			//! @brief		Runs the algorithm
-			//! @public
-			bool Run(char* cmdMsg);
 
 			//! @brief		Registers the help command.
 			//! @details	This is an automatically generated command which prints
@@ -114,8 +73,8 @@ namespace Clide
 			void RegisterHelpCmd();
 			
 			//===============================================================================================//
-		//================================== PUBLIC VARIABLES/STRUCTURES ================================//
-		//===============================================================================================//
+			//================================== PUBLIC VARIABLES/STRUCTURES ================================//
+			//===============================================================================================//
 			
 			//! @brief		Points to an array of registered commands
 			//! @details	This is updated everytime RegisterCmd() is called
@@ -129,20 +88,10 @@ namespace Clide
 			//! @details	Defaults to TRUE
 			//! @public
 			bool helpEnabled;
-		
+			
+		private:		
+			void PrintHelpForCmd(Cmd* cmd);
 	};
-
-	//===============================================================================================//
-	//==================================== PUBLIC DEFINES ===========================================//
-	//===============================================================================================//
-
-	// none
-
-	//===============================================================================================//
-	//=================================== PUBLIC TYPEDEFS ===========================================//
-	//===============================================================================================//
-
-	// none
 
 } // namespace Clide
 

@@ -22,12 +22,8 @@ namespace ClideTest
 	{
 		using namespace Clide;
 
-		Cmd *_cmd = NULL;
-
 		bool Callback(Cmd *cmd)
 		{
-			_cmd = cmd; 
-			
 			return true;
 		}
 
@@ -52,8 +48,6 @@ namespace ClideTest
 			
 			// Create fake input buffer
 			char rxBuff[50] = "test param1 -a";
-			
-			_cmd = NULL;
 			
 			// Run rx controller
 			rxController.Run(rxBuff);
@@ -83,8 +77,6 @@ namespace ClideTest
 			
 			// Create fake input buffer
 			char rxBuff[50] = "test -a param1";
-			
-			_cmd = NULL;
 			
 			// Run rx controller
 			rxController.Run(rxBuff);
@@ -120,8 +112,6 @@ namespace ClideTest
 			
 			// Create fake input buffer
 			char rxBuff[50] = "test param1 param2 -a -b";
-			
-			_cmd = NULL;
 			
 			// Run rx controller
 			rxController.Run(rxBuff);
@@ -160,8 +150,6 @@ namespace ClideTest
 			// Create fake input buffer
 			char rxBuff[50] = "test param1 -a param2 -b";
 			
-			_cmd = NULL;
-			
 			// Run rx controller
 			rxController.Run(rxBuff);
 			
@@ -197,17 +185,26 @@ namespace ClideTest
 			rxController.RegisterCmd(&cmdTest);
 			
 			// Create fake input buffer
-			char rxBuff[50] = "test -a param1 -b param2";
-			
-			_cmd = NULL;
+			char rxBuff1[50] = "test -a param1 -b param2";
 			
 			// Run rx controller
-			rxController.Run(rxBuff);
+			rxController.Run(rxBuff1);
 			
 			CHECK_EQUAL("param1", cmdTestParam1.value);
 			CHECK_EQUAL("param2", cmdTestParam2.value);
 			CHECK_EQUAL(true, cmdTestOption1.isDetected);
 			CHECK_EQUAL(true, cmdTestOption2.isDetected);
+			
+			// Create fake input buffer
+			char rxBuff2[50] = "test param1 param2";
+			
+			// Run rx controller
+			rxController.Run(rxBuff2);
+			
+			CHECK_EQUAL("param1", cmdTestParam1.value);
+			CHECK_EQUAL("param2", cmdTestParam2.value);
+			CHECK_EQUAL(false, cmdTestOption1.isDetected);
+			CHECK_EQUAL(false, cmdTestOption2.isDetected);
 		}
 		
 	} // SUITE(ParamAndOptionTests)
