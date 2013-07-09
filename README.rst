@@ -4,8 +4,8 @@ Clide (Command Line Interface Development Environment) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2013/07/08
-- Version: v2.0.0.0
+- Last Modified: 2013/07/09
+- Version: v2.1.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -217,6 +217,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v2.1.0.0 2013/07/09 Added unit tests for multiple Clide::Rx.Run() calls (ClideTest-MultipleRxRunCalls.cpp). Fixed long option index bug in Rx::BuildLongOptionStruct(). Fixed bug in getopt_long() reporting incorrect options by setting optint = 0 before run (explained in getopt.h). Fixed bug in Rx::ValidateOption() variable 'val' being initialised to 0, which was what was checked for after calling strcmp to see if there was a match.
 v2.0.0.0 2013/07/08 Long options are now supported in the command-line interface (now used getopt_long). Various code to Option class and RX decoding has been added/changed to support this. Added Clide-Global.h. Deleted internal dependency section in README (not useful). Added mention of POSIX.2 standard in README. Fixed unit test that was failing (strcpy() was being passed a NULL). Added new Makefile option clean-ut, which just cleans the unit test code. Added unit tests for long options.
 v1.6.4.0 2013/07/05 Added 'SpasticInput' unit tests. Added Doxygen '@brief' tags to documentation in `Clide-Cmd.h`. Added more documentation. Added C++ check to Clide-Port.cpp. Added port-specific code for PSoC5/5LP `printf()` functions in `Clide-Port.hpp`. Renamed namespace in Clide-MemMang from 'MemMang' to 'Clide'. Put MemMang functions inside a class. Added unit tests for commands with both parameters and options. 1 unit test currently failing.
 v1.6.3.0 2013/07/05 Grouped all unit tests into test suites.

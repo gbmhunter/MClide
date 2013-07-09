@@ -25,10 +25,9 @@ int main()
 	UnitTest::TestRunner runner(reporter);
 	
 	
-	
     return runner.RunTestsIf(
 		UnitTest::Test::GetTestList(),
-        "LongOptionsWithValuesTests",
+        "MultipleRxRunCallsTests",
 		UnitTest::True(),
         0);
 	

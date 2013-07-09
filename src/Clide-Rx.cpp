@@ -84,9 +84,9 @@ namespace Clide
 		
 		//! @brief		Holds the split arguments from the command line
 		//! @todo 		Replace with malloc() calls, remove magic numbers
-		char _args[10][clideMAX_STRING_LENGTH];
+		char _args[10][clideMAX_STRING_LENGTH] = {0};
 		
-		char _paramA[10][10];
+		char _paramA[10][10] = {0};
 		
 		//! @brief		Array of pointers to the arguments
 		char *(_argsPtr[10]);
@@ -107,13 +107,6 @@ namespace Clide
 		
 		// Clear args
 		memset(_args, '\0', sizeof(_args));
-		
-		// Reset getopt() for next call of Run()
-		// getopt() was only ever designed to be run once
-		optind = 1;
-		
-		// Reset args pointers (getopt() rearranges the pointers)
-		//ResetArgsPointer(_args);
 		
 		// Reset cmdDetected flag for all commands
 		int32_t x;
@@ -184,6 +177,7 @@ namespace Clide
 		for(x = 0; (uint32_t)x < foundCmd->numOptions; x++)
 		{
 			foundCmd->optionA[x]->isDetected = false;
+			foundCmd->optionA[x]->longOptionDetected = 0;
 		}
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
@@ -224,8 +218,12 @@ namespace Clide
 		
 		//============== USE THE GETOPT FUNCTION =================//
 		
-		optind = 1;
+		// Reset getopt() for next call of Run()
+		// getopt() was only ever designed to be run once
+		optind = 0;
 		x = 0;
+		optarg = NULL;
+		optopt = 0;
 		
 		// Flag set by ‘--verbose’.
 		static int verbose_flag;
@@ -237,6 +235,7 @@ namespace Clide
 		// Build the struct for getopt_long
 		BuildLongOptionStruct(longOptionsA, foundCmd);
 		
+		/*
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			snprintf (
 				Global::debugBuff,
@@ -245,7 +244,7 @@ namespace Clide
 				longOptionsA[0].name);
 			Port::DebugPrint(Global::debugBuff);
 		#endif
-		
+		*/
 		/*
 		struct option long_options[] =
 		{
@@ -262,7 +261,6 @@ namespace Clide
 		#if(clideDEBUG_PRINT_VERBOSE == 1)				
 			Port::DebugPrint("CLIDE: Entering getopt_long() loop.\r\n");
 		#endif
-		
 		
 		// getopt() returns -1 when complete
 		while((x = getopt_long(numArgs, _argsPtr, optionString, longOptionsA, &option_index)) != -1)
@@ -324,6 +322,28 @@ namespace Clide
 				}
 				
 			}
+			else if(x == '?')
+			{
+				#if(clideDEBUG_PRINT_ERROR == 1)
+					snprintf (
+						Global::debugBuff,
+						sizeof(Global::debugBuff),
+						"CLIDE: ERROR: getopt_long() returned '?'. Did not recognise received option '%s' or missing option value. Num args = '%u'. Option string = '%s'.\r\n",
+						_argsPtr[optind],
+						numArgs,
+						optionString);
+					Port::DebugPrint(Global::debugBuff);
+					snprintf (
+						Global::debugBuff,
+						sizeof(Global::debugBuff),
+						"CLIDE: _argsPtr[0] = '%s'. _argsPtr[1] = '%s'. _argsPtr[2] = '%s'. _argsPtr[3] = '%s'.\r\n",
+						_argsPtr[0],
+						_argsPtr[1],
+						_argsPtr[2],
+						_argsPtr[3]);
+					Port::DebugPrint(Global::debugBuff);
+				#endif
+			}
 			else
 			{
 				#if(clideDEBUG_PRINT_VERBOSE == 1)
@@ -352,8 +372,26 @@ namespace Clide
 				//! @todo Implement properly
 				if(foundOption != NULL)
 				{
-					#if(clideDEBUG_PRINT_VERBOSE == 1)						
-						Port::DebugPrint("CLIDE: Setting isDetected to 'true'.\r\n");
+					#if(clideDEBUG_PRINT_VERBOSE == 1)		
+						if(foundOption->shortName != '\0')
+						{
+							snprintf (
+									Global::debugBuff,
+									sizeof(Global::debugBuff),
+									"CLIDE: Setting isDetected for option (shortName = '%c', longName = '%s') to 'true'.\r\n",
+									foundOption->shortName,
+									foundOption->longName);							
+							Port::DebugPrint(Global::debugBuff);
+						}
+						else
+						{
+							snprintf (
+									Global::debugBuff,
+									sizeof(Global::debugBuff),
+									"CLIDE: Setting isDetected for option (shortName = 'null', longName = '%s') to 'true'.\r\n",
+									foundOption->longName);							
+							Port::DebugPrint(Global::debugBuff);
+						}
 					#endif
 					foundOption->isDetected = true;
 				
@@ -461,7 +499,14 @@ namespace Clide
 		{
 			Port::CmdLinePrint("error \"Num. of received parameters does not match num. registered for cmd.\"\r\n");
 			#if(clideDEBUG_PRINT_ERROR == 1)
-				Port::DebugPrint("CLIDE: Error: Num. of received parameters does not match num. registered for cmd.\r\n");
+				snprintf (
+					Global::debugBuff,
+					sizeof(Global::debugBuff),
+					"CLIDE: Error: Num. of received parameters ('%u') for cmd '%s' does not match num. registered ('%u').\r\n",
+					(uint32_t)(numArgs - optind),
+					foundCmd->name,
+					foundCmd->numParams);							
+				Port::DebugPrint(Global::debugBuff);
 			#endif
 			return false;
 		}
@@ -638,8 +683,8 @@ namespace Clide
 		// Iterate through all registered options for detected command
 		for(x = 0; x < detectedCmd->numOptions; x++)
 		{
-		
-			uint8_t val;
+			// Do not initialise as 0!
+			uint8_t val = 1;
 			// Compare received option name with all the registered option names in the detected command
 			if(optionName[1] == '\0')
 			{
@@ -733,6 +778,7 @@ namespace Clide
 		#endif
 		
 		uint32_t x;
+		uint32_t longOptionIndex = 0;
 		// Iterate through all long-options registered with command
 		for(x = 0; x < cmd->numOptions; x++)
 		{
@@ -762,28 +808,30 @@ namespace Clide
 			// Copy all variables to structure.
 			
 			// 1) Name
-			longOptStructA[x].name = cmd->optionA[x]->longName;
+			longOptStructA[longOptionIndex].name = cmd->optionA[x]->longName;
 			//longOptStructA[0].name = "long1";
 			
 			// 2) Has Argument?
 			// Optional argument not supported
 			if(cmd->optionA[x]->associatedValue)
-				longOptStructA[x].has_arg = required_argument;
+				longOptStructA[longOptionIndex].has_arg = required_argument;
 			else
-				longOptStructA[x].has_arg = no_argument;
+				longOptStructA[longOptionIndex].has_arg = no_argument;
 			
 			// 3) Detected flag 
-			longOptStructA[x].flag = &cmd->optionA[x]->longOptionDetected;
+			longOptStructA[longOptionIndex].flag = &cmd->optionA[x]->longOptionDetected;
 			
 			// 4) Detected flag value
-			longOptStructA[x].val = 1;
+			longOptStructA[longOptionIndex].val = 1;
+			
+			longOptionIndex++;
 		}
 	
 		// Zero-element at end of array
-		longOptStructA[x].name = 0;
-		longOptStructA[x].has_arg = 0;
-		longOptStructA[x].flag = 0;
-		longOptStructA[x].val = 0;
+		longOptStructA[longOptionIndex].name = 0;
+		longOptStructA[longOptionIndex].has_arg = 0;
+		longOptStructA[longOptionIndex].flag = 0;
+		longOptStructA[longOptionIndex].val = 0;
 	
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			Port::DebugPrint("CLIDE: Finished building long option structure.\r\n");
