@@ -32,6 +32,7 @@
 #include "Clide-Option.hpp"
 #include "Clide-Cmd.hpp"
 #include "Clide-Port.hpp"
+#include "Clide-GetOpt.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -120,7 +121,7 @@ namespace Clide
 			void PrintHelpForCmd(Cmd* cmd);
 			
 			//! @brief		Builds the structure of long options that is required by getopt_long().
-			void BuildLongOptionStruct(option* longOptStructA, Cmd* cmd);
+			void BuildLongOptionStruct(GetOpt::option* longOptStructA, Cmd* cmd);
 		
 	};
 

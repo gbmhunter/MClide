@@ -6,6 +6,8 @@
 //! @details
 //!				See README.rst in root dir for more info.
 
+#include <stdio.h>
+
 #include "../src/include/Clide-Cmd.hpp"
 #include "../src/include/Clide-Param.hpp"
 #include "../src/include/Clide-Option.hpp"
@@ -20,15 +22,22 @@ int main()
 {
 	return UnitTest::RunAllTests();
 	
+	try
+    {
+        UnitTest::TestReporterStdout reporter;
+		UnitTest::TestRunner runner(reporter);
 	
-	UnitTest::TestReporterStdout reporter;
-	UnitTest::TestRunner runner(reporter);
 	
-	
-    return runner.RunTestsIf(
-		UnitTest::Test::GetTestList(),
-        "MultipleRxRunCallsTests",
-		UnitTest::True(),
-        0);
+		return runner.RunTestsIf(
+			UnitTest::Test::GetTestList(),
+			"ParamTests",
+			UnitTest::True(),
+			0);
+    }
+    catch(std::exception const& e)
+    {
+         printf("%s", e.what());
+         // If you are feeling mad (not in main) you could rethrow! 
+    }
 	
 }

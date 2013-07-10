@@ -20,7 +20,7 @@
 #include <stdio.h>		// snprintf()
 #include <stdlib.h>		// realloc(), malloc(), free()
 #include <cctype>		// isalnum() 
-#include <getopt.h>		// getopt()	
+//#include <getopt.h>		// getopt()	
 #include <cstring>		// memset()
 
 // User includes
@@ -33,7 +33,7 @@
 #include "./include/Clide-Cmd.hpp"
 #include "./include/Clide-Port.hpp"
 #include "./include/Clide-Rx.hpp"
-
+#include "./include/Clide-GetOpt.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -56,7 +56,7 @@ namespace Clide
 		
 		#if(clideDEBUG_PRINT_ERROR == 1)
 			// Enable getopt() to print error messages
-			opterr = 1;
+			GetOpt::opterr = 1;
 		#endif
 	}
 
@@ -125,6 +125,9 @@ namespace Clide
 				#if(clideDEBUG_PRINT_GENERAL == 1)
 					Port::DebugPrint("CLIDE: WARNING: Received command contained no alpha-numeric characters.\r\n");
 				#endif
+				#if(clideDEBUG_PRINT_VERBOSE == 1)
+					Port::DebugPrint("CLIDE: Rx::Run() finished. Returning false.\r\n");
+				#endif
 				return false;
 			} 
 			
@@ -151,6 +154,9 @@ namespace Clide
 		if(foundCmd == NULL)
 		{
 			Port::CmdLinePrint("error \"Command not recognised.\"\r\n");
+			#if(clideDEBUG_PRINT_VERBOSE == 1)
+				Port::DebugPrint("CLIDE: Rx::Run() finished. Returning false.\r\n");
+			#endif
 			return false;
 		}
 		
@@ -220,17 +226,17 @@ namespace Clide
 		
 		// Reset getopt() for next call of Run()
 		// getopt() was only ever designed to be run once
-		optind = 0;
+		GetOpt::optind = 0;
 		x = 0;
-		optarg = NULL;
-		optopt = 0;
+		GetOpt::optarg = NULL;
+		GetOpt::optopt = 0;
 		
 		// Flag set by ‘--verbose’.
 		static int verbose_flag;
 		
 		// Find number of long options in cmd and create struct var
 		// for them
-		struct option longOptionsA[20];
+		struct GetOpt::option longOptionsA[20];
 		
 		// Build the struct for getopt_long
 		BuildLongOptionStruct(longOptionsA, foundCmd);
@@ -263,11 +269,11 @@ namespace Clide
 		#endif
 		
 		// getopt() returns -1 when complete
-		while((x = getopt_long(numArgs, _argsPtr, optionString, longOptionsA, &option_index)) != -1)
+		while((x = GetOpt::getopt_long(numArgs, _argsPtr, optionString, longOptionsA, &option_index)) != -1)
 		{
 		
 			#if(clideDEBUG_PRINT_VERBOSE == 1)				
-				Port::DebugPrint("CLIDE: getopt_long() has returned with number.\r\n");
+				Port::DebugPrint("CLIDE: getopt_long() has returned with a number that is not -1.\r\n");
 			#endif
 		
 			//! @todo Remove magic number
@@ -301,7 +307,7 @@ namespace Clide
 									sizeof(Global::debugBuff),
 									"CLIDE: Long option '%s' found with optarg '%s'.\r\n",
 									foundCmd->optionA[x]->longName,
-									optarg);
+									GetOpt::optarg);
 								Port::DebugPrint(Global::debugBuff);
 							#endif
 						
@@ -329,7 +335,7 @@ namespace Clide
 						Global::debugBuff,
 						sizeof(Global::debugBuff),
 						"CLIDE: ERROR: getopt_long() returned '?'. Did not recognise received option '%s' or missing option value. Num args = '%u'. Option string = '%s'.\r\n",
-						_argsPtr[optind - 1],
+						_argsPtr[GetOpt::optind - 1],
 						numArgs,
 						optionString);
 					Port::DebugPrint(Global::debugBuff);
@@ -343,6 +349,8 @@ namespace Clide
 						_argsPtr[3]);
 					Port::DebugPrint(Global::debugBuff);
 				#endif
+				
+				continue;
 			}
 			else
 			{
@@ -352,7 +360,7 @@ namespace Clide
 						sizeof(Global::debugBuff),
 						"CLIDE: Short option '%" STR(ClidePort_PF_CHAR_T) "' found with optarg '%s'.\r\n",
 						x,
-						optarg);
+						GetOpt::optarg);
 					Port::DebugPrint(Global::debugBuff);
 				#endif
 				// Short option received
@@ -416,11 +424,11 @@ namespace Clide
 									Global::debugBuff,
 									sizeof(Global::debugBuff),
 									"CLIDE: Option should have associated value. Found value = '%s'.\r\n",
-									optarg);							
+									GetOpt::optarg);							
 								Port::DebugPrint(Global::debugBuff);
 							#endif
-							if(optarg != NULL)
-								strcpy(foundOption->value, optarg);
+							if(GetOpt::optarg != NULL)
+								strcpy(foundOption->value, GetOpt::optarg);
 							else
 							{
 								// Error, option should have has a value associated with it.
@@ -444,11 +452,11 @@ namespace Clide
 					// Error message
 					#if(clideDEBUG_PRINT_ERROR == 1)
 						Port::DebugPrint("CLIDE: ERROR - Option '");
-						Port::DebugPrint(_argsPtr[optind-1]);
+						Port::DebugPrint(_argsPtr[GetOpt::optind-1]);
 						Port::DebugPrint("' not registered with command.\"\r\n");
 					#endif
 					Port::CmdLinePrint("error \"Option '");
-					Port::CmdLinePrint(_argsPtr[optind-1]);
+					Port::CmdLinePrint(_argsPtr[GetOpt::optind-1]);
 					Port::CmdLinePrint("' not registered with command.\"\r\n");
 				}
 					
@@ -467,6 +475,15 @@ namespace Clide
 			#endif
 			*/
 		}
+		
+		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+			snprintf (
+				Global::debugBuff,
+				sizeof(Global::debugBuff),
+				"CLIDE: GetOpt() finished (returned with -1). optind = '%i'.\r\n",
+				GetOpt::optind);							
+			Port::DebugPrint(Global::debugBuff);
+		#endif
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			Port::DebugPrint("CLIDE: Arguments = ");
@@ -495,7 +512,7 @@ namespace Clide
 		//============= VALIDATE/PROCESS PARAMETERS =============//
 		
 		// Validate that there are the correct number of parameters
-		if((uint32_t)(numArgs - optind) != foundCmd->numParams)
+		if((uint32_t)(numArgs - GetOpt::optind) != foundCmd->numParams)
 		{
 			Port::CmdLinePrint("error \"Num. of received parameters does not match num. registered for cmd.\"\r\n");
 			#if(clideDEBUG_PRINT_ERROR == 1)
@@ -503,11 +520,16 @@ namespace Clide
 					Global::debugBuff,
 					sizeof(Global::debugBuff),
 					"CLIDE: Error: Num. of received parameters ('%" STR(ClidePort_PF_UINT32_T) 
-					"') for cmd '%s' does not match num. registered ('%" STR(ClidePort_PF_UINT32_T) "').\r\n",
-					(uint32_t)(numArgs - optind),
+					"') for cmd '%s' does not match num. registered ('%" STR(ClidePort_PF_UINT32_T) "'). numArgs = '%u'. optind = '%i'.\r\n",
+					(uint32_t)(numArgs - GetOpt::optind),
 					foundCmd->name,
-					foundCmd->numParams);							
+					foundCmd->numParams,
+					numArgs,
+					GetOpt::optind);							
 				Port::DebugPrint(Global::debugBuff);
+			#endif
+			#if(clideDEBUG_PRINT_VERBOSE == 1)
+				Port::DebugPrint("CLIDE: Rx::Run() finished. Returning false.\r\n");
 			#endif
 			return false;
 		}
@@ -515,17 +537,17 @@ namespace Clide
 		// Copy parameters into cmd string
 		for(x = 0; (uint32_t)x < foundCmd->numParams; x++)
 		{
-			strcpy(foundCmd->paramA[x]->value, _argsPtr[optind + x]);
+			strcpy(foundCmd->paramA[x]->value, _argsPtr[GetOpt::optind + x]);
 		}
 		
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			Port::DebugPrint("CLIDE: Parameters = ");
 			// Get parameters
-			if(optind == numArgs)
+			if(GetOpt::optind == numArgs)
 				Port::DebugPrint("(none)");
 			else
 			{
-				for(count = optind; count < numArgs; count++)
+				for(count = GetOpt::optind; count < numArgs; count++)
 				{
 					Port::DebugPrint(_argsPtr[count]);
 					Port::DebugPrint(", ");
@@ -538,6 +560,9 @@ namespace Clide
 		// Make sure this is the last thing to do in Run()
 		foundCmd->callBackFunc(foundCmd);
 
+		#if(clideDEBUG_PRINT_VERBOSE == 1)
+			Port::DebugPrint("CLIDE: Rx::Run() finished. Returning true.\r\n");
+		#endif
 		return true;
 	}
 
@@ -770,7 +795,7 @@ namespace Clide
 		#endif
 	}
 	
-	void Rx::BuildLongOptionStruct(option* longOptStructA, Cmd* cmd)
+	void Rx::BuildLongOptionStruct(GetOpt::option* longOptStructA, Cmd* cmd)
 	{
 		// Build the structure required for long option processing
 		

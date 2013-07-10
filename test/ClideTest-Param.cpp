@@ -6,6 +6,8 @@
 //! @details
 //!				See README.rst in root dir for more info.
 
+#include <stdio.h>
+
 #include "../src/include/Clide-Cmd.hpp"
 #include "../src/include/Clide-Param.hpp"
 #include "../src/include/Clide-Option.hpp"
@@ -48,7 +50,12 @@ namespace ClideTest
 			// Run rx controller
 			rxController.Run(rxBuff);
 			
-			CHECK_EQUAL(true, _cmd->isDetected);
+			printf("%s", "Debug\r\n");
+			
+			if(_cmd != NULL)
+				CHECK_EQUAL(true, _cmd->isDetected);
+			else
+				CHECK(false);
 		}
 
 		
@@ -72,7 +79,10 @@ namespace ClideTest
 			// Run rx controller
 			rxController.Run(rxBuff);
 			
-			CHECK_EQUAL(true, _cmd->isDetected);
+			if(_cmd != NULL)
+				CHECK_EQUAL(true, _cmd->isDetected);
+			else
+				CHECK(false);
 		}
 		
 		TEST(TwoParamRxTest)
@@ -99,7 +109,10 @@ namespace ClideTest
 			// Run rx controller
 			rxController.Run(rxBuff);
 			
-			CHECK_EQUAL(true, _cmd->isDetected);
+			if(_cmd != NULL)
+				CHECK_EQUAL(true, _cmd->isDetected);
+			else
+				CHECK(false);
 		}	
 	} // SUITE(ParamTests)
 } // namespace ClideTest

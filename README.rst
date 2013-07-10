@@ -5,7 +5,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/07/09
-- Version: v2.1.1.0
+- Version: v3.0.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -62,13 +62,15 @@ command. No special support other UNIX commands such as `man`, `whatis` or `info
 
 Supports long options (GNU extension to the POSIX.2 standard).
 
+Clide is not dependant on the getopt_long() function from the standard C-library,
+it has it's own version.
+
 
 External Dependencies
 =====================
 - <stdio.h> 	-> snprintf()
 - <stdlib.h> 	-> realloc(), malloc(), calloc(), free()
 - <cctype>		-> isalnum()
-- <getopt.h>	-> getopt_long()
 
 Packet Decoding Process (RX)
 ============================
@@ -217,6 +219,8 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.0.0.0 2013/07/10 Added own getopt() function (the Clide-GetOpt class), no longer dependant on C library for it.
+v2.2.0.0 2013/07/09 Added continue if getopt_long() returned '?' character. Added Makefile command 'make clean-clide'.
 v2.1.1.0 2013/07/09 Fixed non-portable use of '%u' in snprintf() in Rx::ValidateCmd(). Fixed other non-portable uses of snprint() and added more port-specific defines in Clide-Port.h. Removed RX code from Clide::Tx class. Added double braces around initialisers for two Rx::Run() variables. Changed optint to (optint - 1) when printing option which caused '?' to be returned from getopt_long(). Added unit tests for quotes and negative numbers.
 v2.1.0.0 2013/07/09 Added unit tests for multiple Clide::Rx.Run() calls (ClideTest-MultipleRxRunCalls.cpp). Fixed long option index bug in Rx::BuildLongOptionStruct(). Fixed bug in getopt_long() reporting incorrect options by setting optint = 0 before run (explained in getopt.h). Fixed bug in Rx::ValidateOption() variable 'val' being initialised to 0, which was what was checked for after calling strcmp to see if there was a match.
 v2.0.0.0 2013/07/08 Long options are now supported in the command-line interface (now used getopt_long). Various code to Option class and RX decoding has been added/changed to support this. Added Clide-Global.h. Deleted internal dependency section in README (not useful). Added mention of POSIX.2 standard in README. Fixed unit test that was failing (strcpy() was being passed a NULL). Added new Makefile option clean-ut, which just cleans the unit test code. Added unit tests for long options.

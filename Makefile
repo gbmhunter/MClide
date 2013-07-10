@@ -70,3 +70,9 @@ clean:
 clean-ut:
 	@echo " Cleaning test object files..."; $(RM) ./test/*.o
 	@echo " Cleaning test executable..."; $(RM) ./test/*.elf
+	
+clean-clide:
+	@echo " Cleaning src object files..."; $(RM) ./src/*.o
+	@echo " Cleaning Clide static library..."; $(RM) ./*.a
+	@echo " Cleaning test object files..."; $(RM) ./test/*.o
+	@echo " Cleaning test executable..."; $(RM) ./test/*.elf
