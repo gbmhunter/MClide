@@ -24,7 +24,6 @@
 
 // System
 #include <stdint.h>
-#include <getopt.h>		// getopt()	
 
 // User
 #include "Clide-Config.hpp"

@@ -4,8 +4,8 @@ Clide (Command Line Interface Development Environment) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2013/07/09
-- Version: v3.0.0.0
+- Last Modified: 2013/07/10
+- Version: v3.0.1.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -219,6 +219,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.0.1.0 2013/07/10 Removed reference to <getopt.h> in Clide-Rx.hpp.
 v3.0.0.0 2013/07/10 Added own getopt() function (the Clide-GetOpt class), no longer dependant on C library for it.
 v2.2.0.0 2013/07/09 Added continue if getopt_long() returned '?' character. Added Makefile command 'make clean-clide'.
 v2.1.1.0 2013/07/09 Fixed non-portable use of '%u' in snprintf() in Rx::ValidateCmd(). Fixed other non-portable uses of snprint() and added more port-specific defines in Clide-Port.h. Removed RX code from Clide::Tx class. Added double braces around initialisers for two Rx::Run() variables. Changed optint to (optint - 1) when printing option which caused '?' to be returned from getopt_long(). Added unit tests for quotes and negative numbers.
