@@ -214,6 +214,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.1.1.0 2013/07/11 Added compiler warning if no port-specific functions are defined in Clide-Port.cpp functions.
 v3.1.0.0 2013/07/11 Added Clide-IncludeJustMe.hpp, which is a single header file the user can include to use the Clide library. Added note about it to README. Replaced all Clide includes in unit test files with the single include.
 v3.0.1.0 2013/07/10 Removed reference to <getopt.h> in Clide-Rx.hpp.
 v3.0.0.0 2013/07/10 Added own getopt() function (the Clide-GetOpt class), no longer dependant on C library for it.
