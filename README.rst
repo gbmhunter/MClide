@@ -4,8 +4,8 @@ Clide (Command Line Interface Development Environment) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2013/07/11
-- Version: v3.1.0.0
+- Last Modified: 2013/07/12
+- Version: v3.1.2.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -214,6 +214,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.1.2.0 2013/07/12 Added unit tests for multiple spaces between arguments in a command (ClideTest-MultipleSpacesBetweenArguments.cpp).
 v3.1.1.0 2013/07/11 Added compiler warning if no port-specific functions are defined in Clide-Port.cpp functions.
 v3.1.0.0 2013/07/11 Added Clide-IncludeJustMe.hpp, which is a single header file the user can include to use the Clide library. Added note about it to README. Replaced all Clide includes in unit test files with the single include.
 v3.0.1.0 2013/07/10 Removed reference to <getopt.h> in Clide-Rx.hpp.
