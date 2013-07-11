@@ -4,8 +4,8 @@ Clide (Command Line Interface Development Environment) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2013/07/10
-- Version: v3.0.1.0
+- Last Modified: 2013/07/11
+- Version: v3.1.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -65,6 +65,8 @@ Supports long options (GNU extension to the POSIX.2 standard).
 Clide is not dependant on the getopt_long() function from the standard C-library,
 it has it's own version.
 
+Before writing code using Clide, you only need to include the single header file called "Clide-IncludeJustMe.hpp"\
+which is found in ./src/include/.
 
 External Dependencies
 =====================
@@ -100,27 +102,22 @@ Limitations
 Usage
 =====
 
-
-**Includes**
+In main.c add...
 
 ::
+
+	#include "./src/include/Clide-IncludeJustMe.hpp"
 
 	using namespace Clide;
 
-**Clide Objects**
-
-::
 	
 	// Create RX Clide object
-	Clide::Rx rxController;
+	Rx rxController;
 	
-**Callback Functions**
-
-::
 	
 	// Create call-back function that is automatically called when
 	// registered command is recieved
-	bool SetSpeedCmd(Clide::Cmd* cmd)
+	bool SetSpeedCmd(Cmd* cmd)
 	{
 		// Extract parameter from received command
 		float speed = atof(cmd->paramA[0]->value);
@@ -144,9 +141,7 @@ Usage
 		return true;
 	}
 	
-**Main Loop**
 
-::
 	
 	int main()
 	{
@@ -219,6 +214,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.1.0.0 2013/07/11 Added Clide-IncludeJustMe.hpp, which is a single header file the user can include to use the Clide library. Added note about it to README. Replaced all Clide includes in unit test files with the single include.
 v3.0.1.0 2013/07/10 Removed reference to <getopt.h> in Clide-Rx.hpp.
 v3.0.0.0 2013/07/10 Added own getopt() function (the Clide-GetOpt class), no longer dependant on C library for it.
 v2.2.0.0 2013/07/09 Added continue if getopt_long() returned '?' character. Added Makefile command 'make clean-clide'.
