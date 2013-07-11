@@ -18,8 +18,7 @@
 #include <stdint.h>		// int8_t, int32_t e.t.c
 #include <stdio.h>		// snprintf()
 #include <stdlib.h>		// realloc(), malloc(), free()
-#include <cctype>		// isalnum() 
-#include <getopt.h>		// getopt()	
+#include <cctype>		// isalnum()
 #include <string.h>		// strlen(), strcpy()
 
 // User includes
