@@ -2,10 +2,13 @@
 Clide (Command Line Interface Development Environment) Library
 ==============================================================
 
+.. image:: https://travis-ci.org/gbmhunter/Cpp-Clide.png?branch=master   
+	:target: https://travis-ci.org/gbmhunter/Cpp-Clide
+
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2013/07/12
-- Version: v3.1.4.0
+- Last Modified: 2013/08/25
+- Version: v3.2.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -214,6 +217,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.2.0.0 2013/08/25 Added .travis.yml file in root directory for Travis CI compatibility. Added Travis CI build status image to top of README.
 v3.1.4.0 2013/07/12 Added unit test for an empty command.
 v3.1.3.0 2013/07/12 Removed getopt() reference from Clide-MemMang.cpp.
 v3.1.2.0 2013/07/12 Added unit tests for multiple spaces between arguments in a command (ClideTest-MultipleSpacesBetweenArguments.cpp).
