@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/10/12
-- Version: v4.0.0.7
+- Version: v4.0.0.8
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -74,6 +74,8 @@ Installation
 1. Clone the git repo onto your local storage.
 
 2. Run `make all` to compile and run unit tests. Do not worry about Clide error messages being printed when unit tests are run, the unit tests are designed to specifically cause errors to test the response.
+
+3. To include clide-cpp into your embedded (or otherwise) firmware/software project, copy the repo into your project folder (or other suitable place) and include the file "Clide-IncludeJustMe.hpp" from your C++ code.
 
 
 External Dependencies
@@ -230,6 +232,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v4.0.0.8 2013/12/10 Added more installation information to the README.
 v4.0.0.7 2013/12/10 4th attempt at fixing 'External Dependencies' section in README.
 v4.0.0.6 2013/12/10 3rd attempt at fixing 'External Dependencies' section in README.
 v4.0.0.5 2013/12/10 2nd attempt at fixing 'External Dependencies' section in README.
