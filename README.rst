@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/10/12
-- Version: v4.0.0.2
+- Version: v4.0.0.3
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -18,6 +18,9 @@ Clide (Command Line Interface Development Environment) Library
 - Operating System: n/a
 - Documentation Format: Doxygen
 - License: GPLv3
+
+.. role:: bash(code)
+	:language: bash
 
 Description
 ===========
@@ -57,13 +60,13 @@ Uses dynamic memory allocation for creating commands/options/parameters e.t.c. C
 
 All text is case-sensitive. It is recommended to use lower-case only to follow the POSIX command-line style.
 
-Special support for the "help" command, and :code:`-h`, `--help` flags for every registered command. No special support other UNIX commands such as `man`, `whatis` or `info`. 'help' is a special command which can be implemented by calling RegisterHelpCmd().
+Special support for the "help" command, and :bash:`-h`, :bash:`--help` flags for every registered command. No special support other UNIX commands such as :bash:`man`, :bash:`whatis` or :bash:`info`. :bash:`help` is a special command which can be implemented by calling :code:`RegisterHelpCmd()`.
 
 Supports long options (GNU extension to the POSIX.2 standard).
 
-Clide is not dependant on the getopt_long() function from the standard C-library, it has it's own version.
+Clide is not dependant on the :code:`getopt_long()` function from the standard C-library, it has it's own version.
 
-Before writing code using Clide, you only need to include the single header file called "Clide-IncludeJustMe.hpp" which is found in ./src/include/.
+Before writing code using Clide, you only need to include the single header file called `Clide-IncludeJustMe.hpp` which is found in `./src/include/`.
 
 Installation
 ============
@@ -76,14 +79,18 @@ Run `make all` to compile and run unit tests. Do not worry about Clide error mes
 External Dependencies
 =====================
 
-- <stdio.h> 	-> snprintf()
-- <stdlib.h> 	-> realloc(), malloc(), calloc(), free()
-- <cctype>		-> isalnum()
+====================== ==================== ===================================================================
+Dependency             Delivery             Usage
+====================== ==================== ===================================================================
+:code:`<stdio.h>`      Standard C library   :code:`snprintf()`
+:code:`<stdlib.h>` 	   Standard C library   :code:`realloc()`, :code:`malloc()`, :code:`calloc()`, :code:`free()`
+:code:`<cctype>`	   Standard C library   :code:`isalnum()`
+====================== ==================== ===================================================================
 
 Packet Decoding Process (RX)
 ============================
 
-When Rx.Run() is called...
+When :code:`Rx.Run()` is called...
 
 - Remove all non-alphanumeric characters from the start of the packet
 - Split packet into separate arguments
@@ -103,7 +110,7 @@ Limitations
 
 - Maximum number of commands: 256
 - Maximum number of parameters or options per command: 256
-- Maximum string length of a command name, option name/value, parameter value: clideMAX_STRING_LENGTH
+- Maximum string length of a command name, option name/value, parameter value: :code:`clideMAX_STRING_LENGTH`
 
 Usage
 =====
@@ -221,6 +228,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v4.0.0.3 2013/12/10 Improving inline code and external dependency section in README.
 v4.0.0.2 2013/12/10 Attempt at inline code in the README.
 v4.0.0.1 2013/12/10 Updated various parts of README, and improved formatting.
 v4.0.0.0 2013/12/10 Added eclipse project files. Formatted Clide-Config.hpp. Disabled debug print macros except for errors.
