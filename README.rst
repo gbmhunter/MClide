@@ -7,8 +7,8 @@ Clide (Command Line Interface Development Environment) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2013/08/25
-- Version: v3.2.0.0
+- Last Modified: 2013/10/12
+- Version: v4.0.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -217,6 +217,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v4.0.0.0 2013/12/10 Added eclipse project files. Formatted Clide-Config.hpp. Disabled debug print macros except for errors.
 v3.2.0.0 2013/08/25 Added .travis.yml file in root directory for Travis CI compatibility. Added Travis CI build status image to top of README.
 v3.1.4.0 2013/07/12 Added unit test for an empty command.
 v3.1.3.0 2013/07/12 Removed getopt() reference from Clide-MemMang.cpp.

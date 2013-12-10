@@ -1,3 +1,12 @@
+#
+# @file 		Makefile
+# @author 		Geoffrey Hunter <gbmhunter@gmail.com> (wwww.cladlab.com)
+# @edited 		n/a
+# @date 		2013/08/29
+# @brief 		Makefile for Linux-based make, to compile ClideCpp library and run unit test code.
+# @details
+#				See README.rst
+
 # Define the compiler to use (e.g. gcc, g++)
 CC = g++
 
