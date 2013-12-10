@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/10/12
-- Version: v4.0.0.4
+- Version: v4.0.0.5
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -82,9 +82,9 @@ External Dependencies
 ====================== ==================== ======================================================================
 Dependency             Delivery             Usage
 ====================== ==================== ======================================================================
-:code:`<stdio.h>`      Standard C library   :code:`snprintf()`
-:code:`<stdlib.h>` 	   Standard C library   :code:`realloc()`, :code:`malloc()`, :code:`calloc()`, :code:`free()`
-:code:`<cctype>`	   Standard C library   :code:`isalnum()`
+<stdio.h>              Standard C library   snprintf()
+<stdlib.h> 	           Standard C library   realloc(), malloc(), calloc(), free()
+<cctype>	           Standard C library   isalnum()
 ====================== ==================== ======================================================================
 
 Packet Decoding Process (RX)
@@ -228,6 +228,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v4.0.0.5 2013/12/10 2nd attempt at fixing 'External Dependencies' section in README.
 v4.0.0.4 2013/12/10 Attempt at fixing External Dependencies section in README.
 v4.0.0.3 2013/12/10 Improving inline code and external dependency section in README.
 v4.0.0.2 2013/12/10 Attempt at inline code in the README.
