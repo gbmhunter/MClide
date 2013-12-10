@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/10/12
-- Version: v4.0.0.3
+- Version: v4.0.0.4
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -71,21 +71,21 @@ Before writing code using Clide, you only need to include the single header file
 Installation
 ============
 
-Clone the git repo onto your local storage.
+1. Clone the git repo onto your local storage.
 
-Run `make all` to compile and run unit tests. Do not worry about Clide error messages being printed when unit tests are run, the unit tests are designed to specifically cause errors to test the response.
+2. Run `make all` to compile and run unit tests. Do not worry about Clide error messages being printed when unit tests are run, the unit tests are designed to specifically cause errors to test the response.
 
 
 External Dependencies
 =====================
 
-====================== ==================== ===================================================================
+====================== ==================== ======================================================================
 Dependency             Delivery             Usage
-====================== ==================== ===================================================================
+====================== ==================== ======================================================================
 :code:`<stdio.h>`      Standard C library   :code:`snprintf()`
 :code:`<stdlib.h>` 	   Standard C library   :code:`realloc()`, :code:`malloc()`, :code:`calloc()`, :code:`free()`
 :code:`<cctype>`	   Standard C library   :code:`isalnum()`
-====================== ==================== ===================================================================
+====================== ==================== ======================================================================
 
 Packet Decoding Process (RX)
 ============================
@@ -228,6 +228,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v4.0.0.4 2013/12/10 Attempt at fixing External Dependencies section in README.
 v4.0.0.3 2013/12/10 Improving inline code and external dependency section in README.
 v4.0.0.2 2013/12/10 Attempt at inline code in the README.
 v4.0.0.1 2013/12/10 Updated various parts of README, and improved formatting.
