@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/10/12
-- Version: v4.0.0.1
+- Version: v4.0.0.2
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -57,7 +57,7 @@ Uses dynamic memory allocation for creating commands/options/parameters e.t.c. C
 
 All text is case-sensitive. It is recommended to use lower-case only to follow the POSIX command-line style.
 
-Special support for the "help" command, and `-h`, `--help` flags for every registered command. No special support other UNIX commands such as `man`, `whatis` or `info`. 'help' is a special command which can be implemented by calling RegisterHelpCmd().
+Special support for the "help" command, and :code:`-h`, `--help` flags for every registered command. No special support other UNIX commands such as `man`, `whatis` or `info`. 'help' is a special command which can be implemented by calling RegisterHelpCmd().
 
 Supports long options (GNU extension to the POSIX.2 standard).
 
@@ -221,6 +221,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v4.0.0.2 2013/12/10 Attempt at inline code in the README.
 v4.0.0.1 2013/12/10 Updated various parts of README, and improved formatting.
 v4.0.0.0 2013/12/10 Added eclipse project files. Formatted Clide-Config.hpp. Disabled debug print macros except for errors.
 v3.2.0.0 2013/08/25 Added .travis.yml file in root directory for Travis CI compatibility. Added Travis CI build status image to top of README.
