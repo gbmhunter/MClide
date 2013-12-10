@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/10/12
-- Version: v4.0.0.5
+- Version: v4.0.0.6
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -78,6 +78,8 @@ Installation
 
 External Dependencies
 =====================
+
+The following table lists all of clide-cpp's external dependencies.
 
 ====================== ==================== ======================================================================
 Dependency             Delivery             Usage
@@ -228,6 +230,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v4.0.0.6 2013/12/10 3rd attempt at fixing 'External Dependencies' section in README.
 v4.0.0.5 2013/12/10 2nd attempt at fixing 'External Dependencies' section in README.
 v4.0.0.4 2013/12/10 Attempt at fixing External Dependencies section in README.
 v4.0.0.3 2013/12/10 Improving inline code and external dependency section in README.
