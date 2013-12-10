@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/10/12
-- Version: v4.0.0.0
+- Version: v4.0.0.1
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -53,26 +53,29 @@ Another which uses long options is:
 
 	on --led1==on
 
-Uses dynamic memory allocation for creating commands/options/parameters e.t.c
-Command data is stored in a contiguous block
+Uses dynamic memory allocation for creating commands/options/parameters e.t.c. Command data is stored in a contiguous block
 
-All text is case-sensitive. It is recommended to use lower-case only to
-follow the POSIX command-line style.
+All text is case-sensitive. It is recommended to use lower-case only to follow the POSIX command-line style.
 
-Special support for the "help" command, and `-h`, `--help` flags for every registered
-command. No special support other UNIX commands such as `man`, `whatis` or `info`
-'help' is a special command which can be implemented by calling RegisterHelpCmd().
+Special support for the "help" command, and `-h`, `--help` flags for every registered command. No special support other UNIX commands such as `man`, `whatis` or `info`. 'help' is a special command which can be implemented by calling RegisterHelpCmd().
 
 Supports long options (GNU extension to the POSIX.2 standard).
 
-Clide is not dependant on the getopt_long() function from the standard C-library,
-it has it's own version.
+Clide is not dependant on the getopt_long() function from the standard C-library, it has it's own version.
 
-Before writing code using Clide, you only need to include the single header file called "Clide-IncludeJustMe.hpp"\
-which is found in ./src/include/.
+Before writing code using Clide, you only need to include the single header file called "Clide-IncludeJustMe.hpp" which is found in ./src/include/.
+
+Installation
+============
+
+Clone the git repo onto your local storage.
+
+Run `make all` to compile and run unit tests. Do not worry about Clide error messages being printed when unit tests are run, the unit tests are designed to specifically cause errors to test the response.
+
 
 External Dependencies
 =====================
+
 - <stdio.h> 	-> snprintf()
 - <stdlib.h> 	-> realloc(), malloc(), calloc(), free()
 - <cctype>		-> isalnum()
@@ -211,12 +214,14 @@ In main.c add...
 	CmdLinePrint(){ ... }
 	DebugPrint(){ ... }
 	
+
 Changelog
 =========
 
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v4.0.0.1 2013/12/10 Updated various parts of README, and improved formatting.
 v4.0.0.0 2013/12/10 Added eclipse project files. Formatted Clide-Config.hpp. Disabled debug print macros except for errors.
 v3.2.0.0 2013/08/25 Added .travis.yml file in root directory for Travis CI compatibility. Added Travis CI build status image to top of README.
 v3.1.4.0 2013/07/12 Added unit test for an empty command.
