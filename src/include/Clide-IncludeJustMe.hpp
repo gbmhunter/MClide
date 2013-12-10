@@ -1,10 +1,11 @@
 //!
-//! @file 		Clide-IncludeJustMe.hpp
-//! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @date 		2013/04/02
-//! @brief 		This header file includes all files neccessary for the user to use the Clide library.
+//! @file 			Clide-IncludeJustMe.hpp
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @created		2013/04/02
+//! @last-modified 	2013/12/10
+//! @brief 			This header file includes all files neccessary for the user to use the Clide library.
 //! @details
-//!				See README.rst in root dir for more info.
+//!				See README.rst in repo root dir for more info.
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler

@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/10/12
-- Version: v4.0.0.8
+- Version: v4.0.1.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -232,6 +232,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v4.0.1.0 2013/12/10 Added fall-back printf options to Clide-Port.hpp. Added '@created' and '@last-modified' tags to code file title blocks, removed ambiguos '@date' tag. Improved '@brief' tag descriptions.
 v4.0.0.8 2013/12/10 Added more installation information to the README.
 v4.0.0.7 2013/12/10 4th attempt at fixing 'External Dependencies' section in README.
 v4.0.0.6 2013/12/10 3rd attempt at fixing 'External Dependencies' section in README.

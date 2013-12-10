@@ -1,11 +1,11 @@
 //!
-//! @file 		Clide-Cmd.h
-//! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @date 		2013/03/19
-//! @brief 		Contains the command object, which can be registered with 
-//!				the RX or TX controller (or both).
+//! @file 			Clide-Cmd.hpp
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @created		2013/03/19
+//! @last-modified 	2013/12/10
+//! @brief 			Contains the command object, which can be registered with the RX or TX controller (or both).
 //! @details
-//!				See README.rst in root dir for more info.
+//!					See README.rst in root dir for more info.
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler

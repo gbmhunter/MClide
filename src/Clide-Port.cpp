@@ -1,10 +1,11 @@
 //!
-//! @file 		Clide-Port.c
-//! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @date 		2012/03/19
-//! @brief 		Contains port-specific skeleton functions.
+//! @file 			Clide-Port.cpp
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @created		2012/03/19
+//! @last-modified 	2013/12/10
+//! @brief 			Contains port-specific skeleton functions.
 //! @details
-//!				See README.rst in root dir for more info.
+//!				See README.rst in repo root dir for more info.
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler

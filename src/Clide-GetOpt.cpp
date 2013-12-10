@@ -1,3 +1,14 @@
+//!
+//! @file 			Clide-GetOpt.cpp
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @created		2013/03/19
+//! @last-modified 	2013/12/10
+//! @brief 			Clide's own getopt() function. It was decided not to reply on the standard C version of this as the implementation varied
+//! @details
+//!					See README.rst in repo root dir for more info.
+
+//======= ORIGINAL LICENSE =========//
+
 /* Getopt for GNU.
    NOTE: getopt is part of the C library, so if you don't know what
    "Keep this file name-space clean" means, talk to drepper@gnu.org

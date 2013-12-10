@@ -1,7 +1,8 @@
 //!
-//! @file 		Clide-Param.h
-//! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @date 		2013/04/02
+//! @file 			Clide-Param.hpp
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @created		2013/04/02
+//! @last-modified 	2013/12/10
 //! @brief 		 
 //! @details
 //!				See README.rst in root dir for more info.

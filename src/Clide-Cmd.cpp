@@ -1,10 +1,11 @@
 //!
-//! @file 		Clide-Cmd.c
-//! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @date 		2013/04/02
-//! @brief 		Command-line style communications protocol
+//! @file 			Clide-Cmd.cpp
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @created		2013/04/02
+//! @last-modified 	2013/12/10
+//! @brief 			Command-line style communications protocol
 //! @details
-//!				See README.rst in root folder.
+//!				See README.rst in repo root dir for more info.
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler

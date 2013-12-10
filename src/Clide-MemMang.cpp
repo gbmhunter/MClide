@@ -1,10 +1,11 @@
 //!
-//! @file 		Clide-MemMang.c
-//! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @date 		2013/04/02
-//! @brief 		Memory management functions for Clide.
+//! @file 			Clide-MemMang.cpp
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @created		2013/04/02
+//! @last-modified 	2013/12/10
+//! @brief 			Memory management functions for Clide.
 //! @details
-//!				See README.rst in root dir for more information.
+//!					See README.rst in repo root dir for more information.
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler

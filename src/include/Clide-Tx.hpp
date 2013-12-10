@@ -1,11 +1,11 @@
 //!
-//! @file 		Clide-Tx.h
-//! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @date 		2013/04/10
-//! @brief 		Clide TX controller. The main logic of the TX (sending)
-//!				part of Clide.
+//! @file 			Clide-Tx.hpp
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @created		2012/03/19
+//! @last-modified 	2013/12/10
+//! @brief 			Clide TX controller. The main logic of the TX (sending)	part of Clide.
 //! @details
-//!				See README.rst in root folder.
+//!					See README.rst in repo root dir for more info.
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler

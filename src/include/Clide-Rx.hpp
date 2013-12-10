@@ -1,11 +1,11 @@
 //!
-//! @file 		Clide-Rx.h
-//! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @date 		2013/03/19
-//! @brief 		Clide RX controller. The main logic of the RX (decoding)
-//!				part of Clide. Commands can be registered with the controller.
+//! @file 			Clide-Rx.hpp
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @created		2012/03/19
+//! @last-modified 	2013/12/10
+//! @brief 			Clide RX controller. The main logic of the RX (decoding) part of Clide. Commands can be registered with the controller.
 //! @details
-//!				See README.rst in root dir for more info.
+//!					See README.rst in repo root dir for more info.
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler

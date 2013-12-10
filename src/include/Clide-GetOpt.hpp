@@ -1,3 +1,14 @@
+//!
+//! @file 			Clide-GetOpt.hpp
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @created		2013/03/19
+//! @last-modified 	2013/12/10
+//! @brief 			Header file for the getopt() function.
+//! @details
+//!					See README.rst in repo root dir for more info.
+
+//======= ORIGINAL LICENSE =========//
+
 /* Declarations for getopt.
    Copyright (C) 1989-2013 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
@@ -15,6 +26,7 @@
    You should have received a copy of the GNU Lesser General Public
    License along with the GNU C Library; if not, see
    <http://www.gnu.org/licenses/>.  */
+
 #ifndef __cplusplus
 	#error Please build with C++ compiler
 #endif

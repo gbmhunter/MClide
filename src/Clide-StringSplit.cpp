@@ -1,10 +1,11 @@
 //!
-//! @file 		PowerString-Split.c
-//! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @date 		2013/04/10
-//! @brief 		Powerful string manipulation functions.
+//! @file 			Clide-StringSplit.cpp
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @created		2013/04/10
+//! @last-modified 	2013/12/10
+//! @brief 			Features a string split function which ignores delimiters inside quotation marks.
 //! @details	
-//!				See README.rst in root dir for more information.
+//!					See README.rst in repo root dir for more information.
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler

@@ -1,8 +1,9 @@
 //!
-//! @file 		Clide-Port.h
-//! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @date 		2013/03/19
-//! @brief 		Contains port-specific skeleton functions.
+//! @file 			Clide-Port.hpp
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @created		2013/03/19
+//! @last-modified 	2013/12/10
+//! @brief 			Contains port-specific skeleton functions.
 //! @details
 //!				See README.rst in root dir for more info.
 
@@ -42,6 +43,8 @@ namespace Clide
 	#else
 		#warning No platform defined. Using defaults.
 		#define ClidePort_PF_UINT32_T		u
+		#define ClidePort_PF_INT32_T		i
+		#define ClidePort_PF_CHAR_T			c
 	#endif
 		
 	//===============================================================================================//
