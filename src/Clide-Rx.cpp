@@ -20,7 +20,6 @@
 #include <stdio.h>		// snprintf()
 #include <stdlib.h>		// realloc(), malloc(), free()
 #include <cctype>		// isalnum() 
-//#include <getopt.h>		// getopt()	
 #include <cstring>		// memset()
 
 // User includes

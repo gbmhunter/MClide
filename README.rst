@@ -7,8 +7,8 @@ Clide (Command Line Interface Development Environment) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2013/10/12
-- Version: v4.0.2.0
+- Last Modified: 2013/12/16
+- Version: v4.0.3.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -232,6 +232,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v4.0.3.0 2013/12/16 Removed all remaining references to '#include <getopt.h>', as clide-cpp now has built-in `getopt()` function. Closes #78, closes #73.
 v4.0.2.0 2013/12/10 Fixed TravisCI 'build passing/failing' image link in README.
 v4.0.1.0 2013/12/10 Added fall-back printf options to Clide-Port.hpp. Added '@created' and '@last-modified' tags to code file title blocks, removed ambiguos '@date' tag. Improved '@brief' tag descriptions.
 v4.0.0.8 2013/12/10 Added more installation information to the README.

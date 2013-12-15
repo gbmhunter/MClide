@@ -19,7 +19,6 @@
 #include <stdio.h>		// snprintf()
 #include <stdlib.h>		// realloc(), malloc(), free()
 #include <cctype>		// isalnum() 
-#include <getopt.h>		// getopt()	
 #include <string.h>		// strlen()
 
 // User includes
