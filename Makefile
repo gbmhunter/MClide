@@ -35,16 +35,21 @@ TEST_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard test/*.cpp))
 TEST_LD_FLAGS := 
 TEST_CC_FLAGS := -Wall -g
 
+EXAMPLE_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard example/*.cpp))
+EXAMPLE_LD_FLAGS := 
+EXAMPLE_CC_FLAGS := -Wall -g
 
 .PHONY: depend clean
 
 # All
-all: ClideLib Test
+all: clideLib test example
 	
 	# Run unit tests:
 	@./test/ClideTest.elf
-	
-ClideLib : $(SRC_OBJ_FILES)
+
+#======== CLIDE LIB ==========	
+
+clideLib : $(SRC_OBJ_FILES)
 	# Make Clide library
 	ar r libClide.a $(SRC_OBJ_FILES)
 	
@@ -53,8 +58,10 @@ src/%.o: src/%.cpp
 	# Compiling src2
 	g++ $(SRC_CC_FLAGS) -c -o $@ $<
 	
+# ======== TEST ========
+	
 # Compiles unit test code
-Test : $(TEST_OBJ_FILES) | ClideLib UnitTestLib
+test : $(TEST_OBJ_FILES) | clideLib unitTestLib
 	# Compiling unit test code
 	g++ $(TEST_LD_FLAGS) -o ./test/ClideTest.elf $(TEST_OBJ_FILES) -L./test/UnitTest++ -lUnitTest++ -L./ -lClide
 	
@@ -62,19 +69,26 @@ Test : $(TEST_OBJ_FILES) | ClideLib UnitTestLib
 test/%.o: test/%.cpp
 	g++ $(TEST_CC_FLAGS) -c -o $@ $<
 	
-UnitTestLib:
+unitTestLib:
 	# Compile UnitTest++ library (has it's own Makefile)
 	$(MAKE) -C ./test/UnitTest++/ all
 	
-clean:
+# ===== EXAMPLE ======
+
+# Compiles example code
+example : $(EXAMPLE_OBJ_FILES) | clideLib
+	# Compiling unit test code
+	g++ $(EXAMPLE_LD_FLAGS) -o ./example/example.elf $(EXAMPLE_OBJ_FILES) -L./ -lClide
+	
+# Generic rule for test object files
+example/%.o: example/%.cpp
+	g++ $(EXAMPLE_CC_FLAGS) -c -o $@ $<
+	
+# ====== CLEANING ======
+	
+clean: clean-ut clean-clide clean-example
 	# Clean UnitTest++ library (has it's own Makefile)
 	$(MAKE) -C ./test/UnitTest++/ clean
-	
-	# Clean everything else
-	@echo " Cleaning src object files..."; $(RM) ./src/*.o
-	@echo " Cleaning Clide static library..."; $(RM) ./*.a
-	@echo " Cleaning test object files..."; $(RM) ./test/*.o
-	@echo " Cleaning test executable..."; $(RM) ./test/*.elf
 	
 clean-ut:
 	@echo " Cleaning test object files..."; $(RM) ./test/*.o
@@ -85,3 +99,7 @@ clean-clide:
 	@echo " Cleaning Clide static library..."; $(RM) ./*.a
 	@echo " Cleaning test object files..."; $(RM) ./test/*.o
 	@echo " Cleaning test executable..."; $(RM) ./test/*.elf
+	
+clean-example:
+	@echo " Cleaning example object files..."; $(RM) ./example/*.o
+	@echo " Cleaning example executable..."; $(RM) ./example/*.elf

@@ -232,6 +232,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.0.0.0 2013/12/16 Added example folder to repo, with example Clide program designed to be run from Linux terminal. Added example build commands to Makefile. Tidyed 'make clean' code by adding dependencies.
 v4.0.3.0 2013/12/16 Removed all remaining references to '#include <getopt.h>', as clide-cpp now has built-in `getopt()` function. Closes #78, closes #73.
 v4.0.2.0 2013/12/10 Fixed TravisCI 'build passing/failing' image link in README.
 v4.0.1.0 2013/12/10 Added fall-back printf options to Clide-Port.hpp. Added '@created' and '@last-modified' tags to code file title blocks, removed ambiguos '@date' tag. Improved '@brief' tag descriptions.
