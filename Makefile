@@ -86,7 +86,7 @@ example/%.o: example/%.cpp
 	
 # ====== CLEANING ======
 	
-clean: clean-ut clean-clide clean-example
+clean: clean-ut clean-clide
 	# Clean UnitTest++ library (has it's own Makefile)
 	$(MAKE) -C ./test/UnitTest++/ clean
 	
@@ -99,7 +99,7 @@ clean-clide:
 	@echo " Cleaning Clide static library..."; $(RM) ./*.a
 	@echo " Cleaning test object files..."; $(RM) ./test/*.o
 	@echo " Cleaning test executable..."; $(RM) ./test/*.elf
-	
-clean-example:
 	@echo " Cleaning example object files..."; $(RM) ./example/*.o
 	@echo " Cleaning example executable..."; $(RM) ./example/*.elf
+
+	

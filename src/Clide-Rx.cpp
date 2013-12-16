@@ -405,8 +405,14 @@ namespace Clide
 					// Special help case
 					if(foundOption->shortName == 'h')
 					{
+						#if(clideDEBUG_PRINT_VERBOSE == 1)
+							Port::DebugPrint("CLIDE: Help option detected. Printing help...\r\n");
+						#endif
+
+						// Print help
 						this->PrintHelpForCmd(foundCmd);
-						// No further processing required, exit
+
+						// Help is a special option. Once it is discovered in the command, no further processing is done, so exit
 						return true;
 						
 					}
@@ -869,11 +875,13 @@ namespace Clide
 		#if(clideDEBUG_PRINT_GENERAL == 1)	
 			Port::DebugPrint("CLIDE: Printing help for command.\r\n");
 		#endif
-		
-		Port::CmdLinePrint("COMMAND HELP:\r\r");
+
+		Port::CmdLinePrint("\r\n**********COMMAND HELP:**********\r\n");
 		
 		// CMD NAME AND DESCRIPTION
 		
+		// Tabbing in
+		Port::CmdLinePrint("\t");
 		Port::CmdLinePrint(cmd->name);
 		// Add tab character
 		Port::CmdLinePrint("\t- ");
@@ -881,21 +889,24 @@ namespace Clide
 		Port::CmdLinePrint(cmd->description);
 		// \r is enough for PuTTy to format onto a newline also
 		// (adding \n causes it to add two new lines)
-		Port::CmdLinePrint("\r\r");
+		Port::CmdLinePrint("\r\n");
 		
 		// CMD PARAMETERS
 		
-		Port::CmdLinePrint("Command Parameters:\r");
+		Port::CmdLinePrint("Command Parameters:\r\n");
 		
+
 		// Special case if there are no parameters to list
 		if(cmd->numParams == 0)
 		{
 			Port::CmdLinePrint("\t");
 			Port::CmdLinePrint("NO PARAMS");
-			Port::CmdLinePrint("\r");
+			Port::CmdLinePrint("\r\n");
 		}
 		else
 		{
+			// Print top table row 'header'
+			Port::CmdLinePrint("\tindex\tdescription\r\n");
 			// Iterate through cmd array and print commands
 			uint32_t x;
 			for(x = 0; x < cmd->numParams; x++)
@@ -909,41 +920,52 @@ namespace Clide
 					x);
 				Port::CmdLinePrint(tempBuff);
 				// Add tab character
-				Port::CmdLinePrint("\t- ");
+				Port::CmdLinePrint("\t");
 				// Print description
 				Port::CmdLinePrint(cmd->paramA[x]->description);
 				// \r is enough for PuTTy to format onto a newline also
 				// (adding \n causes it to add two new lines)
-				Port::CmdLinePrint("\r");
+				Port::CmdLinePrint("\r\n");
 			}
 		}
 		
 		// CMD OPTIONS
 		
-		Port::CmdLinePrint("Command Options:\r");
+		Port::CmdLinePrint("Command Options:\r\n");
 		
 		// Special case if there are no parameters to list
 		if(cmd->numOptions == 0)
 		{
 			Port::CmdLinePrint("\t");
 			Port::CmdLinePrint("NO OPTIONS");
-			Port::CmdLinePrint("\r");
+			Port::CmdLinePrint("\r\n");
 		}
 		else
 		{
+			// Print top table row 'header'
+			Port::CmdLinePrint("\tshort\tlong\tdescription\r\n");
+
 			// Iterate through cmd array and print commands
 			uint32_t x;
 			for(x = 0; x < cmd->numOptions; x++)
 			{
+				// Print short option
+				Port::CmdLinePrint("\t");
+				char tempShortOption[2];
+				tempShortOption[0] = cmd->optionA[x]->shortName;
+				tempShortOption[1] = '\0';
+				Port::CmdLinePrint(tempShortOption);
+
+				// Print long option
 				Port::CmdLinePrint("\t");
 				Port::CmdLinePrint(cmd->optionA[x]->longName);
 				// Add tab character
-				Port::CmdLinePrint("\t- ");
+				Port::CmdLinePrint("\t");
 				// Print description
 				Port::CmdLinePrint(cmd->optionA[x]->description);
 				// \r is enough for PuTTy to format onto a newline also
 				// (adding \n causes it to add two new lines)
-				Port::CmdLinePrint("\r");
+				Port::CmdLinePrint("\r\n");
 			}
 		}
 		

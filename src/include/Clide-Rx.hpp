@@ -2,7 +2,7 @@
 //! @file 			Clide-Rx.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2012/03/19
-//! @last-modified 	2013/12/10
+//! @last-modified 	2013/12/16
 //! @brief 			Clide RX controller. The main logic of the RX (decoding) part of Clide. Commands can be registered with the controller.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -74,7 +74,7 @@ namespace Clide
 			//! @warning	Make sure command was previously registered with R!
 			void RemoveCmd(Cmd* cmd);
 
-			//! @brief		Runs the algorithm. Call this with the recieved command msg.
+			//! @brief		Runs the algorithm. Call this with the received command msg (array of characters). In a Linux environment, cmdMsg could be equal to a read line of cin.
 			//! @param		cmdMsg	The message to process.
 			bool Run(char* cmdMsg);
 
@@ -96,7 +96,7 @@ namespace Clide
 			//! @details	Incremented everytime RegisterCmd() is called
 			uint8_t numCmds;
 			
-			//! @brief		Determines whether help commands are automatically availiable
+			//! @brief		Determines whether help commands are automatically available
 			//! @details	Defaults to TRUE
 			bool helpEnabled;
 			

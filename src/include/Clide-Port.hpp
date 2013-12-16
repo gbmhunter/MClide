@@ -78,7 +78,7 @@ namespace Clide
 			//! @public
 			static void DebugPrint(const char* msg);
 
-			//! @brief		Prints messages to the command-line.
+			//! @brief		Prints messages to the command-line. Port specific.
 			static void CmdLinePrint(const char* msg);
 	};
 

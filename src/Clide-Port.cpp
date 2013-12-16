@@ -44,7 +44,7 @@ namespace Clide
 	//======================================= PUBLIC METHODS ========================================//
 	//===============================================================================================//
 
-	//! @brief 		The function to call to print debug information.
+	//! @brief 		The function to call to print debug information. The level of debug information is determined by the macros in Clide-Config.hpp.
 	//! @details	Used by many Clide classes.
 	//! @warning	Port specific
 	void Port::DebugPrint(const char* msg) 
@@ -60,7 +60,7 @@ namespace Clide
 
 	//! @brief 		The function to call to print to the command-line.
 	//! @details	Used primarily by Clide::Tx, but also by Clide::Rx for printing
-	//!				status messages back to the user.
+	//!				status messages and help requests back to the user.
 	//! @warning	Port specific
 	void Port::CmdLinePrint(const char* msg)
 	{

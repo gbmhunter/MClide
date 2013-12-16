@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/12/16
-- Version: v4.0.3.0
+- Version: v5.1.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -232,6 +232,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.1.0.0 2013/12/16 Tidyed up the help command text that is printed when the '-h' or '--help' options are used, especially so it looks nice in a Linux terminal.
 v5.0.0.0 2013/12/16 Added example folder to repo, with example Clide program designed to be run from Linux terminal. Added example build commands to Makefile. Tidyed 'make clean' code by adding dependencies.
 v4.0.3.0 2013/12/16 Removed all remaining references to '#include <getopt.h>', as clide-cpp now has built-in `getopt()` function. Closes #78, closes #73.
 v4.0.2.0 2013/12/10 Fixed TravisCI 'build passing/failing' image link in README.

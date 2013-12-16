@@ -2,7 +2,7 @@
 //! @file 			Clide-Option.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2013/12/10
+//! @last-modified 	2013/12/16
 //! @brief 		 	The option class enables used of 'optional' parameters in the command-line interface.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -120,7 +120,8 @@ namespace Clide
 			//! @note		This is cleared whenever the command is received again by the RX controller.
 			bool isDetected;
 			
-			//! @brief		Set to true if option has an associated value. Default is false.
+			//! @brief		Set to true if option has an associated value.
+			//! @details	An option without an associated value follows the syntax "-s" while an option with an associated value follows the syntax "-s 20". Default value is false.
 			bool associatedValue;
 			
 			//! @brief		Passed into getopt_long() so that it can be set if the function
@@ -131,14 +132,14 @@ namespace Clide
 			
 		private:
 		
+			//! @brief		All constructors end up calling this function.
 			void Init(
 				const char shortName,
 				const char* longName,
 				bool (*callBackFunc)(char *optionVal),
 				const char* description,
 				bool associatedValue);
-				
-			
+
 	};
 
 	//===============================================================================================//

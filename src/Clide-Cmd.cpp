@@ -49,7 +49,7 @@ namespace Clide
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
 			// Description too long, do not save it
-			Port::DebugPrint("CLIDE: Cmd constructor called.\r\n");
+			Port::DebugPrint("CLIDE: Cmd constructor called1.\r\n");
 		#endif
 		
 		// INITIALISATION
@@ -102,14 +102,21 @@ namespace Clide
 		this->callBackFunc = callBackFunc;
 		
 		#if(clide_ENABLE_AUTO_HELP == 1)
+			#if(clideDEBUG_PRINT_VERBOSE == 1)
+				Port::DebugPrint("CLIDE: Registering help option.\r\n");
+			#endif
 			// HELP OPTION
-			Option* help = new Option("h", NULL, "Prints help for the command.");
+			Option* help = new Option('h', "help", NULL, "Prints help for the command.", false);
 			this->RegisterOption(help);
 		#endif
 		
 		// DETECTED FLAG
 		this->isDetected = false;
 		
+		#if(clideDEBUG_PRINT_VERBOSE == 1)
+			// Description too long, do not save it
+			Port::DebugPrint("CLIDE: Cmd constructor finished.\r\n");
+		#endif
 	}
 
 	Cmd::~Cmd()
@@ -119,7 +126,7 @@ namespace Clide
 			Port::DebugPrint("CLIDE: Cmd destructor called.\r\n");
 		#endif
 		
-		// Free up memory
+		// Free up parameter and option memory
 		free(paramA);
 		free(optionA);
 	}
