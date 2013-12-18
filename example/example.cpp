@@ -63,12 +63,14 @@ int main()
 	// Register command
 	rxController.RegisterCmd(&cmdEx2);
 	
-	//while(1)
-	//{
+	while(1)
+	{
 		char inputMsg[30];
+
 		cin.get(inputMsg, 30);
-		//cout << inputMsg;
+		cin.ignore();
+
 		// Run rx controller
 		rxController.Run(inputMsg);
-	//}
+	}
 }

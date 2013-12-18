@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/12/19
-- Version: v5.4.1.0
+- Version: v5.4.2.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -259,6 +259,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.4.2.0 2013/12/19 Fixed issue with example code not being able to loop indefinetly by adding 'cin.ignore()' after 'cin.get()'. Now use Ctrl-C to exit.
 v5.4.1.0 2013/12/19 Replaced all references to 'test' in the /example/ folder code to 'example'. Added second example command. Split description section of README into smaller sub-sections. Removed the helpEnabled variable, as this was not being used (help is enabled with the macro '#clide_ENABLE_AUTO_HELP' instead).
 v5.4.0.0 2013/12/19 Added automatic dependency generation for clideLib in Makefile. Fixed incorrect comment text in Makefile. Removed unused function 'Rx::RegisterHelpCommand()'. Fixed issue with example code not being recompiled with Clide library changes by removing pipe in Makefile recipe.
 v5.3.0.0 2013/12/18 Removed unused 'Rx::Init()' function. Added '\n's onto the end of '\r's that were by themselves. Initialised Rx::helpEnabled to true in constructor. Added 'Clide::Comm' class which will serve as a base class for both 'Clide::Tx' and 'Clide::Rx'. Added 'help' command functionality, which is automatically added to Clide::Rx if the macro '#clide_ENABLE_AUTO_HELP' is set to 1.
