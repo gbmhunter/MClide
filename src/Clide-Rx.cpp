@@ -31,8 +31,10 @@
 #include "./include/Clide-Option.hpp"
 #include "./include/Clide-Cmd.hpp"
 #include "./include/Clide-Port.hpp"
+#include "./include/Clide-Comm.hpp"			//!< So the help command can call the HelpCmdCallback() function
 #include "./include/Clide-Rx.hpp"
 #include "./include/Clide-GetOpt.hpp"
+
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -41,27 +43,29 @@
 namespace Clide
 {
 
+
 	using namespace std;
 
 	//===============================================================================================//
 	//====================================== PUBLIC METHODS ========================================//
 	//===============================================================================================//
 
+	Cmd cmdTest("help", &HelpCmdCallback, "Returns information about all registered commands.");
+
 	// Constructor
 	Rx::Rx()
 	{
-		this->numCmds = 0;
-		this->cmdA = NULL;
+		// Initialise class variables
 		
 		#if(clideDEBUG_PRINT_ERROR == 1)
 			// Enable getopt() to print error messages
 			GetOpt::opterr = 1;
 		#endif
-	}
 
-	void Rx::Init()
-	{
-		//ResetArgsPointer();  
+		// Create help function if enabled
+		#if(clide_ENABLE_AUTO_HELP == 1)
+			this->RegisterCmd(&cmdTest);
+		#endif
 	}
 
 	bool Rx::Run(char* cmdMsg)
@@ -571,12 +575,16 @@ namespace Clide
 		return true;
 	}
 
-
 	void Rx::RegisterCmd(Cmd* cmd)
 	{
+		// Save this Rx object as the parent object for this command. This is used
+		// for the automatically added help command.
+		cmd->parentComm = this;
+
 		// Add new pointer to cmd object at end of array
 		cmdA = (Cmd**)MemMang::AppendNewArrayElement(cmdA, numCmds, sizeof(Cmd*));
 		
+		// Increment command count
 		numCmds++;
 		
 		// Store pointer to cmd in array of pointers (Cmd**)
@@ -594,36 +602,9 @@ namespace Clide
 		numCmds--;
 	}
 
-	// Prints out the help info
-	void Rx::PrintHelp()
-	{
-		#if(clideDEBUG_PRINT_GENERAL == 1)	
-			Port::DebugPrint("CLIDE: Print help function called.");
-		#endif
-		
-		// Title
-		Port::CmdLinePrint("List of commands:\r\n");
-		
-		// Iterate through cmd array and print commands
-		uint32_t x;
-		for(x = 0; x < numCmds; x++)
-		{
-			Port::CmdLinePrint(cmdA[x]->name);
-			// Add tab character
-			Port::CmdLinePrint("\t- ");
-			// Print description
-			Port::CmdLinePrint(cmdA[x]->description);
-			// \r is enough for PuTTy to format onto a newline also
-			// (adding \n causes it to add two new lines)
-			Port::CmdLinePrint("\r");
-		}
-	}
-
-
 	//===============================================================================================//
 	//==================================== PRIVATE FUNCTIONS ========================================//
 	//===============================================================================================//
-
 
 	int Rx::SplitPacket(char* packet, char(*args)[clideMAX_STRING_LENGTH])
 	{

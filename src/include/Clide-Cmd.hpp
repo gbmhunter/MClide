@@ -2,7 +2,7 @@
 //! @file 			Clide-Cmd.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/03/19
-//! @last-modified 	2013/12/10
+//! @last-modified 	2013/12/18
 //! @brief 			Contains the command object, which can be registered with the RX or TX controller (or both).
 //! @details
 //!					See README.rst in root dir for more info.
@@ -18,6 +18,12 @@
 #ifndef CLIDE_CMD_H
 #define CLIDE_CMD_H
 
+// Added this to prevent circular references
+namespace Clide
+{
+	class Cmd;
+}
+
 //===============================================================================================//
 //========================================== INCLUDES ===========================================//
 //===============================================================================================//
@@ -26,6 +32,7 @@
 #include "Clide-Config.hpp"
 #include "Clide-Param.hpp"
 #include "Clide-Option.hpp"
+#include "Clide-Comm.hpp"    //!< Used for save a reference to the parent comm object in each cmd object.
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -112,6 +119,10 @@ namespace Clide
 			//! @note		This flag is reset for ALL commands every time Rx.Run() is called.
 			bool isDetected;
 			
+			//! @brief		The parent Comm object that this command is registered to. Could either be a
+			//!				Tx or Rx object.
+			Comm* parentComm;
+
 		private:
 		
 			// none

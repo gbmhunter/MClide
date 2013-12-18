@@ -113,6 +113,12 @@ namespace Clide
 		// DETECTED FLAG
 		this->isDetected = false;
 		
+		// PARENT COMM OBJECT
+
+		// Set to null, this gets assigned when the command is registered.
+		// Will be either set to a Clide::Tx or Clide::Rx object
+		Comm* parentComm = NULL;
+
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			// Description too long, do not save it
 			Port::DebugPrint("CLIDE: Cmd constructor finished.\r\n");

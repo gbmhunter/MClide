@@ -32,6 +32,7 @@
 #include "Clide-Cmd.hpp"
 #include "Clide-Port.hpp"
 #include "Clide-GetOpt.hpp"
+#include "Clide-Comm.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -40,8 +41,8 @@
 namespace Clide
 {
 	//! @brief		Class deals with receiving of command-line strings and the decoding/processing of them.
-	//1 @details	This is one of the most important objects in the Clide library.
-	class Rx
+	//! @details	This is one of the most important objects in the Clide library. Inherits from the Comm class.
+	class Rx : public Comm
 	{
 	
 		public:
@@ -59,10 +60,6 @@ namespace Clide
 			
 			//! @brief		Prints help information.
 			void PrintHelp();
-			
-			//! @brief		Initialises the Clide library for use.
-			//! @warning	Call before using any other Clide function.
-			void Init();
 			
 			//! @brief		Register a command with Clide. 
 			//! @warning	Command must persist in memory while Rx object is used.
@@ -83,24 +80,13 @@ namespace Clide
 			//!				help information about the registered commands to the 
 			//!				command-line.
 			void RegisterHelpCmd();
+
+		private:
 			
 			//===============================================================================================//
 			//================================== PUBLIC VARIABLES/STRUCTURES ================================//
 			//===============================================================================================//
 			
-			//! @brief		Points to an array of pointers to registered commands
-			//! @details	This is updated everytime RegisterCmd() is called
-			Cmd **cmdA;
-
-			//! @brief		The number of registered commands
-			//! @details	Incremented everytime RegisterCmd() is called
-			uint8_t numCmds;
-			
-			//! @brief		Determines whether help commands are automatically available
-			//! @details	Defaults to TRUE
-			bool helpEnabled;
-			
-		private:
 			//! @brief		Validates command.
 			//! @details	Makes sure cmd is in the registered command list
 			Cmd* ValidateCmd(char* cmdName, Cmd** cmdA, uint8_t numCmds);
