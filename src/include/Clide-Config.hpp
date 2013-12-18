@@ -2,7 +2,7 @@
 //! @file 			Clide-Config.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2013/12/10
+//! @last-modified 	2013/12/18
 //! @brief 			Configuration file for Clide.
 //! @details
 //!				See README.rst in repo root dir for more info.

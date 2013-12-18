@@ -67,10 +67,6 @@ namespace Clide
 			//! @details	Incremented everytime RegisterCmd() is called
 			uint8_t numCmds;
 
-			//! @brief		Determines whether help commands are automatically available
-			//! @details	Defaults to TRUE
-			bool helpEnabled;
-
 		//===============================================================================================//
 		//==================================== PRIVATE FUNCTIONS ========================================//
 		//===============================================================================================//

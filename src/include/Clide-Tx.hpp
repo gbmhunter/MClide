@@ -84,11 +84,6 @@ namespace Clide
 			//! @details	Incremented everytime RegisterCmd() is called
 			uint8_t numCmds;
 			
-			//! @brief		Determines whether help commands are automatically availiable
-			//! @details	Defaults to TRUE
-			//! @public
-			bool helpEnabled;
-			
 		private:		
 			void PrintHelpForCmd(Cmd* cmd);
 	};

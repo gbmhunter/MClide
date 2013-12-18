@@ -1,8 +1,9 @@
 //!
-//! @file 		example.cpp
-//! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @date 		2013/07/04
-//! @brief 		Example clide program, designed to be run on Linux.
+//! @file 			example.cpp
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @created 		2013/07/04
+//! @last-modified 	2013/12/19
+//! @brief 			Example Clide program, designed to be run on Linux.
 //! @details
 //!				See README.rst in root dir for more info.
 
@@ -24,36 +25,50 @@ int main()
 {
 	Rx rxController;
 			
+	//============ EXAMPLE COMMAND 1 ===============//
+
 	// Create command
-	Cmd cmdTest("test", &Callback, "A test command.");
+	Cmd cmdEx1("ex1", &Callback, "Example command 1.");
+
+	// Create parameters
+	Param cmdEx1Param1("Example parameter 1.");
+	cmdEx1.RegisterParam(&cmdEx1Param1);
+
+	Param cmdEx1Param2("Example parameter 2.");
+	cmdEx1.RegisterParam(&cmdEx1Param2);
+
+	// Create option
+	Option cmdEx1Option1('a', NULL, "Example option 1");
+	cmdEx1.RegisterOption(&cmdEx1Option1);
+
+	Option cmdEx1Option2('b', NULL, "Example option 2.");
+	cmdEx1.RegisterOption(&cmdEx1Option2);
+
+	// Register command
+	rxController.RegisterCmd(&cmdEx1);
+
+	//============ EXAMPLE COMMAND 2 ===============//
+
+	// Create command
+	Cmd cmdEx2("ex2", &Callback, "Example command 2.");
 			
 	// Create parameters
-	Param cmdTestParam1("Test parameter 1.");
-	cmdTest.RegisterParam(&cmdTestParam1);
-	
-	Param cmdTestParam2("Test parameter 2.");
-	cmdTest.RegisterParam(&cmdTestParam2);
+	Param cmdEx2Param1("Example parameter 1.");
+	cmdEx2.RegisterParam(&cmdEx2Param1);
 	
 	// Create option
-	Option cmdTestOption1('a', NULL, "Test option 1");
-	cmdTest.RegisterOption(&cmdTestOption1);
-	
-	Option cmdTestOption2('b', NULL, "Test option 2.");
-	cmdTest.RegisterOption(&cmdTestOption2);
+	Option cmdEx2Option1('a', NULL, "Example option 1");
+	cmdEx2.RegisterOption(&cmdEx2Option1);
 	
 	// Register command
-	rxController.RegisterCmd(&cmdTest);
+	rxController.RegisterCmd(&cmdEx2);
 	
-	// Enable help
-	rxController.helpEnabled = true;
-	
-
-	char inputMsg[30];
-	cin.get(inputMsg, 30);
-	//cout << inputMsg;
-	// Run rx controller
-	rxController.Run(inputMsg);
-	
-
-	
+	//while(1)
+	//{
+		char inputMsg[30];
+		cin.get(inputMsg, 30);
+		//cout << inputMsg;
+		// Run rx controller
+		rxController.Run(inputMsg);
+	//}
 }

@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/12/19
-- Version: v5.4.0.0
+- Version: v5.4.1.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -34,10 +34,12 @@ and the other one (Cs-Clide) written in C# for running on a PC.
 
 Uses a both human readable and computer readable format (POSIX.2 command-line style, with
 GNU extensions) for easy implementation and debugging. 
-Automatically generates UNIX-style help text
-which is useful if system is being controlled by a human (see below).
+
 
 Useful for working with and controlling embedded systems.
+
+Standard UNIX Style Commands (and long options)
+-----------------------------------------------
 
 An example message takes the format of
 
@@ -55,18 +57,36 @@ Another which uses long options is:
 ::
 
 	on --led1==on
-
-Uses dynamic memory allocation for creating commands/options/parameters e.t.c. Command data is stored in a contiguous block
-
+	
 All text is case-sensitive. It is recommended to use lower-case only to follow the POSIX command-line style.
-
-Special support for the "help" command, and :bash:`-h`, :bash:`--help` flags for every registered command. No special support other UNIX commands such as :bash:`man`, :bash:`whatis` or :bash:`info`. :bash:`help` is a special command which can be implemented by calling :code:`RegisterHelpCmd()`.
 
 Supports long options (GNU extension to the POSIX.2 standard).
 
+Powerful
+--------
+
+Uses dynamic memory allocation for creating commands/options/parameters e.t.c. Command data is stored in a contiguous block
+
+Portable
+--------
+
+Clide can be used with ease on both Linux and embedded systems.
+
+Clide does not use RTTI (e.g. :code:`dynamic_cast()`), allowing it to be used on a larger range of embedded systems.
+
 Clide is not dependant on the :code:`getopt_long()` function from the standard C-library, it has it's own version.
 
+Easy Including
+--------------
+
 Before writing code using Clide, you only need to include the single header file called `Clide-IncludeJustMe.hpp` which is found in `./src/include/`.
+
+Automatic Help Generation
+-------------------------
+
+Automatic support for the "help" command, and :bash:`-h`, :bash:`--help` flags for every other registered command. Help descriptions are saved as member variables of the respective command/option/parameter objects. No special support other UNIX commands such as :bash:`man`, :bash:`whatis` or :bash:`info`. 
+
+To enable automatic help generation, just set the macro :code:`clide_ENABLE_AUTO_HELP` to 1 in :code:`Clide-Config.hpp`.
 
 Advanced Terminal Text Formatting
 ---------------------------------
@@ -239,6 +259,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.4.1.0 2013/12/19 Replaced all references to 'test' in the /example/ folder code to 'example'. Added second example command. Split description section of README into smaller sub-sections. Removed the helpEnabled variable, as this was not being used (help is enabled with the macro '#clide_ENABLE_AUTO_HELP' instead).
 v5.4.0.0 2013/12/19 Added automatic dependency generation for clideLib in Makefile. Fixed incorrect comment text in Makefile. Removed unused function 'Rx::RegisterHelpCommand()'. Fixed issue with example code not being recompiled with Clide library changes by removing pipe in Makefile recipe.
 v5.3.0.0 2013/12/18 Removed unused 'Rx::Init()' function. Added '\n's onto the end of '\r's that were by themselves. Initialised Rx::helpEnabled to true in constructor. Added 'Clide::Comm' class which will serve as a base class for both 'Clide::Tx' and 'Clide::Rx'. Added 'help' command functionality, which is automatically added to Clide::Rx if the macro '#clide_ENABLE_AUTO_HELP' is set to 1.
 v5.2.2.0 2013/12/18 Changed advanced text formatting macro name. Added info about advanced text formatting to README.

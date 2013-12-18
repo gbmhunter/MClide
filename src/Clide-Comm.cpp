@@ -61,8 +61,6 @@ namespace Clide
 		// Initialise class variables
 		this->numCmds = 0;
 		this->cmdA = NULL;
-		this->helpEnabled = true;
-
 	}
 
 	// Prints out the help info
