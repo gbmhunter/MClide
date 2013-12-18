@@ -74,18 +74,25 @@ namespace Clide
 		
 		// Title
 		Port::CmdLinePrint("List of commands:\r\n");
-		char debug[2];
-		debug[0] = numCmds;
-		debug[1] = '\0';
-		Port::CmdLinePrint(debug);
+
+		#if(clide_ENABLE_ADV_TEXT_FORMATTING)
+			Port::CmdLinePrint(clide_TABLE_HEADER_ROW_COLOUR_CODE);
+		#endif
+
+		Port::CmdLinePrint("\tcmd\tdescription\r\n");
+
+		#if(clide_ENABLE_ADV_TEXT_FORMATTING)
+			Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_NORMAL);
+		#endif
 
 		// Iterate through cmd array and print commands
 		uint32_t x;
 		for(x = 0; x < numCmds; x++)
 		{
+			Port::CmdLinePrint("\t");
 			Port::CmdLinePrint(cmdA[x]->name);
 			// Add tab character
-			Port::CmdLinePrint("\t- ");
+			Port::CmdLinePrint("\t");
 			// Print description
 			Port::CmdLinePrint(cmdA[x]->description);
 			// \r is enough for PuTTy to format onto a newline also

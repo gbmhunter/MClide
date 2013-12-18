@@ -75,12 +75,6 @@ namespace Clide
 			//! @param		cmdMsg	The message to process.
 			bool Run(char* cmdMsg);
 
-			//! @brief		Registers the help command.
-			//! @details	This is an automatically generated command which prints
-			//!				help information about the registered commands to the 
-			//!				command-line.
-			void RegisterHelpCmd();
-
 		private:
 			
 			//===============================================================================================//

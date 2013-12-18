@@ -55,8 +55,16 @@ clideLib : $(SRC_OBJ_FILES)
 	
 # Generic rule for src object files
 src/%.o: src/%.cpp
-	# Compiling src2
-	g++ $(SRC_CC_FLAGS) -c -o $@ $<
+	# Compiling src/ files
+	$(COMPILE.c) -MD -o $@ $<
+	@cp $*.d $*.P; \
+	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
+		-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \
+		rm -f $*.d
+	# g++ $(SRC_CC_FLAGS) -c -o $@ $<
+
+-include $(SRC_OBJ_FILES:.o=.d)
+	
 	
 # ======== TEST ========
 	
@@ -76,8 +84,8 @@ unitTestLib:
 # ===== EXAMPLE ======
 
 # Compiles example code
-example : $(EXAMPLE_OBJ_FILES) | clideLib
-	# Compiling unit test code
+example : $(EXAMPLE_OBJ_FILES) clideLib
+	# Compiling example code
 	g++ $(EXAMPLE_LD_FLAGS) -o ./example/example.elf $(EXAMPLE_OBJ_FILES) -L./ -lClide
 	
 # Generic rule for test object files
@@ -96,6 +104,7 @@ clean-ut:
 	
 clean-clide:
 	@echo " Cleaning src object files..."; $(RM) ./src/*.o
+	@echo " Cleaning src dependency files..."; $(RM) ./src/*.d
 	@echo " Cleaning Clide static library..."; $(RM) ./*.a
 	@echo " Cleaning test object files..."; $(RM) ./test/*.o
 	@echo " Cleaning test executable..."; $(RM) ./test/*.elf

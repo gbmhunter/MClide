@@ -629,7 +629,6 @@ namespace Clide
 		return argCount;
 	}
 
-
 	Cmd* Rx::ValidateCmd(char* cmdName, Cmd** cmdA, uint8_t numCmds)
 	{
 		uint8_t x = 0;
@@ -892,7 +891,7 @@ namespace Clide
 			#endif
 			Port::CmdLinePrint("\tindex\tdescription\r\n");
 			#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-				Port::CmdLinePrint("\x1B[0m");
+				Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_NORMAL);
 			#endif
 			// Iterate through cmd array and print commands
 			uint32_t x;
