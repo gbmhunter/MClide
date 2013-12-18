@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/12/18
-- Version: v5.2.1.0
+- Version: v5.2.2.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -67,6 +67,13 @@ Supports long options (GNU extension to the POSIX.2 standard).
 Clide is not dependant on the :code:`getopt_long()` function from the standard C-library, it has it's own version.
 
 Before writing code using Clide, you only need to include the single header file called `Clide-IncludeJustMe.hpp` which is found in `./src/include/`.
+
+Advanced Terminal Text Formatting
+---------------------------------
+
+clide-cpp supports advanced terminal text formatting (e.g. coloured, bold, underlined or italized text) by way of the `ASCII escape codes <http://en.wikipedia.org/wiki/ANSI_escape_code>`_. These codes are supported by many popular shells. They have been tested and confirmed to work with the bash shell.
+
+To enable advanced text formatting, set the :code:`clide_ENABLE_ADV_TEXT_FORMATTING` macro in Clide-Config.hpp to 1. There are other macros in this file to control the colours.
 
 Installation
 ============
@@ -232,6 +239,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.2.2.0 2013/12/18 Changed advanced text formatting macro name. Added info about advanced text formatting to README.
 v5.2.1.0 2013/12/18 Defined text colours as macros in 'Clide-Config.hpp'. Changed header row colour from gold to yellow.
 v5.2.0.0 2013/12/16 Added support for coloured text output if the terminal allows it. Set clide_ENABLE_TEXT_FORMATTING to 1 in Clide-Config.hpp to enable this feature.
 v5.1.0.0 2013/12/16 Tidyed up the help command text that is printed when the '-h' or '--help' options are used, especially so it looks nice in a Linux terminal.
