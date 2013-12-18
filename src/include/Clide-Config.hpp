@@ -66,7 +66,8 @@ namespace Clide
 	#define clide_ENABLE_ADV_TEXT_FORMATTING		(1)
 
 	#if clide_ENABLE_ADV_TEXT_FORMATTING == 1
-		#define clide_TERM_TEXT_FORMAT_NORMAL 	("\x1B[0m")		//!< Returns text to normal formatting.
+		#define clide_TERM_TEXT_FORMAT_NORMAL 	"\x1B[0m"		//!< Returns text to normal formatting.
+		#define clide_TERM_TEXT_FORMAT_BOLD 	"\x1B[1m"		//!< Bold text.
 		#define clide_TERM_COLOUR_YELLOW 		("\x1B[33;1m")	//!< Yellow text.
 
 		//! @brief		Defines the colour to be used for the header rows of help information.

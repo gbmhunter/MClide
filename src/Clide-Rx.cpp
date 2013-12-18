@@ -156,7 +156,20 @@ namespace Clide
 		// Check for registered command
 		if(foundCmd == NULL)
 		{
-			Port::CmdLinePrint("error \"Command not recognised.\"\r\n");
+			// Received command is not registered (aka invalid/unrecognised)
+			#if(clide_ENABLE_AUTO_HELP == 1)
+				// Help exists, so tell user that they could type help to get a list of availiable commands.
+				#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
+					// Special formatting
+					Port::CmdLinePrint("error \"Command not recognised. Type " clide_TERM_TEXT_FORMAT_BOLD "help" clide_TERM_TEXT_FORMAT_NORMAL " to see a list of all the commands.\"\r\n");
+				#else
+					// No special formatting
+					Port::CmdLinePrint("error \"Command not recognised. Type help to see a list of all the commands.\"\r\n");
+				#endif
+			#else
+				// No automatic help, so don't tell the user about something that doesn't exist
+				Port::CmdLinePrint("error \"Command not recognised.\"\r\n");
+			#endif
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
 				Port::DebugPrint("CLIDE: Rx::Run() finished. Returning false.\r\n");
 			#endif
@@ -862,9 +875,17 @@ namespace Clide
 		
 		// Tabbing in
 		Port::CmdLinePrint("\t");
-		Port::CmdLinePrint(cmd->name);
+		#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
+			Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_BOLD);
+			Port::CmdLinePrint(cmd->name);
+			Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_NORMAL);
+		#else
+			// No advanced text formatting
+			Port::CmdLinePrint(cmd->name);
+		#endif
+
 		// Add tab character
-		Port::CmdLinePrint("\t- ");
+		Port::CmdLinePrint("\t");
 		// Print description
 		Port::CmdLinePrint(cmd->description);
 		// \r is enough for PuTTy to format onto a newline also

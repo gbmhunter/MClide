@@ -71,10 +71,11 @@ namespace Clide
 		#endif
 		
 		// Title
-		Port::CmdLinePrint("List of commands:\r\n");
+		Port::CmdLinePrint("**********LIST OF COMMANDS***********\r\n");
 
 		#if(clide_ENABLE_ADV_TEXT_FORMATTING)
 			Port::CmdLinePrint(clide_TABLE_HEADER_ROW_COLOUR_CODE);
+			Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_BOLD);
 		#endif
 
 		Port::CmdLinePrint("\tcmd\tdescription\r\n");
@@ -88,7 +89,15 @@ namespace Clide
 		for(x = 0; x < numCmds; x++)
 		{
 			Port::CmdLinePrint("\t");
-			Port::CmdLinePrint(cmdA[x]->name);
+			#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
+				Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_BOLD);
+				Port::CmdLinePrint(cmdA[x]->name);
+				Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_NORMAL);
+			#else
+				// No special formatting
+				Port::CmdLinePrint(cmdA[x]->name);
+			#endif
+
 			// Add tab character
 			Port::CmdLinePrint("\t");
 			// Print description
