@@ -60,6 +60,19 @@ namespace Clide
 	//! @brief		The size of the debug buffer.
 	//! @details	All writes use snprintf() so should be safe if too small.
 	#define clide_DEBUG_BUFF_SIZE				(200)
+
+	//! @brief		Set to 1 to enable advanced output text formatting using special ASCII codes.
+	//! @details	Tested with the bash shell.
+	#define clide_ENABLE_TEXT_FORMATTING		(1)
+
+	#if clide_ENABLE_TEXT_FORMATTING == 1
+		#define clide_TERM_TEXT_FORMAT_NORMAL 	("\x1B[0m")		//!< Returns text to normal formatting.
+		#define clide_TERM_COLOUR_YELLOW 		("\x1B[33;1m")	//!< Yellow text.
+
+		//! @brief		Defines the colour to be used for the header rows of help information.
+		//! @details	Use one of the colour macros above. Only applicable if #clide_ENABLE_TEXT_FORMATTING is 1.
+		#define clide_TABLE_HEADER_ROW_COLOUR_CODE clide_TERM_COLOUR_YELLOW
+	#endif
 		
 } // namespace Clide
 

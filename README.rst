@@ -7,8 +7,8 @@ Clide (Command Line Interface Development Environment) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2013/12/16
-- Version: v5.1.0.0
+- Last Modified: 2013/12/18
+- Version: v5.2.1.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -232,6 +232,8 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.2.1.0 2013/12/18 Defined text colours as macros in 'Clide-Config.hpp'. Changed header row colour from gold to yellow.
+v5.2.0.0 2013/12/16 Added support for coloured text output if the terminal allows it. Set clide_ENABLE_TEXT_FORMATTING to 1 in Clide-Config.hpp to enable this feature.
 v5.1.0.0 2013/12/16 Tidyed up the help command text that is printed when the '-h' or '--help' options are used, especially so it looks nice in a Linux terminal.
 v5.0.0.0 2013/12/16 Added example folder to repo, with example Clide program designed to be run from Linux terminal. Added example build commands to Makefile. Tidyed 'make clean' code by adding dependencies.
 v4.0.3.0 2013/12/16 Removed all remaining references to '#include <getopt.h>', as clide-cpp now has built-in `getopt()` function. Closes #78, closes #73.

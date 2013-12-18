@@ -906,7 +906,13 @@ namespace Clide
 		else
 		{
 			// Print top table row 'header'
+			#if(clide_ENABLE_TEXT_FORMATTING)
+				Port::CmdLinePrint(clide_TABLE_HEADER_ROW_COLOUR_CODE);
+			#endif
 			Port::CmdLinePrint("\tindex\tdescription\r\n");
+			#if(clide_ENABLE_TEXT_FORMATTING)
+				Port::CmdLinePrint("\x1B[0m");
+			#endif
 			// Iterate through cmd array and print commands
 			uint32_t x;
 			for(x = 0; x < cmd->numParams; x++)
@@ -943,7 +949,15 @@ namespace Clide
 		else
 		{
 			// Print top table row 'header'
+			#if(clide_ENABLE_TEXT_FORMATTING)
+				// gold = Port::CmdLinePrint("\x1B[33m");
+				// Yellow
+				Port::CmdLinePrint(clide_TABLE_HEADER_ROW_COLOUR_CODE);
+			#endif
 			Port::CmdLinePrint("\tshort\tlong\tdescription\r\n");
+			#if(clide_ENABLE_TEXT_FORMATTING)
+				Port::CmdLinePrint("\x1B[0m");
+			#endif
 
 			// Iterate through cmd array and print commands
 			uint32_t x;
