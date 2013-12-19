@@ -57,19 +57,6 @@ namespace Clide
 			//===============================================================================================//
 			//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
 			//===============================================================================================//
-			
-			//! @brief		Prints help information.
-			void PrintHelp();
-			
-			//! @brief		Register a command with Clide. 
-			//! @warning	Command must persist in memory while Rx object is used.
-			void RegisterCmd(Cmd* cmd);
-
-			//! @brief		Removes a previously registered command.
-			//! @details	Uses free().
-			//! @param		cmd		The command to de-register.
-			//! @warning	Make sure command was previously registered with R!
-			void RemoveCmd(Cmd* cmd);
 
 			//! @brief		Runs the algorithm. Call this with the received command msg (array of characters). In a Linux environment, cmdMsg could be equal to a read line of cin.
 			//! @param		cmdMsg	The message to process.
@@ -95,9 +82,6 @@ namespace Clide
 			//! @brief		Builds the short option string for the getopt_long() function from the list
 			//!				of the registered commands.
 			void BuildShortOptionString(char* optionString, Cmd* cmd);
-			
-			//! @brief		Prints help for the given command.
-			void PrintHelpForCmd(Cmd* cmd);
 			
 			//! @brief		Builds the structure of long options that is required by getopt_long().
 			void BuildLongOptionStruct(GetOpt::option* longOptStructA, Cmd* cmd);

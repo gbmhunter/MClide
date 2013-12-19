@@ -2,7 +2,7 @@
 //! @file 			Clide-Tx.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2012/03/19
-//! @last-modified 	2013/12/10
+//! @last-modified 	2013/12/19
 //! @brief 			Clide TX controller. The main logic of the TX (sending)	part of Clide.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -39,7 +39,9 @@
 namespace Clide
 {
 
-	class Tx
+	//! @brief		This class is used for transmitting commands. Commands can be registered with Clide::Tx in the same way they can be for Clide::Rx.
+	//! @details	So far nothing has been implemented for Clide::Tx, as it is usually easier just to hand-type the command to send.
+	class Tx : public Comm
 	{
 		
 		public:
@@ -55,37 +57,15 @@ namespace Clide
 			//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
 			//===============================================================================================//
 			
-			//! @brief		Prints help information.
-			//! @private
-			void PrintHelp();
-			
-			void RegisterCmd(Cmd* cmd);		
-
-			//! @brief		Removes a previously registered command
-			//! @details	Uses free()
-			//! @public
-			void RemoveCmd(Cmd* cmd);
-
-			//! @brief		Registers the help command.
-			//! @details	This is an automatically generated command which prints
-			//!				help information about the registered commands to the 
-			//!				command-line.
-			void RegisterHelpCmd();
+			// none
 			
 			//===============================================================================================//
 			//================================== PUBLIC VARIABLES/STRUCTURES ================================//
 			//===============================================================================================//
 			
-			//! @brief		Points to an array of registered commands
-			//! @details	This is updated everytime RegisterCmd() is called
-			Cmd **cmdA;
+		private:
 
-			//! @brief		The number of registered commands
-			//! @details	Incremented everytime RegisterCmd() is called
-			uint8_t numCmds;
-			
-		private:		
-			void PrintHelpForCmd(Cmd* cmd);
+			// none
 	};
 
 } // namespace Clide

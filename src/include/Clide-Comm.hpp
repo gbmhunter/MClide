@@ -2,8 +2,8 @@
 //! @file 			Clide-Comm.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/12/18
-//! @last-modified 	2013/12/18
-//! @brief
+//! @last-modified 	2013/12/19
+//! @brief			The base communications class. This is extended by both Clide::Tx and Clide::Rx which are the classes manipulated by the user.
 //! @details
 //!					See README.rst in repo root dir for more info.
 
@@ -43,9 +43,11 @@ namespace Clide
 
 	using namespace std;
 
-
+	//! @brief		Callback function for help command.
+	//! @details	This does not belong to a class, so that it can be passed as a generic callback function, just like any other command.
 	bool HelpCmdCallback(Cmd *cmd);
 
+	//! @brief The base communications class. This is extended by both Clide::Tx and Clide::Rx which are the classes manipulated by the user.
 	class Comm
 	{
 		public:
@@ -53,11 +55,23 @@ namespace Clide
 			//====================================== PUBLIC METHODS ========================================//
 			//===============================================================================================//
 
-			// Constructor
+			//! @brief 		Constructor
 			Comm();
 
-			// Prints out the help info
+			//! @brief 		Prints out the help info.
 			void PrintHelp();
+
+			void PrintHelpForCmd(Cmd* cmd);
+
+			//! @brief		Register a command with Clide.
+			//! @warning	Command must persist in memory while Rx object is used.
+			void RegisterCmd(Cmd* cmd);
+
+			//! @brief		Removes a previously registered command.
+			//! @details	Uses free().
+			//! @param		cmd		The command to de-register.
+			//! @warning	Make sure command was previously registered with R!
+			void RemoveCmd(Cmd* cmd);
 
 			//! @brief		Points to an array of pointers to registered commands
 			//! @details	This is updated everytime RegisterCmd() is called

@@ -2,7 +2,7 @@
 //! @file 			Clide-Rx.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2012/03/19
-//! @last-modified 	2013/12/10
+//! @last-modified 	2013/12/19
 //! @brief 			Clide RX controller. The main logic of the RX (decoding) part of Clide. Commands can be registered with the controller.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -588,33 +588,6 @@ namespace Clide
 		return true;
 	}
 
-	void Rx::RegisterCmd(Cmd* cmd)
-	{
-		// Save this Rx object as the parent object for this command. This is used
-		// for the automatically added help command.
-		cmd->parentComm = this;
-
-		// Add new pointer to cmd object at end of array
-		cmdA = (Cmd**)MemMang::AppendNewArrayElement(cmdA, numCmds, sizeof(Cmd*));
-		
-		// Increment command count
-		numCmds++;
-		
-		// Store pointer to cmd in array of pointers (Cmd**)
-		cmdA[numCmds - 1] = cmd;
-		
-	}
-
-	void Rx::RemoveCmd(Cmd* cmd)
-	{
-		// Remove description
-		free(cmd->description);
-		// Remove command from memory
-		free(cmd);
-		// Decrement command count
-		numCmds--;
-	}
-
 	//===============================================================================================//
 	//==================================== PRIVATE FUNCTIONS ========================================//
 	//===============================================================================================//
@@ -861,129 +834,6 @@ namespace Clide
 			Port::DebugPrint("CLIDE: Finished building long option structure.\r\n");
 		#endif
 	
-	}
-
-	void Rx::PrintHelpForCmd(Cmd* cmd)
-	{
-		#if(clideDEBUG_PRINT_GENERAL == 1)	
-			Port::DebugPrint("CLIDE: Printing help for command.\r\n");
-		#endif
-
-		Port::CmdLinePrint("\r\n**********COMMAND HELP:**********\r\n");
-		
-		// CMD NAME AND DESCRIPTION
-		
-		// Tabbing in
-		Port::CmdLinePrint("\t");
-		#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
-			Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_BOLD);
-			Port::CmdLinePrint(cmd->name);
-			Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_NORMAL);
-		#else
-			// No advanced text formatting
-			Port::CmdLinePrint(cmd->name);
-		#endif
-
-		// Add tab character
-		Port::CmdLinePrint("\t");
-		// Print description
-		Port::CmdLinePrint(cmd->description);
-		// \r is enough for PuTTy to format onto a newline also
-		// (adding \n causes it to add two new lines)
-		Port::CmdLinePrint("\r\n");
-		
-		// CMD PARAMETERS
-		
-		Port::CmdLinePrint("Command Parameters:\r\n");
-		
-
-		// Special case if there are no parameters to list
-		if(cmd->numParams == 0)
-		{
-			Port::CmdLinePrint("\t");
-			Port::CmdLinePrint("NO PARAMS");
-			Port::CmdLinePrint("\r\n");
-		}
-		else
-		{
-			// Print top table row 'header'
-			#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-				Port::CmdLinePrint(clide_TABLE_HEADER_ROW_COLOUR_CODE);
-			#endif
-			Port::CmdLinePrint("\tindex\tdescription\r\n");
-			#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-				Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_NORMAL);
-			#endif
-			// Iterate through cmd array and print commands
-			uint32_t x;
-			for(x = 0; x < cmd->numParams; x++)
-			{
-				Port::CmdLinePrint("\t");
-				char tempBuff[50];
-				snprintf(
-					tempBuff,
-					sizeof(tempBuff),
-					"%" STR(ClidePort_PF_UINT32_T),
-					x);
-				Port::CmdLinePrint(tempBuff);
-				// Add tab character
-				Port::CmdLinePrint("\t");
-				// Print description
-				Port::CmdLinePrint(cmd->paramA[x]->description);
-				// \r is enough for PuTTy to format onto a newline also
-				// (adding \n causes it to add two new lines)
-				Port::CmdLinePrint("\r\n");
-			}
-		}
-		
-		// CMD OPTIONS
-		
-		Port::CmdLinePrint("Command Options:\r\n");
-		
-		// Special case if there are no parameters to list
-		if(cmd->numOptions == 0)
-		{
-			Port::CmdLinePrint("\t");
-			Port::CmdLinePrint("NO OPTIONS");
-			Port::CmdLinePrint("\r\n");
-		}
-		else
-		{
-			// Print top table row 'header'
-			#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-				// gold = Port::CmdLinePrint("\x1B[33m");
-				// Yellow
-				Port::CmdLinePrint(clide_TABLE_HEADER_ROW_COLOUR_CODE);
-			#endif
-			Port::CmdLinePrint("\tshort\tlong\tdescription\r\n");
-			#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-				Port::CmdLinePrint("\x1B[0m");
-			#endif
-
-			// Iterate through cmd array and print commands
-			uint32_t x;
-			for(x = 0; x < cmd->numOptions; x++)
-			{
-				// Print short option
-				Port::CmdLinePrint("\t");
-				char tempShortOption[2];
-				tempShortOption[0] = cmd->optionA[x]->shortName;
-				tempShortOption[1] = '\0';
-				Port::CmdLinePrint(tempShortOption);
-
-				// Print long option
-				Port::CmdLinePrint("\t");
-				Port::CmdLinePrint(cmd->optionA[x]->longName);
-				// Add tab character
-				Port::CmdLinePrint("\t");
-				// Print description
-				Port::CmdLinePrint(cmd->optionA[x]->description);
-				// \r is enough for PuTTy to format onto a newline also
-				// (adding \n causes it to add two new lines)
-				Port::CmdLinePrint("\r\n");
-			}
-		}
-		
 	}
 
 } // namespace Clide

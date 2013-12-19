@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2013/12/19
-- Version: v5.4.4.0
+- Version: v5.4.5.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -67,6 +67,15 @@ Powerful
 
 Uses dynamic memory allocation for creating commands/options/parameters e.t.c. Command data is stored in a contiguous block
 
+Negative Number And Spaces-In-Parameter Support
+-----------------------------------------------
+
+There will be a time when you need to be able to use negative numbers. Unfortunately, it just happens that the negative sign is usually used to signify an option (e.g. -r). Clide supports negative numbers, along with spaces-within-parameters, by adding the ability to enclose a parameter/option in quotes. Inside the quotes, and special characters are just treated as normal characters, allowing you to do things like:
+
+:code:`set "-123"`
+
+which will treat -123 as a single parameter, not the options 1, 2, 3. 
+
 Portable
 --------
 
@@ -79,7 +88,14 @@ Clide is not dependant on the :code:`getopt_long()` function from the standard C
 Easy Including
 --------------
 
-Before writing code using Clide, you only need to include the single header file called `Clide-IncludeJustMe.hpp` which is found in `./src/include/`.
+Before writing code using Clide as a library, you only need to include the single header file called :code:`Clide-IncludeJustMe.hpp` which is found in :code:`./src/include/`.
+
+Easy To Experiment With
+-----------------------
+
+Clide comes with a Makefle with automatic dependcy tracking and example code which is automatically built on running the command :code:`make` from the root directory of the repo.
+
+Once compiled, this example code can be run by typing :code:`example/example.elf`.
 
 Automatic Help Generation
 -------------------------
@@ -94,6 +110,19 @@ Advanced Terminal Text Formatting
 clide-cpp supports advanced terminal text formatting (e.g. coloured, bold, underlined or italized text) by way of the `ASCII escape codes <http://en.wikipedia.org/wiki/ANSI_escape_code>`_. These codes are supported by many popular shells. They have been tested and confirmed to work with the bash shell.
 
 To enable advanced text formatting, set the :code:`clide_ENABLE_ADV_TEXT_FORMATTING` macro in Clide-Config.hpp to 1. There are other macros in this file to control the colours.
+
+Included Unit Tests
+-------------------
+
+Clide used the UnitTest++ library to perform unit testing. They are located under :code:`test/`. The UnitTest++ library is included with this repo.
+
+The unit tests check for:
+- Empty commands are handled safely
+- Short and long options work correctly
+- Parameters work correclty
+- Multiple spaces between arguments are o.k.
+- Spastic input is handled safely
+- Negative numbers are supported wth quotes
 
 Installation
 ============
@@ -259,6 +288,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.4.5.0 2013/12/19 Made Clide::Tx inherit from Clide::Comm (as Clide::Rx does), and removed unecessary functions from Clide::Tx. Moved many duplicate Tx/Rx functions/variables into the Clide::Comm class. Added info about negative number, spaces support and easy experimenting in the README.
 v5.4.4.0 2013/12/19 Made commands printed in help text bold if advanced formatting is enabled.
 v5.4.3.0 2013/12/19 Added prompt to user about tryping 'help' if they enter an invalid command, if automatic help is enabled. Modified formatting of help text.
 v5.4.2.0 2013/12/19 Fixed issue with example code not being able to loop indefinetly by adding 'cin.ignore()' after 'cin.get()'. Now use Ctrl-C to exit.

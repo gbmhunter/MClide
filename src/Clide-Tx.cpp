@@ -73,54 +73,7 @@ namespace Clide
 	// Constructor
 	Tx::Tx()
 	{
-		this->numCmds = 0;
-		this->cmdA = NULL;
-	}
-
-	void Tx::RegisterCmd(Cmd* cmd)
-	{
-		// Add new pointer to cmd object at end of array
-		cmdA = (Cmd**)MemMang::AppendNewArrayElement(cmdA, numCmds, sizeof(Cmd*));
-		
-		numCmds++;
-		
-		// Store pointer to cmd in array of pointers (Cmd**)
-		cmdA[numCmds - 1] = cmd;		
-	}
-
-	void Tx::RemoveCmd(Cmd* cmd)
-	{
-		// Remove description
-		free(cmd->description);
-		// Remove command from memory
-		free(cmd);
-		// Decrement command count
-		numCmds--;
-	}
-
-	// Prints out the help info
-	void Tx::PrintHelp()
-	{
-		#if(clideDEBUG_PRINT_GENERAL == 1)	
-			Port::DebugPrint("CLIDE: Print help function called.");
-		#endif
-		
-		// Title
-		Port::CmdLinePrint("List of commands:\r\n");
-		
-		// Iterate through cmd array and print commands
-		uint32_t x;
-		for(x = 0; x < numCmds; x++)
-		{
-			Port::CmdLinePrint(cmdA[x]->name);
-			// Add tab character
-			Port::CmdLinePrint("\t- ");
-			// Print description
-			Port::CmdLinePrint(cmdA[x]->description);
-			// \r is enough for PuTTy to format onto a newline also
-			// (adding \n causes it to add two new lines)
-			Port::CmdLinePrint("\r");
-		}
+		// Nothing to initialise, all done in Clide::Comm (base class) initialiser.
 	}
 
 	//===============================================================================================//
