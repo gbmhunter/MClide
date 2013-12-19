@@ -102,10 +102,10 @@ namespace Clide
 		
 			//! @brief		The long name of the option. Optional, but at least 1 of shortName or longName must ne non-null.
 			//! @details	Optional, but at least 1 of shortName or longName must ne non-null.
-			char* longName;
+			const char* longName;
 			
 			//! @brief		Description of an option. Used with the "-h", "--help" flags.
-			char* description;
+			const char* description;
 			
 			//! @brief		The value of the option. Assigned to when receiving commands.
 			//! @todo		Change so that dynamically allocated

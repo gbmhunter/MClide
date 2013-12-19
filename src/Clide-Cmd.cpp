@@ -70,7 +70,10 @@ namespace Clide
 		if(descLen <= clideMAX_NAME_LENGTH)
 		{
 			// Create memory for description and store
-			this->name = (char*)MemMang::MallocString(name);
+			//this->name = (char*)MemMang::MallocString(name);
+
+			// Don't need to allocate memory, just take note of pointer
+			this->name = (char*)name;
 		}
 		else
 		{
@@ -88,7 +91,8 @@ namespace Clide
 		if(descLen <= clideMAX_DESCRIPTION_LENGTH)
 		{
 			// Create memory for description and store
-			this->description = MemMang::MallocString(description);
+			//this->description = MemMang::MallocString(description);
+			this->description = (char*)description;
 		}
 		else
 		{
@@ -117,7 +121,7 @@ namespace Clide
 
 		// Set to null, this gets assigned when the command is registered.
 		// Will be either set to a Clide::Tx or Clide::Rx object
-		Comm* parentComm = NULL;
+		this->parentComm = NULL;
 
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			// Description too long, do not save it

@@ -106,8 +106,8 @@ namespace Clide
 		#endif
 		
 		// Free memory
-		free(this->longName);
-		free(this->description);
+		//free(this->longName);
+		//free(this->description);
 	}
 	
 	//===============================================================================================//
@@ -165,17 +165,21 @@ namespace Clide
 		
 		// Create memory for long name and store
 		if(longName != NULL)
-			this->longName = MemMang::MallocString(longName);
+		{
+			//this->longName = MemMang::MallocString(longName);
+			this->longName = longName;
+		}
 		else
 			this->longName = NULL;
 		
 		// DECRIPTION
-		
-		
-		
+
 		// Create memory for description and store
 		if(description != NULL)
-			this->description = MemMang::MallocString(description);
+		{
+			//this->description = MemMang::MallocString(description);
+			this->description = description;
+		}
 		else
 			description = NULL;
 		

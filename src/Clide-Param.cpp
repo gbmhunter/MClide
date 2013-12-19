@@ -59,7 +59,7 @@ namespace Clide
 		#endif
 		
 		// Deallocate memory
-		free(this->description);
+		//free(this->description);
 	}
 
 	//===============================================================================================//

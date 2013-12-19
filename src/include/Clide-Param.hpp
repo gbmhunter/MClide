@@ -63,7 +63,7 @@ namespace Clide
 			//===============================================================================================//
 			
 			//! @brief		Description of a parameter. Used with the "-h", "--help" flags.
-			char* description;
+			const char* description;
 			
 			//! @brief		String value of parameter. 
 			//! @note		Parameters have no names

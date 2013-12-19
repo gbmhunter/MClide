@@ -70,7 +70,7 @@ namespace Clide
 			//! @brief		Removes a previously registered command.
 			//! @details	Uses free().
 			//! @param		cmd		The command to de-register.
-			//! @warning	Make sure command was previously registered with R!
+			//! @warning	Make sure command was previously registered with Clide::Rx
 			void RemoveCmd(Cmd* cmd);
 
 			//! @brief		Points to an array of pointers to registered commands
