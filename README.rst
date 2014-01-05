@@ -7,8 +7,8 @@ Clide (Command Line Interface Development Environment) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2013/12/20
-- Version: v5.4.6.0
+- Last Modified: 2014/01/06
+- Version: v5.4.7.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -295,6 +295,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.4.7.0 2014/01/06 Removed calls to 'getenv()' from 'Clide-GetOpt.cpp', as this does not make sense in an embedded environment. Change 'UartDebug()' call to 'UartComms()' in PSoC port functions in 'Clide-Port.cpp'.
 v5.4.6.0 2013/12/20 Added FAQ section to README. Fixed issue with 'parentComm' variable in Cmd constructor. Got rid of memory allocation for string literals (in cmd, param and option classes), as we can just take a pointer to the string literal which will remain in memory for the duration of the program anyway. /test/ directory now visible in eclipse project.
 v5.4.5.0 2013/12/19 Made Clide::Tx inherit from Clide::Comm (as Clide::Rx does), and removed unecessary functions from Clide::Tx. Moved many duplicate Tx/Rx functions/variables into the Clide::Comm class. Added info about negative number, spaces support and easy experimenting in the README.
 v5.4.4.0 2013/12/19 Made commands printed in help text bold if advanced formatting is enabled.

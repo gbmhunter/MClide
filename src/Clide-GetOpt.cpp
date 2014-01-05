@@ -1,11 +1,11 @@
 //!
-//! @file 			Clide-GetOpt.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @created		2013/03/19
-//! @last-modified 	2013/12/10
-//! @brief 			Clide's own getopt() function. It was decided not to reply on the standard C version of this as the implementation varied
+//! @file 				Clide-GetOpt.cpp
+//! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @created			2013/03/19
+//! @last-modified 	2014/01/06
+//! @brief 				Clide's own getopt() function. It was decided not to reply on the standard C version of this as the implementation varied between "standard" C libraries.
 //! @details
-//!					See README.rst in repo root dir for more info.
+//!						See README.rst in repo root dir for more info.
 
 //======= ORIGINAL LICENSE =========//
 
@@ -110,12 +110,14 @@ namespace Clide
 
 	#ifndef __GNU_LIBRARY__
 
-	/* Avoid depending on library functions or files
-	   whose names are inconsistent.  */
+	// Avoid depending on library functions or files
+	// whose names are inconsistent.
 
+	/* Commented out by gbmhunter 2014/01/06, as getenv() doesn't make sense in an embedded environment
 	#ifndef getenv
 	extern char *getenv ();
 	#endif
+	*/
 
 	#endif /* not __GNU_LIBRARY__ */
 
@@ -185,7 +187,7 @@ namespace Clide
 		d->__last_nonopt = d->optind;
 	}
 
-	/* Initialize the internal data when the first call is made.  */
+	// Initialize the internal data when the first call is made.
 
 	const char* GetOpt::_getopt_initialize(
 		int argc,
@@ -194,17 +196,19 @@ namespace Clide
 		_getopt_data *d,
 		int posixly_correct)
 	{
-		/* Start processing options with ARGV-element 1 (since ARGV-element 0
-		is the program name); the sequence of previously skipped
-		non-option ARGV-elements is empty.  */
+		// Start processing options with ARGV-element 1 (since ARGV-element 0
+		// is the program name); the sequence of previously skipped
+		// non-option ARGV-elements is empty.
 
 		d->__first_nonopt = d->__last_nonopt = d->optind;
 
 		d->__nextchar = NULL;
 
-		d->__posixly_correct = posixly_correct | !!getenv ("POSIXLY_CORRECT");
+		// Old, deleted by gbmhunter 2014/01/06, getenv() doesn't make sense in an embedded environment
+		// d->__posixly_correct = posixly_correct | !!getenv ("POSIXLY_CORRECT");
+		d->__posixly_correct = posixly_correct;
 
-		/* Determine how to handle the ordering of options and nonoptions.  */
+		// Determine how to handle the ordering of options and non-options.
 
 		if (optstring[0] == '-')
 		{
