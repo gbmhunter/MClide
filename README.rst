@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/01/07
-- Version: v6.0.0.0
+- Version: v6.0.1.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -97,12 +97,23 @@ Clide comes with a Makefle with automatic dependcy tracking and example code whi
 
 Once compiled, this example code can be run by typing :code:`example/example.elf`.
 
-Automatic Help Generation
--------------------------
+Automatic Help Generation With Command Grouping
+-----------------------------------------------
 
 Automatic support for the "help" command, and :bash:`-h`, :bash:`--help` flags for every other registered command. Help descriptions are saved as member variables of the respective command/option/parameter objects. No special support other UNIX commands such as :bash:`man`, :bash:`whatis` or :bash:`info`. 
 
 To enable automatic help generation, just set the macro :code:`clide_ENABLE_AUTO_HELP` to 1 in :code:`Clide-Config.hpp`.
+
+Sometimes, you do not wish to display all available commands to the user. clide-cpp supports command group, in where you can assign each command to specific groups. The help command supports a "-g groupName" option, which will only print help for commands registered in that group.
+
+E.g.
+
+:bash:`help -g user` will print all user commands
+:bash:`help -g dev` will print all developer commands
+
+and
+
+:bash:`help` (with no group option) will print all the commands in the default group (which is assignable through :bash:`Rx.defaultCmdGroup`). 
 
 Advanced Terminal Text Formatting
 ---------------------------------
@@ -110,6 +121,7 @@ Advanced Terminal Text Formatting
 clide-cpp supports advanced terminal text formatting (e.g. coloured, bold, underlined or italized text) by way of the `ASCII escape codes <http://en.wikipedia.org/wiki/ANSI_escape_code>`_. These codes are supported by many popular shells. They have been tested and confirmed to work with the bash shell.
 
 To enable advanced text formatting, set the :code:`clide_ENABLE_ADV_TEXT_FORMATTING` macro in Clide-Config.hpp to 1. There are other macros in this file to control the colours.
+
 
 Included Unit Tests
 -------------------
@@ -295,6 +307,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v6.0.1.0 2013/01/07 Added support for a default command group, closes #84. Added command group info to the README, closes #85. Added filter info to help text (e.g. which group is being displayed). Added units tests for help commands in new 'ClideTest-Help.cpp', closes #86.
 v6.0.0.0 2013/01/07 Added the idea of 'command groups'. Commands can be assigned groups that they belong to, which will then enable you to print specialised help for particular groups (e.g. 'help -g user' only prints help for user commands). New 'CmdGroup' object in 'Clide-CmdGroups.hpp/.cpp'. Basic help group functionality added, although needs tidying up and added support for a default group if none provided.
 v5.4.7.0 2014/01/06 Removed calls to 'getenv()' from 'Clide-GetOpt.cpp', as this does not make sense in an embedded environment. Change 'UartDebug()' call to 'UartComms()' in PSoC port functions in 'Clide-Port.cpp'.
 v5.4.6.0 2013/12/20 Added FAQ section to README. Fixed issue with 'parentComm' variable in Cmd constructor. Got rid of memory allocation for string literals (in cmd, param and option classes), as we can just take a pointer to the string literal which will remain in memory for the duration of the program anyway. /test/ directory now visible in eclipse project.

@@ -66,6 +66,13 @@ namespace Clide
 		this->numCmds = 0;
 		this->cmdA = NULL;
 
+		// Create a CmdGroup object that all commands will belong to
+		this->cmdGroupAll = new CmdGroup("all", "All commands belong to this group.");
+
+		// Default command group points to "all", so that if this is not reassigned, when "help"
+		// is called, all commands will be printed.
+		this->defaultCmdGroup = this->cmdGroupAll;
+
 		#if(clideDEBUG_PRINT_GENERAL == 1)
 			Port::DebugPrint("CLIDE: Comm constructor finished.\r\n");
 		#endif
@@ -76,6 +83,9 @@ namespace Clide
 		// Save this Rx object as the parent object for this command. This is used
 		// for the automatically added help command.
 		cmd->parentComm = this;
+
+		// Add "all" command group to this command
+		cmd->AddToGroup(this->cmdGroupAll);
 
 		// Add new pointer to cmd object at end of array
 		cmdA = (Cmd**)MemMang::AppendNewArrayElement(cmdA, numCmds, sizeof(Cmd*));
@@ -105,41 +115,25 @@ namespace Clide
 			Port::DebugPrint("CLIDE: Print help function called.\r\n");
 		#endif
 
-		if(cmd->optionA == NULL)
-		{
-			Port::DebugPrint("CLIDE: ERROR. optionA[1] is NULL.\r\n");
-			return;
-		}
+		//========== FIND SELECTED GROUP ==========//
 
-		printf("Number of options = %u", cmd->numOptions);
-		Port::DebugPrint("TEST.\r\n");
-
-		if(cmd->optionA[0] == NULL)
-		{
-			Port::DebugPrint("CLIDE: ERROR. optionA[1] is NULL.\r\n");
-			return;
-		}
+		// Points to the selected group
+		const char* selectedGroup;
 
 		if(cmd->optionA[1]->isDetected == true)
+			// Group option has been provided with help command (help -g groupName)
+			selectedGroup = cmd->optionA[1]->value;
+		else
 		{
-			#if(clideDEBUG_PRINT_GENERAL == 1)
-				Port::DebugPrint("CLIDE: Group option detected.");
-			#endif
-
-			if(strcmp(cmd->optionA[1]->value, "dev") == 0)
-			{
-				#if(clideDEBUG_PRINT_GENERAL == 1)
-					Port::DebugPrint("CLIDE: dev value detected.");
-				#endif
-			}
-
+			// Default group if none provided (help)
+			selectedGroup = this->defaultCmdGroup->name;
 		}
 
-		//Port::DebugPrint(cmd->optionA[1]->value);
-
-
 		// Title
-		Port::CmdLinePrint("**********LIST OF COMMANDS***********\r\n");
+		Port::CmdLinePrint("********** LIST OF COMMANDS ***********\r\n");
+		Port::CmdLinePrint("Filter: in group " clide_TERM_TEXT_FORMAT_BOLD);
+		Port::CmdLinePrint(selectedGroup);
+		Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_NORMAL "\r\n");
 
 		#if(clide_ENABLE_ADV_TEXT_FORMATTING)
 			Port::CmdLinePrint(clide_TABLE_HEADER_ROW_COLOUR_CODE);
@@ -152,15 +146,6 @@ namespace Clide
 			Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_NORMAL);
 		#endif
 
-		// Points to the selected group
-		const char* selectedGroup;
-
-		if(cmd->optionA[1]->isDetected == true)
-			// Group option has been provided with help command (help -g groupName)
-			selectedGroup = cmd->optionA[1]->value;
-		else
-			// Default group if none provided (help)
-			selectedGroup = "user";
 
 		// Iterate through cmd array and print commands, if they belong to the current command group
 		uint32_t x;
@@ -171,7 +156,7 @@ namespace Clide
 			for(y = 0; y < cmdA[x]->numCmdGroups; y++)
 			{
 				// Check command belongs to requested group
-				if(strcmp(selectedGroup, cmdA[x]->cmdGroupA[0]->name) == 0)
+				if(strcmp(selectedGroup, cmdA[x]->cmdGroupA[y]->name) == 0)
 				{
 
 					Port::CmdLinePrint("\t");
@@ -191,6 +176,9 @@ namespace Clide
 					// \r is enough for PuTTy to format onto a newline also
 					// (adding \n causes it to add two new lines)
 					Port::CmdLinePrint("\r\n");
+
+					// Quit this for loop, as command has already been printed, don't want to print again
+					break;
 				}
 			}
 		}

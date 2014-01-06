@@ -27,10 +27,9 @@ bool Callback(Cmd *cmd)
 
 int main()
 {
+	// Create a receiver engine
 	Rx rxController;
 
-
-			
 	//============ EXAMPLE COMMAND 1 ===============//
 
 	// Create command
@@ -75,6 +74,29 @@ int main()
 	// Register command
 	rxController.RegisterCmd(&cmdEx2);
 	
+	//============ EXAMPLE COMMAND 3 ===============//
+
+	// Create command
+	Cmd cmdEx3("ex3", &Callback, "Example command 3.");
+
+	// Create parameters
+	Param cmdEx3Param1("Example parameter 1.");
+	cmdEx3.RegisterParam(&cmdEx3Param1);
+
+	// Create option
+	Option cmdEx3Option1('a', NULL, "Example option 1");
+	cmdEx3.RegisterOption(&cmdEx3Option1);
+
+	// Assign to group
+	cmdEx3.AddToGroup(&cmdGroupUser);
+
+	// Register command
+	rxController.RegisterCmd(&cmdEx3);
+
+	//============ SETUP DEFAULT COMMAND GROUP ==========//
+
+	//rxController.defaultCmdGroup = &cmdGroupUser;
+
 	while(1)
 	{
 		char inputMsg[30];

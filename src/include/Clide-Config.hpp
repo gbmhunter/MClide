@@ -37,8 +37,8 @@ namespace Clide
 
 	//=============== DEBUG SWITCHES ============//
 
-	#define clideDEBUG_PRINT_GENERAL		1				//!< Print general debug msgs
-	#define clideDEBUG_PRINT_VERBOSE		1				//!< Print verbose debug msgs
+	#define clideDEBUG_PRINT_GENERAL		0				//!< Print general debug msgs
+	#define clideDEBUG_PRINT_VERBOSE		0				//!< Print verbose debug msgs
 	#define clideDEBUG_PRINT_ERROR			1				//!< Print error debug msgs
 
 	//! @brief		This is true if any individual debug print macros are 1.
@@ -66,9 +66,10 @@ namespace Clide
 	#define clide_ENABLE_ADV_TEXT_FORMATTING		(1)
 
 	#if clide_ENABLE_ADV_TEXT_FORMATTING == 1
-		#define clide_TERM_TEXT_FORMAT_NORMAL 	"\x1B[0m"		//!< Returns text to normal formatting.
-		#define clide_TERM_TEXT_FORMAT_BOLD 	"\x1B[1m"		//!< Bold text.
-		#define clide_TERM_COLOUR_YELLOW 		("\x1B[33;1m")	//!< Yellow text.
+		#define clide_TERM_TEXT_FORMAT_NORMAL 	"\x1B[0m"		//!< Returns text to normal formatting. Widely supported.
+		#define clide_TERM_TEXT_FORMAT_BOLD 	"\x1B[1m"		//!< Bold text. Widely supported.
+		#define clide_TERM_TEXT_FORMAT_ITALIC	"\x1B[3m"		//!< Italic text. Not supported by many terminals.
+		#define clide_TERM_COLOUR_YELLOW 		("\x1B[33;1m")	//!< Yellow text. Widely supported.
 
 		//! @brief		Defines the colour to be used for the header rows of help information.
 		//! @details	Use one of the colour macros above. Only applicable if #clide_ENABLE_ADV_TEXT_FORMATTING is 1.
