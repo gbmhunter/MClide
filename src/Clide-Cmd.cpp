@@ -253,12 +253,6 @@ namespace Clide
 			Port::DebugPrint("CLIDE: Adding command to a command group...\r\n");
 		#endif
 
-		/*uint8_t x;
-		for(x = 0; x < this->numCmdGroups; x++)
-		{
-			printf(" %s, ", cmdEx3.cmdGroupA[0]->name);
-		}*/
-
 		// Create option pointer at end of option pointer array.
 		this->cmdGroupA = (CmdGroup**)MemMang::AppendNewArrayElement(this->cmdGroupA, this->numCmdGroups, sizeof(CmdGroup*));
 

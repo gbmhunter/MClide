@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/01/07
-- Version: v6.0.1.0
+- Version: v6.0.2.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -307,6 +307,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v6.0.2.0 2013/01/07 Deleted unneeded, commented-out code. Fixed bug 'Command groups it belongs to' bug by replacing fixed 0 index with x variable, closes #89.
 v6.0.1.0 2013/01/07 Added support for a default command group, closes #84. Added command group info to the README, closes #85. Added filter info to help text (e.g. which group is being displayed). Added units tests for help commands in new 'ClideTest-Help.cpp', closes #86.
 v6.0.0.0 2013/01/07 Added the idea of 'command groups'. Commands can be assigned groups that they belong to, which will then enable you to print specialised help for particular groups (e.g. 'help -g user' only prints help for user commands). New 'CmdGroup' object in 'Clide-CmdGroups.hpp/.cpp'. Basic help group functionality added, although needs tidying up and added support for a default group if none provided.
 v5.4.7.0 2014/01/06 Removed calls to 'getenv()' from 'Clide-GetOpt.cpp', as this does not make sense in an embedded environment. Change 'UartDebug()' call to 'UartComms()' in PSoC port functions in 'Clide-Port.cpp'.

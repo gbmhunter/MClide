@@ -317,7 +317,7 @@ namespace Clide
 		for(x = 0; x < cmd->GetNumCmdGroups(); x++)
 		{
 			// Print out command group name
-			Port::CmdLinePrint(cmd->cmdGroupA[0]->name);
+			Port::CmdLinePrint(cmd->cmdGroupA[x]->name);
 
 			// Add space and comma if not last command group name
 			if(x != cmd->GetNumCmdGroups() - 1)
