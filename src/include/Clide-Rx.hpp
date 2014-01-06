@@ -55,7 +55,7 @@ namespace Clide
 			Rx();
 			
 			//===============================================================================================//
-			//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
+			//======================================= PUBLIC METHODS ========================================//
 			//===============================================================================================//
 
 			//! @brief		Runs the algorithm. Call this with the received command msg (array of characters). In a Linux environment, cmdMsg could be equal to a read line of cin.
@@ -65,9 +65,9 @@ namespace Clide
 		private:
 			
 			//===============================================================================================//
-			//================================== PUBLIC VARIABLES/STRUCTURES ================================//
+			//======================================= PRIVATE METHODS =======================================//
 			//===============================================================================================//
-			
+
 			//! @brief		Validates command.
 			//! @details	Makes sure cmd is in the registered command list
 			Cmd* ValidateCmd(char* cmdName, Cmd** cmdA, uint8_t numCmds);
@@ -85,7 +85,13 @@ namespace Clide
 			
 			//! @brief		Builds the structure of long options that is required by getopt_long().
 			void BuildLongOptionStruct(GetOpt::option* longOptStructA, Cmd* cmd);
-		
+
+			//===============================================================================================//
+			//================================== PRIVATE VARIABLES/STRUCTURES ===============================//
+			//===============================================================================================//
+
+
+			Cmd *cmdHelp;
 	};
 
 

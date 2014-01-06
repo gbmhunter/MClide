@@ -50,11 +50,15 @@ namespace Clide
 	//====================================== PUBLIC METHODS ========================================//
 	//===============================================================================================//
 
-	Cmd cmdTest("help", &HelpCmdCallback, "Returns information about all registered commands.");
+
 
 	// Constructor
 	Rx::Rx()
 	{
+		#if(clideDEBUG_PRINT_VERBOSE == 1)
+			Port::DebugPrint("CLIDE: Rx constructor called...\r\n");
+		#endif
+
 		// Initialise class variables
 		
 		#if(clideDEBUG_PRINT_ERROR == 1)
@@ -62,11 +66,20 @@ namespace Clide
 			GetOpt::opterr = 1;
 		#endif
 
+		// Create command for help command (which is currently just a pointer)
+		this->cmdHelp = new Cmd("help", &HelpCmdCallback, "Returns information about all registered commands.");
+
+		this->cmdHelp->RegisterOption(new Option('g', NULL, NULL, "Specifies which group to print help with.", true));
+
 		// Create help function if enabled
 		#if(clide_ENABLE_AUTO_HELP == 1)
-			this->RegisterCmd(&cmdTest);
+			this->RegisterCmd(this->cmdHelp);
 		#endif
-	}
+
+		#if(clideDEBUG_PRINT_VERBOSE == 1)
+			Port::DebugPrint("CLIDE: Rx constructor finished.\r\n");
+		#endif
+}
 
 	bool Rx::Run(char* cmdMsg)
 	{
@@ -158,7 +171,7 @@ namespace Clide
 		{
 			// Received command is not registered (aka invalid/unrecognised)
 			#if(clide_ENABLE_AUTO_HELP == 1)
-				// Help exists, so tell user that they could type help to get a list of availiable commands.
+				// Help exists, so tell user that they could type help to get a list of available commands.
 				#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
 					// Special formatting
 					Port::CmdLinePrint("error \"Command not recognised. Type " clide_TERM_TEXT_FORMAT_BOLD "help" clide_TERM_TEXT_FORMAT_NORMAL " to see a list of all the commands.\"\r\n");
@@ -247,7 +260,7 @@ namespace Clide
 		GetOpt::optarg = NULL;
 		GetOpt::optopt = 0;
 		
-		// Flag set by �--verbose�.
+		// Flag set by --verbose.
 		static int verbose_flag;
 		
 		// Find number of long options in cmd and create struct var
@@ -450,7 +463,17 @@ namespace Clide
 								Port::DebugPrint(Global::debugBuff);
 							#endif
 							if(GetOpt::optarg != NULL)
+							{
+								#if(clideDEBUG_PRINT_VERBOSE == 1)
+									snprintf (
+										Global::debugBuff,
+										sizeof(Global::debugBuff),
+										"CLIDE: Copying '%s' into Option->value.\r\n",
+										GetOpt::optarg);
+									Port::DebugPrint(Global::debugBuff);
+								#endif
 								strcpy(foundOption->value, GetOpt::optarg);
+							}
 							else
 							{
 								// Error, option should have has a value associated with it.
@@ -465,8 +488,11 @@ namespace Clide
 							}	
 						}
 					
+						//! @todo Remove this callback stuff for options
 						if(foundOption->callBackFunc != NULL)
+						{
 							foundOption->callBackFunc((char*)"20");	
+						}
 					}	
 				}
 				else

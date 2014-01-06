@@ -45,9 +45,10 @@ namespace Clide
 
 	bool HelpCmdCallback(Cmd *cmd)
 	{
+
 		// Print the help for the parent Comm object that
 		// the called help command was assigned to
-		cmd->parentComm->PrintHelp();
+		cmd->parentComm->PrintHelp(cmd);
 		return true;
 	}
 
@@ -57,9 +58,17 @@ namespace Clide
 
 	Comm::Comm()
 	{
+		#if(clideDEBUG_PRINT_GENERAL == 1)
+			Port::DebugPrint("CLIDE: Comm constructor called...\r\n");
+		#endif
+
 		// Initialise class variables
 		this->numCmds = 0;
 		this->cmdA = NULL;
+
+		#if(clideDEBUG_PRINT_GENERAL == 1)
+			Port::DebugPrint("CLIDE: Comm constructor finished.\r\n");
+		#endif
 	}
 
 	void Comm::RegisterCmd(Cmd* cmd)
@@ -89,13 +98,46 @@ namespace Clide
 		numCmds--;
 	}
 
-	// Prints out the help info
-	void Comm::PrintHelp()
+	// Prints out the help info (for all commands)
+	void Comm::PrintHelp(Cmd* cmd)
 	{
 		#if(clideDEBUG_PRINT_GENERAL == 1)	
-			Port::DebugPrint("CLIDE: Print help function called.");
+			Port::DebugPrint("CLIDE: Print help function called.\r\n");
 		#endif
-		
+
+		if(cmd->optionA == NULL)
+		{
+			Port::DebugPrint("CLIDE: ERROR. optionA[1] is NULL.\r\n");
+			return;
+		}
+
+		printf("Number of options = %u", cmd->numOptions);
+		Port::DebugPrint("TEST.\r\n");
+
+		if(cmd->optionA[0] == NULL)
+		{
+			Port::DebugPrint("CLIDE: ERROR. optionA[1] is NULL.\r\n");
+			return;
+		}
+
+		if(cmd->optionA[1]->isDetected == true)
+		{
+			#if(clideDEBUG_PRINT_GENERAL == 1)
+				Port::DebugPrint("CLIDE: Group option detected.");
+			#endif
+
+			if(strcmp(cmd->optionA[1]->value, "dev") == 0)
+			{
+				#if(clideDEBUG_PRINT_GENERAL == 1)
+					Port::DebugPrint("CLIDE: dev value detected.");
+				#endif
+			}
+
+		}
+
+		//Port::DebugPrint(cmd->optionA[1]->value);
+
+
 		// Title
 		Port::CmdLinePrint("**********LIST OF COMMANDS***********\r\n");
 
@@ -110,31 +152,51 @@ namespace Clide
 			Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_NORMAL);
 		#endif
 
-		// Iterate through cmd array and print commands
+		// Points to the selected group
+		const char* selectedGroup;
+
+		if(cmd->optionA[1]->isDetected == true)
+			// Group option has been provided with help command (help -g groupName)
+			selectedGroup = cmd->optionA[1]->value;
+		else
+			// Default group if none provided (help)
+			selectedGroup = "user";
+
+		// Iterate through cmd array and print commands, if they belong to the current command group
 		uint32_t x;
 		for(x = 0; x < numCmds; x++)
 		{
-			Port::CmdLinePrint("\t");
-			#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
-				Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_BOLD);
-				Port::CmdLinePrint(cmdA[x]->name);
-				Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_NORMAL);
-			#else
-				// No special formatting
-				Port::CmdLinePrint(cmdA[x]->name);
-			#endif
+			// Iterate through the command groups for each command
+			uint32_t y;
+			for(y = 0; y < cmdA[x]->numCmdGroups; y++)
+			{
+				// Check command belongs to requested group
+				if(strcmp(selectedGroup, cmdA[x]->cmdGroupA[0]->name) == 0)
+				{
 
-			// Add tab character
-			Port::CmdLinePrint("\t");
-			// Print description
-			Port::CmdLinePrint(cmdA[x]->description);
-			// \r is enough for PuTTy to format onto a newline also
-			// (adding \n causes it to add two new lines)
-			Port::CmdLinePrint("\r\n");
+					Port::CmdLinePrint("\t");
+					#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
+						Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_BOLD);
+						Port::CmdLinePrint(cmdA[x]->name);
+						Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_NORMAL);
+					#else
+						// No special formatting
+						Port::CmdLinePrint(cmdA[x]->name);
+					#endif
+
+					// Add tab character
+					Port::CmdLinePrint("\t");
+					// Print description
+					Port::CmdLinePrint(cmdA[x]->description);
+					// \r is enough for PuTTy to format onto a newline also
+					// (adding \n causes it to add two new lines)
+					Port::CmdLinePrint("\r\n");
+				}
+			}
 		}
-
 	}
 
+	// Prints out help for one command
 	void Comm::PrintHelpForCmd(Cmd* cmd)
 	{
 		#if(clideDEBUG_PRINT_GENERAL == 1)
@@ -255,6 +317,33 @@ namespace Clide
 				Port::CmdLinePrint("\r\n");
 			}
 		}
+
+		// CMD GROUPS
+
+		Port::CmdLinePrint("Command groups it belongs to:\r\n");
+
+		// Add tab character
+		Port::CmdLinePrint("\t");
+
+		uint32_t x;
+		for(x = 0; x < cmd->GetNumCmdGroups(); x++)
+		{
+			// Print out command group name
+			Port::CmdLinePrint(cmd->cmdGroupA[0]->name);
+
+			// Add space and comma if not last command group name
+			if(x != cmd->GetNumCmdGroups() - 1)
+				Port::CmdLinePrint(" ,");
+		}
+
+		char tempBuff[50];
+			snprintf(
+				tempBuff,
+				sizeof(tempBuff),
+				" (total = %" STR(ClidePort_PF_UINT32_T) ")\r\n",
+				cmd->GetNumCmdGroups());
+			Port::CmdLinePrint(tempBuff);
+
 	}
 
 	//===============================================================================================//

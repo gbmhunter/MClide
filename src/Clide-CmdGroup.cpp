@@ -1,11 +1,11 @@
 //!
-//! @file 			Clide-Cmd.cpp
+//! @file 			Clide-CmdGroup.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @created		2013/04/02
-//! @last-modified 	2013/12/10
-//! @brief 			Command-line style communications protocol
+//! @created		2014/01/06
+//! @last-modified 	2014/01/06
+//! @brief 			The CmdGroup object is used to create "groups" that commands can belong too, which can be then be utilised to display selective help information.
 //! @details
-//!				See README.rst in repo root dir for more info.
+//!					See README.rst in repo root dir for more info.
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler
@@ -42,7 +42,15 @@ namespace Clide
 	//======================================= PUBLIC METHODS ========================================//
 	//===============================================================================================//
 
+	CmdGroup::CmdGroup(const char* name, const char* description)
+	{
+		this->name = name;
+		this->description = description;
 
+	}
+
+
+	/*
 
 	// Constructor
 	Cmd::Cmd(const char *name, bool (*callBackFunc)(Cmd* foundCmd), const char *description)
@@ -127,13 +135,6 @@ namespace Clide
 			// Description too long, do not save it
 			Port::DebugPrint("CLIDE: Cmd constructor finished.\r\n");
 		#endif
-
-		// COMMAND GROUP OBJECT
-
-		this->cmdGroupA = NULL;
-
-		// Start with the command assigned to no command groups
-		this->numCmdGroups = 0;
 	}
 
 	Cmd::~Cmd()
@@ -246,46 +247,7 @@ namespace Clide
 		
 		return numLongOptions;		
 	}
-
-	void Cmd::AddToGroup(CmdGroup *cmdGroup)
-	{
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			Port::DebugPrint("CLIDE: Adding command to a command group...\r\n");
-		#endif
-
-		// Create option pointer at end of option pointer array.
-		this->cmdGroupA = (CmdGroup**)MemMang::AppendNewArrayElement(this->cmdGroupA, this->numCmdGroups, sizeof(CmdGroup*));
-
-		if(this->cmdGroupA == NULL)
-		{
-			#if(clideDEBUG_PRINT_ERROR == 1)
-				// Description too long, do not save it
-				Port::DebugPrint("CLIDE: ERROR - Malloc failed while adding command to command group.\r\n");
-			#endif
-			return;
-		}
-
-		// Increase option count
-		this->numCmdGroups++;
-
-		// Remember the given command group
-		this->cmdGroupA[numCmdGroups - 1] = cmdGroup;
-
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			Port::DebugPrint("CLIDE: Added command to a command group.\r\n");
-		#endif
-
-	}
-
-	uint32_t Cmd::GetNumCmdGroups()
-	{
-		return this->numCmdGroups;
-	}
-
-	CmdGroup* Cmd::GetCmdGroup(uint32_t cmdGroupNum)
-	{
-		return this->cmdGroupA[cmdGroupNum];
-	}
+	*/
 
 	//===============================================================================================//
 	//==================================== PRIVATE FUNCTIONS ========================================//

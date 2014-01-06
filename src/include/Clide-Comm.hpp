@@ -59,7 +59,7 @@ namespace Clide
 			Comm();
 
 			//! @brief 		Prints out the help info.
-			void PrintHelp();
+			void PrintHelp(Cmd* cmd);
 
 			void PrintHelpForCmd(Cmd* cmd);
 
@@ -82,10 +82,12 @@ namespace Clide
 			uint8_t numCmds;
 
 		//===============================================================================================//
-		//==================================== PRIVATE FUNCTIONS ========================================//
+		//==================================== PROTECTED METHODS ========================================//
 		//===============================================================================================//
 
-		private:
+		protected:
+
+
 
 	};
 } // namespace Clide

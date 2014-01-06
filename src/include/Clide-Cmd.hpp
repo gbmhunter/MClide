@@ -33,6 +33,7 @@ namespace Clide
 #include "Clide-Param.hpp"
 #include "Clide-Option.hpp"
 #include "Clide-Comm.hpp"    //!< Used for save a reference to the parent comm object in each cmd object.
+#include "Clide-CmdGroup.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -86,6 +87,16 @@ namespace Clide
 			//! @returns	Number of options with long options names (i.e. longName != NULL).
 			uint32_t NumLongOptions();
 			
+			//! @brief		Adds the command to the provided command group.
+			//! @param		cmdGroup	Pointer to the command group you want the command added to.
+			void AddToGroup(CmdGroup *cmdGroup);
+
+			//! @brief		Returns the number of command groups that the command belongs to.
+			uint32_t GetNumCmdGroups();
+
+			//! @brief		Returns a specific command group that the command belongs to, based of an index.
+			CmdGroup* GetCmdGroup(uint32_t cmdGroupNum);
+
 			//===============================================================================================//
 			//======================================= PUBLIC VARIABLES ======================================//
 			//===============================================================================================//
@@ -123,9 +134,15 @@ namespace Clide
 			//!				Tx or Rx object.
 			Comm* parentComm;
 
-		private:
+			//! @brief		A pointer to an array of pointers to CmdGroup objects, which signify which command groups this command belongs to.
+			CmdGroup** cmdGroupA;
+
+			uint32_t numCmdGroups;
+
+		protected:
+
+
 		
-			// none
 	};
 
 

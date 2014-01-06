@@ -39,7 +39,7 @@ namespace Clide
 			//! @brief		Base constructor.
 			//! @details	
 			//! @param		shortName		The short name of this option (to look for in command-line).
-			//! @param		longName		The long name of this option (to look for in command-line).
+			//! @param		longName		The long name of this option (to look for in command-line). Can be NULL.
 			//! @param		callBackFunc	Call-back function which is called when option is discovered.
 			//!								Can be set to NULL.
 			//! @param		description		Used when help is requested.

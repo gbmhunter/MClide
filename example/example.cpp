@@ -16,6 +16,10 @@
 using namespace Clide;
 using namespace std;
 
+// Create two command groups
+CmdGroup cmdGroupUser("user", "Commands are suitable for the user.");
+CmdGroup cmdGroupDev("dev", "Commands are suitable for the developer.");
+
 bool Callback(Cmd *cmd)
 {
 	return true;
@@ -24,6 +28,8 @@ bool Callback(Cmd *cmd)
 int main()
 {
 	Rx rxController;
+
+
 			
 	//============ EXAMPLE COMMAND 1 ===============//
 
@@ -44,6 +50,9 @@ int main()
 	Option cmdEx1Option2('b', NULL, "Example option 2.");
 	cmdEx1.RegisterOption(&cmdEx1Option2);
 
+	// Assign to group
+	cmdEx1.AddToGroup(&cmdGroupDev);
+
 	// Register command
 	rxController.RegisterCmd(&cmdEx1);
 
@@ -60,6 +69,9 @@ int main()
 	Option cmdEx2Option1('a', NULL, "Example option 1");
 	cmdEx2.RegisterOption(&cmdEx2Option1);
 	
+	// Assign to group
+	cmdEx2.AddToGroup(&cmdGroupUser);
+
 	// Register command
 	rxController.RegisterCmd(&cmdEx2);
 	
