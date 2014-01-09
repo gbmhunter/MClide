@@ -2,7 +2,7 @@
 //! @file 			RxBuff.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/01/09
-//! @last-modified 	2014/01/09
+//! @last-modified 	2014/01/10
 //! @brief 			An input buffer for the Rx engine. This can accept a stream of characters and call Rx::Go when the CR character is detected.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -40,8 +40,7 @@
 
 namespace Clide
 {
-	//! @brief		Class deals with receiving of command-line strings and the decoding/processing of them.
-	//! @details	This is one of the most important objects in the Clide library. Inherits from the Comm class.
+	//! @brief		An input buffer for the Rx engine. It can accept a stream of characters and call Rx::Go() when the clide_END_OF_COMMAND_CHAR character is detected.
 	class RxBuff
 	{
 	
@@ -59,16 +58,10 @@ namespace Clide
 			//===============================================================================================//
 
 			//! @brief		Writes a null-terminated string of characters to the RxBuff.
-			bool Write(char* characters);
+			bool Write(const char* characters);
 
 		private:
 			
-			//===============================================================================================//
-			//======================================= PRIVATE METHODS =======================================//
-			//===============================================================================================//
-
-
-
 			//===============================================================================================//
 			//================================== PRIVATE VARIABLES/STRUCTURES ===============================//
 			//===============================================================================================//
@@ -81,6 +74,12 @@ namespace Clide
 
 			//! @brief		Pointer to current write location in buffer
 			uint8_t buffWritePos;
+
+			//===============================================================================================//
+			//======================================= PRIVATE METHODS =======================================//
+			//===============================================================================================//
+
+			// none
 
 	};
 
