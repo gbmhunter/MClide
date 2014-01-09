@@ -2,7 +2,7 @@
 //! @file 			Clide-Config.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2013/12/18
+//! @last-modified 	2014/01/09
 //! @brief 			Configuration file for Clide.
 //! @details
 //!				See README.rst in repo root dir for more info.
@@ -75,6 +75,13 @@ namespace Clide
 		//! @details	Use one of the colour macros above. Only applicable if #clide_ENABLE_ADV_TEXT_FORMATTING is 1.
 		#define clide_TABLE_HEADER_ROW_COLOUR_CODE clide_TERM_COLOUR_YELLOW
 	#endif
+
+	//=================== RxBuff Config =================//
+
+	//! @brief		Size of the fixed-width buffer that the RxBuff class uses to store characters when RxBuff::Write() is called.
+	#define clide_RX_BUFF_SIZE					(256)
+
+	#define clide_END_OF_COMMAND_CHAR			'\r'
 		
 } // namespace Clide
 

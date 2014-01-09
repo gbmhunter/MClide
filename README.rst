@@ -7,8 +7,8 @@ Clide (Command Line Interface Development Environment) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2014/01/07
-- Version: v6.0.2.0
+- Last Modified: 2014/01/09
+- Version: v7.0.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -307,9 +307,10 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
-v6.0.2.0 2013/01/07 Deleted unneeded, commented-out code. Fixed bug 'Command groups it belongs to' bug by replacing fixed 0 index with x variable, closes #89.
-v6.0.1.0 2013/01/07 Added support for a default command group, closes #84. Added command group info to the README, closes #85. Added filter info to help text (e.g. which group is being displayed). Added units tests for help commands in new 'ClideTest-Help.cpp', closes #86.
-v6.0.0.0 2013/01/07 Added the idea of 'command groups'. Commands can be assigned groups that they belong to, which will then enable you to print specialised help for particular groups (e.g. 'help -g user' only prints help for user commands). New 'CmdGroup' object in 'Clide-CmdGroups.hpp/.cpp'. Basic help group functionality added, although needs tidying up and added support for a default group if none provided.
+v7.0.0.0 2014/01/09 Added new 'RxBuff' class as a front-end input buffer for the 'Rx' engine. Characters can be written to the RxBuff, and RxBuff will call Rx::Go() automatically when it detects the end-of-command character, and clear the buffer, ready for more input. Added unit test file for this feature (test/RxBuff.cpp). Also fixed recent dates in the README changelog. Started using new naming scheme (dropping the Clide from the start of the filename). Modified Makefile for automatic dependency generation for 'test/' folder.
+v6.0.2.0 2014/01/07 Deleted unneeded, commented-out code. Fixed bug 'Command groups it belongs to' bug by replacing fixed 0 index with x variable, closes #89.
+v6.0.1.0 2014/01/07 Added support for a default command group, closes #84. Added command group info to the README, closes #85. Added filter info to help text (e.g. which group is being displayed). Added units tests for help commands in new 'ClideTest-Help.cpp', closes #86.
+v6.0.0.0 2014/01/07 Added the idea of 'command groups'. Commands can be assigned groups that they belong to, which will then enable you to print specialised help for particular groups (e.g. 'help -g user' only prints help for user commands). New 'CmdGroup' object in 'Clide-CmdGroups.hpp/.cpp'. Basic help group functionality added, although needs tidying up and added support for a default group if none provided.
 v5.4.7.0 2014/01/06 Removed calls to 'getenv()' from 'Clide-GetOpt.cpp', as this does not make sense in an embedded environment. Change 'UartDebug()' call to 'UartComms()' in PSoC port functions in 'Clide-Port.cpp'.
 v5.4.6.0 2013/12/20 Added FAQ section to README. Fixed issue with 'parentComm' variable in Cmd constructor. Got rid of memory allocation for string literals (in cmd, param and option classes), as we can just take a pointer to the string literal which will remain in memory for the duration of the program anyway. /test/ directory now visible in eclipse project.
 v5.4.5.0 2013/12/19 Made Clide::Tx inherit from Clide::Comm (as Clide::Rx does), and removed unecessary functions from Clide::Tx. Moved many duplicate Tx/Rx functions/variables into the Clide::Comm class. Added info about negative number, spaces support and easy experimenting in the README.

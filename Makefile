@@ -74,8 +74,20 @@ test : $(TEST_OBJ_FILES) | clideLib unitTestLib
 	g++ $(TEST_LD_FLAGS) -o ./test/ClideTest.elf $(TEST_OBJ_FILES) -L./test/UnitTest++ -lUnitTest++ -L./ -lClide
 	
 # Generic rule for test object files
+#test/%.o: test/%.cpp
+#	g++ $(TEST_CC_FLAGS) -c -o $@ $<
+
+# Generic rule for test object files
 test/%.o: test/%.cpp
-	g++ $(TEST_CC_FLAGS) -c -o $@ $<
+	# Compiling src/ files
+	$(COMPILE.c) -MD -o $@ $<
+	@cp $*.d $*.P; \
+	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
+		-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \
+		rm -f $*.d
+	# g++ $(TEST_CC_FLAGS) -c -o $@ $<
+
+-include $(TEST_OBJ_FILES:.o=.d)
 	
 unitTestLib:
 	# Compile UnitTest++ library (has it's own Makefile)
@@ -107,6 +119,7 @@ clean-clide:
 	@echo " Cleaning src dependency files..."; $(RM) ./src/*.d
 	@echo " Cleaning Clide static library..."; $(RM) ./*.a
 	@echo " Cleaning test object files..."; $(RM) ./test/*.o
+	@echo " Cleaning test dependency files..."; $(RM) ./test/*.d
 	@echo " Cleaning test executable..."; $(RM) ./test/*.elf
 	@echo " Cleaning example object files..."; $(RM) ./example/*.o
 	@echo " Cleaning example executable..."; $(RM) ./example/*.elf
