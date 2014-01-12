@@ -11,7 +11,7 @@
 CC = g++
 
 # Define any compile-time flags (e.g. -Wall, -g)
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -std=c++0x
 
 # Define any directories containing header files other than /usr/include.
 # Prefix every directory with "-I" e.g. "-I./src/include"

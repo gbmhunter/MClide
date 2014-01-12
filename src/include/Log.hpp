@@ -1,9 +1,9 @@
 //!
-//! @file 			Clide-Rx.hpp
+//! @file 			Log.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @created		2012/03/19
+//! @created		2014/01/13
 //! @last-modified 	2014/01/13
-//! @brief 			Clide RX controller. The main logic of the RX (decoding) part of Clide. Commands can be registered with the controller.
+//! @brief 			A class to create an error object, used for reporting Clide errors.
 //! @details
 //!					See README.rst in repo root dir for more info.
 
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef CLIDE_RX_H
-#define CLIDE_RX_H
+#ifndef CLIDE_LOG_H
+#define CLIDE_LOG_H
 
 //===============================================================================================//
 //========================================== INCLUDES ===========================================//
@@ -33,7 +33,6 @@
 #include "Clide-Port.hpp"
 #include "Clide-GetOpt.hpp"
 #include "Clide-Comm.hpp"
-#include "Log.hpp"				//!< Used for logging warnings and errors
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -42,42 +41,38 @@
 namespace Clide
 {
 
+	enum class Severity
+	{
+		NOTIFICATION,
+		WARNING,
+		ERROR
+	};
 
-
-	//! @brief		Class deals with receiving of command-line strings and the decoding/processing of them.
-	//! @details	This is one of the most important objects in the Clide library. Inherits from the Comm class.
-	class Rx : public Comm
+	//! @brief		An input buffer for the Rx engine. It can accept a stream of characters and call Rx::Go() when the clide_END_OF_COMMAND_CHAR character is detected.
+	template <class logIdType> class Log
 	{
 	
 		public:
 		
-		//! @brief		Log IDs for Rx relevant warnings/errors.
-			enum class LogIds : uint32_t
-			{
-				NONE,
-				CMD_NOT_RECOGNISED
-			};
-
 			//===============================================================================================//
 			//=================================== PUBLIC VARIABLES/STRUCTURES ===============================//
 			//===============================================================================================//
+			
+			logIdType logId;
 
-			//! @brief		Holds warning/error information.
-			//! @details	Investigate this if you wish to find out more about why a function returned false.
-			Log<LogIds> log;
+			//! @brief		Holds the log message
+			char* msg;
+
+			//! @brief		Tells the user the severity of the log.
+			Severity severity;
+
 			
 			//===============================================================================================//
 			//======================================= PUBLIC METHODS ========================================//
 			//===============================================================================================//
 
 			//! @brief		Constructor
-			Rx();
-
-			//! @brief		Runs the algorithm. Call this with the received command msg (array of characters).
-			//! @details	In a Linux environment, cmdMsg could be equal to a read line of cin.
-			//! @param		cmdMsg	The message to process.
-			//! @returns	true is the command processing of cmdMsg was successful, otherwise false.
-			bool Run(char* cmdMsg);
+			Log();
 
 		private:
 			
@@ -86,35 +81,35 @@ namespace Clide
 			//===============================================================================================//
 
 
-			Cmd *cmdHelp;
 
 			//===============================================================================================//
 			//======================================= PRIVATE METHODS =======================================//
 			//===============================================================================================//
 
-			//! @brief		Validates command.
-			//! @details	Makes sure cmd is in the registered command list
-			Cmd* ValidateCmd(char* cmdName, Cmd** cmdA, uint8_t numCmds);
-			
-			//! @brief		Checks for option in registered command
-			Option* ValidateOption(Clide::Cmd *detectedCmd, char *optionName);
-			
-			//! @brief		Splits packet into arguments, which can be options and/or parameters.
-			//! @returns	Number of arguments found
-			int SplitPacket(char* packet, char(*args)[clideMAX_STRING_LENGTH]);
-			
-			//! @brief		Builds the short option string for the getopt_long() function from the list
-			//!				of the registered commands.
-			void BuildShortOptionString(char* optionString, Cmd* cmd);
-			
-			//! @brief		Builds the structure of long options that is required by getopt_long().
-			void BuildLongOptionStruct(GetOpt::option* longOptStructA, Cmd* cmd);
-
+			// none
 
 	};
 
+	// Constructor
+	template <class logIdType>
+	Log<logIdType>::Log()
+	{
+		#if(clideDEBUG_PRINT_VERBOSE == 1)
+			Port::DebugPrint("CLIDE: ErrorObj constructor called...\r\n");
+		#endif
+
+
+
+		#if(clideDEBUG_PRINT_VERBOSE == 1)
+			Port::DebugPrint("CLIDE: ErrorObj constructor finished.\r\n");
+		#endif
+
+	}
+
+	// none
+
 } // namespace Clide
 
-#endif	// #ifndef CLIDE_RX_H
+#endif	// #ifndef CLIDE_LOG_H
 
 // EOF

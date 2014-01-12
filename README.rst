@@ -7,8 +7,8 @@ Clide (Command Line Interface Development Environment) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2014/01/10
-- Version: v7.0.1.0
+- Last Modified: 2014/01/13
+- Version: v8.0.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -307,6 +307,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.0.0.0 2014/01/13 Added logging funnctionality to clide-cpp. Currently added to only the 'Clide::Rx' class. Added unit tests for logging functionality ('LoggingTests.cpp'). Added the '-std=c++0x' compiler flag to the Makefile so that I can use 'enum class xxx' (strongly-typed enumerations).
 v7.0.1.0 2014/01/10 Added 'const' qualifier to input variable to 'RxBuff::Write()'. Improved comments to 'Rx::Run()' in 'Clide-Rx.hpp'.
 v7.0.0.0 2014/01/09 Added new 'RxBuff' class as a front-end input buffer for the 'Rx' engine. Characters can be written to the RxBuff, and RxBuff will call Rx::Go() automatically when it detects the end-of-command character, and clear the buffer, ready for more input. Added unit test file for this feature (test/RxBuff.cpp). Also fixed recent dates in the README changelog. Started using new naming scheme (dropping the Clide from the start of the filename). Modified Makefile for automatic dependency generation for 'test/' folder.
 v6.0.2.0 2014/01/07 Deleted unneeded, commented-out code. Fixed bug 'Command groups it belongs to' bug by replacing fixed 0 index with x variable, closes #89.

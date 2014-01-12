@@ -2,7 +2,7 @@
 //! @file 			Clide-Rx.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2012/03/19
-//! @last-modified 	2013/12/19
+//! @last-modified 	2014/01/13
 //! @brief 			Clide RX controller. The main logic of the RX (decoding) part of Clide. Commands can be registered with the controller.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -34,6 +34,7 @@
 #include "./include/Clide-Comm.hpp"			//!< So the help command can call the HelpCmdCallback() function
 #include "./include/Clide-Rx.hpp"
 #include "./include/Clide-GetOpt.hpp"
+#include "include/Log.hpp"
 
 
 //===============================================================================================//
@@ -182,7 +183,13 @@ namespace Clide
 			#else
 				// No automatic help, so don't tell the user about something that doesn't exist
 				Port::CmdLinePrint("error \"Command not recognised.\"\r\n");
-			#endif
+			#endif // #if(clide_ENABLE_AUTO_HELP == 1)
+
+			// Log error
+			this->log.logId = LogIds::CMD_NOT_RECOGNISED;
+			this->log.msg = "Command not recognised.";
+			this->log.severity = Severity::ERROR;
+
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
 				Port::DebugPrint("CLIDE: Rx::Run() finished. Returning false.\r\n");
 			#endif
