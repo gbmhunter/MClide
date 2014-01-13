@@ -2,7 +2,7 @@
 //! @file 			Clide-Rx.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2012/03/19
-//! @last-modified 	2014/01/13
+//! @last-modified 	2014/01/14
 //! @brief 			Clide RX controller. The main logic of the RX (decoding) part of Clide. Commands can be registered with the controller.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -621,9 +621,19 @@ namespace Clide
 			Port::DebugPrint("\r\n");
 		#endif
 		
-		// Execute command callback function
-		// Make sure this is the last thing to do in Run()
-		foundCmd->callBackFunc(foundCmd);
+		// Check to see if a call-back function has been assigned
+		if(foundCmd->callBackFunc != NULL)
+		{
+			// Execute command callback function
+			// Make sure this is the last thing to do in Run()
+			foundCmd->callBackFunc(foundCmd);
+		}
+		else
+		{
+			#if(clideDEBUG_PRINT_VERBOSE == 1)
+				Port::DebugPrint("CLIDE: Command callback was NULL, so no function called.\r\n");
+			#endif
+		}
 
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			Port::DebugPrint("CLIDE: Rx::Run() finished. Returning true.\r\n");
