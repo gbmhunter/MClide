@@ -87,9 +87,12 @@ namespace Clide
 		// Used for various snprintf() function calls
 		char tempBuff[200];
 
-		// Create copy of original message before it gets manipulated
-		char originalMsg[strlen(cmdMsg)];
-		strcpy(originalMsg, cmdMsg);
+		// Copy the cmd message to a new location in where Rx::Run() can modify the contents
+		// (and leave the provided msg untouched)
+		char cmdMsgCpyA[strlen(cmdMsg)];
+		strcpy(cmdMsgCpyA, cmdMsg);
+		// Create
+		char* cmdMsgCpyPtr = &cmdMsgCpyA[0];
 
 		#if(clideDEBUG_PRINT_GENERAL == 1)
 			Port::DebugPrint("CLIDE: Rx.Run() called.\r\n");
@@ -137,10 +140,10 @@ namespace Clide
 		}
 		
 		// Strip all non-alphanumeric characters from the start of the packet
-		while(!isalnum(cmdMsg[0]))
+		while(!isalnum(cmdMsgCpyPtr[0]))
 		{
 			// Check for null string terminator
-			if(cmdMsg[0] == '\0')
+			if(cmdMsgCpyPtr[0] == '\0')
 			{
 				Port::CmdLinePrint("error \"Received command contained no alpha-numeric characters.\"\r\n");
 				#if(clideDEBUG_PRINT_GENERAL == 1)
@@ -161,11 +164,11 @@ namespace Clide
 				Port::DebugPrint(Global::debugBuff);
 			#endif
 			// Increment message pointer forward over non-alphanumeric char
-			cmdMsg++;
+			cmdMsgCpyPtr++;
 		}
 
 		// Split packet. First element is command.
-		int numArgs = SplitPacket(cmdMsg, _args);
+		int numArgs = SplitPacket(cmdMsgCpyPtr, _args);
 		
 		//=============== CHECK COMMAND IS VALID ==================//
 		
@@ -191,13 +194,13 @@ namespace Clide
 
 			// Log error
 			this->log.logId = LogIds::CMD_NOT_RECOGNISED;
-			this->log.msg = "Command not recognised.";
+			this->log.msg = (char*)"Command not recognised.";
 			this->log.severity = Severity::ERROR;
 
 			// Call callback if assigned
 			if(this->cmdUnrecognisedCallback != NULL)
 			{
-				this->cmdUnrecognisedCallback(originalMsg);
+				this->cmdUnrecognisedCallback(cmdMsg);
 			}
 
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
