@@ -20,7 +20,12 @@ namespace ClideTest
 		bool unrecogCmdCallbackCalled = false;
 		bool cmdsEqual = false;
 
-		void UnrecognisedCmdCallback(char* cmd)
+		bool CmdCallback(Cmd *cmd)
+		{
+			return true;
+		}
+
+		void UnrecognisedCmdCallback1(char* cmd)
 		{
 			unrecogCmdCallbackCalled = true;
 			if(strcmp(cmd, "blah blah blah") == 0)
@@ -32,11 +37,15 @@ namespace ClideTest
 			Rx rxController;
 
 			// Register callback function
-			rxController.cmdUnrecognisedCallback = &UnrecognisedCmdCallback;
+			rxController.cmdUnrecognisedCallback = &UnrecognisedCmdCallback1;
 
 			// Create fake input buffer
 			char rxBuff[50] = "blah blah blah";
 			
+			// Reset globals
+			unrecogCmdCallbackCalled = false;
+			cmdsEqual = false;
+
 			// Run rx controller
 			rxController.Run(rxBuff);
 
@@ -48,5 +57,42 @@ namespace ClideTest
 
 		}
 		
+		TEST(RecognisedCmdWithCallbackTest)
+		{
+			Rx rxController;
+
+			// Create command
+			Cmd cmdTest("test", &CmdCallback, "A test command.");
+
+			// Create parameter
+			Param cmdTestParam("A test parameter.");
+			cmdTest.RegisterParam(&cmdTestParam);
+
+			// Create option
+			Option cmdTestOption('a', NULL, "A test option.");
+			cmdTest.RegisterOption(&cmdTestOption);
+
+			// Register command
+			rxController.RegisterCmd(&cmdTest);
+
+			// Register callback function
+			rxController.cmdUnrecognisedCallback = &UnrecognisedCmdCallback1;
+
+			// Create fake input buffer
+			char rxBuff[50] = "test param1 -a";
+
+			// Reset globals
+			unrecogCmdCallbackCalled = false;
+			cmdsEqual = false;
+
+			// Run rx controller
+			rxController.Run(rxBuff);
+
+			// Now the command should of been recognised, and the callback function NOT called,
+			// so make sure they are still false
+			CHECK_EQUAL(false, unrecogCmdCallbackCalled);
+
+		}
+
 	} // SUITE(NotRecognisedCmdCallbackTests)
 } // namespace ClideTest

@@ -83,7 +83,6 @@ namespace ClideTest
 		TEST(TwoParamTwoOptionRxTest1)
 		{
 			Rx rxController;
-			Tx txController;
 			
 			// Create command
 			Cmd cmdTest("test", &Callback, "A test command.");
