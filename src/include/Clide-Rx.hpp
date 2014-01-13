@@ -66,6 +66,10 @@ namespace Clide
 			//! @details	Investigate this if you wish to find out more about why a function returned false.
 			Log<LogIds> log;
 			
+			//! @brief		This gives you the ability to provide a callback function that is called when a command is not recognised.
+			//! @details	This is essentially an event handler. All callback functions assoicted with recognised commands are part of the command objects themselves.
+			void (*cmdUnrecognisedCallback)(char* notRecogCmd);
+
 			//===============================================================================================//
 			//======================================= PUBLIC METHODS ========================================//
 			//===============================================================================================//

@@ -54,7 +54,7 @@ namespace Clide
 
 
 	// Constructor
-	Rx::Rx()
+	Rx::Rx() : cmdUnrecognisedCallback(NULL)
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			Port::DebugPrint("CLIDE: Rx constructor called...\r\n");
@@ -86,6 +86,10 @@ namespace Clide
 	{
 		// Used for various snprintf() function calls
 		char tempBuff[200];
+
+		// Create copy of original message before it gets manipulated
+		char originalMsg[strlen(cmdMsg)];
+		strcpy(originalMsg, cmdMsg);
 
 		#if(clideDEBUG_PRINT_GENERAL == 1)
 			Port::DebugPrint("CLIDE: Rx.Run() called.\r\n");
@@ -189,6 +193,12 @@ namespace Clide
 			this->log.logId = LogIds::CMD_NOT_RECOGNISED;
 			this->log.msg = "Command not recognised.";
 			this->log.severity = Severity::ERROR;
+
+			// Call callback if assigned
+			if(this->cmdUnrecognisedCallback != NULL)
+			{
+				this->cmdUnrecognisedCallback(originalMsg);
+			}
 
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
 				Port::DebugPrint("CLIDE: Rx::Run() finished. Returning false.\r\n");

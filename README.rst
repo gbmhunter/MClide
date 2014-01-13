@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/01/13
-- Version: v8.0.0.0
+- Version: v8.1.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -307,6 +307,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.1.0.0 2013/01/13 Added assignable call-back function variable to the Rx class for when there is an unrecognised command. You can use this to do your own event handling. It also passes a 'char*' to the unrecognised command. Added unit test file 'NotRecognisedCmdCallbackTests.cpp' for making sure the callback works as expected.
 v8.0.0.0 2014/01/13 Added logging funnctionality to clide-cpp. Currently added to only the 'Clide::Rx' class. Added unit tests for logging functionality ('LoggingTests.cpp'). Added the '-std=c++0x' compiler flag to the Makefile so that I can use 'enum class xxx' (strongly-typed enumerations).
 v7.0.1.0 2014/01/10 Added 'const' qualifier to input variable to 'RxBuff::Write()'. Improved comments to 'Rx::Run()' in 'Clide-Rx.hpp'.
 v7.0.0.0 2014/01/09 Added new 'RxBuff' class as a front-end input buffer for the 'Rx' engine. Characters can be written to the RxBuff, and RxBuff will call Rx::Go() automatically when it detects the end-of-command character, and clear the buffer, ready for more input. Added unit test file for this feature (test/RxBuff.cpp). Also fixed recent dates in the README changelog. Started using new naming scheme (dropping the Clide from the start of the filename). Modified Makefile for automatic dependency generation for 'test/' folder.
