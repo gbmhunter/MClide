@@ -7,7 +7,7 @@
 //! @details
 //!					See README.rst in root dir for more info.
 
-#include "../src/include/Clide-IncludeJustMe.hpp"
+#include "../src/include/IncludeJustMe.hpp"
 
 #include "./UnitTest++/src/UnitTest++.h"
 

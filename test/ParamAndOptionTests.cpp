@@ -1,11 +1,11 @@
 //!
-//! @file 			LoggingTests.cpp
+//! @file 			ParamsAndOptionTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @created		2014/01/13
+//! @created		2013/07/04
 //! @last-modified 	2014/01/14
-//! @brief			Unit tests for checking the logging functionality of the clide-cpp library.
+//! @brief 			Contains test functions for Clide command parameters and options in the same command.
 //! @details
-//!				See README.rst in root dir for more info.
+//!					See README.rst in root dir for more info.
 
 #include "../src/include/IncludeJustMe.hpp"
 
@@ -13,7 +13,7 @@
 
 namespace ClideTest
 {
-	SUITE(LoggingTests)
+	SUITE(ParamAndOptionTests)
 	{
 		using namespace Clide;
 
@@ -22,8 +22,7 @@ namespace ClideTest
 			return true;
 		}
 
-
-		TEST(BasicLoggingTest)
+		TEST(OneParamThenOneOptionRxTest)
 		{
 			Rx rxController;
 			Tx txController;
@@ -43,16 +42,15 @@ namespace ClideTest
 			rxController.RegisterCmd(&cmdTest);
 			
 			// Create fake input buffer
-			char rxBuff[50] = "blah blah blah";
+			char rxBuff[50] = "test param1 -a";
 			
 			// Run rx controller
-			CHECK_EQUAL(false, rxController.Run(rxBuff));
-
-			// Now make sure this was logged
-			CHECK_EQUAL((int)Rx::LogIds::CMD_NOT_RECOGNISED, (int)rxController.log.logId);
+			rxController.Run(rxBuff);
 			
+			CHECK_EQUAL("param1", cmdTestParam.value);
+			CHECK_EQUAL(true, cmdTestOption.isDetected);
 		}
-		/*
+		
 		TEST(OneOptionThenOneParamRxTest)
 		{
 			Rx rxController;
@@ -85,7 +83,6 @@ namespace ClideTest
 		TEST(TwoParamTwoOptionRxTest1)
 		{
 			Rx rxController;
-			Tx txController;
 			
 			// Create command
 			Cmd cmdTest("test", &Callback, "A test command.");
@@ -202,7 +199,7 @@ namespace ClideTest
 			CHECK_EQUAL("param2", cmdTestParam2.value);
 			CHECK_EQUAL(false, cmdTestOption1.isDetected);
 			CHECK_EQUAL(false, cmdTestOption2.isDetected);
-		}*/
+		}
 		
 	} // SUITE(ParamAndOptionTests)
 } // namespace ClideTest

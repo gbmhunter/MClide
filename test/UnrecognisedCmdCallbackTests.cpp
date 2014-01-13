@@ -2,12 +2,12 @@
 //! @file 			UnrecognisedCmdCallbackTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/01/13
-//! @last-modified 	2014/01/13
+//! @last-modified 	2014/01/14
 //! @brief			Unit test for checking that the unrecognised command callback function is actually called when a command is not recognised.
 //! @details
 //!				See README.rst in root dir for more info.
 
-#include "../src/include/Clide-IncludeJustMe.hpp"
+#include "../src/include/IncludeJustMe.hpp"
 
 #include "./UnitTest++/src/UnitTest++.h"
 

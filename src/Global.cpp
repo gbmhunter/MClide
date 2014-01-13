@@ -1,9 +1,9 @@
 //!
-//! @file 			Log.cpp
+//! @file 			Global.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @created		2014/01/13
+//! @created		2013/04/02
 //! @last-modified 	2014/01/14
-//! @brief 			A class to create an error object, used for reporting Clide errors.
+//! @brief 		 	Contains global functions and variables used by many Clide classes.
 //! @details
 //!					See README.rst in repo root dir for more info.
 
@@ -16,18 +16,11 @@
 //===============================================================================================//
 
 // System includes
-#include <stdint.h>		// int8_t, int32_t e.t.c
-#include <stdio.h>		// snprintf()
-#include <stdlib.h>		// realloc(), malloc(), free()
-#include <cctype>		// isalnum() 
-#include <cstring>		// memset()
+
 
 // User includes
 #include "./include/Config.hpp"
 #include "./include/Global.hpp"
-#include "./include/Port.hpp"
-#include "./include/Rx.hpp"
-#include "./include/RxBuff.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -36,11 +29,12 @@
 namespace Clide
 {
 
+	char Global::debugBuff[clide_DEBUG_BUFF_SIZE] = {0};
+
 	//===============================================================================================//
-	//====================================== PUBLIC METHODS ========================================//
+	//====================================== PRIVATE METHODS ========================================//
 	//===============================================================================================//
 
+	// none
 
 } // namespace Clide
-
-// EOF

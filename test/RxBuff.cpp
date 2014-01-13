@@ -2,12 +2,12 @@
 //! @file 			RxBuff.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/01/09
-//! @last-modified 	2014/01/09
+//! @last-modified 	2014/01/14
 //! @brief 			Contains test functions for the RxBuff object.
 //! @details
 //!					See README.rst in root dir for more info.
 
-#include "../src/include/Clide-IncludeJustMe.hpp"
+#include "../src/include/IncludeJustMe.hpp"
 
 #include "./UnitTest++/src/UnitTest++.h"
 

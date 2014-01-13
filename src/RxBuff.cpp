@@ -2,7 +2,7 @@
 //! @file 			RxBuff.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/01/09
-//! @last-modified 	2014/01/10
+//! @last-modified 	2014/01/14
 //! @brief 			An input buffer for the Rx engine. This can accept a stream of characters and call Rx::Go when the CR character is detected.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -23,11 +23,11 @@
 #include <cstring>		// memset()
 
 // User includes
-#include "./include/Clide-Config.hpp"
-#include "./include/Clide-Global.hpp"
-#include "./include/Clide-Port.hpp"
-#include "./include/Clide-Rx.hpp"
-#include "./include/RxBuff.hpp"
+#include "include/Config.hpp"
+#include "include/Global.hpp"
+#include "include/Port.hpp"
+#include "include/Rx.hpp"
+#include "include/RxBuff.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//

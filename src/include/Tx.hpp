@@ -1,9 +1,9 @@
 //!
-//! @file 			RxBuff.hpp
+//! @file 			Tx.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @created		2014/01/09
+//! @created		2012/03/19
 //! @last-modified 	2014/01/14
-//! @brief 			An input buffer for the Rx engine. This can accept a stream of characters and call Rx::Go when the CR character is detected.
+//! @brief 			Clide TX controller. The main logic of the TX (sending)	part of Clide.
 //! @details
 //!					See README.rst in repo root dir for more info.
 
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef CLIDE_RX_BUFF_H
-#define CLIDE_RX_BUFF_H
+#ifndef CLIDE_TX_H
+#define CLIDE_TX_H
 
 //===============================================================================================//
 //========================================== INCLUDES ===========================================//
@@ -27,6 +27,9 @@
 
 // User
 #include "Config.hpp"
+#include "Param.hpp"
+#include "Option.hpp"
+#include "Cmd.hpp"
 #include "Port.hpp"
 
 //===============================================================================================//
@@ -35,54 +38,38 @@
 
 namespace Clide
 {
-	//! @brief		An input buffer for the Rx engine. It can accept a stream of characters and call Rx::Go() when the clide_END_OF_COMMAND_CHAR character is detected.
-	class RxBuff
+
+	//! @brief		This class is used for transmitting commands. Commands can be registered with Clide::Tx in the same way they can be for Clide::Rx.
+	//! @details	So far nothing has been implemented for Clide::Tx, as it is usually easier just to hand-type the command to send.
+	class Tx : public Comm
 	{
-	
+		
 		public:
 		
 			//===============================================================================================//
-			//==================================== CONSTRUCTORS/DESTRUCTOR ==================================//
+			//======================================== CONSTRUCTOR ==========================================//
 			//===============================================================================================//
 			
 			//! @brief		Constructor
-			RxBuff(Rx* rxController);
+			Tx();
 			
 			//===============================================================================================//
-			//======================================= PUBLIC METHODS ========================================//
+			//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
 			//===============================================================================================//
-
-			//! @brief		Writes a null-terminated string of characters to the RxBuff.
-			bool Write(const char* characters);
-
+			
+			// none
+			
+			//===============================================================================================//
+			//================================== PUBLIC VARIABLES/STRUCTURES ================================//
+			//===============================================================================================//
+			
 		private:
-			
-			//===============================================================================================//
-			//================================== PRIVATE VARIABLES/STRUCTURES ===============================//
-			//===============================================================================================//
-
-			//! @brief		Pointer to the rx controller RxBuff will send characters too once CR had been detected.
-			Rx* rxController;
-
-			//! @brief		Rx buffer for storing characters sent to RxBuff by Write().
-			char buff[clide_RX_BUFF_SIZE];
-
-			//! @brief		Pointer to current write location in buffer
-			uint8_t buffWritePos;
-
-			//===============================================================================================//
-			//======================================= PRIVATE METHODS =======================================//
-			//===============================================================================================//
 
 			// none
-
 	};
-
-
-	// none
 
 } // namespace Clide
 
-#endif	// #ifndef CLIDE_RX_BUFF_H
+#endif	// #ifndef CLIDE_TX_H
 
 // EOF

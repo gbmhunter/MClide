@@ -1,11 +1,11 @@
 //!
-//! @file 			LoggingTests.cpp
+//! @file 			MultipleSpacesBetweenArgumentsTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @created		2014/01/13
+//! @created		2013/07/12
 //! @last-modified 	2014/01/14
-//! @brief			Unit tests for checking the logging functionality of the clide-cpp library.
+//! @brief 			Contains test functions for Clide commands with multiple spaces between arguments.
 //! @details
-//!				See README.rst in root dir for more info.
+//!					See README.rst in root dir for more info.
 
 #include "../src/include/IncludeJustMe.hpp"
 
@@ -13,7 +13,7 @@
 
 namespace ClideTest
 {
-	SUITE(LoggingTests)
+	SUITE(MultipleSpacesBetweenArguments)
 	{
 		using namespace Clide;
 
@@ -22,8 +22,7 @@ namespace ClideTest
 			return true;
 		}
 
-
-		TEST(BasicLoggingTest)
+		TEST(MultipleSpacesBetweenArgumentsTest1)
 		{
 			Rx rxController;
 			Tx txController;
@@ -43,37 +42,7 @@ namespace ClideTest
 			rxController.RegisterCmd(&cmdTest);
 			
 			// Create fake input buffer
-			char rxBuff[50] = "blah blah blah";
-			
-			// Run rx controller
-			CHECK_EQUAL(false, rxController.Run(rxBuff));
-
-			// Now make sure this was logged
-			CHECK_EQUAL((int)Rx::LogIds::CMD_NOT_RECOGNISED, (int)rxController.log.logId);
-			
-		}
-		/*
-		TEST(OneOptionThenOneParamRxTest)
-		{
-			Rx rxController;
-			Tx txController;
-			
-			// Create command
-			Cmd cmdTest("test", &Callback, "A test command.");
-			
-			// Create parameter
-			Param cmdTestParam("A test parameter.");
-			cmdTest.RegisterParam(&cmdTestParam);
-			
-			// Create option
-			Option cmdTestOption('a', NULL, "A test option.");
-			cmdTest.RegisterOption(&cmdTestOption);
-			
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
-			
-			// Create fake input buffer
-			char rxBuff[50] = "test -a param1";
+			char rxBuff[50] = "test  param1  -a";
 			
 			// Run rx controller
 			rxController.Run(rxBuff);
@@ -82,7 +51,36 @@ namespace ClideTest
 			CHECK_EQUAL(true, cmdTestOption.isDetected);
 		}
 		
-		TEST(TwoParamTwoOptionRxTest1)
+		TEST(MultipleSpacesBetweenArgumentsTest2)
+		{
+			Rx rxController;
+			Tx txController;
+			
+			// Create command
+			Cmd cmdTest("test", &Callback, "A test command.");
+			
+			// Create parameter
+			Param cmdTestParam("A test parameter.");
+			cmdTest.RegisterParam(&cmdTestParam);
+			
+			// Create option
+			Option cmdTestOption('a', NULL, "A test option.");
+			cmdTest.RegisterOption(&cmdTestOption);
+			
+			// Register command
+			rxController.RegisterCmd(&cmdTest);
+			
+			// Create fake input buffer
+			char rxBuff[50] = "test  -a param1";
+			
+			// Run rx controller
+			rxController.Run(rxBuff);
+			
+			CHECK_EQUAL("param1", cmdTestParam.value);
+			CHECK_EQUAL(true, cmdTestOption.isDetected);
+		}
+		
+		TEST(MultipleSpacesBetweenArgumentsTest3)
 		{
 			Rx rxController;
 			Tx txController;
@@ -108,7 +106,7 @@ namespace ClideTest
 			rxController.RegisterCmd(&cmdTest);
 			
 			// Create fake input buffer
-			char rxBuff[50] = "test param1 param2 -a -b";
+			char rxBuff[50] = "test   param1  param2   -a -b";
 			
 			// Run rx controller
 			rxController.Run(rxBuff);
@@ -119,7 +117,7 @@ namespace ClideTest
 			CHECK_EQUAL(true, cmdTestOption2.isDetected);
 		}
 		
-		TEST(TwoParamTwoOptionRxTest2)
+		TEST(MultipleSpacesBetweenArgumentsTest4)
 		{
 			Rx rxController;
 			Tx txController;
@@ -145,7 +143,7 @@ namespace ClideTest
 			rxController.RegisterCmd(&cmdTest);
 			
 			// Create fake input buffer
-			char rxBuff[50] = "test param1 -a param2 -b";
+			char rxBuff[50] = "test  param1    -a param2    -b";
 			
 			// Run rx controller
 			rxController.Run(rxBuff);
@@ -156,7 +154,7 @@ namespace ClideTest
 			CHECK_EQUAL(true, cmdTestOption2.isDetected);
 		}
 		
-		TEST(TwoParamTwoOptionRxTest3)
+		TEST(MultipleSpacesBetweenArgumentsTest5)
 		{
 			Rx rxController;
 			Tx txController;
@@ -182,7 +180,7 @@ namespace ClideTest
 			rxController.RegisterCmd(&cmdTest);
 			
 			// Create fake input buffer
-			char rxBuff1[50] = "test -a param1 -b param2";
+			char rxBuff1[50] = "test   -a   param1  -b   param2";
 			
 			// Run rx controller
 			rxController.Run(rxBuff1);
@@ -193,7 +191,7 @@ namespace ClideTest
 			CHECK_EQUAL(true, cmdTestOption2.isDetected);
 			
 			// Create fake input buffer
-			char rxBuff2[50] = "test param1 param2";
+			char rxBuff2[50] = "test    param1 param2";
 			
 			// Run rx controller
 			rxController.Run(rxBuff2);
@@ -202,7 +200,7 @@ namespace ClideTest
 			CHECK_EQUAL("param2", cmdTestParam2.value);
 			CHECK_EQUAL(false, cmdTestOption1.isDetected);
 			CHECK_EQUAL(false, cmdTestOption2.isDetected);
-		}*/
+		}
 		
-	} // SUITE(ParamAndOptionTests)
+	} // SUITE(MultipleSpacesBetweenArguments)
 } // namespace ClideTest
