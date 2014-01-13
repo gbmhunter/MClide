@@ -587,7 +587,7 @@ namespace Clide
 				snprintf (
 					Global::debugBuff,
 					sizeof(Global::debugBuff),
-					"CLIDE: Error: Num. of received parameters ('%" STR(ClidePort_PF_UINT32_T) 
+					"CLIDE: ERROR: Num. of received parameters ('%" STR(ClidePort_PF_UINT32_T)
 					"') for cmd '%s' does not match num. registered ('%" STR(ClidePort_PF_UINT32_T) "'). numArgs = '%u'. optind = '%i'.\r\n",
 					(uint32_t)(numArgs - GetOpt::optind),
 					foundCmd->name,

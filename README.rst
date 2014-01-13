@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/01/14
-- Version: v8.2.2.0
+- Version: v8.2.3.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -307,6 +307,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.2.3.0 2013/01/14 Changed 'Error' to 'ERROR' in 'Clide: Error: Num. of received param...' in 'src/Clide-Rx.cpp', closes #64.
 v8.2.2.0 2013/01/14 'Rx::Run()' now does not modify the input command message, which is safer and less bug-prone, closes #91. This also allows string literals to be passed to 'Rx::Run()'. Added unit test to test string literal input feature ('test/StringLiteralAsInputToRxRun.cpp'), closes #93.
 v8.2.1.0 2013/01/14 Stopped clide-cpp calling command callback function if callback was NULL (prevents crashing), closes #90. Added unit test(s) for this feature ('test/NullCallbackTests'), closes #92.
 v8.2.0.0 2013/01/13 Added unit test that makes sure the unrecognised command callback function is not called if the command is recognised.
