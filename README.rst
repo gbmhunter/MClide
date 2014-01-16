@@ -8,7 +8,7 @@ Clide (Command Line Interface Development Environment) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/01/16
-- Version: v8.3.0.0
+- Version: v8.3.1.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -317,6 +317,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.3.1.0 2013/01/16 Updated the slotmachine-cpp sub-repo URL in .gitmodules from SSH to HTTPS, in an attempt to fix the error TravisCI had while trying to download it.
 v8.3.0.0 2013/01/16 Added git submodule slotmachine-cpp to 'lib/slotmachine-cpp'. This library adds method-capable callback functionality to C++, closes #95. Repalced C-style unrecognised command callback with Slotmachine callback. Added info about callbacks to the README.
 v8.2.4.0 2013/01/14 Renamed code files to follow new convention (i.e. got rid of the 'Clide' prefix), closes #94.
 v8.2.3.0 2013/01/14 Changed 'Error' to 'ERROR' in 'Clide: Error: Num. of received param...' in 'src/Clide-Rx.cpp', closes #64.
