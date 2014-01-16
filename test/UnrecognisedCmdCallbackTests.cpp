@@ -13,53 +13,73 @@
 
 namespace ClideTest
 {
+	class ClassWithFunction
+	{
+	public:
+		bool iWasCalled;
+		bool cmdsEqual;
+
+		ClassWithFunction()
+		{
+			iWasCalled = false;
+			cmdsEqual = false;
+		}
+
+
+		void TryAndCallMe(char* cmd)
+		{
+			iWasCalled = true;
+
+			if(strcmp(cmd, "blah blah blah") == 0)
+				cmdsEqual = true;
+		}
+
+	};
+
 	SUITE(UnrecognisedCmdCallbackTests)
 	{
 		using namespace Clide;
-
-		bool unrecogCmdCallbackCalled = false;
-		bool cmdsEqual = false;
 
 		bool CmdCallback(Cmd *cmd)
 		{
 			return true;
 		}
 
-		void UnrecognisedCmdCallback1(char* cmd)
-		{
-			unrecogCmdCallbackCalled = true;
-			if(strcmp(cmd, "blah blah blah") == 0)
-				cmdsEqual = true;
-		}
-
 		TEST(UnrecognisedCmdCallbackTest)
 		{
 			Rx rxController;
 
+			ClassWithFunction classWithFunction;
+
+			SlotMachine::CallbackGen<ClassWithFunction, void, char*> callBack(&classWithFunction, &ClassWithFunction::TryAndCallMe);
+
 			// Register callback function
-			rxController.cmdUnrecognisedCallback = &UnrecognisedCmdCallback1;
+			rxController.cmdUnrecogCallback = callBack;
 
 			// Create fake input buffer
 			char rxBuff[50] = "blah blah blah";
-			
-			// Reset globals
-			unrecogCmdCallbackCalled = false;
-			cmdsEqual = false;
 
 			// Run rx controller
 			rxController.Run(rxBuff);
 
 			// Now make sure the callback was called
-			CHECK_EQUAL(true, unrecogCmdCallbackCalled);
+			CHECK_EQUAL(true, classWithFunction.iWasCalled);
 			
 			// Make sure the cmds were equal
-			CHECK_EQUAL(true, cmdsEqual);
+			CHECK_EQUAL(true, classWithFunction.cmdsEqual);
 
 		}
-		
+
 		TEST(RecognisedCmdWithCallbackTest)
 		{
 			Rx rxController;
+
+			ClassWithFunction classWithFunction;
+
+			SlotMachine::CallbackGen<ClassWithFunction, void, char*> callBack(&classWithFunction, &ClassWithFunction::TryAndCallMe);
+
+			// Register callback function
+			rxController.cmdUnrecogCallback = callBack;
 
 			// Create command
 			Cmd cmdTest("test", &CmdCallback, "A test command.");
@@ -75,22 +95,15 @@ namespace ClideTest
 			// Register command
 			rxController.RegisterCmd(&cmdTest);
 
-			// Register callback function
-			rxController.cmdUnrecognisedCallback = &UnrecognisedCmdCallback1;
-
 			// Create fake input buffer
 			char rxBuff[50] = "test param1 -a";
-
-			// Reset globals
-			unrecogCmdCallbackCalled = false;
-			cmdsEqual = false;
 
 			// Run rx controller
 			rxController.Run(rxBuff);
 
 			// Now the command should of been recognised, and the callback function NOT called,
 			// so make sure they are still false
-			CHECK_EQUAL(false, unrecogCmdCallbackCalled);
+			CHECK_EQUAL(false, classWithFunction.iWasCalled);
 
 		}
 

@@ -25,7 +25,10 @@
 // System
 #include <stdint.h>
 
-// User
+// User libraries
+#include "../../lib/slotmachine-cpp/api/Slotmachine.hpp"
+
+// Clide
 #include "Config.hpp"
 #include "Param.hpp"
 #include "Option.hpp"
@@ -67,8 +70,8 @@ namespace Clide
 			Log<LogIds> log;
 			
 			//! @brief		This gives you the ability to provide a callback function that is called when a command is not recognised.
-			//! @details	This is essentially an event handler. All callback functions assoicted with recognised commands are part of the command objects themselves.
-			void (*cmdUnrecognisedCallback)(char* notRecogCmd);
+			//! @details	This is essentially an event handler. All callback functions assoicated with recognised commands are part of the command objects themselves.
+			SlotMachine::Callback<void, char*> cmdUnrecogCallback;
 
 			//===============================================================================================//
 			//======================================= PUBLIC METHODS ========================================//

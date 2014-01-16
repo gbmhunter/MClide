@@ -18,6 +18,10 @@
 #ifndef CLIDE_INCLUDE_JUST_ME_H
 #define CLIDE_INCLUDE_JUST_ME_H
 
+// User libraries
+#include "../../lib/slotmachine-cpp/api/Slotmachine.hpp"
+
+// Clide includes
 #include "Tx.hpp"
 #include "Rx.hpp"
 #include "Cmd.hpp"

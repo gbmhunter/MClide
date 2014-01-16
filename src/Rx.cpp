@@ -22,7 +22,10 @@
 #include <cctype>		// isalnum() 
 #include <cstring>		// memset()
 
-// User includes
+// User library includes
+#include "../lib/slotmachine-cpp/api/Slotmachine.hpp"
+
+// Clide includes
 #include "include/Config.hpp"
 #include "include/Global.hpp"
 #include "include/MemMang.hpp"
@@ -35,6 +38,8 @@
 #include "include/Rx.hpp"
 #include "include/GetOpt.hpp"
 #include "include/Log.hpp"
+
+
 
 
 //===============================================================================================//
@@ -51,10 +56,8 @@ namespace Clide
 	//====================================== PUBLIC METHODS ========================================//
 	//===============================================================================================//
 
-
-
 	// Constructor
-	Rx::Rx() : cmdUnrecognisedCallback(NULL)
+	Rx::Rx()
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			Port::DebugPrint("CLIDE: Rx constructor called...\r\n");
@@ -198,9 +201,9 @@ namespace Clide
 			this->log.severity = Severity::ERROR;
 
 			// Call callback if assigned
-			if(this->cmdUnrecognisedCallback != NULL)
+			if(this->cmdUnrecogCallback.obj != NULL)
 			{
-				this->cmdUnrecognisedCallback(cmdMsg);
+				this->cmdUnrecogCallback.Execute(cmdMsg);
 			}
 
 			#if(clideDEBUG_PRINT_VERBOSE == 1)

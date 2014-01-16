@@ -7,8 +7,8 @@ Clide (Command Line Interface Development Environment) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2014/01/14
-- Version: v8.2.4.0
+- Last Modified: 2014/01/16
+- Version: v8.3.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -135,6 +135,15 @@ The unit tests check for:
 - Multiple spaces between arguments are o.k.
 - Spastic input is handled safely
 - Negative numbers are supported wth quotes
+- Callback functions are called at the correct time
+
+Event-driven Callback Support
+-----------------------------
+
+Clide leverages the slotmachine-cpp library to provide event-driven callbacks. slotmachine-cpp supports callbacks to methods (instance functions), without Clide having any previous knowledge about the class (type agnostic).
+
+List of events:
+- Command not recognised
 
 Installation
 ============
@@ -146,10 +155,10 @@ Installation
 3. To include clide-cpp into your embedded (or otherwise) firmware/software project, copy the repo into your project folder (or other suitable place) and include the file "Clide-IncludeJustMe.hpp" from your C++ code.
 
 
-External Dependencies
-=====================
+Dependencies
+============
 
-The following table lists all of clide-cpp's external dependencies.
+The following table lists all of clide-cpp's dependencies.
 
 ====================== ==================== ======================================================================
 Dependency             Delivery             Usage
@@ -157,6 +166,7 @@ Dependency             Delivery             Usage
 <stdio.h>              Standard C library   snprintf()
 <stdlib.h> 	           Standard C library   realloc(), malloc(), calloc(), free()
 <cctype>               Standard C library   isalnum()
+"SlotMachine.hpp"      /lib/slotmachine-cpp Method callback functionality
 ====================== ==================== ======================================================================
 
 Packet Decoding Process (RX)
@@ -307,6 +317,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.3.0.0 2013/01/16 Added git submodule slotmachine-cpp to 'lib/slotmachine-cpp'. This library adds method-capable callback functionality to C++, closes #95. Repalced C-style unrecognised command callback with Slotmachine callback. Added info about callbacks to the README.
 v8.2.4.0 2013/01/14 Renamed code files to follow new convention (i.e. got rid of the 'Clide' prefix), closes #94.
 v8.2.3.0 2013/01/14 Changed 'Error' to 'ERROR' in 'Clide: Error: Num. of received param...' in 'src/Clide-Rx.cpp', closes #64.
 v8.2.2.0 2013/01/14 'Rx::Run()' now does not modify the input command message, which is safer and less bug-prone, closes #91. This also allows string literals to be passed to 'Rx::Run()'. Added unit test to test string literal input feature ('test/StringLiteralAsInputToRxRun.cpp'), closes #93.
