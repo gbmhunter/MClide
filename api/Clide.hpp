@@ -1,11 +1,11 @@
 //!
-//! @file 			IncludeJustMe.hpp
+//! @file 			Clide.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/01/14
-//! @brief 			This header file includes all files neccessary for the user to use the Clide library.
+//! @last-modified 	2014/01/21
+//! @brief 			This header file includes all files necessary for the user to use the Clide library.
 //! @details
-//!				See README.rst in repo root dir for more info.
+//!					See README.rst in repo root dir for more info.
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler
@@ -15,20 +15,20 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef CLIDE_INCLUDE_JUST_ME_H
-#define CLIDE_INCLUDE_JUST_ME_H
+#ifndef CLIDE_CLIDE_H
+#define CLIDE_CLIDE_H
 
 // User libraries
-#include "../../lib/slotmachine-cpp/api/Slotmachine.hpp"
+#include "../lib/slotmachine-cpp/api/Slotmachine.hpp"
 
 // Clide includes
-#include "Tx.hpp"
-#include "Rx.hpp"
-#include "Cmd.hpp"
-#include "Param.hpp"
-#include "Option.hpp"
-#include "RxBuff.hpp"
+#include "../include/Tx.hpp"
+#include "../include/Rx.hpp"
+#include "../include/Cmd.hpp"
+#include "../include/Param.hpp"
+#include "../include/Option.hpp"
+#include "../include/RxBuff.hpp"
 
-#endif	// CLIDE_INCLUDE_JUST_ME_H
+#endif // #ifndef CLIDE_CLIDE_H
 
 // EOF

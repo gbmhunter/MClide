@@ -2,7 +2,7 @@
 //! @file 			MemMang.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/01/14
+//! @last-modified 	2014/01/21
 //! @brief 			Memory management functions for Clide.
 //! @details
 //!					See README.rst in repo root dir for more information.
@@ -23,8 +23,8 @@
 #include <string.h>		// strlen(), strcpy()
 
 // User includes
-#include "./include/MemMang.hpp"
-#include "./include/Port.hpp"
+#include "../include/MemMang.hpp"
+#include "../include/Port.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//

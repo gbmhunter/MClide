@@ -2,12 +2,12 @@
 //! @file 			LoggingTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/01/13
-//! @last-modified 	2014/01/14
+//! @last-modified 	2014/01/21
 //! @brief			Unit tests for checking the logging functionality of the clide-cpp library.
 //! @details
 //!				See README.rst in root dir for more info.
 
-#include "../src/include/IncludeJustMe.hpp"
+#include "../api/Clide.hpp"
 
 #include "./UnitTest++/src/UnitTest++.h"
 

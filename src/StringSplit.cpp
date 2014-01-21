@@ -2,7 +2,7 @@
 //! @file 			StringSplit.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/10
-//! @last-modified 	2014/01/14
+//! @last-modified 	2014/01/21
 //! @brief 			Features a string split function which ignores delimiters inside quotation marks.
 //! @details	
 //!					See README.rst in repo root dir for more information.
@@ -19,8 +19,8 @@
 #include <stdio.h>		// snprintf()
 
 // User includes
-#include "include/Port.hpp"
-#include "include/StringSplit.hpp"
+#include "../include/Port.hpp"
+#include "../include/StringSplit.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//

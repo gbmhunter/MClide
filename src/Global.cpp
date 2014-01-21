@@ -2,7 +2,7 @@
 //! @file 			Global.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/01/14
+//! @last-modified 	2014/01/21
 //! @brief 		 	Contains global functions and variables used by many Clide classes.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -19,8 +19,8 @@
 
 
 // User includes
-#include "./include/Config.hpp"
-#include "./include/Global.hpp"
+#include "../include/Config.hpp"
+#include "../include/Global.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//

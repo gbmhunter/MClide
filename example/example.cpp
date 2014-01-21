@@ -2,7 +2,7 @@
 //! @file 			example.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created 		2013/07/04
-//! @last-modified 	2014/01/14
+//! @last-modified 	2014/01/21
 //! @brief 			Example Clide program, designed to be run on Linux.
 //! @details
 //!				See README.rst in root dir for more info.
@@ -11,7 +11,7 @@
 #include <iostream>
 #include <string>
 
-#include "../src/include/IncludeJustMe.hpp"
+#include "../api/Clide.hpp"
 
 using namespace Clide;
 using namespace std;

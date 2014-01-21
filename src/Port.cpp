@@ -2,7 +2,7 @@
 //! @file				Port.cpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created			2012/03/19
-//! @last-modified		2014/01/14
+//! @last-modified		2014/01/21
 //! @brief 				Contains port-specific skeleton functions.
 //! @details
 //!						See README.rst in repo root dir for more info.
@@ -21,7 +21,7 @@
 #include <cctype>		// isalnum() 
 
 // User includes
-#include "./include/Port.hpp"
+#include "../include/Port.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//

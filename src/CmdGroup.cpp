@@ -2,7 +2,7 @@
 //! @file 			CmdGroup.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/01/06
-//! @last-modified 	2014/01/14
+//! @last-modified 	2014/01/21
 //! @brief 			The CmdGroup object is used to create "groups" that commands can belong too, which can be then be utilised to display selective help information.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -23,13 +23,13 @@
 #include <string.h>		// strlen()
 
 // User includes
-#include "include/MemMang.hpp"
-#include "include/Config.hpp"
-#include "include/Global.hpp"
-#include "include/Port.hpp"
-#include "include/Option.hpp"
-#include "include/Param.hpp"
-#include "include/Cmd.hpp"
+#include "../include/MemMang.hpp"
+#include "../include/Config.hpp"
+#include "../include/Global.hpp"
+#include "../include/Port.hpp"
+#include "../include/Option.hpp"
+#include "../include/Param.hpp"
+#include "../include/Cmd.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//

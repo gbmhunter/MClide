@@ -2,7 +2,7 @@
 //! @file 			Rx.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2012/03/19
-//! @last-modified 	2014/01/14
+//! @last-modified 	2014/01/21
 //! @brief 			Clide RX controller. The main logic of the RX (decoding) part of Clide. Commands can be registered with the controller.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -26,18 +26,18 @@
 #include "../lib/slotmachine-cpp/api/Slotmachine.hpp"
 
 // Clide includes
-#include "include/Config.hpp"
-#include "include/Global.hpp"
-#include "include/MemMang.hpp"
-#include "include/StringSplit.hpp"
-#include "include/Param.hpp"
-#include "include/Option.hpp"
-#include "include/Cmd.hpp"
-#include "include/Port.hpp"
-#include "include/Comm.hpp"			//!< So the help command can call the HelpCmdCallback() function
-#include "include/Rx.hpp"
-#include "include/GetOpt.hpp"
-#include "include/Log.hpp"
+#include "../include/Config.hpp"
+#include "../include/Global.hpp"
+#include "../include/MemMang.hpp"
+#include "../include/StringSplit.hpp"
+#include "../include/Param.hpp"
+#include "../include/Option.hpp"
+#include "../include/Cmd.hpp"
+#include "../include/Port.hpp"
+#include "../include/Comm.hpp"			//!< So the help command can call the HelpCmdCallback() function
+#include "../include/Rx.hpp"
+#include "../include/GetOpt.hpp"
+#include "../include/Log.hpp"
 
 
 

@@ -2,7 +2,7 @@
 //! @file 				GetOpt.cpp
 //! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created			2013/03/19
-//! @last-modified 		2014/01/14
+//! @last-modified 		2014/01/21
 //! @brief 				Clide's own getopt() function. It was decided not to reply on the standard C version of this as the implementation varied between "standard" C libraries.
 //! @details
 //!						See README.rst in repo root dir for more info.
@@ -40,10 +40,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "./include/Config.hpp"
-#include "./include/Global.hpp"
-#include "./include/Port.hpp"
-#include "./include/GetOpt.hpp"
+#include "../include/Config.hpp"
+#include "../include/Global.hpp"
+#include "../include/Port.hpp"
+#include "../include/GetOpt.hpp"
 
 namespace Clide
 {

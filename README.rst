@@ -7,8 +7,8 @@ Clide (Command Line Interface Development Environment) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2014/01/16
-- Version: v8.3.1.0
+- Last Modified: 2014/01/21
+- Version: v8.4.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -88,7 +88,7 @@ Clide is not dependant on the :code:`getopt_long()` function from the standard C
 Easy Including
 --------------
 
-Before writing code using Clide as a library, you only need to include the single header file called :code:`Clide-IncludeJustMe.hpp` which is found in :code:`./src/include/`.
+Before writing code using Clide as a library, you only need to include the single header file called :code:`Clide.hpp` which is found in :code:`api/`.
 
 Easy To Experiment With
 -----------------------
@@ -176,7 +176,7 @@ When :code:`Rx.Run()` is called...
 
 - Remove all non-alphanumeric characters from the start of the packet
 - Split packet into separate arguments
-- Make sure received command is registered. If so, set cmdReceived = TRUE. It not, return FALSE.
+- Make sure received command is registered. If so, set :code:`cmdReceived = TRUE`. It not, return :code:`FALSE`.
 - Extract options and values (if present), execute option callback functions
 - Check all parameters are present
 - Execute parameter callback functions
@@ -201,7 +201,7 @@ In main.c add...
 
 ::
 
-	#include "./src/include/Clide-IncludeJustMe.hpp"
+	#include "api/Clide.hpp"
 
 	using namespace Clide;
 
@@ -317,14 +317,15 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
-v8.3.1.0 2013/01/16 Updated the slotmachine-cpp sub-repo URL in .gitmodules from SSH to HTTPS, in an attempt to fix the error TravisCI had while trying to download it.
-v8.3.0.0 2013/01/16 Added git submodule slotmachine-cpp to 'lib/slotmachine-cpp'. This library adds method-capable callback functionality to C++, closes #95. Repalced C-style unrecognised command callback with Slotmachine callback. Added info about callbacks to the README.
-v8.2.4.0 2013/01/14 Renamed code files to follow new convention (i.e. got rid of the 'Clide' prefix), closes #94.
-v8.2.3.0 2013/01/14 Changed 'Error' to 'ERROR' in 'Clide: Error: Num. of received param...' in 'src/Clide-Rx.cpp', closes #64.
-v8.2.2.0 2013/01/14 'Rx::Run()' now does not modify the input command message, which is safer and less bug-prone, closes #91. This also allows string literals to be passed to 'Rx::Run()'. Added unit test to test string literal input feature ('test/StringLiteralAsInputToRxRun.cpp'), closes #93.
-v8.2.1.0 2013/01/14 Stopped clide-cpp calling command callback function if callback was NULL (prevents crashing), closes #90. Added unit test(s) for this feature ('test/NullCallbackTests'), closes #92.
-v8.2.0.0 2013/01/13 Added unit test that makes sure the unrecognised command callback function is not called if the command is recognised.
-v8.1.0.0 2013/01/13 Added assignable call-back function variable to the Rx class for when there is an unrecognised command. You can use this to do your own event handling. It also passes a 'char*' to the unrecognised command. Added unit test file 'NotRecognisedCmdCallbackTests.cpp' for making sure the callback works as expected.
+v8.4.0.0 2014/01/21 Moved all files from 'src/include/' to 'include/', and created 'api/Clide.hpp' (old 'IncludeJustMe.hpp' file) to conform to new file structure standard, closes #97.
+v8.3.1.0 2014/01/16 Updated the slotmachine-cpp sub-repo URL in .gitmodules from SSH to HTTPS, in an attempt to fix the error TravisCI had while trying to download it.
+v8.3.0.0 2014/01/16 Added git submodule slotmachine-cpp to 'lib/slotmachine-cpp'. This library adds method-capable callback functionality to C++, closes #95. Repalced C-style unrecognised command callback with Slotmachine callback. Added info about callbacks to the README.
+v8.2.4.0 2014/01/14 Renamed code files to follow new convention (i.e. got rid of the 'Clide' prefix), closes #94.
+v8.2.3.0 2014/01/14 Changed 'Error' to 'ERROR' in 'Clide: Error: Num. of received param...' in 'src/Clide-Rx.cpp', closes #64.
+v8.2.2.0 2014/01/14 'Rx::Run()' now does not modify the input command message, which is safer and less bug-prone, closes #91. This also allows string literals to be passed to 'Rx::Run()'. Added unit test to test string literal input feature ('test/StringLiteralAsInputToRxRun.cpp'), closes #93.
+v8.2.1.0 2014/01/14 Stopped clide-cpp calling command callback function if callback was NULL (prevents crashing), closes #90. Added unit test(s) for this feature ('test/NullCallbackTests'), closes #92.
+v8.2.0.0 2014/01/13 Added unit test that makes sure the unrecognised command callback function is not called if the command is recognised.
+v8.1.0.0 2014/01/13 Added assignable call-back function variable to the Rx class for when there is an unrecognised command. You can use this to do your own event handling. It also passes a 'char*' to the unrecognised command. Added unit test file 'NotRecognisedCmdCallbackTests.cpp' for making sure the callback works as expected.
 v8.0.0.0 2014/01/13 Added logging funnctionality to clide-cpp. Currently added to only the 'Clide::Rx' class. Added unit tests for logging functionality ('LoggingTests.cpp'). Added the '-std=c++0x' compiler flag to the Makefile so that I can use 'enum class xxx' (strongly-typed enumerations).
 v7.0.1.0 2014/01/10 Added 'const' qualifier to input variable to 'RxBuff::Write()'. Improved comments to 'Rx::Run()' in 'Clide-Rx.hpp'.
 v7.0.0.0 2014/01/09 Added new 'RxBuff' class as a front-end input buffer for the 'Rx' engine. Characters can be written to the RxBuff, and RxBuff will call Rx::Go() automatically when it detects the end-of-command character, and clear the buffer, ready for more input. Added unit test file for this feature (test/RxBuff.cpp). Also fixed recent dates in the README changelog. Started using new naming scheme (dropping the Clide from the start of the filename). Modified Makefile for automatic dependency generation for 'test/' folder.

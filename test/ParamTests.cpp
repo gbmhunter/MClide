@@ -2,14 +2,14 @@
 //! @file 			ParamTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/07/04
-//! @last-modified 	2014/01/14
+//! @last-modified 	2014/01/21
 //! @brief 			Contains test functions for Clide command parameters.
 //! @details
 //!					See README.rst in root dir for more info.
 
 #include <stdio.h>
 
-#include "../src/include/IncludeJustMe.hpp"
+#include "../api/Clide.hpp"
 
 #include "./UnitTest++/src/UnitTest++.h"
 

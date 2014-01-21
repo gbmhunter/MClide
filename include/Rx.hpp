@@ -2,7 +2,7 @@
 //! @file 			Rx.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2012/03/19
-//! @last-modified 	2014/01/14
+//! @last-modified 	2014/01/21
 //! @brief 			Clide RX controller. The main logic of the RX (decoding) part of Clide. Commands can be registered with the controller.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -26,7 +26,7 @@
 #include <stdint.h>
 
 // User libraries
-#include "../../lib/slotmachine-cpp/api/Slotmachine.hpp"
+#include "../lib/slotmachine-cpp/api/Slotmachine.hpp"
 
 // Clide
 #include "Config.hpp"

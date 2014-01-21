@@ -1,13 +1,13 @@
 //!
 //! @file 			StringLiteralAsInputToRxRunTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @created		2014/01/14
-//! @last-modified 	2014/01/14
+//! @created		2014/01/21
+//! @last-modified 	2014/01/21
 //! @brief 			Contains test functions for directly inputting a string literal to Rx::Run().
 //! @details
 //!					See README.rst in root dir for more info.
 
-#include "../src/include/IncludeJustMe.hpp"
+#include "../api/Clide.hpp"
 
 #include "./UnitTest++/src/UnitTest++.h"
 
