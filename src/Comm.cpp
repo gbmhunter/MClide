@@ -129,7 +129,7 @@ namespace Clide
 
 		// Title
 		Print::cmdLinePrintCallback.Execute("********** LIST OF COMMANDS ***********\r\n");
-		Print::cmdLinePrintCallback.Execute("Filter: in group " clide_TERM_TEXT_FORMAT_BOLD);
+		Print::cmdLinePrintCallback.Execute("Showing commands for user group: " clide_TERM_TEXT_FORMAT_BOLD);
 		Print::cmdLinePrintCallback.Execute(selectedGroup);
 		Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_NORMAL "\r\n");
 
