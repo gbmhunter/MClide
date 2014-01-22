@@ -25,15 +25,11 @@
 // System
 #include <stdint.h>
 
-// User libraries
-#include "../lib/slotmachine-cpp/api/Slotmachine.hpp"
-
 // Clide
 #include "Config.hpp"
 #include "Param.hpp"
 #include "Option.hpp"
 #include "Cmd.hpp"
-#include "Port.hpp"
 #include "GetOpt.hpp"
 #include "Comm.hpp"
 #include "Log.hpp"				//!< Used for logging warnings and errors
@@ -54,7 +50,7 @@ namespace Clide
 	
 		public:
 		
-		//! @brief		Log IDs for Rx relevant warnings/errors.
+			//! @brief		Log IDs for Rx relevant warnings/errors.
 			enum class LogIds : uint32_t
 			{
 				NONE,
@@ -68,16 +64,12 @@ namespace Clide
 			//! @brief		Holds warning/error information.
 			//! @details	Investigate this if you wish to find out more about why a function returned false.
 			Log<LogIds> log;
-			
-			//! @brief		This gives you the ability to provide a callback function that is called when a command is not recognised.
-			//! @details	This is essentially an event handler. All callback functions assoicated with recognised commands are part of the command objects themselves.
-			SlotMachine::Callback<void, char*> cmdUnrecogCallback;
 
 			//===============================================================================================//
 			//======================================= PUBLIC METHODS ========================================//
 			//===============================================================================================//
 
-			//! @brief		Constructor
+			//! @brief		Default constructor
 			Rx();
 
 			//! @brief		Runs the algorithm. Call this with the received command msg (array of characters).

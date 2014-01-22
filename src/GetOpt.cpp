@@ -42,7 +42,7 @@
 
 #include "../include/Config.hpp"
 #include "../include/Global.hpp"
-#include "../include/Port.hpp"
+#include "../include/Print.hpp"
 #include "../include/GetOpt.hpp"
 
 namespace Clide
@@ -295,7 +295,7 @@ namespace Clide
 		int posixly_correct)
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			Clide::Port::DebugPrint("CLIDE: GetOpt() called.\r\n");
+			Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() called.\r\n");
 		#endif
 	
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
@@ -305,7 +305,7 @@ namespace Clide
 				"CLIDE: GetOpt data.optind = '%i'. argc = '%i'.\r\n",
 				d->optind,
 				argc);
-			Clide::Port::DebugPrint(Clide::Global::debugBuff);
+			Clide::Print::debugPrintCallback.Execute(Clide::Global::debugBuff);
 		#endif
 	
 		int print_errors = d->opterr;
@@ -319,7 +319,7 @@ namespace Clide
 		if (d->optind == 0 || !d->__initialized)
 		{
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
-				Clide::Port::DebugPrint("CLIDE: Initialising GetOpt().\r\n");
+				Clide::Print::debugPrintCallback.Execute("CLIDE: Initialising GetOpt().\r\n");
 			#endif
 			// Don't scan ARGV[0], the program name. 
 			if (d->optind == 0)
@@ -341,7 +341,7 @@ namespace Clide
 				"CLIDE: Testing whether argv['%i'] ('%s') points to a non-option argument.\r\n",
 				d->optind,
 				argv[d->optind]);
-			Clide::Port::DebugPrint(Clide::Global::debugBuff);
+			Clide::Print::debugPrintCallback.Execute(Clide::Global::debugBuff);
 		#endif
 			
 		  /* Test whether ARGV[optind] points to a non-option argument.
@@ -410,7 +410,7 @@ namespace Clide
 					d->optind = d->__first_nonopt;
 				{
 					#if(clideDEBUG_PRINT_VERBOSE == 1)
-						Clide::Port::DebugPrint("CLIDE: GetOpt() finished. optind == argc. Returning -1.\r\n");
+						Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. optind == argc. Returning -1.\r\n");
 					#endif
 					return -1;
 				}
@@ -424,13 +424,13 @@ namespace Clide
 				if (d->__ordering == _getopt_data::REQUIRE_ORDER)
 				{
 					#if(clideDEBUG_PRINT_VERBOSE == 1)
-						Clide::Port::DebugPrint("CLIDE: GetOpt() finished. Returning -1.\r\n");
+						Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning -1.\r\n");
 					#endif
 					return -1;
 				}
 				d->optarg = argv[d->optind++];
 				#if(clideDEBUG_PRINT_VERBOSE == 1)
-					Clide::Port::DebugPrint("CLIDE: GetOpt() finished. Returning 1.\r\n");
+					Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning 1.\r\n");
 				#endif
 				return 1;
 			}
@@ -529,7 +529,7 @@ namespace Clide
 								sizeof(Clide::Global::debugBuff),
 								"%s: option '%s' is ambiguous; possibilities:",
 								argv[0], argv[d->optind]);
-							Clide::Port::DebugPrint(Clide::Global::debugBuff);
+							Clide::Print::debugPrintCallback.Execute(Clide::Global::debugBuff);
 						#endif
 						do
 						{
@@ -540,7 +540,7 @@ namespace Clide
 									" '--%s'",
 									ambig_list->p->name);
 								ambig_list = ambig_list->next;
-								Clide::Port::DebugPrint(Clide::Global::debugBuff);
+								Clide::Print::debugPrintCallback.Execute(Clide::Global::debugBuff);
 							#endif
 						}
 						while (ambig_list != NULL);
@@ -551,14 +551,14 @@ namespace Clide
 									sizeof(Clide::Global::debugBuff),
 									"%s"
 									"\n");
-								Clide::Port::DebugPrint(Clide::Global::debugBuff);
+								Clide::Print::debugPrintCallback.Execute(Clide::Global::debugBuff);
 							#endif
 					}
 					d->__nextchar += strlen (d->__nextchar);
 					d->optind++;
 					d->optopt = 0;
 					#if(clideDEBUG_PRINT_VERBOSE == 1)
-						Clide::Port::DebugPrint("CLIDE: GetOpt() finished. Returning ?.\r\n");
+						Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning ?.\r\n");
 					#endif
 					return '?';
 				}
@@ -588,7 +588,7 @@ namespace Clide
 											"%s: option '--%s' doesn't allow an argument\n",
 											argv[0],
 											pfound->name);
-										Clide::Port::DebugPrint(Clide::Global::debugBuff);
+										Clide::Print::debugPrintCallback.Execute(Clide::Global::debugBuff);
 									#endif
 								}
 								  else
@@ -601,7 +601,7 @@ namespace Clide
 											"%s: option '%c%s' doesn't allow an argument\n",
 											argv[0], argv[d->optind - 1][0],
 											pfound->name);
-										Clide::Port::DebugPrint(Clide::Global::debugBuff);
+										Clide::Print::debugPrintCallback.Execute(Clide::Global::debugBuff);
 									#endif
 								}
 							}
@@ -610,7 +610,7 @@ namespace Clide
 
 							d->optopt = pfound->val;
 							#if(clideDEBUG_PRINT_VERBOSE == 1)
-								Clide::Port::DebugPrint("CLIDE: GetOpt() finished. Returning ?.\r\n");
+								Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning ?.\r\n");
 							#endif
 							return '?';
 						}
@@ -629,13 +629,13 @@ namespace Clide
 										sizeof(Clide::Global::debugBuff),
 									   "%s: option '--%s' requires an argument\n",
 									   argv[0], pfound->name);
-									Clide::Port::DebugPrint(Clide::Global::debugBuff);
+									Clide::Print::debugPrintCallback.Execute(Clide::Global::debugBuff);
 								#endif
 							}
 							d->__nextchar += strlen (d->__nextchar);
 							d->optopt = pfound->val;
 							#if(clideDEBUG_PRINT_VERBOSE == 1)
-								Clide::Port::DebugPrint("CLIDE: GetOpt() finished. Returning : or ?.\r\n");
+								Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning : or ?.\r\n");
 							#endif
 							return optstring[0] == ':' ? ':' : '?';
 						}
@@ -647,7 +647,7 @@ namespace Clide
 					{
 						*(pfound->flag) = pfound->val;
 						#if(clideDEBUG_PRINT_VERBOSE == 1)
-							Clide::Port::DebugPrint("CLIDE: GetOpt() finished. Returning 0.\r\n");
+							Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning 0.\r\n");
 						#endif
 						return 0;
 					}
@@ -674,7 +674,7 @@ namespace Clide
 									"%s: unrecognized option '--%s'\n",
 									argv[0], 
 									d->__nextchar);
-								Clide::Port::DebugPrint(Clide::Global::debugBuff);
+								Clide::Print::debugPrintCallback.Execute(Clide::Global::debugBuff);
 							#endif
 						}
 						else
@@ -688,7 +688,7 @@ namespace Clide
 									argv[0],
 									argv[d->optind][0],
 									d->__nextchar);
-								Clide::Port::DebugPrint(Clide::Global::debugBuff);
+								Clide::Print::debugPrintCallback.Execute(Clide::Global::debugBuff);
 							#endif
 						}
 					}
@@ -696,7 +696,7 @@ namespace Clide
 					d->optind++;
 					d->optopt = 0;
 					#if(clideDEBUG_PRINT_VERBOSE == 1)
-						Clide::Port::DebugPrint("CLIDE: GetOpt() finished. Returning ?.\r\n");
+						Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning ?.\r\n");
 					#endif
 					return '?';
 				}
@@ -724,12 +724,12 @@ namespace Clide
 							"%s: invalid option -- '%c'\n",
 							argv[0],
 							c);
-						Clide::Port::DebugPrint(Clide::Global::debugBuff);
+						Clide::Print::debugPrintCallback.Execute(Clide::Global::debugBuff);
 					#endif
 				}
 				d->optopt = c;
 				#if(clideDEBUG_PRINT_VERBOSE == 1)
-					Clide::Port::DebugPrint("CLIDE: GetOpt() finished. Returning ?.\r\n");
+					Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning ?.\r\n");
 				#endif
 				return '?';
 			}
@@ -766,7 +766,7 @@ namespace Clide
 								"%s: option requires an argument -- '%c'\n",
 								argv[0],
 								c);
-							Clide::Port::DebugPrint(Clide::Global::debugBuff);	
+							Clide::Print::debugPrintCallback.Execute(Clide::Global::debugBuff);	
 						#endif
 					}
 					d->optopt = c;
@@ -775,7 +775,7 @@ namespace Clide
 					else
 						c = '?';
 						#if(clideDEBUG_PRINT_VERBOSE == 1)
-							Clide::Port::DebugPrint("CLIDE: GetOpt() finished. Returning ?.\r\n");
+							Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning ?.\r\n");
 						#endif
 						return c;
 				}
@@ -829,13 +829,13 @@ namespace Clide
 								"%s: option '-W %s' is ambiguous\n",
 								argv[0],
 								d->optarg);
-							Clide::Port::DebugPrint(Clide::Global::debugBuff);	
+							Clide::Print::debugPrintCallback.Execute(Clide::Global::debugBuff);	
 						#endif
 					}
 					d->__nextchar += strlen (d->__nextchar);
 					d->optind++;
 					#if(clideDEBUG_PRINT_VERBOSE == 1)
-						Clide::Port::DebugPrint("CLIDE: GetOpt() finished. Returning ?.\r\n");
+						Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning ?.\r\n");
 					#endif
 					return '?';
 				}
@@ -859,13 +859,13 @@ namespace Clide
 										"%s: option '-W %s' doesn't allow an argument\n",
 										argv[0],
 										pfound->name);
-									Clide::Port::DebugPrint(Clide::Global::debugBuff);	
+									Clide::Print::debugPrintCallback.Execute(Clide::Global::debugBuff);	
 								#endif
 							}
 
 							d->__nextchar += strlen (d->__nextchar);
 							#if(clideDEBUG_PRINT_VERBOSE == 1)
-								Clide::Port::DebugPrint("CLIDE: GetOpt() finished. Returning ?.\r\n");
+								Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning ?.\r\n");
 							#endif
 							return '?';
 						}
@@ -885,12 +885,12 @@ namespace Clide
 										"%s: option '-W %s' requires an argument\n",
 										argv[0],
 										pfound->name);
-									Clide::Port::DebugPrint(Clide::Global::debugBuff);	
+									Clide::Print::debugPrintCallback.Execute(Clide::Global::debugBuff);	
 								#endif
 							}
 							d->__nextchar += strlen (d->__nextchar);
 							#if(clideDEBUG_PRINT_VERBOSE == 1)
-								Clide::Port::DebugPrint("CLIDE: GetOpt() finished. Returning : or ?.\r\n");
+								Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning : or ?.\r\n");
 							#endif
 							return optstring[0] == ':' ? ':' : '?';
 						}
@@ -904,7 +904,7 @@ namespace Clide
 					{
 						*(pfound->flag) = pfound->val;
 						#if(clideDEBUG_PRINT_VERBOSE == 1)
-							Clide::Port::DebugPrint("CLIDE: GetOpt() finished. Returning 0.\r\n");
+							Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning 0.\r\n");
 						#endif
 						return 0;
 					}
@@ -953,7 +953,7 @@ namespace Clide
 									"%s: option requires an argument -- '%c'\n",
 									argv[0],
 									c);
-								Clide::Port::DebugPrint(Clide::Global::debugBuff);	
+								Clide::Print::debugPrintCallback.Execute(Clide::Global::debugBuff);	
 							#endif
 						}
 						d->optopt = c;
@@ -970,7 +970,7 @@ namespace Clide
 				}
 			}
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
-				Clide::Port::DebugPrint("CLIDE: GetOpt() finished. Returning character.\r\n");
+				Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning character.\r\n");
 			#endif
 			return c;
 		}

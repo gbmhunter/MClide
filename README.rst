@@ -1,14 +1,18 @@
 ==============================================================
-Clide (Command Line Interface Development Environment) Library
+clide-cpp
 ==============================================================
+
+--------------------------------------------------------------
+Clide (CommandLineInterfaceDE) Library
+--------------------------------------------------------------
 
 .. image:: https://api.travis-ci.org/gbmhunter/clide-cpp.png?branch=master   
 	:target: https://travis-ci.org/gbmhunter/clide-cpp
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2014/01/21
-- Version: v8.4.0.0
+- Last Modified: 2014/01/22
+- Version: v8.5.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -76,10 +80,10 @@ There will be a time when you need to be able to use negative numbers. Unfortuna
 
 which will treat -123 as a single parameter, not the options 1, 2, 3. 
 
-Portable
---------
+Portable (Platform Agnostic)
+----------------------------
 
-Clide can be used with ease on both Linux and embedded systems.
+Clide can be used with ease on both Linux and embedded systems. All platform-specific operations are handled via callbacks that you provide the functionality for (e.g. printing to the command line and printing debug information). These callbacks exist in Print.hpp/.cpp.
 
 Clide does not use RTTI (e.g. :code:`dynamic_cast()`), allowing it to be used on a larger range of embedded systems.
 
@@ -317,6 +321,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.5.0.0 2014/01/22 Added callback (generalHelpRequestedCallback) for when the 'help' command is called, to the Comm class, closes #98. Updated git submodule 'slotmachine-cpp'. Renamed Port.hpp/.cpp to Print.hpp/.cpp, and changed port-specific print functions into callbacks, to make code more platform-agnostic, closes #99. Updated title in README and added sub-title, closes #100.
 v8.4.0.0 2014/01/21 Moved all files from 'src/include/' to 'include/', and created 'api/Clide.hpp' (old 'IncludeJustMe.hpp' file) to conform to new file structure standard, closes #97.
 v8.3.1.0 2014/01/16 Updated the slotmachine-cpp sub-repo URL in .gitmodules from SSH to HTTPS, in an attempt to fix the error TravisCI had while trying to download it.
 v8.3.0.0 2014/01/16 Added git submodule slotmachine-cpp to 'lib/slotmachine-cpp'. This library adds method-capable callback functionality to C++, closes #95. Repalced C-style unrecognised command callback with Slotmachine callback. Added info about callbacks to the README.

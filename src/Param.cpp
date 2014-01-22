@@ -24,7 +24,7 @@
 // User includes
 #include "../include/MemMang.hpp"
 #include "../include/Config.hpp"
-#include "../include/Port.hpp"
+#include "../include/Print.hpp"
 #include "../include/Option.hpp"
 #include "../include/Param.hpp"
 #include "../include/Cmd.hpp"
@@ -55,7 +55,7 @@ namespace Clide
 	{
 		// Destructor
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
-			Port::DebugPrint("CLIDE: Parameter destructor called.\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: Parameter destructor called.\r\n");
 		#endif
 		
 		// Deallocate memory
@@ -69,7 +69,7 @@ namespace Clide
 	void Param::Init(bool (*callBackFunc)(char *paramVal), const char* description)
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
-			Port::DebugPrint("CLIDE: Parameter constructor called.\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: Parameter constructor called.\r\n");
 		#endif
 
 		// DECRIPTION
@@ -86,7 +86,7 @@ namespace Clide
 		{
 			#if(clideDEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				Port::DebugPrint("CLIDE: ERROR: Parameter description was too long.\r\n");
+				Print::debugPrintCallback.Execute("CLIDE: ERROR: Parameter description was too long.\r\n");
 			#endif
 		}
 		

@@ -61,7 +61,6 @@ src/%.o: src/%.cpp
 	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
 		-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \
 		rm -f $*.d
-	# g++ $(SRC_CC_FLAGS) -c -o $@ $<
 
 -include $(SRC_OBJ_FILES:.o=.d)
 	

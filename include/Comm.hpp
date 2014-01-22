@@ -29,7 +29,13 @@
 #include <cctype>		// isalnum() 
 #include <cstring>		// memset()
 
-// User includes
+// User library ("lib/") headers
+#include "../lib/slotmachine-cpp/api/Slotmachine.hpp"		//!< Callbacks.
+
+// Forward declaration
+class Comm;
+
+// User "include/" headers
 #include "Config.hpp"
 #include "Cmd.hpp"
 #include "CmdGroup.hpp"
@@ -52,8 +58,36 @@ namespace Clide
 	class Comm
 	{
 		public:
+
 			//===============================================================================================//
-			//====================================== PUBLIC METHODS ========================================//
+			//====================================== PUBLIC VARIABLES =======================================//
+			//===============================================================================================//
+
+			//! @brief		Points to an array of pointers to registered commands
+			//! @details	This is updated everytime RegisterCmd() is called
+			Cmd **cmdA;
+
+			//! @brief		The number of registered commands
+			//! @details	Incremented everytime RegisterCmd() is called
+			uint8_t numCmds;
+
+			//! @brief		The default command group that will be applied to help requests, if no command group is given.
+			//! @details	Assign this to a command group that you create. When "help" is called with no "-g groupName" option, this will the help group that is printed.
+			CmdGroup *defaultCmdGroup;
+
+			//! @brief		All commands, when registered to a Comm object, will become part of the command group "all".
+			CmdGroup *cmdGroupAll;
+
+			//! @brief		This gives you the ability to provide a callback function that is called when a command is not recognised.
+			//! @details	This is essentially an event handler. All callback functions associated with recognised commands are part of the command objects themselves. The callbacks one and only input parameter is the null-terminated command string that it did not recognise.
+			SlotMachine::Callback<void, char*> cmdUnrecogCallback;
+
+			//! @brief		This callback gives you the ability to perform an action if the help command is requested.
+			//! @details
+			SlotMachine::Callback<void, char*> generalHelpRequestedCallback;
+
+			//===============================================================================================//
+			//======================================= PUBLIC METHODS ========================================//
 			//===============================================================================================//
 
 			//! @brief 		Constructor
@@ -74,20 +108,6 @@ namespace Clide
 			//! @warning	Make sure command was previously registered with Clide::Rx
 			void RemoveCmd(Cmd* cmd);
 
-			//! @brief		Points to an array of pointers to registered commands
-			//! @details	This is updated everytime RegisterCmd() is called
-			Cmd **cmdA;
-
-			//! @brief		The number of registered commands
-			//! @details	Incremented everytime RegisterCmd() is called
-			uint8_t numCmds;
-
-			//! @brief		The default command group that will be applied to help requests, if no command group is given.
-			//! @details	Assign this to a command group that you create. When "help" is called with no "-g groupName" option, this will the help group that is printed.
-			CmdGroup *defaultCmdGroup;
-
-			//! @brief		All commands, when registered to a Comm object, will become part of the command group "all".
-			CmdGroup *cmdGroupAll;
 
 		//===============================================================================================//
 		//==================================== PROTECTED METHODS ========================================//

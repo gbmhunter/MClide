@@ -14,8 +14,27 @@
 #include "./UnitTest++/src/UnitTest++.h"
 #include "./UnitTest++/src/TestReporterStdout.h"
 
+class Printer
+{
+public:
+	void PrintDebug(const char* msg)
+	{
+		std::cout << msg;
+	}
+
+	void PrintCmdLine(const char* msg)
+	{
+		std::cout << msg;
+	}
+};
+
 int main()
 {
+	Printer printer;
+
+	Clide::Print::debugPrintCallback = SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintDebug);
+	Clide::Print::cmdLinePrintCallback = SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine);
+
 	return UnitTest::RunAllTests();
 	
 	try

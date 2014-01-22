@@ -27,7 +27,7 @@
 
 // User
 #include "Config.hpp"
-#include "Port.hpp"
+#include "Print.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -90,13 +90,13 @@ namespace Clide
 	Log<logIdType>::Log()
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			Port::DebugPrint("CLIDE: ErrorObj constructor called...\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: ErrorObj constructor called...\r\n");
 		#endif
 
 
 
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			Port::DebugPrint("CLIDE: ErrorObj constructor finished.\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: ErrorObj constructor finished.\r\n");
 		#endif
 
 	}

@@ -2,7 +2,7 @@
 //! @file 			Cmd.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/01/21
+//! @last-modified 	2014/01/22
 //! @brief 			Command-line style communications protocol
 //! @details
 //!				See README.rst in repo root dir for more info.
@@ -26,7 +26,7 @@
 #include "../include/MemMang.hpp"
 #include "../include/Config.hpp"
 #include "../include/Global.hpp"
-#include "../include/Port.hpp"
+#include "../include/Print.hpp"
 #include "../include/Option.hpp"
 #include "../include/Param.hpp"
 #include "../include/Cmd.hpp"
@@ -49,7 +49,7 @@ namespace Clide
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
 			// Description too long, do not save it
-			Port::DebugPrint("CLIDE: Cmd constructor called1.\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: Cmd constructor called.\r\n");
 		#endif
 		
 		// INITIALISATION
@@ -79,7 +79,7 @@ namespace Clide
 		{
 			#if(clideDEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				Port::DebugPrint("CLIDE: ERROR: Command name was too long.\r\n");
+				Print::debugPrintCallback.Execute("CLIDE: ERROR: Command name was too long.\r\n");
 			#endif
 		}
 		
@@ -98,7 +98,7 @@ namespace Clide
 		{
 			#if(clideDEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				Port::DebugPrint("CLIDE: ERROR: Command description was too long.\r\n");
+				Print::debugPrintCallback.Execute("CLIDE: ERROR: Command description was too long.\r\n");
 			#endif
 		}
 		
@@ -107,7 +107,7 @@ namespace Clide
 		
 		#if(clide_ENABLE_AUTO_HELP == 1)
 			#if(clideDEBUG_PRINT_VERBOSE == 1)
-				Port::DebugPrint("CLIDE: Registering help option.\r\n");
+				Print::debugPrintCallback.Execute("CLIDE: Registering help option.\r\n");
 			#endif
 			// HELP OPTION
 			Option* help = new Option('h', "help", NULL, "Prints help for the command.", false);
@@ -125,7 +125,7 @@ namespace Clide
 
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
 			// Description too long, do not save it
-			Port::DebugPrint("CLIDE: Cmd constructor finished.\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: Cmd constructor finished.\r\n");
 		#endif
 
 		// COMMAND GROUP OBJECT
@@ -140,7 +140,7 @@ namespace Clide
 	{
 		// Destructor
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
-			Port::DebugPrint("CLIDE: Cmd destructor called.\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: Cmd destructor called.\r\n");
 		#endif
 		
 		// Free up parameter and option memory
@@ -152,7 +152,7 @@ namespace Clide
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
 			// Description too long, do not save it
-			Port::DebugPrint("CLIDE: Registering parameter...\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: Registering parameter...\r\n");
 		#endif
 
 		//this->numParams = 0;
@@ -164,7 +164,7 @@ namespace Clide
 		{
 			#if(clideDEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				Port::DebugPrint("CLIDE: ERROR - Malloc failed while registering parameter.\r\n");
+				Print::debugPrintCallback.Execute("CLIDE: ERROR - Malloc failed while registering parameter.\r\n");
 			#endif
 			return;	
 		}
@@ -182,7 +182,7 @@ namespace Clide
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
 			// Description too long, do not save it
-			Port::DebugPrint("CLIDE: Registering option...\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: Registering option...\r\n");
 		#endif
 
 		// Create option pointer at end of option pointer array.
@@ -214,7 +214,7 @@ namespace Clide
 					optionA[this->numOptions - 1]->longName);
 			}
 			
-			Port::DebugPrint(Global::debugBuff);
+			Print::debugPrintCallback.Execute(Global::debugBuff);
 			
 		#endif
 	}
@@ -223,7 +223,7 @@ namespace Clide
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)	
 			// Description too long, do not save it
-			Port::DebugPrint("CLIDE: Calculating num. of long options...\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: Calculating num. of long options...\r\n");
 		#endif
 		
 		uint32_t numLongOptions = 0;
@@ -241,7 +241,7 @@ namespace Clide
 				sizeof(Global::debugBuff),
 				"CLIDE: Num. long options = '%" STR(ClidePort_PF_UINT32_T) "'.\r\n",
 				numLongOptions);
-			Port::DebugPrint(Global::debugBuff);
+			Print::debugPrintCallback.Execute(Global::debugBuff);
 		#endif
 		
 		return numLongOptions;		
@@ -250,7 +250,7 @@ namespace Clide
 	void Cmd::AddToGroup(CmdGroup *cmdGroup)
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			Port::DebugPrint("CLIDE: Adding command to a command group...\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: Adding command to a command group...\r\n");
 		#endif
 
 		// Create option pointer at end of option pointer array.
@@ -260,7 +260,7 @@ namespace Clide
 		{
 			#if(clideDEBUG_PRINT_ERROR == 1)
 				// Description too long, do not save it
-				Port::DebugPrint("CLIDE: ERROR - Malloc failed while adding command to command group.\r\n");
+				Print::debugPrintCallback.Execute("CLIDE: ERROR - Malloc failed while adding command to command group.\r\n");
 			#endif
 			return;
 		}
@@ -272,7 +272,7 @@ namespace Clide
 		this->cmdGroupA[this->numCmdGroups - 1] = cmdGroup;
 
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			Port::DebugPrint("CLIDE: Added command to a command group.\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: Added command to a command group.\r\n");
 		#endif
 
 	}

@@ -1,11 +1,11 @@
 //!
-//! @file 			Port.hpp
+//! @file 			Print.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/03/19
-//! @last-modified 	2014/01/14
-//! @brief 			Contains port-specific skeleton functions for clide-cpp.
+//! @last-modified 	2014/01/22
+//! @brief 			Contains callbacks for port-specific print operations.
 //! @details
-//!				See README.rst in root dir for more info.
+//!					See README.rst in root dir for more info.
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler
@@ -17,6 +17,8 @@
 
 #ifndef CLIDE_PORT_H
 #define CLIDE_PORT_H
+
+#include "../lib/slotmachine-cpp/api/Slotmachine.hpp"		//!< Callbacks.
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -63,23 +65,22 @@ namespace Clide
 	//=================================== PUBLIC FUNCTION PROTOTYPES ================================//
 	//===============================================================================================//
 
-	class Port
+	class Print
 	{
 
 		public:
 		
-			//===============================================================================================//
-			//==================================== CONSTRUCTORS/DESTRUCTOR ==================================//
-			//===============================================================================================//
+			static SlotMachine::Callback<void, const char*> debugPrintCallback;
+			static SlotMachine::Callback<void, const char*> cmdLinePrintCallback;
 			
 			// none
 		
 			//! @brief		Prints debug messages. Port specific.
 			//! @public
-			static void DebugPrint(const char* msg);
+			//static void DebugPrint(const char* msg);
 
 			//! @brief		Prints messages to the command-line. Port specific.
-			static void CmdLinePrint(const char* msg);
+			//static void CmdLinePrint(const char* msg);
 	};
 
 } // namespace Clide

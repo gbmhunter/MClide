@@ -29,7 +29,7 @@
 #include "../include/Param.hpp"
 #include "../include/Option.hpp"
 #include "../include/Cmd.hpp"
-#include "../include/Port.hpp"
+#include "../include/Print.hpp"
 #include "../include/Rx.hpp"
 
 //===============================================================================================//
@@ -57,7 +57,7 @@ namespace Clide
 	Comm::Comm()
 	{
 		#if(clideDEBUG_PRINT_GENERAL == 1)
-			Port::DebugPrint("CLIDE: Comm constructor called...\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: Comm constructor called...\r\n");
 		#endif
 
 		// Initialise class variables
@@ -72,7 +72,7 @@ namespace Clide
 		this->defaultCmdGroup = this->cmdGroupAll;
 
 		#if(clideDEBUG_PRINT_GENERAL == 1)
-			Port::DebugPrint("CLIDE: Comm constructor finished.\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: Comm constructor finished.\r\n");
 		#endif
 	}
 
@@ -110,7 +110,7 @@ namespace Clide
 	void Comm::PrintHelp(Cmd* cmd)
 	{
 		#if(clideDEBUG_PRINT_GENERAL == 1)	
-			Port::DebugPrint("CLIDE: Print help function called.\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: Print help function called.\r\n");
 		#endif
 
 		//========== FIND SELECTED GROUP ==========//
@@ -128,20 +128,20 @@ namespace Clide
 		}
 
 		// Title
-		Port::CmdLinePrint("********** LIST OF COMMANDS ***********\r\n");
-		Port::CmdLinePrint("Filter: in group " clide_TERM_TEXT_FORMAT_BOLD);
-		Port::CmdLinePrint(selectedGroup);
-		Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_NORMAL "\r\n");
+		Print::cmdLinePrintCallback.Execute("********** LIST OF COMMANDS ***********\r\n");
+		Print::cmdLinePrintCallback.Execute("Filter: in group " clide_TERM_TEXT_FORMAT_BOLD);
+		Print::cmdLinePrintCallback.Execute(selectedGroup);
+		Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_NORMAL "\r\n");
 
 		#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-			Port::CmdLinePrint(clide_TABLE_HEADER_ROW_COLOUR_CODE);
-			Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_BOLD);
+			Print::cmdLinePrintCallback.Execute(clide_TABLE_HEADER_ROW_COLOUR_CODE);
+			Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_BOLD);
 		#endif
 
-		Port::CmdLinePrint("\tcmd\tdescription\r\n");
+		Print::cmdLinePrintCallback.Execute("\tcmd\tdescription\r\n");
 
 		#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-			Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_NORMAL);
+			Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_NORMAL);
 		#endif
 
 
@@ -157,127 +157,131 @@ namespace Clide
 				if(strcmp(selectedGroup, cmdA[x]->cmdGroupA[y]->name) == 0)
 				{
 
-					Port::CmdLinePrint("\t");
+					Print::cmdLinePrintCallback.Execute("\t");
 					#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
-						Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_BOLD);
-						Port::CmdLinePrint(cmdA[x]->name);
-						Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_NORMAL);
+						Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_BOLD);
+						Print::cmdLinePrintCallback.Execute(cmdA[x]->name);
+						Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_NORMAL);
 					#else
 						// No special formatting
-						Port::CmdLinePrint(cmdA[x]->name);
+						Print::cmdLinePrintCallback.Execute(cmdA[x]->name);
 					#endif
 
 					// Add tab character
-					Port::CmdLinePrint("\t");
+					Print::cmdLinePrintCallback.Execute("\t");
 					// Print description
-					Port::CmdLinePrint(cmdA[x]->description);
+					Print::cmdLinePrintCallback.Execute(cmdA[x]->description);
 					// \r is enough for PuTTy to format onto a newline also
 					// (adding \n causes it to add two new lines)
-					Port::CmdLinePrint("\r\n");
+					Print::cmdLinePrintCallback.Execute("\r\n");
 
 					// Quit this for loop, as command has already been printed, don't want to print again
 					break;
 				}
 			}
 		}
+
+		// Call callback function
+		if(generalHelpRequestedCallback.obj != NULL)
+			generalHelpRequestedCallback.Execute((char*)"This argument is not used.");
 	}
 
 	// Prints out help for one command
 	void Comm::PrintHelpForCmd(Cmd* cmd)
 	{
 		#if(clideDEBUG_PRINT_GENERAL == 1)
-			Port::DebugPrint("CLIDE: Printing help for command.\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: Printing help for command.\r\n");
 		#endif
 
-		Port::CmdLinePrint("\r\n**********COMMAND HELP:**********\r\n");
+		Print::cmdLinePrintCallback.Execute("\r\n**********COMMAND HELP:**********\r\n");
 
 		// CMD NAME AND DESCRIPTION
 
 		// Tabbing in
-		Port::CmdLinePrint("\t");
+		Print::cmdLinePrintCallback.Execute("\t");
 		#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
-			Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_BOLD);
-			Port::CmdLinePrint(cmd->name);
-			Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_NORMAL);
+			Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_BOLD);
+			Print::cmdLinePrintCallback.Execute(cmd->name);
+			Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_NORMAL);
 		#else
 			// No advanced text formatting
-			Port::CmdLinePrint(cmd->name);
+			Print::cmdLinePrintCallback.Execute(cmd->name);
 		#endif
 
 		// Add tab character
-		Port::CmdLinePrint("\t");
+		Print::cmdLinePrintCallback.Execute("\t");
 		// Print description
-		Port::CmdLinePrint(cmd->description);
+		Print::cmdLinePrintCallback.Execute(cmd->description);
 		// \r is enough for PuTTy to format onto a newline also
 		// (adding \n causes it to add two new lines)
-		Port::CmdLinePrint("\r\n");
+		Print::cmdLinePrintCallback.Execute("\r\n");
 
 		// CMD PARAMETERS
 
-		Port::CmdLinePrint("Command Parameters:\r\n");
+		Print::cmdLinePrintCallback.Execute("Command Parameters:\r\n");
 
 
 		// Special case if there are no parameters to list
 		if(cmd->numParams == 0)
 		{
-			Port::CmdLinePrint("\t");
-			Port::CmdLinePrint("NO PARAMS");
-			Port::CmdLinePrint("\r\n");
+			Print::cmdLinePrintCallback.Execute("\t");
+			Print::cmdLinePrintCallback.Execute("NO PARAMS");
+			Print::cmdLinePrintCallback.Execute("\r\n");
 		}
 		else
 		{
 			// Print top table row 'header'
 			#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-				Port::CmdLinePrint(clide_TABLE_HEADER_ROW_COLOUR_CODE);
+				Print::cmdLinePrintCallback.Execute(clide_TABLE_HEADER_ROW_COLOUR_CODE);
 			#endif
-			Port::CmdLinePrint("\tindex\tdescription\r\n");
+			Print::cmdLinePrintCallback.Execute("\tindex\tdescription\r\n");
 			#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-				Port::CmdLinePrint(clide_TERM_TEXT_FORMAT_NORMAL);
+				Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_NORMAL);
 			#endif
 			// Iterate through cmd array and print commands
 			uint32_t x;
 			for(x = 0; x < cmd->numParams; x++)
 			{
-				Port::CmdLinePrint("\t");
+				Print::cmdLinePrintCallback.Execute("\t");
 				char tempBuff[50];
 				snprintf(
 					tempBuff,
 					sizeof(tempBuff),
 					"%" STR(ClidePort_PF_UINT32_T),
 					x);
-				Port::CmdLinePrint(tempBuff);
+				Print::cmdLinePrintCallback.Execute(tempBuff);
 				// Add tab character
-				Port::CmdLinePrint("\t");
+				Print::cmdLinePrintCallback.Execute("\t");
 				// Print description
-				Port::CmdLinePrint(cmd->paramA[x]->description);
+				Print::cmdLinePrintCallback.Execute(cmd->paramA[x]->description);
 				// \r is enough for PuTTy to format onto a newline also
 				// (adding \n causes it to add two new lines)
-				Port::CmdLinePrint("\r\n");
+				Print::cmdLinePrintCallback.Execute("\r\n");
 			}
 		}
 
 		// CMD OPTIONS
 
-		Port::CmdLinePrint("Command Options:\r\n");
+		Print::cmdLinePrintCallback.Execute("Command Options:\r\n");
 
 		// Special case if there are no parameters to list
 		if(cmd->numOptions == 0)
 		{
-			Port::CmdLinePrint("\t");
-			Port::CmdLinePrint("NO OPTIONS");
-			Port::CmdLinePrint("\r\n");
+			Print::cmdLinePrintCallback.Execute("\t");
+			Print::cmdLinePrintCallback.Execute("NO OPTIONS");
+			Print::cmdLinePrintCallback.Execute("\r\n");
 		}
 		else
 		{
 			// Print top table row 'header'
 			#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-				// gold = Port::CmdLinePrint("\x1B[33m");
+				// gold = Print::cmdLinePrintCallback.Execute("\x1B[33m");
 				// Yellow
-				Port::CmdLinePrint(clide_TABLE_HEADER_ROW_COLOUR_CODE);
+				Print::cmdLinePrintCallback.Execute(clide_TABLE_HEADER_ROW_COLOUR_CODE);
 			#endif
-			Port::CmdLinePrint("\tshort\tlong\tdescription\r\n");
+			Print::cmdLinePrintCallback.Execute("\tshort\tlong\tdescription\r\n");
 			#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-				Port::CmdLinePrint("\x1B[0m");
+				Print::cmdLinePrintCallback.Execute("\x1B[0m");
 			#endif
 
 			// Iterate through cmd array and print commands
@@ -285,41 +289,41 @@ namespace Clide
 			for(x = 0; x < cmd->numOptions; x++)
 			{
 				// Print short option
-				Port::CmdLinePrint("\t");
+				Print::cmdLinePrintCallback.Execute("\t");
 				char tempShortOption[2];
 				tempShortOption[0] = cmd->optionA[x]->shortName;
 				tempShortOption[1] = '\0';
-				Port::CmdLinePrint(tempShortOption);
+				Print::cmdLinePrintCallback.Execute(tempShortOption);
 
 				// Print long option
-				Port::CmdLinePrint("\t");
-				Port::CmdLinePrint(cmd->optionA[x]->longName);
+				Print::cmdLinePrintCallback.Execute("\t");
+				Print::cmdLinePrintCallback.Execute(cmd->optionA[x]->longName);
 				// Add tab character
-				Port::CmdLinePrint("\t");
+				Print::cmdLinePrintCallback.Execute("\t");
 				// Print description
-				Port::CmdLinePrint(cmd->optionA[x]->description);
+				Print::cmdLinePrintCallback.Execute(cmd->optionA[x]->description);
 				// \r is enough for PuTTy to format onto a newline also
 				// (adding \n causes it to add two new lines)
-				Port::CmdLinePrint("\r\n");
+				Print::cmdLinePrintCallback.Execute("\r\n");
 			}
 		}
 
 		// CMD GROUPS
 
-		Port::CmdLinePrint("Command groups it belongs to:\r\n");
+		Print::cmdLinePrintCallback.Execute("Command groups it belongs to:\r\n");
 
 		// Add tab character
-		Port::CmdLinePrint("\t");
+		Print::cmdLinePrintCallback.Execute("\t");
 
 		uint32_t x;
 		for(x = 0; x < cmd->GetNumCmdGroups(); x++)
 		{
 			// Print out command group name
-			Port::CmdLinePrint(cmd->cmdGroupA[x]->name);
+			Print::cmdLinePrintCallback.Execute(cmd->cmdGroupA[x]->name);
 
 			// Add space and comma if not last command group name
 			if(x != cmd->GetNumCmdGroups() - 1)
-				Port::CmdLinePrint(" ,");
+				Print::cmdLinePrintCallback.Execute(" ,");
 		}
 
 		char tempBuff[50];
@@ -328,7 +332,7 @@ namespace Clide
 				sizeof(tempBuff),
 				" (total = %" STR(ClidePort_PF_UINT32_T) ")\r\n",
 				cmd->GetNumCmdGroups());
-			Port::CmdLinePrint(tempBuff);
+			Print::cmdLinePrintCallback.Execute(tempBuff);
 
 	}
 

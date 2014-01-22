@@ -27,10 +27,7 @@
 
 // User
 #include "Config.hpp"
-#include "Param.hpp"
-#include "Option.hpp"
-#include "Cmd.hpp"
-#include "Port.hpp"
+#include "Comm.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//

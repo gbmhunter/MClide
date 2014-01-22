@@ -1,9 +1,9 @@
 //!
-//! @file				Port.cpp
+//! @file				Print.cpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created			2012/03/19
-//! @last-modified		2014/01/21
-//! @brief 				Contains port-specific skeleton functions.
+//! @last-modified		2014/01/22
+//! @brief 				Contains callbacks for port-specific print operations.
 //! @details
 //!						See README.rst in repo root dir for more info.
 
@@ -21,7 +21,7 @@
 #include <cctype>		// isalnum() 
 
 // User includes
-#include "../include/Port.hpp"
+#include "../include/Print.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -34,10 +34,13 @@ namespace Clide
 	//======================================= PUBLIC METHODS ========================================//
 	//===============================================================================================//
 
+	SlotMachine::Callback<void, const char*> Print::debugPrintCallback;
+	SlotMachine::Callback<void, const char*> Print::cmdLinePrintCallback;
+	/*
 	//! @brief 		The function to call to print debug information. The level of debug information is determined by the macros in Clide-Config.hpp.
 	//! @details	Used by many Clide classes.
 	//! @warning	Port specific
-	void Port::DebugPrint(const char* msg) 
+	void Print::debugPrintCallback.Execute(const char* msg) 
 	{
 		#ifdef __linux__
 			printf("%s", msg);
@@ -52,7 +55,7 @@ namespace Clide
 	//! @details	Used primarily by Clide::Tx, but also by Clide::Rx for printing
 	//!				status messages and help requests back to the user.
 	//! @warning	Port specific
-	void Port::CmdLinePrint(const char* msg)
+	void Print::cmdLinePrintCallback.Execute(const char* msg)
 	{
 		#ifdef __linux__
 			printf("%s", msg);
@@ -61,7 +64,7 @@ namespace Clide
 		#else
 			#warning No command-line output defined.
 		#endif
-	}
+	}*/
 
 	//===============================================================================================//
 	//====================================== PRIVATE METHODS ========================================//

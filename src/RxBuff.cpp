@@ -25,7 +25,7 @@
 // User includes
 #include "../include/Config.hpp"
 #include "../include/Global.hpp"
-#include "../include/Port.hpp"
+#include "../include/Print.hpp"
 #include "../include/Rx.hpp"
 #include "../include/RxBuff.hpp"
 
@@ -44,7 +44,7 @@ namespace Clide
 	RxBuff::RxBuff(Rx* rxController)
 	{
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			Port::DebugPrint("CLIDE: RxBuff constructor called...\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: RxBuff constructor called...\r\n");
 		#endif
 
 		// Initialise class variables
@@ -57,7 +57,7 @@ namespace Clide
 		memset(this->buff, '\0', sizeof(this->buff));
 
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			Port::DebugPrint("CLIDE: RxBuff constructor finished.\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: RxBuff constructor finished.\r\n");
 		#endif
 
 	}
@@ -75,7 +75,7 @@ namespace Clide
 			if(this->buffWritePos >= sizeof(this->buff) - 1)
 			{
 				#if(clideDEBUG_PRINT_ERROR == 1)
-					Port::DebugPrint("CLIDE: Error. RxBuff::buff is full, not all characters could be written to it!.\r\n");
+					Print::debugPrintCallback.Execute("CLIDE: Error. RxBuff::buff is full, not all characters could be written to it!.\r\n");
 				#endif
 				// Write null character to end of full buffer
 				this->buff[this->buffWritePos] = '\0';
@@ -86,7 +86,7 @@ namespace Clide
 			if(characters[characterReadPos] == clide_END_OF_COMMAND_CHAR)
 			{
 				#if(clideDEBUG_PRINT_VERBOSE == 1)
-					Port::DebugPrint("CLIDE: End of command character detected, calling Rx::Run().\r\n");
+					Print::debugPrintCallback.Execute("CLIDE: End of command character detected, calling Rx::Run().\r\n");
 				#endif
 
 				// End of command character found! Send this to Rx!
@@ -106,7 +106,7 @@ namespace Clide
 			else	// Character was not the end-of-command character, write to buffer
 			{
 				#if(clideDEBUG_PRINT_VERBOSE == 1)
-					Port::DebugPrint("CLIDE: Writing to RxBuff::buff.\r\n");
+					Print::debugPrintCallback.Execute("CLIDE: Writing to RxBuff::buff.\r\n");
 				#endif
 
 				this->buff[this->buffWritePos] = characters[characterReadPos];
@@ -121,7 +121,7 @@ namespace Clide
 		}
 
 		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			Port::DebugPrint("CLIDE: RxBuff::Write() has finished writing chars to RxBuff::buff, no end-of-command character found.\r\n");
+			Print::debugPrintCallback.Execute("CLIDE: RxBuff::Write() has finished writing chars to RxBuff::buff, no end-of-command character found.\r\n");
 		#endif
 
 		// Null character in input detected, write null to buff
