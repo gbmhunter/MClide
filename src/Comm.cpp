@@ -113,6 +113,9 @@ namespace Clide
 			Print::debugPrintCallback.Execute("CLIDE: Print help function called.\r\n");
 		#endif
 
+		// Temp buffer for printf() calls in this function
+		char tempBuff[100];
+
 		//========== FIND SELECTED GROUP ==========//
 
 		// Points to the selected group
@@ -138,7 +141,15 @@ namespace Clide
 			Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_BOLD);
 		#endif
 
-		Print::cmdLinePrintCallback.Execute("\tcmd\tdescription\r\n");
+		// Prints command name and description, with padding and truncation if required.
+		snprintf(
+			tempBuff,
+			sizeof(tempBuff),
+			"%-" STR(config_PADDING_BEFORE_CMD_IN_HELP) "s%-" STR(config_CMD_PADDING_FOR_HELP) "s%s\r\n",
+			"",
+			"cmd",
+			"description");
+		Print::cmdLinePrintCallback.Execute(tempBuff);
 
 		#if(clide_ENABLE_ADV_TEXT_FORMATTING)
 			Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_NORMAL);
@@ -156,11 +167,17 @@ namespace Clide
 				// Check command belongs to requested group
 				if(strcmp(selectedGroup, cmdA[x]->cmdGroupA[y]->name) == 0)
 				{
-
-					Print::cmdLinePrintCallback.Execute("\t");
+					snprintf(
+						tempBuff,
+						sizeof(tempBuff),
+						"%-" STR(config_PADDING_BEFORE_CMD_IN_HELP) "s",
+						"");
+					Print::cmdLinePrintCallback.Execute(tempBuff);
+					//Print::cmdLinePrintCallback.Execute("\t");
 					#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
 						Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_BOLD);
-						Print::cmdLinePrintCallback.Execute(cmdA[x]->name);
+						snprintf(tempBuff, sizeof(tempBuff), "%-" STR(config_CMD_PADDING_FOR_HELP) "." STR(config_CMD_PADDING_FOR_HELP_MINUS_1) "s", cmdA[x]->name);
+						Print::cmdLinePrintCallback.Execute(tempBuff);
 						Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_NORMAL);
 					#else
 						// No special formatting
@@ -168,7 +185,7 @@ namespace Clide
 					#endif
 
 					// Add tab character
-					Print::cmdLinePrintCallback.Execute("\t");
+					//Print::cmdLinePrintCallback.Execute("\t");
 					// Print description
 					Print::cmdLinePrintCallback.Execute(cmdA[x]->description);
 					// \r is enough for PuTTy to format onto a newline also

@@ -2,7 +2,7 @@
 //! @file 			example.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created 		2013/07/04
-//! @last-modified 	2014/01/21
+//! @last-modified 	2014/01/22
 //! @brief 			Example Clide program, designed to be run on Linux.
 //! @details
 //!				See README.rst in root dir for more info.
@@ -25,8 +25,27 @@ bool Callback(Cmd *cmd)
 	return true;
 }
 
+class Printer
+{
+public:
+	void PrintDebug(const char* msg)
+	{
+		std::cout << msg;
+	}
+
+	void PrintCmdLine(const char* msg)
+	{
+		std::cout << msg;
+	}
+};
+
 int main()
 {
+	// Configure clide outputs
+	Printer printer;
+	Clide::Print::debugPrintCallback = SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintDebug);
+	Clide::Print::cmdLinePrintCallback = SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine);
+
 	// Create a receiver engine
 	Rx rxController;
 
@@ -77,7 +96,7 @@ int main()
 	//============ EXAMPLE COMMAND 3 ===============//
 
 	// Create command
-	Cmd cmdEx3("ex3", &Callback, "Example command 3.");
+	Cmd cmdEx3("thisisasuperlongcmd", &Callback, "Example command 3 (long name).");
 
 	// Create parameters
 	Param cmdEx3Param1("Example parameter 1.");

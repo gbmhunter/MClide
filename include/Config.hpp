@@ -2,7 +2,7 @@
 //! @file 			Config.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/01/14
+//! @last-modified 	2014/01/22
 //! @brief 			Configuration file for Clide.
 //! @details
 //!				See README.rst in repo root dir for more info.
@@ -35,6 +35,9 @@ namespace Clide
 	//==================================== PUBLIC DEFINES ===========================================//
 	//===============================================================================================//
 
+	#define STR_HELPER(x) #x
+	#define STR(x) STR_HELPER(x)
+
 	//=============== DEBUG SWITCHES ============//
 
 	#define clideDEBUG_PRINT_GENERAL		0				//!< Print general debug msgs
@@ -46,13 +49,20 @@ namespace Clide
 
 	//! @brief		Set to 1 to enable automatic help generation.
 	#define clide_ENABLE_AUTO_HELP			1
+
+	//! @brief		(char*) The amount of padding before the cmd column when printing help.
+	#define config_PADDING_BEFORE_CMD_IN_HELP 		5
+
+	//! @brief		(char*) The amount of padding given to the command name column when printing help.
+	#define config_CMD_PADDING_FOR_HELP				15
+	#define config_CMD_PADDING_FOR_HELP_MINUS_1		14
 	
 	//! @brief		Sets the maximum string length for a single command, parameter, or option name/option value
 	//! @todo 		Use dynamic allocation, so not required.
 	#define clideMAX_STRING_LENGTH			(20)	
 
 	//! Maximum length for the cmd name
-	#define clideMAX_NAME_LENGTH				(20)
+	#define clideMAX_NAME_LENGTH			(20)
 
 	//! Maximum length for the cmd description
 	#define clideMAX_DESCRIPTION_LENGTH		(100)	
@@ -78,9 +88,10 @@ namespace Clide
 
 	//=================== RxBuff Config =================//
 
-	//! @brief		Size of the fixed-width buffer that the RxBuff class uses to store characters when RxBuff::Write() is called.
+	//! @brief		(uint32_t) Size of the fixed-width buffer that the RxBuff class uses to store characters when RxBuff::Write() is called.
 	#define clide_RX_BUFF_SIZE					(256)
 
+	//! @brief		(char) The character Clide::RxBuff looks for before sending the command to Clide::Rx.
 	#define clide_END_OF_COMMAND_CHAR			'\r'
 		
 } // namespace Clide

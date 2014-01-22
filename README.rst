@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/01/22
-- Version: v8.5.1.0
+- Version: v8.5.2.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -321,6 +321,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.5.2.0 2014/01/22 Fixed example code so that Clide now prints to stdout, stopped working after Clide was switched to callbacks, closes #104. Fixed padding when help is printed (now uses padding and truncation if required, columns align correctly), closes #103.
 v8.5.1.0 2014/01/22 Changed 'filter: in group ...' to 'Showing commands for user group: ...' which is more explanatory, closes #101.
 v8.5.0.0 2014/01/22 Added callback (generalHelpRequestedCallback) for when the 'help' command is called, to the Comm class, closes #98. Updated git submodule 'slotmachine-cpp'. Renamed Port.hpp/.cpp to Print.hpp/.cpp, and changed port-specific print functions into callbacks, to make code more platform-agnostic, closes #99. Updated title in README and added sub-title, closes #100.
 v8.4.0.0 2014/01/21 Moved all files from 'src/include/' to 'include/', and created 'api/Clide.hpp' (old 'IncludeJustMe.hpp' file) to conform to new file structure standard, closes #97.
