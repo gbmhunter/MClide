@@ -46,8 +46,6 @@ namespace ClideTest
 			// Run rx controller
 			rxController.Run(rxBuff);
 			
-			printf("%s", "Debug\r\n");
-			
 			if(_cmd != NULL)
 				CHECK_EQUAL(true, _cmd->isDetected);
 			else

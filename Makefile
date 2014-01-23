@@ -71,10 +71,6 @@ src/%.o: src/%.cpp
 test : $(TEST_OBJ_FILES) | clideLib unitTestLib
 	# Compiling unit test code
 	g++ $(TEST_LD_FLAGS) -o ./test/ClideTest.elf $(TEST_OBJ_FILES) -L./test/UnitTest++ -lUnitTest++ -L./ -lClide
-	
-# Generic rule for test object files
-#test/%.o: test/%.cpp
-#	g++ $(TEST_CC_FLAGS) -c -o $@ $<
 
 # Generic rule for test object files
 test/%.o: test/%.cpp
@@ -84,7 +80,6 @@ test/%.o: test/%.cpp
 	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
 		-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \
 		rm -f $*.d
-	# g++ $(TEST_CC_FLAGS) -c -o $@ $<
 
 -include $(TEST_OBJ_FILES:.o=.d)
 	

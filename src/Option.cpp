@@ -2,7 +2,7 @@
 //! @file 			Option.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/01/21
+//! @last-modified 	2014/01/24
 //! @brief 		 	The option class enables used of 'optional' parameters in the command-line interface.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -136,7 +136,7 @@ namespace Clide
 			{
 				#if(clideDEBUG_PRINT_ERROR == 1)	
 					// Description too long, do not save it
-					Print::debugPrintCallback.Execute("CLIDE: ERROR: Option name was too long.\r\n");
+					Print::errorPrintCallback.Execute("CLIDE: ERROR: 'Long' option name was too long.\r\n");
 				#endif
 				
 				return;
@@ -151,7 +151,7 @@ namespace Clide
 			{
 				#if(clideDEBUG_PRINT_ERROR == 1)	
 					// Description too long, do not save it
-					Print::debugPrintCallback.Execute("CLIDE: ERROR: Option description was too long.\r\n");
+					Print::errorPrintCallback.Execute("CLIDE: ERROR: Option description was too long.\r\n");
 				#endif
 				
 				return;

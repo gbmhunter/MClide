@@ -79,7 +79,7 @@ namespace Clide
 		{
 			#if(clideDEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				Print::debugPrintCallback.Execute("CLIDE: ERROR: Command name was too long.\r\n");
+				Print::errorPrintCallback.Execute("CLIDE: ERROR: Command name was too long.\r\n");
 			#endif
 		}
 		
@@ -98,7 +98,7 @@ namespace Clide
 		{
 			#if(clideDEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				Print::debugPrintCallback.Execute("CLIDE: ERROR: Command description was too long.\r\n");
+				Print::errorPrintCallback.Execute("CLIDE: ERROR: Command description was too long.\r\n");
 			#endif
 		}
 		
@@ -164,7 +164,7 @@ namespace Clide
 		{
 			#if(clideDEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				Print::debugPrintCallback.Execute("CLIDE: ERROR - Malloc failed while registering parameter.\r\n");
+				Print::errorPrintCallback.Execute("CLIDE: ERROR - Malloc failed while registering parameter.\r\n");
 			#endif
 			return;	
 		}
@@ -188,6 +188,15 @@ namespace Clide
 		// Create option pointer at end of option pointer array.
 		this->optionA = (Option**)MemMang::AppendNewArrayElement(this->optionA, this->numOptions, sizeof(Option*));
 		
+		if(this->optionA == NULL)
+		{
+			#if(clideDEBUG_PRINT_ERROR == 1)
+				// Description too long, do not save it
+				Print::errorPrintCallback.Execute("CLIDE: ERROR - Malloc failed while registering option.\r\n");
+			#endif
+			return;
+		}
+
 		// Increase option count
 		this->numOptions++;
 		

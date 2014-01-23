@@ -176,7 +176,11 @@ namespace Clide
 					//Print::cmdLinePrintCallback.Execute("\t");
 					#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
 						Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_BOLD);
-						snprintf(tempBuff, sizeof(tempBuff), "%-" STR(config_CMD_PADDING_FOR_HELP) "." STR(config_CMD_PADDING_FOR_HELP_MINUS_1) "s", cmdA[x]->name);
+						snprintf(
+							tempBuff,
+							sizeof(tempBuff),
+							"%-" STR(config_CMD_PADDING_FOR_HELP) "." STR(config_CMD_PADDING_FOR_HELP_MINUS_1) "s",
+							cmdA[x]->name);
 						Print::cmdLinePrintCallback.Execute(tempBuff);
 						Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_NORMAL);
 					#else

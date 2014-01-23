@@ -47,6 +47,8 @@ namespace Clide
 	//! @brief		This is true if any individual debug print macros are 1.
 	#define clideDEBUG_PRINT_ANY	(clideDEBUG_PRINT_GENERAL | clideDEBUG_PRINT_VERBOSE | clideDEBUG_PRINT_ERROR)
 
+	//====================== HELP-RELATED SWITCHES =================//
+
 	//! @brief		Set to 1 to enable automatic help generation.
 	#define clide_ENABLE_AUTO_HELP			1
 
@@ -55,16 +57,16 @@ namespace Clide
 
 	//! @brief		(char*) The amount of padding given to the command name column when printing help.
 	#define config_CMD_PADDING_FOR_HELP				15
-	#define config_CMD_PADDING_FOR_HELP_MINUS_1		14
+	#define config_CMD_PADDING_FOR_HELP_MINUS_1		14			//!< Make sure this is always (config_CMD_PADDING_FOR_HELP - 1)
 	
 	//! @brief		Sets the maximum string length for a single command, parameter, or option name/option value
 	//! @todo 		Use dynamic allocation, so not required.
 	#define clideMAX_STRING_LENGTH			(20)	
 
-	//! Maximum length for the cmd name
+	//! @brief		Maximum length for the cmd name
 	#define clideMAX_NAME_LENGTH			(20)
 
-	//! Maximum length for the cmd description
+	//! @brief		Maximum length for the cmd description
 	#define clideMAX_DESCRIPTION_LENGTH		(100)	
 	
 	//! @brief		The size of the debug buffer.

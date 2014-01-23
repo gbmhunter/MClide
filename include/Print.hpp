@@ -2,7 +2,7 @@
 //! @file 			Print.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/03/19
-//! @last-modified 	2014/01/22
+//! @last-modified 	2014/01/24
 //! @brief 			Contains callbacks for port-specific print operations.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef CLIDE_PORT_H
-#define CLIDE_PORT_H
+#ifndef CLIDE_PRINT_H
+#define CLIDE_PRINT_H
 
 #include "../lib/slotmachine-cpp/api/Slotmachine.hpp"		//!< Callbacks.
 
@@ -70,21 +70,18 @@ namespace Clide
 
 		public:
 		
+			//! @brief		Callback for debug messages.
 			static SlotMachine::Callback<void, const char*> debugPrintCallback;
+
+			//! @brief		Callback for command-line messages.
 			static SlotMachine::Callback<void, const char*> cmdLinePrintCallback;
 			
-			// none
-		
-			//! @brief		Prints debug messages. Port specific.
-			//! @public
-			//static void DebugPrint(const char* msg);
-
-			//! @brief		Prints messages to the command-line. Port specific.
-			//static void CmdLinePrint(const char* msg);
+			//! @brief		Callback for error messages.
+			static SlotMachine::Callback<void, const char*> errorPrintCallback;
 	};
 
 } // namespace Clide
 
-#endif	// #ifndef CLIDE_PORT_H
+#endif	// #ifndef CLIDE_PRINT_H
 
 // EOF

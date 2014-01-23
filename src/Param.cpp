@@ -2,7 +2,7 @@
 //! @file 			Param.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/01/21
+//! @last-modified 	2014/01/24
 //! @brief 			Contains the Param class, which enables the use of required parameters on the command-line interface.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -86,7 +86,7 @@ namespace Clide
 		{
 			#if(clideDEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				Print::debugPrintCallback.Execute("CLIDE: ERROR: Parameter description was too long.\r\n");
+				Print::errorPrintCallback.Execute("CLIDE: ERROR: Parameter description was too long.\r\n");
 			#endif
 		}
 		
