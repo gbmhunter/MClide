@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/01/24
-- Version: v8.6.2.1
+- Version: v8.6.2.2
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -209,7 +209,7 @@ Limitations
 Usage
 =====
 
-In main.c add...
+This is a basic example. See "example/" or "test/" for more examples. In main.c add...
 
 ::
 
@@ -217,103 +217,38 @@ In main.c add...
 
 	using namespace Clide;
 
-	
 	// Create RX Clide object
 	Rx rxController;
 	
-	
 	// Create call-back function that is automatically called when
 	// registered command is recieved
-	bool SetSpeedCmd(Cmd* cmd)
+	bool SetSpeedCallback(Cmd* cmd)
 	{
-		// Extract parameter from received command
+		// Extract parameter from received command (this will be 100 if following code below)
 		float speed = atof(cmd->paramA[0]->value);
 		
 		// Call some function to do stuff with parameter
 		Motor.SetSpeed(speed);
 	}
 	
-	// Create call-back function for help command. The help functionality
-	// is automatically provided by calling rxController.PrintHelp()
-	// (prints help info to the command line, if being controlled
-	// by a human).
-	bool HelpCmd(Cmd* cmd)
-	{
-		#if(PRINT_DEBUG_COMMS_INTERFACE == 1)
-			UartDebug::PutString("COMMS: Help command received.\r\n");
-		#endif
-
-		rxController.PrintHelp();
-
-		return true;
-	}
-	
-
-	
 	int main()
 	{
+		// Create command
+		Cmd setSpeedCmd("set-speed", &SetSpeedCallback, "Sets the speed.");
+		
 		// Create Parameter
 		Param speed("The desired speed.");
-		// Create command
-		Cmd setSpeedCmd("set-speed", &SetSpeedCmd, "Sets the speed.");
+		
 		// Register parameter with command
 		setSpeedCmd.RegisterParam(&speed);
-		// Register command with RX (can also be registered with TX controller if desired).
-		rxController.RegisterCmd(&setVelocityCmd);
 		
-		// Register help command
-		Cmd help("help", &HelpCmd, "Prints help info.");
-		rxController.RegisterCmd(&help);
+		// Register command with RX controller
+		rxController.RegisterCmd(&setSpeedCmd);	
 		
-		// Infinite loop
-		for(;;)
-		{
-			char rxChar;						//!< Memory to hold incoming character
-			
-			// Wait indefinetly for byte to be received on rx queue of the comms UART (blocking)
-			UartComms::GetChar(&rxChar);
-			
-			if( rxChar == '\r' )
-			{
-				// Line of text has been entered
-				
-				// Send command to Clide
-				rxController.Run((char*)rxBuffer);
-
-				// Clear the input string ready 
-				// to receive the next command.
-				rxBufferPos = 0;
-				memset(rxBuffer, 0x00, sizeof(rxBuffer));
-				
-				// Clear tx buffer also
-				memset(txBuffer, 0x00, sizeof(txBuffer));
-				
-			}
-			else
-			{
-				// A character was entered.  It was not a new line so it is
-				// placed into the input buffer.  When \n is detected,
-				// the complete string will be passed to Clide.
-				if( rxBufferPos < sizeof(rxBuffer))
-				{
-					rxBuffer[rxBufferPos] = rxChar;
-					rxBufferPos++;
-				}
-				else
-				{
-					UartDebug::PutString("COMMS: Maximum input string length reached.\r\n");
-				}
-			}
-		}
+		// Run rx controller. This will call the callback SetSpeedCallback above.
+		rxController.Run("set-speed 100");	
 	}
 	
-**Port Specific Code**
-
-::
-
-	// Fill in port-specific code in template functions in Clide-Port.c
-	CmdLinePrint(){ ... }
-	DebugPrint(){ ... }
 	
 FAQ
 ===
@@ -333,6 +268,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.6.2.2 2014/01/24 Fixed up the example in the README, removed help command, closes #116.
 v8.6.2.1 2014/01/24 Added new info to FAQ in README. 
 v8.6.2.0 2014/01/24 'Command not recognised' error now prints the unrecognised message, closes #20.
 v8.6.1.0 2014/01/24 Added ability to silence the 'Command not recognised' error, closes #115. Fixed failing 'Long description' unit test by adding try/catch block.
