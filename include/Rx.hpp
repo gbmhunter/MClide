@@ -65,6 +65,10 @@ namespace Clide
 			//! @details	Investigate this if you wish to find out more about why a function returned false.
 			Log<LogIds> log;
 
+			//! @brief		Set to true to silence (not print) an error when a received message is not recognised as a valid command.
+			//! @details	Default is false, as it is usually helpful to show this error.
+			bool silenceCmdNotRecognisedError;
+
 			//===============================================================================================//
 			//======================================= PUBLIC METHODS ========================================//
 			//===============================================================================================//

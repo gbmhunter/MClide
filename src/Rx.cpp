@@ -75,6 +75,9 @@ namespace Clide
 
 		this->cmdHelp->RegisterOption(new Option('g', NULL, NULL, "Specifies which group to print help with.", true));
 
+		// Default is to show this error (helpful to user)
+		this->silenceCmdNotRecognisedError = false;
+
 		// Create help function if enabled
 		#if(clide_ENABLE_AUTO_HELP == 1)
 			this->RegisterCmd(this->cmdHelp);
@@ -180,20 +183,24 @@ namespace Clide
 		// Check for registered command
 		if(foundCmd == NULL)
 		{
-			// Received command is not registered (aka invalid/unrecognised)
-			#if(clide_ENABLE_AUTO_HELP == 1)
-				// Help exists, so tell user that they could type help to get a list of available commands.
-				#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
-					// Special formatting
-					Print::cmdLinePrintCallback.Execute("error \"Command not recognised. Type " clide_TERM_TEXT_FORMAT_BOLD "help" clide_TERM_TEXT_FORMAT_NORMAL " to see a list of all the commands.\"\r\n");
+			// Only print this error is user has not silenced it
+			if(silenceCmdNotRecognisedError == false)
+			{
+				// Received command is not registered (aka invalid/unrecognised)
+				#if(clide_ENABLE_AUTO_HELP == 1)
+					// Help exists, so tell user that they could type help to get a list of available commands.
+					#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
+						// Special formatting
+						Print::cmdLinePrintCallback.Execute("error \"Command not recognised. Type " clide_TERM_TEXT_FORMAT_BOLD "help" clide_TERM_TEXT_FORMAT_NORMAL " to see a list of all the commands.\"\r\n");
+					#else
+						// No special formatting
+						Print::cmdLinePrintCallback.Execute("error \"Command not recognised. Type help to see a list of all the commands.\"\r\n");
+					#endif
 				#else
-					// No special formatting
-					Print::cmdLinePrintCallback.Execute("error \"Command not recognised. Type help to see a list of all the commands.\"\r\n");
-				#endif
-			#else
-				// No automatic help, so don't tell the user about something that doesn't exist
-				Print::cmdLinePrintCallback.Execute("error \"Command not recognised.\"\r\n");
-			#endif // #if(clide_ENABLE_AUTO_HELP == 1)
+					// No automatic help, so don't tell the user about something that doesn't exist
+					Print::cmdLinePrintCallback.Execute("error \"Command not recognised.\"\r\n");
+				#endif // #if(clide_ENABLE_AUTO_HELP == 1)
+			}
 
 			// Log error
 			this->log.logId = LogIds::CMD_NOT_RECOGNISED;
