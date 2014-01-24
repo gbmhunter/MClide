@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/01/24
-- Version: v8.6.1.0
+- Version: v8.6.2.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -329,6 +329,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.6.2.0 2014/01/24 'Command not recognised' error now prints the unrecognised message, closes #20.
 v8.6.1.0 2014/01/24 Added ability to silence the 'Command not recognised' error, closes #115. Fixed failing 'Long description' unit test by adding try/catch block.
 v8.6.0.0 2014/01/24 Added exception throwing to Clide::Cmd()'s constructor. Fixes error with too-long command descriptions, closes #105. Added check for malloc() NULL when help option is created in 'Clide::Cmd' constructor, closes #114. Added info about exceptions to README.
 v8.5.4.0 2014/01/24 Removed multiple definition of STR() macro, by putting it in a new file, 'Preprocessor.hpp', closes #112. Removed namespaces from preprocessor macros, closes #113. Makefile now prints less useless messages. Removed verbose_flag variable in Rx::Run(), closes #60. Added data type postfixed to relevanant macros in 'Config.hpp', closes #26. Made all 'Config.hpp' macros have the same name format, closes #75.

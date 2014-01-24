@@ -186,19 +186,37 @@ namespace Clide
 			// Only print this error is user has not silenced it
 			if(silenceCmdNotRecognisedError == false)
 			{
+				char tempBuff[100];
 				// Received command is not registered (aka invalid/unrecognised)
 				#if(clide_ENABLE_AUTO_HELP == 1)
 					// Help exists, so tell user that they could type help to get a list of available commands.
 					#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
 						// Special formatting
-						Print::cmdLinePrintCallback.Execute("error \"Command not recognised. Type " clide_TERM_TEXT_FORMAT_BOLD "help" clide_TERM_TEXT_FORMAT_NORMAL " to see a list of all the commands.\"\r\n");
+						snprintf(
+							tempBuff,
+							sizeof(tempBuff),
+							"error \"Command '%s' not recognised. Type %shelp%s to see a list of all the commands.\"\r\n",
+							cmdMsg,
+							clide_TERM_TEXT_FORMAT_BOLD,
+							clide_TERM_TEXT_FORMAT_NORMAL);
+						Print::cmdLinePrintCallback.Execute(tempBuff);
 					#else
 						// No special formatting
-						Print::cmdLinePrintCallback.Execute("error \"Command not recognised. Type help to see a list of all the commands.\"\r\n");
+						snprintf(
+							tempBuff,
+							sizeof(tempBuff),
+							"error \"Command '%s' not recognised. Type help to see a list of all the commands.\"\r\n",
+							cmdMsg);
+						Print::cmdLinePrintCallback.Execute(tempBuff);
 					#endif
 				#else
 					// No automatic help, so don't tell the user about something that doesn't exist
-					Print::cmdLinePrintCallback.Execute("error \"Command not recognised.\"\r\n");
+					snprintf(
+						tempBuff,
+						sizeof(tempBuff),
+						"error \"Command '%s' not recognised.\"\r\n",
+						cmdMsg);
+					Print::cmdLinePrintCallback.Execute(tempBuff);
 				#endif // #if(clide_ENABLE_AUTO_HELP == 1)
 			}
 
