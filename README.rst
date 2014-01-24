@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/01/24
-- Version: v8.5.4.0
+- Version: v8.6.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -33,12 +33,11 @@ A command-line style communication interface designed to make it easy to send me
 data between two micro-controllers, a microcontroller and computer, or two computers, via
 a serial interface that supports ASCII characters (e.g. UART, I2C, SPI).
 
-Two functionally identical Clide projects exist, this one written in C++ for an embedded system,
-and the other one (Cs-Clide) written in C# for running on a PC.
+Two functionally identical Clide projects exist, this one written in C++ for an embedded system (clide-cpp),
+and the other one (Cs-Clide) written in C# for running on a PC (clide-cs).
 
 Uses a both human readable and computer readable format (POSIX.2 command-line style, with
 GNU extensions) for easy implementation and debugging. 
-
 
 Useful for working with and controlling embedded systems.
 
@@ -148,6 +147,15 @@ Clide leverages the slotmachine-cpp library to provide event-driven callbacks. s
 
 List of events:
 - Command not recognised
+- Help command requested
+- Command-line printing
+- Debug printing
+- Error printing
+
+Exceptions
+----------
+
+O.K., so clide-cpp uses exceptions, but you say it's meant for embedded systems? I choose to use exceptions after I ran into the problem with the fact a object constructor could fail, and you can't return an error code. It was either implement exceptions or use the 'zombie object' approach. I choose exceptions because they a better suited to solve the problem. If you have an issue with this, please let me know (create a GitHub issue).
 
 Installation
 ============
@@ -321,6 +329,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.6.0.0 2014/01/24 Added exception throwing to Clide::Cmd()'s constructor. Fixes error with too-long command descriptions, closes #105. Added check for malloc() NULL when help option is created in 'Clide::Cmd' constructor, closes #114. Added info about exceptions to README.
 v8.5.4.0 2014/01/24 Removed multiple definition of STR() macro, by putting it in a new file, 'Preprocessor.hpp', closes #112. Removed namespaces from preprocessor macros, closes #113. Makefile now prints less useless messages. Removed verbose_flag variable in Rx::Run(), closes #60. Added data type postfixed to relevanant macros in 'Config.hpp', closes #26. Made all 'Config.hpp' macros have the same name format, closes #75.
 v8.5.3.0 2014/01/24 Tidyed up help printing code. Added unit tests for wacky (empty and large strings) command, parameter and option descriptions, closes #106. Corrected header guard in Print.hpp, closes #108. Separated debug and error messages (created separate callback for error messages), closes #107. Added malloc() NULL detection when registering option with command, closes #109. Removed text 'Debug' when running the unit tests as part of 'make', closes #110. Stopped Clide from printing tons of info to stdout when running unit tests, closes #111.
 v8.5.2.0 2014/01/22 Fixed example code so that Clide now prints to stdout, stopped working after Clide was switched to callbacks, closes #104. Fixed padding when help is printed (now uses padding and truncation if required, columns align correctly), closes #103.

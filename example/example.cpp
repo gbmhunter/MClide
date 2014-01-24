@@ -112,6 +112,33 @@ int main()
 	// Register command
 	rxController.RegisterCmd(&cmdEx3);
 
+	//============ EXAMPLE COMMAND 4 ===============//
+
+	try
+	{
+		// Create command
+		Cmd cmdEx4("long-description-cmd", &Callback, "This is a super super super super super long command description! It is very long indeed. And getting longer as we speak!");
+
+		// Create parameters
+		Param cmdEx4Param1("Example parameter 1.");
+		cmdEx4.RegisterParam(&cmdEx4Param1);
+
+		// Create option
+		Option cmdEx4Option1('a', NULL, "Example option 1");
+		cmdEx4.RegisterOption(&cmdEx4Option1);
+
+		// Assign to group
+		cmdEx4.AddToGroup(&cmdGroupUser);
+
+		// Register command
+		rxController.RegisterCmd(&cmdEx4);
+	}
+	catch(const char* msg)
+	{
+		std::cout << msg << endl;
+
+	}
+
 	//============ SETUP DEFAULT COMMAND GROUP ==========//
 
 	//rxController.defaultCmdGroup = &cmdGroupUser;

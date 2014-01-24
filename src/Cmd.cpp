@@ -81,6 +81,8 @@ namespace Clide
 				// Description too long, do not save it
 				Print::errorPrintCallback.Execute("CLIDE: ERROR: Command name was too long.\r\n");
 			#endif
+			throw "CLIDE: ERROR: Command name was too long.";
+			return;
 		}
 		
 		// DECRIPTION
@@ -100,6 +102,8 @@ namespace Clide
 				// Description too long, do not save it
 				Print::errorPrintCallback.Execute("CLIDE: ERROR: Command description was too long.\r\n");
 			#endif
+			throw "CLIDE: ERROR: Command description was too long.";
+			return;
 		}
 		
 		// CALLBACK
@@ -111,6 +115,10 @@ namespace Clide
 			#endif
 			// HELP OPTION
 			Option* help = new Option('h', "help", NULL, "Prints help for the command.", false);
+
+			if(help == NULL)
+				throw "CLIDE: ERROR: malloc() for help option failed in Clide::Cmd constructor.";
+
 			this->RegisterOption(help);
 		#endif
 		
