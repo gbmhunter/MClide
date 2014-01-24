@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/01/24
-- Version: v8.6.2.0
+- Version: v8.6.2.1
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -318,9 +318,13 @@ In main.c add...
 FAQ
 ===
 
-1. I keep getting weird characters appear in the terminal from text sent from Clide.
+1. 	I call :code:`Clide::Rx::Run()`, and no errors occur, but nothing happens. 
 
-   Your terminal probably doesn't support special formatting characters. Set :code:`clide_ENABLE_ADV_TEXT_FORMATTING` to 0 in :code:`Clide.Config.hpp`.
+	You probably have not set-up the callbacks. The crucial one to set-up is :code:`Clide::Print::cmdLinePrintCallback`, which is called every time a message needs to be printed back to the command-line.
+
+2. 	I keep getting weird characters appear in the terminal from text sent from Clide.
+
+	Your terminal probably doesn't support special formatting characters. Set :code:`clide_ENABLE_ADV_TEXT_FORMATTING` to 0 in :code:`Clide.Config.hpp`.
 
 
 Changelog
@@ -329,6 +333,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.6.2.1 2014/01/24 Added new info to FAQ in README. 
 v8.6.2.0 2014/01/24 'Command not recognised' error now prints the unrecognised message, closes #20.
 v8.6.1.0 2014/01/24 Added ability to silence the 'Command not recognised' error, closes #115. Fixed failing 'Long description' unit test by adding try/catch block.
 v8.6.0.0 2014/01/24 Added exception throwing to Clide::Cmd()'s constructor. Fixes error with too-long command descriptions, closes #105. Added check for malloc() NULL when help option is created in 'Clide::Cmd' constructor, closes #114. Added info about exceptions to README.
