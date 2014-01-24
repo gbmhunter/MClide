@@ -54,7 +54,7 @@ namespace Clide
 	Param::~Param()
 	{
 		// Destructor
-		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 			Print::debugPrintCallback.Execute("CLIDE: Parameter destructor called.\r\n");
 		#endif
 		
@@ -68,7 +68,7 @@ namespace Clide
 
 	void Param::Init(bool (*callBackFunc)(char *paramVal), const char* description)
 	{
-		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 			Print::debugPrintCallback.Execute("CLIDE: Parameter constructor called.\r\n");
 		#endif
 
@@ -77,14 +77,14 @@ namespace Clide
 		uint32_t stringLen = strlen(description);
 		
 		// Make sure the description isn't to long
-		if(stringLen <= clideMAX_DESCRIPTION_LENGTH)
+		if(stringLen <= clide_MAX_DESCRIPTION_LENGTH)
 		{
 			// Create memory for description and store
 			this->description = MemMang::MallocString(description);
 		}
 		else
 		{
-			#if(clideDEBUG_PRINT_ERROR == 1)	
+			#if(clide_DEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
 				Print::errorPrintCallback.Execute("CLIDE: ERROR: Parameter description was too long.\r\n");
 			#endif

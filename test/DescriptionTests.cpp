@@ -127,6 +127,33 @@ namespace ClideTest
 			CHECK_EQUAL("param1", cmdTestParam.value);
 		}
 
+		TEST(EmptyOptionDescriptionTest)
+		{
+			Rx rxController;
+
+			// Create command to hold option
+			Cmd cmdTest("test", &Callback, "A test command.");
+
+			// Create option with an empty description
+			Option cmdTestOption('a', NULL, "");
+			cmdTest.RegisterOption(&cmdTestOption);
+
+			// Register command
+			rxController.RegisterCmd(&cmdTest);
+
+			// Create fake input buffer
+			char rxBuff[50] = "test -a";
+
+			callbackCalled = false;
+
+			// Run rx controller
+			rxController.Run(rxBuff);
+
+			CHECK_EQUAL(true, callbackCalled);
+			// Even though description is empty, option should still be recognised
+			CHECK_EQUAL(true, cmdTestOption.isDetected);
+		}
+
 		TEST(LongOptionDescriptionTest)
 		{
 			Rx rxController;

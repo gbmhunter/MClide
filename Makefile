@@ -1,11 +1,12 @@
 #
-# @file 		Makefile
-# @author 		Geoffrey Hunter <gbmhunter@gmail.com> (wwww.cladlab.com)
-# @edited 		n/a
-# @date 		2013/08/29
-# @brief 		Makefile for Linux-based make, to compile ClideCpp library and run unit test code.
+# @file 			Makefile
+# @author 			Geoffrey Hunter <gbmhunter@gmail.com> (wwww.cladlab.com)
+# @edited 			n/a
+# @created			2013/08/29
+# @last-modified 	2014/01/24
+# @brief 			Makefile for Linux-based make, to compile Clide library, example and run unit test code.
 # @details
-#				See README.rst
+#					See README in repo root dir for more info.
 
 # Define the compiler to use (e.g. gcc, g++)
 CC = g++
@@ -57,10 +58,10 @@ clideLib : $(SRC_OBJ_FILES)
 src/%.o: src/%.cpp
 	# Compiling src/ files
 	$(COMPILE.c) -MD -o $@ $<
-	@cp $*.d $*.P; \
+	-@cp $*.d $*.P >/dev/null 2>&1; \
 	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
 		-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \
-		rm -f $*.d
+		rm -f $*.d >/dev/null 2>&1
 
 -include $(SRC_OBJ_FILES:.o=.d)
 	
@@ -76,10 +77,10 @@ test : $(TEST_OBJ_FILES) | clideLib unitTestLib
 test/%.o: test/%.cpp
 	# Compiling src/ files
 	$(COMPILE.c) -MD -o $@ $<
-	@cp $*.d $*.P; \
+	-@cp $*.d $*.P >/dev/null 2>&1; \
 	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
 		-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \
-		rm -f $*.d
+		rm -f $*.d >/dev/null 2>&1
 
 -include $(TEST_OBJ_FILES:.o=.d)
 	

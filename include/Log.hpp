@@ -89,13 +89,13 @@ namespace Clide
 	template <class logIdType>
 	Log<logIdType>::Log()
 	{
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::debugPrintCallback.Execute("CLIDE: ErrorObj constructor called...\r\n");
 		#endif
 
 
 
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::debugPrintCallback.Execute("CLIDE: ErrorObj constructor finished.\r\n");
 		#endif
 

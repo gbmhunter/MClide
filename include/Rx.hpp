@@ -100,7 +100,7 @@ namespace Clide
 			
 			//! @brief		Splits packet into arguments, which can be options and/or parameters.
 			//! @returns	Number of arguments found
-			int SplitPacket(char* packet, char(*args)[clideMAX_STRING_LENGTH]);
+			int SplitPacket(char* packet, char(*args)[clide_MAX_STRING_LENGTH]);
 			
 			//! @brief		Builds the short option string for the getopt_long() function from the list
 			//!				of the registered commands.

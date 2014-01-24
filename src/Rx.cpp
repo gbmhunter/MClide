@@ -59,13 +59,13 @@ namespace Clide
 	// Constructor
 	Rx::Rx()
 	{
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::debugPrintCallback.Execute("CLIDE: Rx constructor called...\r\n");
 		#endif
 
 		// Initialise class variables
 		
-		#if(clideDEBUG_PRINT_ERROR == 1)
+		#if(clide_DEBUG_PRINT_ERROR == 1)
 			// Enable getopt() to print error messages
 			GetOpt::opterr = 1;
 		#endif
@@ -80,7 +80,7 @@ namespace Clide
 			this->RegisterCmd(this->cmdHelp);
 		#endif
 
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::debugPrintCallback.Execute("CLIDE: Rx constructor finished.\r\n");
 		#endif
 }
@@ -97,7 +97,7 @@ namespace Clide
 		// Create
 		char* cmdMsgCpyPtr = &cmdMsgCpyA[0];
 
-		#if(clideDEBUG_PRINT_GENERAL == 1)
+		#if(clide_DEBUG_PRINT_GENERAL == 1)
 			Print::debugPrintCallback.Execute("CLIDE: Rx.Run() called.\r\n");
 			snprintf(
 				Global::debugBuff,
@@ -111,7 +111,7 @@ namespace Clide
 		
 		//! @brief		Holds the split arguments from the command line
 		//! @todo 		Replace with malloc() calls, remove magic numbers
-		char _args[10][clideMAX_STRING_LENGTH] = {{0}};
+		char _args[10][clide_MAX_STRING_LENGTH] = {{0}};
 		
 		char _paramA[10][10] = {{0}};
 		
@@ -149,16 +149,16 @@ namespace Clide
 			if(cmdMsgCpyPtr[0] == '\0')
 			{
 				Print::cmdLinePrintCallback.Execute("error \"Received command contained no alpha-numeric characters.\"\r\n");
-				#if(clideDEBUG_PRINT_GENERAL == 1)
+				#if(clide_DEBUG_PRINT_GENERAL == 1)
 					Print::debugPrintCallback.Execute("CLIDE: WARNING: Received command contained no alpha-numeric characters.\r\n");
 				#endif
-				#if(clideDEBUG_PRINT_VERBOSE == 1)
+				#if(clide_DEBUG_PRINT_VERBOSE == 1)
 					Print::debugPrintCallback.Execute("CLIDE: Rx::Run() finished. Returning false.\r\n");
 				#endif
 				return false;
 			} 
 			
-			#if(clideDEBUG_PRINT_VERBOSE == 1)
+			#if(clide_DEBUG_PRINT_VERBOSE == 1)
 				snprintf(
 					Global::debugBuff, 
 					sizeof(Global::debugBuff),
@@ -206,7 +206,7 @@ namespace Clide
 				this->cmdUnrecogCallback.Execute(cmdMsg);
 			}
 
-			#if(clideDEBUG_PRINT_VERBOSE == 1)
+			#if(clide_DEBUG_PRINT_VERBOSE == 1)
 				Print::debugPrintCallback.Execute("CLIDE: Rx::Run() finished. Returning false.\r\n");
 			#endif
 			return false;
@@ -215,7 +215,7 @@ namespace Clide
 		// Valid command found, set detected flag to true.
 		foundCmd->isDetected = true;
 		
-		#if(clideDEBUG_PRINT_GENERAL == 1)
+		#if(clide_DEBUG_PRINT_GENERAL == 1)
 			snprintf(
 				Global::debugBuff, 
 				sizeof(Global::debugBuff),
@@ -238,7 +238,7 @@ namespace Clide
 			foundCmd->optionA[x]->longOptionDetected = 0;
 		}
 		
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::debugPrintCallback.Execute("CLIDE: Re-arranged arguments = ");
 			// Print re-arranged arguments
 			uint8_t count = 0;
@@ -265,7 +265,7 @@ namespace Clide
 		
 		this->BuildShortOptionString(optionString, foundCmd);
 		
-		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 			snprintf(
 				Global::debugBuff,
 				sizeof(Global::debugBuff),
@@ -283,9 +283,6 @@ namespace Clide
 		GetOpt::optarg = NULL;
 		GetOpt::optopt = 0;
 		
-		// Flag set by --verbose.
-		static int verbose_flag;
-		
 		// Find number of long options in cmd and create struct var
 		// for them
 		struct GetOpt::option longOptionsA[20];
@@ -293,30 +290,10 @@ namespace Clide
 		// Build the struct for getopt_long
 		BuildLongOptionStruct(longOptionsA, foundCmd);
 		
-		/*
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
-			snprintf (
-				Global::debugBuff,
-				sizeof(Global::debugBuff),
-				"CLIDE: longOptionsA[0].name = '%s'.\r\n",
-				longOptionsA[0].name);
-			Print::debugPrintCallback.Execute(Global::debugBuff);
-		#endif
-		*/
-		/*
-		struct option long_options[] =
-		{
-		   // These options set a flag.
-		   {"long1", no_argument,       &foundCmd->optionA[0]->longOptionDetected, 1},
-		   {"long2", no_argument,       &foundCmd->optionA[1]->longOptionDetected, 1},
-		   {0, 0, 0, 0}
-		};
-		*/
-		
 		// getopt_long stores the option index here.
         int option_index = 0;		
 		
-		#if(clideDEBUG_PRINT_VERBOSE == 1)				
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)				
 			Print::debugPrintCallback.Execute("CLIDE: Entering getopt_long() loop.\r\n");
 		#endif
 		
@@ -324,7 +301,7 @@ namespace Clide
 		while((x = GetOpt::getopt_long(numArgs, _argsPtr, optionString, longOptionsA, &option_index)) != -1)
 		{
 		
-			#if(clideDEBUG_PRINT_VERBOSE == 1)				
+			#if(clide_DEBUG_PRINT_VERBOSE == 1)				
 				Print::debugPrintCallback.Execute("CLIDE: getopt_long() has returned with a number that is not -1.\r\n");
 			#endif
 		
@@ -338,7 +315,7 @@ namespace Clide
 				//if (long_options[option_index].flag != 0)
                  //break;
 				
-				#if(clideDEBUG_PRINT_VERBOSE == 1)				
+				#if(clide_DEBUG_PRINT_VERBOSE == 1)				
 					Print::debugPrintCallback.Execute("CLIDE: Searching for set long option flag.\r\n");
 				#endif
 				
@@ -353,7 +330,7 @@ namespace Clide
 						// so this gets around this problem!
 						if(foundCmd->optionA[x]->isDetected == false)
 						{
-							#if(clideDEBUG_PRINT_VERBOSE == 1)
+							#if(clide_DEBUG_PRINT_VERBOSE == 1)
 								snprintf (
 									Global::debugBuff,
 									sizeof(Global::debugBuff),
@@ -382,7 +359,7 @@ namespace Clide
 			}
 			else if(x == '?')
 			{
-				#if(clideDEBUG_PRINT_ERROR == 1)
+				#if(clide_DEBUG_PRINT_ERROR == 1)
 					snprintf (
 						Global::debugBuff,
 						sizeof(Global::debugBuff),
@@ -406,7 +383,7 @@ namespace Clide
 			}
 			else
 			{
-				#if(clideDEBUG_PRINT_VERBOSE == 1)
+				#if(clide_DEBUG_PRINT_VERBOSE == 1)
 					snprintf (
 						Global::debugBuff,
 						sizeof(Global::debugBuff),
@@ -432,7 +409,7 @@ namespace Clide
 				//! @todo Implement properly
 				if(foundOption != NULL)
 				{
-					#if(clideDEBUG_PRINT_VERBOSE == 1)		
+					#if(clide_DEBUG_PRINT_VERBOSE == 1)		
 						if(foundOption->shortName != '\0')
 						{
 							snprintf (
@@ -458,7 +435,7 @@ namespace Clide
 					// Special help case
 					if(foundOption->shortName == 'h')
 					{
-						#if(clideDEBUG_PRINT_VERBOSE == 1)
+						#if(clide_DEBUG_PRINT_VERBOSE == 1)
 							Print::debugPrintCallback.Execute("CLIDE: Help option detected. Printing help...\r\n");
 						#endif
 
@@ -477,7 +454,7 @@ namespace Clide
 						// Save option value if one
 						if(foundOption->associatedValue == true)
 						{
-							#if(clideDEBUG_PRINT_VERBOSE == 1)	
+							#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 								snprintf (
 									Global::debugBuff,
 									sizeof(Global::debugBuff),
@@ -487,7 +464,7 @@ namespace Clide
 							#endif
 							if(GetOpt::optarg != NULL)
 							{
-								#if(clideDEBUG_PRINT_VERBOSE == 1)
+								#if(clide_DEBUG_PRINT_VERBOSE == 1)
 									snprintf (
 										Global::debugBuff,
 										sizeof(Global::debugBuff),
@@ -500,7 +477,7 @@ namespace Clide
 							else
 							{
 								// Error, option should have has a value associated with it.
-								#if(clideDEBUG_PRINT_ERROR == 1)	
+								#if(clide_DEBUG_PRINT_ERROR == 1)	
 									snprintf (
 										Global::debugBuff,
 										sizeof(Global::debugBuff),
@@ -521,7 +498,7 @@ namespace Clide
 				else
 				{
 					// Error message
-					#if(clideDEBUG_PRINT_ERROR == 1)
+					#if(clide_DEBUG_PRINT_ERROR == 1)
 						Print::debugPrintCallback.Execute("CLIDE: ERROR - Option '");
 						Print::debugPrintCallback.Execute(_argsPtr[GetOpt::optind-1]);
 						Print::debugPrintCallback.Execute("' not registered with command.\"\r\n");
@@ -534,7 +511,7 @@ namespace Clide
 			}
 
 			/*
-			#if(clideDEBUG_PRINT_VERBOSE == 1)
+			#if(clide_DEBUG_PRINT_VERBOSE == 1)
 				snprintf(
 					tempBuff,
 					sizeof(tempBuff),
@@ -547,7 +524,7 @@ namespace Clide
 			*/
 		}
 		
-		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 			snprintf (
 				Global::debugBuff,
 				sizeof(Global::debugBuff),
@@ -556,7 +533,7 @@ namespace Clide
 			Print::debugPrintCallback.Execute(Global::debugBuff);
 		#endif
 		
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::debugPrintCallback.Execute("CLIDE: Arguments = ");
 			// Print arguments
 			count = 0;
@@ -586,7 +563,7 @@ namespace Clide
 		if((uint32_t)(numArgs - GetOpt::optind) != foundCmd->numParams)
 		{
 			Print::cmdLinePrintCallback.Execute("error \"Num. of received parameters does not match num. registered for cmd.\"\r\n");
-			#if(clideDEBUG_PRINT_ERROR == 1)
+			#if(clide_DEBUG_PRINT_ERROR == 1)
 				snprintf (
 					Global::debugBuff,
 					sizeof(Global::debugBuff),
@@ -599,7 +576,7 @@ namespace Clide
 					GetOpt::optind);							
 				Print::debugPrintCallback.Execute(Global::debugBuff);
 			#endif
-			#if(clideDEBUG_PRINT_VERBOSE == 1)
+			#if(clide_DEBUG_PRINT_VERBOSE == 1)
 				Print::debugPrintCallback.Execute("CLIDE: Rx::Run() finished. Returning false.\r\n");
 			#endif
 			return false;
@@ -611,7 +588,7 @@ namespace Clide
 			strcpy(foundCmd->paramA[x]->value, _argsPtr[GetOpt::optind + x]);
 		}
 		
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::debugPrintCallback.Execute("CLIDE: Parameters = ");
 			// Get parameters
 			if(GetOpt::optind == numArgs)
@@ -636,12 +613,12 @@ namespace Clide
 		}
 		else
 		{
-			#if(clideDEBUG_PRINT_VERBOSE == 1)
+			#if(clide_DEBUG_PRINT_VERBOSE == 1)
 				Print::debugPrintCallback.Execute("CLIDE: Command callback was NULL, so no function called.\r\n");
 			#endif
 		}
 
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::debugPrintCallback.Execute("CLIDE: Rx::Run() finished. Returning true.\r\n");
 		#endif
 		return true;
@@ -651,7 +628,7 @@ namespace Clide
 	//==================================== PRIVATE FUNCTIONS ========================================//
 	//===============================================================================================//
 
-	int Rx::SplitPacket(char* packet, char(*args)[clideMAX_STRING_LENGTH])
+	int Rx::SplitPacket(char* packet, char(*args)[clide_MAX_STRING_LENGTH])
 	{
 
 		// Split string into arguments using white space as the seperator
@@ -678,7 +655,7 @@ namespace Clide
 	{
 		uint8_t x = 0;
 		
-		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 			Print::debugPrintCallback.Execute("CLIDE: Validating command...\r\n");
 			Print::debugPrintCallback.Execute("CLIDE: Input = ");
 			Print::debugPrintCallback.Execute(cmdName);
@@ -694,7 +671,7 @@ namespace Clide
 		for(x = 0; x < numCmds; x++)
 		{
 			uint32_t val = strcmp(cmdName, cmdA[x]->name);
-			#if(clideDEBUG_PRINT_VERBOSE == 1)
+			#if(clide_DEBUG_PRINT_VERBOSE == 1)
 				snprintf(
 					Global::debugBuff,
 					sizeof(Global::debugBuff),
@@ -706,14 +683,14 @@ namespace Clide
 			if(val == 0)
 			{
 				// Match found, return pointer to the discovered cmd structure
-				#if(clideDEBUG_PRINT_VERBOSE == 1)	
+				#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 					Print::debugPrintCallback.Execute("CLIDE: Command recognised.\r\n");
 				#endif
 				return cmdA[x];
 			}
 		}
 		// No match found, return NULL
-		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 			Print::debugPrintCallback.Execute("CLIDE: Command not recognised.\r\n");
 		#endif
 		
@@ -722,13 +699,13 @@ namespace Clide
 
 	Option* Rx::ValidateOption(Cmd *detectedCmd, char* optionName)
 	{
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::debugPrintCallback.Execute("CLIDE: Validating option.\r\n");
 		#endif
 		
 		uint8_t x = 0;
 		
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			snprintf(
 				Global::debugBuff,
 				sizeof(Global::debugBuff),
@@ -750,7 +727,7 @@ namespace Clide
 				else
 					val = 1;
 					
-				#if(clideDEBUG_PRINT_VERBOSE == 1)
+				#if(clide_DEBUG_PRINT_VERBOSE == 1)
 					snprintf(
 						Global::debugBuff,
 						sizeof(Global::debugBuff),
@@ -764,7 +741,7 @@ namespace Clide
 			{
 				// Option is long
 				val = strcmp(optionName, detectedCmd->optionA[x]->longName);
-				#if(clideDEBUG_PRINT_VERBOSE == 1)
+				#if(clide_DEBUG_PRINT_VERBOSE == 1)
 					snprintf(
 						Global::debugBuff,
 						sizeof(Global::debugBuff),
@@ -778,14 +755,14 @@ namespace Clide
 			if(val == 0)
 			{
 				// Match found, return found option
-				#if(clideDEBUG_PRINT_VERBOSE == 1)
+				#if(clide_DEBUG_PRINT_VERBOSE == 1)
 					Print::debugPrintCallback.Execute("CLIDE: Option recognised.\r\n");
 				#endif
 				return detectedCmd->optionA[x];
 			}
 		}
 		// No match found, return NULL
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::debugPrintCallback.Execute("CLIDE: Option not recognised.\r\n");
 		#endif
 		
@@ -794,7 +771,7 @@ namespace Clide
 
 	void Rx::BuildShortOptionString(char* optionString, Cmd* cmd)
 	{
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::debugPrintCallback.Execute("CLIDE: Building short option string...\r\n");
 		#endif
 		
@@ -810,7 +787,7 @@ namespace Clide
 				// Add ':' if option is expected with associated value
 				if(cmd->optionA[x]->associatedValue == true)
 				{
-					#if(clideDEBUG_PRINT_VERBOSE == 1)
+					#if(clide_DEBUG_PRINT_VERBOSE == 1)
 						Print::debugPrintCallback.Execute("CLIDE: associatedValue = 'true'. Adding ':' char to option string.\r\n");
 					#endif
 					optionString[optionStringPos++] = ':';
@@ -820,7 +797,7 @@ namespace Clide
 		// Add null character to terminate string
 		optionString[optionStringPos++] = '\0';
 		
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::debugPrintCallback.Execute("CLIDE: Finished building short option string...\r\n");
 		#endif
 	}
@@ -829,7 +806,7 @@ namespace Clide
 	{
 		// Build the structure required for long option processing
 		
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::debugPrintCallback.Execute("CLIDE: Building long option structure...\r\n");
 		#endif
 		
@@ -841,7 +818,7 @@ namespace Clide
 			// If no long name in option, skip to next one
 			if(cmd->optionA[x]->longName == NULL)
 			{
-				#if(clideDEBUG_PRINT_VERBOSE == 1)
+				#if(clide_DEBUG_PRINT_VERBOSE == 1)
 					snprintf(
 						Global::debugBuff,
 						sizeof(Global::debugBuff),
@@ -852,7 +829,7 @@ namespace Clide
 				continue;
 			}
 			
-			#if(clideDEBUG_PRINT_VERBOSE == 1)
+			#if(clide_DEBUG_PRINT_VERBOSE == 1)
 				snprintf(
 					Global::debugBuff,
 					sizeof(Global::debugBuff),
@@ -889,7 +866,7 @@ namespace Clide
 		longOptStructA[longOptionIndex].flag = 0;
 		longOptStructA[longOptionIndex].val = 0;
 	
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::debugPrintCallback.Execute("CLIDE: Finished building long option structure.\r\n");
 		#endif
 	

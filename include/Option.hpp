@@ -109,7 +109,7 @@ namespace Clide
 			
 			//! @brief		The value of the option. Assigned to when receiving commands.
 			//! @todo		Change so that dynamically allocated
-			char value[clideMAX_STRING_LENGTH];
+			char value[clide_MAX_STRING_LENGTH];
 			
 			//! @brief		Optional callback function for when option is discovered.
 			//! @details	Function is called before the callback function for the command that it 

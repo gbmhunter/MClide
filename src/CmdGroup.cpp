@@ -55,7 +55,7 @@ namespace Clide
 	// Constructor
 	Cmd::Cmd(const char *name, bool (*callBackFunc)(Cmd* foundCmd), const char *description)
 	{
-		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 			// Description too long, do not save it
 			Print::debugPrintCallback.Execute("CLIDE: Cmd constructor called1.\r\n");
 		#endif
@@ -75,7 +75,7 @@ namespace Clide
 		uint32_t descLen = strlen(name);
 		
 		// Make sure the description isn't to long
-		if(descLen <= clideMAX_NAME_LENGTH)
+		if(descLen <= clide_MAX_NAME_LENGTH)
 		{
 			// Create memory for description and store
 			//this->name = (char*)MemMang::MallocString(name);
@@ -85,7 +85,7 @@ namespace Clide
 		}
 		else
 		{
-			#if(clideDEBUG_PRINT_ERROR == 1)	
+			#if(clide_DEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
 				Print::debugPrintCallback.Execute("CLIDE: ERROR: Command name was too long.\r\n");
 			#endif
@@ -96,7 +96,7 @@ namespace Clide
 		descLen = strlen(description);
 		
 		// Make sure the description isn't to long
-		if(descLen <= clideMAX_DESCRIPTION_LENGTH)
+		if(descLen <= clide_MAX_DESCRIPTION_LENGTH)
 		{
 			// Create memory for description and store
 			//this->description = MemMang::MallocString(description);
@@ -104,7 +104,7 @@ namespace Clide
 		}
 		else
 		{
-			#if(clideDEBUG_PRINT_ERROR == 1)	
+			#if(clide_DEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
 				Print::debugPrintCallback.Execute("CLIDE: ERROR: Command description was too long.\r\n");
 			#endif
@@ -114,7 +114,7 @@ namespace Clide
 		this->callBackFunc = callBackFunc;
 		
 		#if(clide_ENABLE_AUTO_HELP == 1)
-			#if(clideDEBUG_PRINT_VERBOSE == 1)
+			#if(clide_DEBUG_PRINT_VERBOSE == 1)
 				Print::debugPrintCallback.Execute("CLIDE: Registering help option.\r\n");
 			#endif
 			// HELP OPTION
@@ -131,7 +131,7 @@ namespace Clide
 		// Will be either set to a Clide::Tx or Clide::Rx object
 		this->parentComm = NULL;
 
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			// Description too long, do not save it
 			Print::debugPrintCallback.Execute("CLIDE: Cmd constructor finished.\r\n");
 		#endif
@@ -140,7 +140,7 @@ namespace Clide
 	Cmd::~Cmd()
 	{
 		// Destructor
-		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 			Print::debugPrintCallback.Execute("CLIDE: Cmd destructor called.\r\n");
 		#endif
 		
@@ -151,7 +151,7 @@ namespace Clide
 	
 	void Cmd::RegisterParam(Param* param)
 	{
-		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 			// Description too long, do not save it
 			Print::debugPrintCallback.Execute("CLIDE: Registering parameter...\r\n");
 		#endif
@@ -163,7 +163,7 @@ namespace Clide
 		
 		if(this->paramA == NULL)
 		{
-			#if(clideDEBUG_PRINT_ERROR == 1)	
+			#if(clide_DEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
 				Print::debugPrintCallback.Execute("CLIDE: ERROR - Malloc failed while registering parameter.\r\n");
 			#endif
@@ -181,7 +181,7 @@ namespace Clide
 	// Register option
 	void Cmd::RegisterOption(Option* option)
 	{
-		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 			// Description too long, do not save it
 			Print::debugPrintCallback.Execute("CLIDE: Registering option...\r\n");
 		#endif
@@ -195,7 +195,7 @@ namespace Clide
 		// Remember option
 		optionA[this->numOptions - 1] = option;
 		
-		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 			if(optionA[this->numOptions - 1]->shortName != '\0')
 			{
 				snprintf(
@@ -222,7 +222,7 @@ namespace Clide
 
 	uint32_t Cmd::NumLongOptions()
 	{
-		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 			// Description too long, do not save it
 			Print::debugPrintCallback.Execute("CLIDE: Calculating num. of long options...\r\n");
 		#endif
@@ -236,7 +236,7 @@ namespace Clide
 				numLongOptions++;
 		}
 		
-		#if(clideDEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 			snprintf(
 				Global::debugBuff,
 				sizeof(Global::debugBuff),

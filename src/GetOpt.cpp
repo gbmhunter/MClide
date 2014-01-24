@@ -294,11 +294,11 @@ namespace Clide
 		_getopt_data *d,
 		int posixly_correct)
 	{
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() called.\r\n");
 		#endif
 	
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			snprintf (
 				Clide::Global::debugBuff,
 				sizeof(Clide::Global::debugBuff),
@@ -318,7 +318,7 @@ namespace Clide
 		// Initialisation
 		if (d->optind == 0 || !d->__initialized)
 		{
-			#if(clideDEBUG_PRINT_VERBOSE == 1)
+			#if(clide_DEBUG_PRINT_VERBOSE == 1)
 				Clide::Print::debugPrintCallback.Execute("CLIDE: Initialising GetOpt().\r\n");
 			#endif
 			// Don't scan ARGV[0], the program name. 
@@ -334,7 +334,7 @@ namespace Clide
 		if (optstring[0] == ':')
 			print_errors = 0;
 		
-		#if(clideDEBUG_PRINT_VERBOSE == 1)
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			snprintf (
 				Clide::Global::debugBuff,
 				sizeof(Clide::Global::debugBuff),
@@ -409,7 +409,7 @@ namespace Clide
 				if (d->__first_nonopt != d->__last_nonopt)
 					d->optind = d->__first_nonopt;
 				{
-					#if(clideDEBUG_PRINT_VERBOSE == 1)
+					#if(clide_DEBUG_PRINT_VERBOSE == 1)
 						Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. optind == argc. Returning -1.\r\n");
 					#endif
 					return -1;
@@ -423,13 +423,13 @@ namespace Clide
 			{
 				if (d->__ordering == _getopt_data::REQUIRE_ORDER)
 				{
-					#if(clideDEBUG_PRINT_VERBOSE == 1)
+					#if(clide_DEBUG_PRINT_VERBOSE == 1)
 						Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning -1.\r\n");
 					#endif
 					return -1;
 				}
 				d->optarg = argv[d->optind++];
-				#if(clideDEBUG_PRINT_VERBOSE == 1)
+				#if(clide_DEBUG_PRINT_VERBOSE == 1)
 					Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning 1.\r\n");
 				#endif
 				return 1;
@@ -523,7 +523,7 @@ namespace Clide
 						first.p = pfound;
 						first.next = ambig_list;
 						ambig_list = &first;
-						#if(clideDEBUG_PRINT_ERROR == 1)
+						#if(clide_DEBUG_PRINT_ERROR == 1)
 							snprintf (
 								Clide::Global::debugBuff,
 								sizeof(Clide::Global::debugBuff),
@@ -533,7 +533,7 @@ namespace Clide
 						#endif
 						do
 						{
-							#if(clideDEBUG_PRINT_ERROR == 1)
+							#if(clide_DEBUG_PRINT_ERROR == 1)
 								snprintf (
 									Clide::Global::debugBuff,
 									sizeof(Clide::Global::debugBuff),
@@ -545,7 +545,7 @@ namespace Clide
 						}
 						while (ambig_list != NULL);
 
-							#if(clideDEBUG_PRINT_ERROR == 1)
+							#if(clide_DEBUG_PRINT_ERROR == 1)
 								snprintf(
 									Clide::Global::debugBuff,
 									sizeof(Clide::Global::debugBuff),
@@ -557,7 +557,7 @@ namespace Clide
 					d->__nextchar += strlen (d->__nextchar);
 					d->optind++;
 					d->optopt = 0;
-					#if(clideDEBUG_PRINT_VERBOSE == 1)
+					#if(clide_DEBUG_PRINT_VERBOSE == 1)
 						Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning ?.\r\n");
 					#endif
 					return '?';
@@ -581,7 +581,7 @@ namespace Clide
 								if (argv[d->optind - 1][1] == '-')
 								{
 									// --option
-									#if(clideDEBUG_PRINT_ERROR == 1)
+									#if(clide_DEBUG_PRINT_ERROR == 1)
 										snprintf (
 											Clide::Global::debugBuff,
 											sizeof(Clide::Global::debugBuff),
@@ -594,7 +594,7 @@ namespace Clide
 								  else
 								{
 									// +option or -option
-									#if(clideDEBUG_PRINT_ERROR == 1)
+									#if(clide_DEBUG_PRINT_ERROR == 1)
 										snprintf (
 											Clide::Global::debugBuff,
 											sizeof(Clide::Global::debugBuff),
@@ -609,7 +609,7 @@ namespace Clide
 							d->__nextchar += strlen (d->__nextchar);
 
 							d->optopt = pfound->val;
-							#if(clideDEBUG_PRINT_VERBOSE == 1)
+							#if(clide_DEBUG_PRINT_VERBOSE == 1)
 								Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning ?.\r\n");
 							#endif
 							return '?';
@@ -623,7 +623,7 @@ namespace Clide
 						{
 							if (print_errors)
 							{
-								#if(clideDEBUG_PRINT_ERROR == 1)
+								#if(clide_DEBUG_PRINT_ERROR == 1)
 									snprintf (
 										Clide::Global::debugBuff,
 										sizeof(Clide::Global::debugBuff),
@@ -634,7 +634,7 @@ namespace Clide
 							}
 							d->__nextchar += strlen (d->__nextchar);
 							d->optopt = pfound->val;
-							#if(clideDEBUG_PRINT_VERBOSE == 1)
+							#if(clide_DEBUG_PRINT_VERBOSE == 1)
 								Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning : or ?.\r\n");
 							#endif
 							return optstring[0] == ':' ? ':' : '?';
@@ -646,7 +646,7 @@ namespace Clide
 					if (pfound->flag)
 					{
 						*(pfound->flag) = pfound->val;
-						#if(clideDEBUG_PRINT_VERBOSE == 1)
+						#if(clide_DEBUG_PRINT_VERBOSE == 1)
 							Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning 0.\r\n");
 						#endif
 						return 0;
@@ -667,7 +667,7 @@ namespace Clide
 						if (argv[d->optind][1] == '-')
 						{
 							// --option 
-							#if(clideDEBUG_PRINT_ERROR == 1)
+							#if(clide_DEBUG_PRINT_ERROR == 1)
 								snprintf (
 									Clide::Global::debugBuff,
 									sizeof(Clide::Global::debugBuff),
@@ -680,7 +680,7 @@ namespace Clide
 						else
 						{
 							// +option or -option
-							#if(clideDEBUG_PRINT_ERROR == 1)
+							#if(clide_DEBUG_PRINT_ERROR == 1)
 								snprintf (
 									Clide::Global::debugBuff,
 									sizeof(Clide::Global::debugBuff),
@@ -695,7 +695,7 @@ namespace Clide
 					d->__nextchar = (char *) "";
 					d->optind++;
 					d->optopt = 0;
-					#if(clideDEBUG_PRINT_VERBOSE == 1)
+					#if(clide_DEBUG_PRINT_VERBOSE == 1)
 						Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning ?.\r\n");
 					#endif
 					return '?';
@@ -717,7 +717,7 @@ namespace Clide
 				if(print_errors)
 				{
 
-					#if(clideDEBUG_PRINT_ERROR == 1)
+					#if(clide_DEBUG_PRINT_ERROR == 1)
 						snprintf (
 							Clide::Global::debugBuff,
 							sizeof(Clide::Global::debugBuff),
@@ -728,7 +728,7 @@ namespace Clide
 					#endif
 				}
 				d->optopt = c;
-				#if(clideDEBUG_PRINT_VERBOSE == 1)
+				#if(clide_DEBUG_PRINT_VERBOSE == 1)
 					Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning ?.\r\n");
 				#endif
 				return '?';
@@ -759,7 +759,7 @@ namespace Clide
 				{
 					if (print_errors)
 					{
-						#if(clideDEBUG_PRINT_ERROR == 1)
+						#if(clide_DEBUG_PRINT_ERROR == 1)
 							snprintf (
 								Clide::Global::debugBuff,
 								sizeof(Clide::Global::debugBuff),
@@ -774,7 +774,7 @@ namespace Clide
 						c = ':';
 					else
 						c = '?';
-						#if(clideDEBUG_PRINT_VERBOSE == 1)
+						#if(clide_DEBUG_PRINT_VERBOSE == 1)
 							Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning ?.\r\n");
 						#endif
 						return c;
@@ -822,7 +822,7 @@ namespace Clide
 				{
 					if (print_errors)
 					{
-						#if(clideDEBUG_PRINT_ERROR == 1)
+						#if(clide_DEBUG_PRINT_ERROR == 1)
 							snprintf (
 								Clide::Global::debugBuff,
 								sizeof(Clide::Global::debugBuff),
@@ -834,7 +834,7 @@ namespace Clide
 					}
 					d->__nextchar += strlen (d->__nextchar);
 					d->optind++;
-					#if(clideDEBUG_PRINT_VERBOSE == 1)
+					#if(clide_DEBUG_PRINT_VERBOSE == 1)
 						Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning ?.\r\n");
 					#endif
 					return '?';
@@ -852,7 +852,7 @@ namespace Clide
 						{
 							if (print_errors)
 							{
-								#if(clideDEBUG_PRINT_ERROR == 1)
+								#if(clide_DEBUG_PRINT_ERROR == 1)
 									snprintf (
 										Clide::Global::debugBuff,
 										sizeof(Clide::Global::debugBuff),
@@ -864,7 +864,7 @@ namespace Clide
 							}
 
 							d->__nextchar += strlen (d->__nextchar);
-							#if(clideDEBUG_PRINT_VERBOSE == 1)
+							#if(clide_DEBUG_PRINT_VERBOSE == 1)
 								Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning ?.\r\n");
 							#endif
 							return '?';
@@ -878,7 +878,7 @@ namespace Clide
 						{
 							if (print_errors)
 							{
-								#if(clideDEBUG_PRINT_ERROR == 1)
+								#if(clide_DEBUG_PRINT_ERROR == 1)
 									snprintf (
 										Clide::Global::debugBuff,
 										sizeof(Clide::Global::debugBuff),
@@ -889,7 +889,7 @@ namespace Clide
 								#endif
 							}
 							d->__nextchar += strlen (d->__nextchar);
-							#if(clideDEBUG_PRINT_VERBOSE == 1)
+							#if(clide_DEBUG_PRINT_VERBOSE == 1)
 								Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning : or ?.\r\n");
 							#endif
 							return optstring[0] == ':' ? ':' : '?';
@@ -903,7 +903,7 @@ namespace Clide
 					if (pfound->flag)
 					{
 						*(pfound->flag) = pfound->val;
-						#if(clideDEBUG_PRINT_VERBOSE == 1)
+						#if(clide_DEBUG_PRINT_VERBOSE == 1)
 							Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning 0.\r\n");
 						#endif
 						return 0;
@@ -946,7 +946,7 @@ namespace Clide
 						if (print_errors)
 						{
 
-							#if(clideDEBUG_PRINT_ERROR == 1)
+							#if(clide_DEBUG_PRINT_ERROR == 1)
 								snprintf (
 									Clide::Global::debugBuff,
 									sizeof(Clide::Global::debugBuff),
@@ -969,7 +969,7 @@ namespace Clide
 					d->__nextchar = NULL;
 				}
 			}
-			#if(clideDEBUG_PRINT_VERBOSE == 1)
+			#if(clide_DEBUG_PRINT_VERBOSE == 1)
 				Clide::Print::debugPrintCallback.Execute("CLIDE: GetOpt() finished. Returning character.\r\n");
 			#endif
 			return c;

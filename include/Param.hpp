@@ -67,7 +67,7 @@ namespace Clide
 			
 			//! @brief		String value of parameter. 
 			//! @note		Parameters have no names
-			char value[clideMAX_STRING_LENGTH];
+			char value[clide_MAX_STRING_LENGTH];
 			
 			//! @brief		Optional callback function for when parameter is discovered.
 			//! @details	Function is called before the callback function for the command that it 

@@ -56,7 +56,7 @@ namespace Clide
 
 	Comm::Comm()
 	{
-		#if(clideDEBUG_PRINT_GENERAL == 1)
+		#if(clide_DEBUG_PRINT_GENERAL == 1)
 			Print::debugPrintCallback.Execute("CLIDE: Comm constructor called...\r\n");
 		#endif
 
@@ -71,7 +71,7 @@ namespace Clide
 		// is called, all commands will be printed.
 		this->defaultCmdGroup = this->cmdGroupAll;
 
-		#if(clideDEBUG_PRINT_GENERAL == 1)
+		#if(clide_DEBUG_PRINT_GENERAL == 1)
 			Print::debugPrintCallback.Execute("CLIDE: Comm constructor finished.\r\n");
 		#endif
 	}
@@ -109,7 +109,7 @@ namespace Clide
 	// Prints out the help info (for all commands)
 	void Comm::PrintHelp(Cmd* cmd)
 	{
-		#if(clideDEBUG_PRINT_GENERAL == 1)	
+		#if(clide_DEBUG_PRINT_GENERAL == 1)	
 			Print::debugPrintCallback.Execute("CLIDE: Print help function called.\r\n");
 		#endif
 
@@ -210,7 +210,7 @@ namespace Clide
 	// Prints out help for one command
 	void Comm::PrintHelpForCmd(Cmd* cmd)
 	{
-		#if(clideDEBUG_PRINT_GENERAL == 1)
+		#if(clide_DEBUG_PRINT_GENERAL == 1)
 			Print::debugPrintCallback.Execute("CLIDE: Printing help for command.\r\n");
 		#endif
 

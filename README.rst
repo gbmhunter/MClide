@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/01/24
-- Version: v8.5.3.0
+- Version: v8.5.4.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -196,7 +196,7 @@ Limitations
 
 - Maximum number of commands: 256
 - Maximum number of parameters or options per command: 256
-- Maximum string length of a command name, option name/value, parameter value: :code:`clideMAX_STRING_LENGTH`
+- Maximum string length of a command name, option name/value, parameter value: :code:`clide_MAX_STRING_LENGTH`
 
 Usage
 =====
@@ -321,6 +321,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.5.4.0 2014/01/24 Removed multiple definition of STR() macro, by putting it in a new file, 'Preprocessor.hpp', closes #112. Removed namespaces from preprocessor macros, closes #113. Makefile now prints less useless messages. Removed verbose_flag variable in Rx::Run(), closes #60. Added data type postfixed to relevanant macros in 'Config.hpp', closes #26. Made all 'Config.hpp' macros have the same name format, closes #75.
 v8.5.3.0 2014/01/24 Tidyed up help printing code. Added unit tests for wacky (empty and large strings) command, parameter and option descriptions, closes #106. Corrected header guard in Print.hpp, closes #108. Separated debug and error messages (created separate callback for error messages), closes #107. Added malloc() NULL detection when registering option with command, closes #109. Removed text 'Debug' when running the unit tests as part of 'make', closes #110. Stopped Clide from printing tons of info to stdout when running unit tests, closes #111.
 v8.5.2.0 2014/01/22 Fixed example code so that Clide now prints to stdout, stopped working after Clide was switched to callbacks, closes #104. Fixed padding when help is printed (now uses padding and truncation if required, columns align correctly), closes #103.
 v8.5.1.0 2014/01/22 Changed 'filter: in group ...' to 'Showing commands for user group: ...' which is more explanatory, closes #101.
