@@ -1,9 +1,9 @@
 //!
-//! @file 			RxBuff.cpp
+//! @file 			RxBuffCharTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @created		2014/01/09
-//! @last-modified 	2014/01/21
-//! @brief 			Contains test functions for the RxBuff object.
+//! @created		2014/03/20
+//! @last-modified 	2014/03/20
+//! @brief 			Contains char test functions for the RxBuff object.
 //! @details
 //!					See README.rst in root dir for more info.
 
@@ -13,7 +13,7 @@
 
 namespace ClideTest
 {
-	SUITE(RxBuffTests)
+	SUITE(RxBuffCharTests)
 	{
 		using namespace Clide;
 
@@ -43,8 +43,13 @@ namespace ClideTest
 			// Register command
 			rxController.RegisterCmd(&cmdTest);
 
-			// Create some input and write it to RxBuff
-			rxBuff.Write("test param1 -a\r");
+			char* stringPtr = "test param1 -a\r";
+			while(*stringPtr != '\0')
+			{
+				// Create some input and write it to RxBuff
+				rxBuff.WriteChar(*stringPtr);
+				stringPtr++;
+			}
 
 			// Check that the command was processed successfully
 			CHECK_EQUAL("param1", cmdTestParam.value);
@@ -72,8 +77,14 @@ namespace ClideTest
 			// Register command
 			rxController.RegisterCmd(&cmdTest);
 			
-			// Create some input and write it to RxBuff
-			rxBuff.Write("hghgjkghg\rtest param1 -a\rjfjjjhfhg");
+			// Create some input and write it to RxBuff, one character at a time
+			char* stringPtr = "hghgjkghg\rtest param1 -a\rjfjjjhfhg";
+			while(*stringPtr != '\0')
+			{
+				// Create some input and write it to RxBuff
+				rxBuff.WriteChar(*stringPtr);
+				stringPtr++;
+			}
 			
 			// Check that the command was processed successfully
 			CHECK_EQUAL("param1", cmdTestParam.value);
@@ -115,8 +126,14 @@ namespace ClideTest
 			// Register command
 			rxController.RegisterCmd(&cmd2);
 
-			// Create input for both commands and write it to RxBuff
-			rxBuff.Write("test1 param1 -a\rtest2 param1 -a\r");
+			// Create input for both commands and write it to RxBuff, one char at a time
+			char* stringPtr = "test1 param1 -a\rtest2 param1 -a\r";
+			while(*stringPtr != '\0')
+			{
+				// Create some input and write it to RxBuff
+				rxBuff.WriteChar(*stringPtr);
+				stringPtr++;
+			}
 
 			// Check that the command was processed successfully
 			CHECK_EQUAL("param1", cmd1Param.value);
@@ -162,8 +179,14 @@ namespace ClideTest
 			// Register command
 			rxController.RegisterCmd(&cmd2);
 
-			// Create input for both commands and write it to RxBuff
-			rxBuff.Write("kf kfkfkf\rtest1 param1 -a\r\r\rhgjghfhjd h dhhhd dh\rtest2 param1 -a\r\rffhjfjh");
+			// Create input for both commands and write it to RxBuff, one char at a time
+			char* stringPtr = "kf kfkfkf\rtest1 param1 -a\r\r\rhgjghfhjd h dhhhd dh\rtest2 param1 -a\r\rffhjfjh";
+			while(*stringPtr != '\0')
+			{
+				// Create some input and write it to RxBuff
+				rxBuff.WriteChar(*stringPtr);
+				stringPtr++;
+			}
 
 			// Check that the command was processed successfully
 			CHECK_EQUAL("param1", cmd1Param.value);

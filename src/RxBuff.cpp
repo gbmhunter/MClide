@@ -62,7 +62,16 @@ namespace Clide
 
 	}
 
-	bool RxBuff::Write(const char* characters)
+	bool RxBuff::WriteChar(const char character)
+	{
+		char tempBuff[2];
+		tempBuff[0] = character;
+		tempBuff[1] = '\0';
+
+		return this->WriteString((const char*)tempBuff);
+	}
+
+	bool RxBuff::WriteString(const char* characters)
 	{
 		// Variable for remembering where we are up in reading characters
 		uint32_t characterReadPos = 0;

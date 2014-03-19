@@ -11,8 +11,8 @@ Clide (CommandLineInterfaceDE) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2014/01/24
-- Version: v8.6.2.2
+- Last Modified: 2014/03/20
+- Version: v8.6.3.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -259,7 +259,7 @@ FAQ
 
 2. 	I keep getting weird characters appear in the terminal from text sent from Clide.
 
-	Your terminal probably doesn't support special formatting characters. Set :code:`clide_ENABLE_ADV_TEXT_FORMATTING` to 0 in :code:`Clide.Config.hpp`.
+	Your terminal probably doesn't support special formatting characters. Set :code:`clide_ENABLE_ADV_TEXT_FORMATTING` to 0 in :code:`Clide.Config.hpp` to disable the special formatting characters.
 
 
 Changelog
@@ -268,6 +268,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.6.3.0 2014/03/20 Renamed RxBuff::Write() to RxBuff::WriteString() and added RxBuff::WriteChar() for writing single characters to the buffer. Simarly renamed test/RxBuff.cpp to RxBuffStringTests.cpp and created RxBuffCharTests.cpp. Small update to README.
 v8.6.2.2 2014/01/24 Fixed up the example in the README, removed help command, closes #116.
 v8.6.2.1 2014/01/24 Added new info to FAQ in README. 
 v8.6.2.0 2014/01/24 'Command not recognised' error now prints the unrecognised message, closes #20.

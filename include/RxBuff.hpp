@@ -2,7 +2,7 @@
 //! @file 			RxBuff.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/01/09
-//! @last-modified 	2014/01/14
+//! @last-modified 	2014/03/20
 //! @brief 			An input buffer for the Rx engine. This can accept a stream of characters and call Rx::Go when the CR character is detected.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -51,8 +51,13 @@ namespace Clide
 			//======================================= PUBLIC METHODS ========================================//
 			//===============================================================================================//
 
+			//! @brief		Write a single character to the RxBuff.
+			//! @sa			WriteString()
+			bool WriteChar(const char character);
+
 			//! @brief		Writes a null-terminated string of characters to the RxBuff.
-			bool Write(const char* characters);
+			//! @sa			WriteChar()
+			bool WriteString(const char* characters);
 
 		private:
 			
