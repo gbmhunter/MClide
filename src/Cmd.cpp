@@ -144,6 +144,19 @@ namespace Clide
 		this->numCmdGroups = 0;
 	}
 
+	/*
+	// Constructor
+	Cmd::Cmd(const char *name, SlotMachine::Callback<void, Cmd*> methodCallback, const char *description)
+	{
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
+			// Description too long, do not save it
+			Print::debugPrintCallback.Execute("CLIDE: Cmd constructor called.\r\n");
+		#endif
+
+		this->methodCallback = methodCallback;
+
+	}*/
+
 	Cmd::~Cmd()
 	{
 		// Destructor

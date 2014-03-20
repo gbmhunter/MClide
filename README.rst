@@ -11,8 +11,8 @@ Clide (CommandLineInterfaceDE) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2014/03/20
-- Version: v8.7.0.0
+- Last Modified: 2014/03/21
+- Version: v8.7.1.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -268,6 +268,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.7.1.0 2014/03/21 Added unit tests for function and method callbacks in test/FunctionAndMethodCallbackTests.cpp.
 v8.7.0.0 2014/03/20 Added support for callbacks to methods (member functions) when a command is recognised, using the Cmd::methodCallback variable. Haven't tested it or added unit tests yet.
 v8.6.3.0 2014/03/20 Renamed RxBuff::Write() to RxBuff::WriteString() and added RxBuff::WriteChar() for writing single characters to the buffer. Simarly renamed test/RxBuff.cpp to RxBuffStringTests.cpp and created RxBuffCharTests.cpp. Small update to README.
 v8.6.2.2 2014/01/24 Fixed up the example in the README, removed help command, closes #116.

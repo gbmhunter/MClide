@@ -130,10 +130,8 @@ namespace Clide
 			//! @details	Called after all callback functions for individual options are executed.
 			bool (*functionCallback)(Cmd* foundCmd);
 			
-			//#if(clide_ENABLE_METHOD_CALLBACKS == 1)
-				//! @brief		Method (member function) callback for when the command is detected.
-				SlotMachine::Callback<void, Cmd*> methodCallback;
-			//#endif
+			//! @brief		Method (member function) callback for when the command is detected.
+			SlotMachine::Callback<void, Cmd*> methodCallback;
 
 			//! @brief		True if command was detected the last time Rx.Run() was called.
 			//! @details	You can use this for basic determination if a command was received,
