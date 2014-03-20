@@ -2,7 +2,7 @@
 //! @file 			RxBuff.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/01/09
-//! @last-modified 	2014/03/20
+//! @last-modified 	2014/03/21
 //! @brief 			An input buffer for the Rx engine. This can accept a stream of characters and call Rx::Go when the CR character is detected.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -40,12 +40,22 @@ namespace Clide
 	
 		public:
 		
+			//! @brief		Set to the character you want to use for end-of-command recognition. When this command is
+			//!				detected in the input buffer, the command is send to the Clide::Rx object for processing.
+			//! @details	'\r' and '\n' are common choices for this value. Set in the constructor.
+			char endOfCmdChar;
+
 			//===============================================================================================//
 			//==================================== CONSTRUCTORS/DESTRUCTOR ==================================//
 			//===============================================================================================//
 			
 			//! @brief		Constructor
-			RxBuff(Rx* rxController);
+			//! @param		rxController	The Clide::Rx object that the command will be passed to once endOfCmdChar is
+			//!								detected.
+			//! @param		endOfCmdChar	Set to the character you want to use for end-of-command recognition. When this command is
+			//!								detected in the input buffer, the command is send to the Clide::Rx object for processing.
+			//!								Can be changed by writing to RxBuff::endOfCmdChar.
+			RxBuff(Rx* rxController, char endOfCmdChar);
 			
 			//===============================================================================================//
 			//======================================= PUBLIC METHODS ========================================//

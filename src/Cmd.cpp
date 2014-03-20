@@ -2,7 +2,7 @@
 //! @file 			Cmd.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/01/22
+//! @last-modified 	2014/03/21
 //! @brief 			Command-line style communications protocol
 //! @details
 //!				See README.rst in repo root dir for more info.
@@ -69,6 +69,10 @@ namespace Clide
 		#endif
 
 		this->methodCallback = methodCallback;
+
+		// Must set the function callback to NULL if not given, so that
+		// it is not called (would cause segmentation fault)
+		this->functionCallback = NULL;
 
 		// Call init function
 		this->Init(name, description);

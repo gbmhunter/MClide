@@ -1,9 +1,9 @@
 //!
-//! @file 			RxBuffCharTests.cpp
+//! @file 			RxBuffEndOfCmdCharTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @created		2014/03/20
+//! @created		2014/03/21
 //! @last-modified 	2014/03/21
-//! @brief 			Contains char test functions for the RxBuff object.
+//! @brief 			Contains functions which test that the end-of-command char variable in the RxBuff object works.
 //! @details
 //!					See README.rst in root dir for more info.
 
@@ -13,7 +13,7 @@
 
 namespace ClideTest
 {
-	SUITE(RxBuffCharTests)
+	SUITE(RxBuffEndOfCmdCharTests)
 	{
 		using namespace Clide;
 
@@ -22,7 +22,7 @@ namespace ClideTest
 			return true;
 		}
 
-		TEST(OneCommandBasicRxBuffTest)
+		TEST(CarriageReturnTest)
 		{
 			Rx rxController;
 
@@ -43,25 +43,20 @@ namespace ClideTest
 			// Register command
 			rxController.RegisterCmd(&cmdTest);
 
-			char* stringPtr = (char*)"test param1 -a\r";
-			while(*stringPtr != '\0')
-			{
-				// Create some input and write it to RxBuff
-				rxBuff.WriteChar(*stringPtr);
-				stringPtr++;
-			}
+			// Create some input and write it to RxBuff
+			rxBuff.WriteString((char*)"test param1 -a\r");
 
 			// Check that the command was processed successfully
 			CHECK_EQUAL("param1", cmdTestParam.value);
 			CHECK_EQUAL(true, cmdTestOption.isDetected);
 		}
 
-		TEST(OneCommandWithJunkEitherSideRxBuffTest)
+		TEST(NewLineTest)
 		{
 			Rx rxController;
 			
 			// Create RxBuff object for taking the characters
-			RxBuff rxBuff(&rxController, '\r');
+			RxBuff rxBuff(&rxController, '\n');
 
 			// Create command
 			Cmd cmdTest("test", &Callback, "A test command.");
@@ -77,26 +72,20 @@ namespace ClideTest
 			// Register command
 			rxController.RegisterCmd(&cmdTest);
 			
-			// Create some input and write it to RxBuff, one character at a time
-			char* stringPtr = (char*)"hghgjkghg\rtest param1 -a\rjfjjjhfhg";
-			while(*stringPtr != '\0')
-			{
-				// Create some input and write it to RxBuff
-				rxBuff.WriteChar(*stringPtr);
-				stringPtr++;
-			}
+			// Create some input and write it to RxBuff
+			rxBuff.WriteString((char*)"hghgjkghg\ntest param1 -a\njfjjjhfhg\n");
 			
 			// Check that the command was processed successfully
 			CHECK_EQUAL("param1", cmdTestParam.value);
 			CHECK_EQUAL(true, cmdTestOption.isDetected);
 		}
 		
-		TEST(TwoCommandsRxBuffTest)
+		TEST(ZCharTest)
 		{
 			Rx rxController;
 
 			// Create RxBuff object for taking the characters
-			RxBuff rxBuff(&rxController, '\r');
+			RxBuff rxBuff(&rxController, 'z');
 
 			// Create command
 			Cmd cmd1("test1", &Callback, "A test command.");
@@ -126,14 +115,8 @@ namespace ClideTest
 			// Register command
 			rxController.RegisterCmd(&cmd2);
 
-			// Create input for both commands and write it to RxBuff, one char at a time
-			char* stringPtr = (char*)"test1 param1 -a\rtest2 param1 -a\r";
-			while(*stringPtr != '\0')
-			{
-				// Create some input and write it to RxBuff
-				rxBuff.WriteChar(*stringPtr);
-				stringPtr++;
-			}
+			// Create input for both commands and write it to RxBuff
+			rxBuff.WriteString((char*)"test1 param1 -aztest2 param1 -az");
 
 			// Check that the command was processed successfully
 			CHECK_EQUAL("param1", cmd1Param.value);
@@ -143,60 +126,6 @@ namespace ClideTest
 			CHECK_EQUAL(true, cmd2Option.isDetected);
 
 		}
-		
-		TEST(TwoCommandsWithJunkRxBuffTest)
-		{
-			Rx rxController;
-
-			// Create RxBuff object for taking the characters
-			RxBuff rxBuff(&rxController, '\r');
-
-			// Create command
-			Cmd cmd1("test1", &Callback, "A test command.");
-
-			// Create parameter
-			Param cmd1Param("A test parameter.");
-			cmd1.RegisterParam(&cmd1Param);
-
-			// Create option
-			Option cmd1Option('a', NULL, "A test option.");
-			cmd1.RegisterOption(&cmd1Option);
-
-			// Register command
-			rxController.RegisterCmd(&cmd1);
-
-			// Create command
-			Cmd cmd2("test2", &Callback, "A test command.");
-
-			// Create parameter
-			Param cmd2Param("A test parameter.");
-			cmd2.RegisterParam(&cmd2Param);
-
-			// Create option
-			Option cmd2Option('a', NULL, "A test option.");
-			cmd2.RegisterOption(&cmd2Option);
-
-			// Register command
-			rxController.RegisterCmd(&cmd2);
-
-			// Create input for both commands and write it to RxBuff, one char at a time
-			char* stringPtr = (char*)"kf kfkfkf\rtest1 param1 -a\r\r\rhgjghfhjd h dhhhd dh\rtest2 param1 -a\r\rffhjfjh";
-			while(*stringPtr != '\0')
-			{
-				// Create some input and write it to RxBuff
-				rxBuff.WriteChar(*stringPtr);
-				stringPtr++;
-			}
-
-			// Check that the command was processed successfully
-			CHECK_EQUAL("param1", cmd1Param.value);
-			CHECK_EQUAL(true, cmd1Option.isDetected);
-
-			CHECK_EQUAL("param1", cmd2Param.value);
-			CHECK_EQUAL(true, cmd2Option.isDetected);
-
-		}
-
 		
 	} // SUITE(RxBuffTests)
 } // namespace ClideTest

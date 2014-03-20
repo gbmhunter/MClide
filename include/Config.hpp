@@ -79,9 +79,6 @@
 
 //! @brief		(uint32_t) Size of the fixed-width buffer that the RxBuff class uses to store characters when RxBuff::Write() is called.
 #define clide_RX_BUFF_SIZE					(256u)
-
-//! @brief		(char) The character Clide::RxBuff looks for before sending the command to Clide::Rx.
-#define clide_END_OF_COMMAND_CHAR			'\r'
 		
 
 #endif	// #ifndef CLIDE_CONFIG_H

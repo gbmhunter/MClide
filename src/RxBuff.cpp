@@ -41,7 +41,7 @@ namespace Clide
 	//===============================================================================================//
 
 	// Constructor
-	RxBuff::RxBuff(Rx* rxController)
+	RxBuff::RxBuff(Rx* rxController, char endOfCmdChar)
 	{
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::debugPrintCallback.Execute("CLIDE: RxBuff constructor called...\r\n");
@@ -55,6 +55,8 @@ namespace Clide
 
 		// Clear buffer
 		memset(this->buff, '\0', sizeof(this->buff));
+
+		this->endOfCmdChar = endOfCmdChar;
 
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::debugPrintCallback.Execute("CLIDE: RxBuff constructor finished.\r\n");
@@ -92,7 +94,7 @@ namespace Clide
 			}
 
 			// Now check to see if this was the end-of-command character
-			if(characters[characterReadPos] == clide_END_OF_COMMAND_CHAR)
+			if(characters[characterReadPos] == this->endOfCmdChar)
 			{
 				#if(clide_DEBUG_PRINT_VERBOSE == 1)
 					Print::debugPrintCallback.Execute("CLIDE: End of command character detected, calling Rx::Run().\r\n");
