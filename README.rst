@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/03/21
-- Version: v8.7.1.0
+- Version: v8.7.2.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -145,12 +145,43 @@ Event-driven Callback Support
 
 Clide leverages the slotmachine-cpp library to provide event-driven callbacks. slotmachine-cpp supports callbacks to methods (instance functions), without Clide having any previous knowledge about the class (type agnostic).
 
-List of events:
+List of events supported by callbacks:
+- Command recognised
 - Command not recognised
 - Help command requested
 - Command-line printing
 - Debug printing
 - Error printing
+
+Callbacks are generated in the following manner:
+
+::
+
+	#include "../api/Clide.hpp"
+
+	// Class with a method to use as callback
+	class CallbackClass
+	{
+	public:
+		void Callback(Cmd *cmd)
+		{
+			this->_methodCallbackCalled = true;
+	
+		}
+	
+		bool _methodCallbackCalled;
+	
+	};
+
+	CallbackClass myCallbackClass;
+
+	// Create command, creating a callback to the method in the class above
+	Cmd cmdTest(
+		"test",
+		SlotMachine::CallbackGen<CallbackClass, void, Cmd*>(&myCallbackClass, &CallbackClass::Callback),
+		"A test command.");
+		
+	// Now the method myCallbackCallback.Callback() will be called when the command "test" is received!
 
 Exceptions
 ----------
@@ -268,6 +299,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.7.2.0 2014/03/21 Added Cmd constructor that accepts a method callback (used to only accept function callbacks). Updated FunctionAndMethodCallbackTests.cpp to reflect this. Added an example in README showing how to use these.
 v8.7.1.0 2014/03/21 Added unit tests for function and method callbacks in test/FunctionAndMethodCallbackTests.cpp.
 v8.7.0.0 2014/03/20 Added support for callbacks to methods (member functions) when a command is recognised, using the Cmd::methodCallback variable. Haven't tested it or added unit tests yet.
 v8.6.3.0 2014/03/20 Renamed RxBuff::Write() to RxBuff::WriteString() and added RxBuff::WriteChar() for writing single characters to the buffer. Simarly renamed test/RxBuff.cpp to RxBuffStringTests.cpp and created RxBuffCharTests.cpp. Small update to README.

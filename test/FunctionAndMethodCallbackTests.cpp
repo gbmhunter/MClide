@@ -71,8 +71,11 @@ namespace ClideTest
 
 			CallbackClass myCallbackClass;
 
-			Cmd cmdTest("test", &Callback, "A test command.");
-			cmdTest.methodCallback = SlotMachine::CallbackGen<CallbackClass, void, Cmd*>(&myCallbackClass, &CallbackClass::Callback);
+			// Create command, passing in a method as the callback
+			Cmd cmdTest(
+				"test",
+				SlotMachine::CallbackGen<CallbackClass, void, Cmd*>(&myCallbackClass, &CallbackClass::Callback),
+				"A test command.");
 
 			// Register command
 			rxController.RegisterCmd(&cmdTest);

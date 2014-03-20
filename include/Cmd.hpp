@@ -61,16 +61,24 @@ namespace Clide
 			//==================================== CONSTRUCTORS/DESTRUCTOR ==================================//
 			//===============================================================================================//
 			
-			//! @brief		Constructor
+			//! @brief		Constructor with function callback
 			//! @param		name			This is the string that is matched with the first argument in
 			//!								a command-line message.
-			//! @param		callBackFunc	The function to call when command is received. Any specific option
-			//!								or parameter callbacks which are part of this command
-			//!								are called before this one.
+			//! @param		callBackFunc	The function to call when command is received.
 			//! @param		description		Used when the "help" command or "-h" option is called.
 			Cmd(
 				const char *name,
 				bool (*callBackFunc)(Cmd* foundCmd),
+				const char *description);
+
+			//! @brief		Constructor with method callback.
+			//! @param		name			This is the string that is matched with the first argument in
+			//!								a command-line message.
+			//! @param		methodCallback	The method to call when command is received.
+			//! @param		description		Used when the "help" command or "-h" option is called.
+			Cmd(
+				const char *name,
+				SlotMachine::Callback<void, Cmd*> methodCallback,
 				const char *description);
 				
 			//! @brief		Destructor. Deallocates memory.
@@ -150,7 +158,14 @@ namespace Clide
 
 		protected:
 
+			//===============================================================================================//
+			//====================================== PROTECTED METHODS ======================================//
+			//===============================================================================================//
 
+			//! @brief		Used for constructor shared-code (called by all constructors).
+			//! @details	Initialises everything except the callback, which is done in the calling constructor,
+			//!				depending on whether it is a function or a method.
+			void Init(const char *name, const char *description);
 		
 	};
 

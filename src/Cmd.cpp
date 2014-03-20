@@ -47,9 +47,37 @@ namespace Clide
 	// Constructor
 	Cmd::Cmd(const char *name, bool (*callBackFunc)(Cmd* foundCmd), const char *description)
 	{
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			// Description too long, do not save it
 			Print::debugPrintCallback.Execute("CLIDE: Cmd constructor called.\r\n");
+		#endif
+
+		// CALLBACK
+		this->functionCallback = callBackFunc;
+
+		// Call init function
+		this->Init(name, description);
+
+	}
+
+	// Constructor
+	Cmd::Cmd(const char *name, SlotMachine::Callback<void, Cmd*> methodCallback, const char *description)
+	{
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
+			// Description too long, do not save it
+			Print::debugPrintCallback.Execute("CLIDE: Cmd constructor called.\r\n");
+		#endif
+
+		this->methodCallback = methodCallback;
+
+		// Call init function
+		this->Init(name, description);
+	}
+
+	void Cmd::Init(const char *name, const char *description)
+	{
+		#if(clide_DEBUG_PRINT_VERBOSE == 1)
+			Print::debugPrintCallback.Execute("CLIDE: Cmd::Init() called.\r\n");
 		#endif
 		
 		// INITIALISATION
@@ -106,9 +134,7 @@ namespace Clide
 			return;
 		}
 		
-		// CALLBACK
-		this->functionCallback = callBackFunc;
-		
+		// HELP
 		#if(clide_ENABLE_AUTO_HELP == 1)
 			#if(clide_DEBUG_PRINT_VERBOSE == 1)
 				Print::debugPrintCallback.Execute("CLIDE: Registering help option.\r\n");
@@ -142,20 +168,8 @@ namespace Clide
 
 		// Start with the command assigned to no command groups
 		this->numCmdGroups = 0;
+
 	}
-
-	/*
-	// Constructor
-	Cmd::Cmd(const char *name, SlotMachine::Callback<void, Cmd*> methodCallback, const char *description)
-	{
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)
-			// Description too long, do not save it
-			Print::debugPrintCallback.Execute("CLIDE: Cmd constructor called.\r\n");
-		#endif
-
-		this->methodCallback = methodCallback;
-
-	}*/
 
 	Cmd::~Cmd()
 	{
