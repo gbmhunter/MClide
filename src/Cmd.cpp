@@ -107,7 +107,7 @@ namespace Clide
 		}
 		
 		// CALLBACK
-		this->callBackFunc = callBackFunc;
+		this->functionCallback = callBackFunc;
 		
 		#if(clide_ENABLE_AUTO_HELP == 1)
 			#if(clide_DEBUG_PRINT_VERBOSE == 1)

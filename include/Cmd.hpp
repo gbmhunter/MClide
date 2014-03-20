@@ -31,6 +31,9 @@ namespace Clide
 // System headers
 #include <stdint.h>
 
+// User libraries
+#include "../lib/slotmachine-cpp/api/Slotmachine.hpp"
+
 // User headers
 #include "Config.hpp"		//!< Config options
 #include "Param.hpp"		//!< For the Param() object
@@ -125,8 +128,13 @@ namespace Clide
 			
 			//! @brief		Optional callback function for when command is discovered. 
 			//! @details	Called after all callback functions for individual options are executed.
-			bool (*callBackFunc)(Cmd* foundCmd);
+			bool (*functionCallback)(Cmd* foundCmd);
 			
+			//#if(clide_ENABLE_METHOD_CALLBACKS == 1)
+				//! @brief		Method (member function) callback for when the command is detected.
+				SlotMachine::Callback<void, Cmd*> methodCallback;
+			//#endif
+
 			//! @brief		True if command was detected the last time Rx.Run() was called.
 			//! @details	You can use this for basic determination if a command was received,
 			//!				without having to use a callback function.

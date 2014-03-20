@@ -629,17 +629,27 @@ namespace Clide
 			Print::debugPrintCallback.Execute("\r\n");
 		#endif
 		
-		// Check to see if a call-back function has been assigned
-		if(foundCmd->callBackFunc != NULL)
+		// Make sure callbacks are the last thing to do in Run()
+		if((foundCmd->functionCallback != NULL) || foundCmd->methodCallback.IsValid())
 		{
-			// Execute command callback function
-			// Make sure this is the last thing to do in Run()
-			foundCmd->callBackFunc(foundCmd);
+			// Check to see if a call-back function has been assigned
+			if(foundCmd->functionCallback != NULL)
+			{
+				// Execute command callback function
+				foundCmd->functionCallback(foundCmd);
+			}
+
+			if(foundCmd->methodCallback.IsValid() == true)
+			{
+				// Call method callback
+				foundCmd->methodCallback.Execute(foundCmd);
+			}
+
 		}
 		else
 		{
 			#if(clide_DEBUG_PRINT_VERBOSE == 1)
-				Print::debugPrintCallback.Execute("CLIDE: Command callback was NULL, so no function called.\r\n");
+				Print::debugPrintCallback.Execute("CLIDE: Command callback(s) were NULL, so no function/method called.\r\n");
 			#endif
 		}
 
