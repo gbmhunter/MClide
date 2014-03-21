@@ -2,7 +2,7 @@
 //! @file 			Comm.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/12/18
-//! @last-modified 	2014/01/21
+//! @last-modified 	2014/03/21
 //! @brief			The base communications class. This is extended by both Clide::Tx and Clide::Rx which are the classes manipulated by the user.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -57,7 +57,8 @@ namespace Clide
 	Comm::Comm()
 	{
 		#if(clide_DEBUG_PRINT_GENERAL == 1)
-			Print::debugPrintCallback.Execute("CLIDE: Comm constructor called...\r\n");
+			Print::PrintDebugInfo("CLIDE: Comm constructor called...\r\n",
+					Print::DebugPrintingLevel::GENERAL);
 		#endif
 
 		// Initialise class variables
@@ -72,7 +73,8 @@ namespace Clide
 		this->defaultCmdGroup = this->cmdGroupAll;
 
 		#if(clide_DEBUG_PRINT_GENERAL == 1)
-			Print::debugPrintCallback.Execute("CLIDE: Comm constructor finished.\r\n");
+			Print::PrintDebugInfo("CLIDE: Comm constructor finished.\r\n",
+					Print::DebugPrintingLevel::GENERAL);
 		#endif
 	}
 
@@ -110,7 +112,8 @@ namespace Clide
 	void Comm::PrintHelp(Cmd* cmd)
 	{
 		#if(clide_DEBUG_PRINT_GENERAL == 1)	
-			Print::debugPrintCallback.Execute("CLIDE: Print help function called.\r\n");
+			Print::PrintDebugInfo("CLIDE: Print help function called.\r\n",
+					Print::DebugPrintingLevel::GENERAL);
 		#endif
 
 		// Temp buffer for printf() calls in this function
@@ -131,14 +134,14 @@ namespace Clide
 		}
 
 		// Title
-		Print::cmdLinePrintCallback.Execute("********** LIST OF COMMANDS ***********\r\n");
-		Print::cmdLinePrintCallback.Execute("Showing commands for user group: " clide_TERM_TEXT_FORMAT_BOLD);
-		Print::cmdLinePrintCallback.Execute(selectedGroup);
-		Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_NORMAL "\r\n");
+		Print::PrintToCmdLine("********** LIST OF COMMANDS ***********\r\n");
+		Print::PrintToCmdLine("Showing commands for user group: " clide_TERM_TEXT_FORMAT_BOLD);
+		Print::PrintToCmdLine(selectedGroup);
+		Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_NORMAL "\r\n");
 
 		#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-			Print::cmdLinePrintCallback.Execute(clide_TABLE_HEADER_ROW_COLOUR_CODE);
-			Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_BOLD);
+			Print::PrintToCmdLine(clide_TABLE_HEADER_ROW_COLOUR_CODE);
+			Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_BOLD);
 		#endif
 
 		// Prints command name and description, with padding and truncation if required.
@@ -149,10 +152,10 @@ namespace Clide
 			"",
 			"cmd",
 			"description");
-		Print::cmdLinePrintCallback.Execute(tempBuff);
+		Print::PrintToCmdLine(tempBuff);
 
 		#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-			Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_NORMAL);
+			Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_NORMAL);
 		#endif
 
 
@@ -172,29 +175,29 @@ namespace Clide
 						sizeof(tempBuff),
 						"%-" STR(config_PADDING_BEFORE_CMD_IN_HELP) "s",
 						"");
-					Print::cmdLinePrintCallback.Execute(tempBuff);
-					//Print::cmdLinePrintCallback.Execute("\t");
+					Print::PrintToCmdLine(tempBuff);
+					//Print::PrintToCmdLine("\t");
 					#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
-						Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_BOLD);
+						Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_BOLD);
 						snprintf(
 							tempBuff,
 							sizeof(tempBuff),
 							"%-" STR(config_CMD_PADDING_FOR_HELP) "." STR(config_CMD_PADDING_FOR_HELP_MINUS_1) "s",
 							cmdA[x]->name);
-						Print::cmdLinePrintCallback.Execute(tempBuff);
-						Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_NORMAL);
+						Print::PrintToCmdLine(tempBuff);
+						Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_NORMAL);
 					#else
 						// No special formatting
-						Print::cmdLinePrintCallback.Execute(cmdA[x]->name);
+						Print::PrintToCmdLine(cmdA[x]->name);
 					#endif
 
 					// Add tab character
-					//Print::cmdLinePrintCallback.Execute("\t");
+					//Print::PrintToCmdLine("\t");
 					// Print description
-					Print::cmdLinePrintCallback.Execute(cmdA[x]->description);
+					Print::PrintToCmdLine(cmdA[x]->description);
 					// \r is enough for PuTTy to format onto a newline also
 					// (adding \n causes it to add two new lines)
-					Print::cmdLinePrintCallback.Execute("\r\n");
+					Print::PrintToCmdLine("\r\n");
 
 					// Quit this for loop, as command has already been printed, don't want to print again
 					break;
@@ -211,98 +214,99 @@ namespace Clide
 	void Comm::PrintHelpForCmd(Cmd* cmd)
 	{
 		#if(clide_DEBUG_PRINT_GENERAL == 1)
-			Print::debugPrintCallback.Execute("CLIDE: Printing help for command.\r\n");
+			Print::PrintDebugInfo("CLIDE: Printing help for command.\r\n",
+					Print::DebugPrintingLevel::GENERAL);
 		#endif
 
-		Print::cmdLinePrintCallback.Execute("\r\n**********COMMAND HELP:**********\r\n");
+		Print::PrintToCmdLine("\r\n**********COMMAND HELP:**********\r\n");
 
 		// CMD NAME AND DESCRIPTION
 
 		// Tabbing in
-		Print::cmdLinePrintCallback.Execute("\t");
+		Print::PrintToCmdLine("\t");
 		#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
-			Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_BOLD);
-			Print::cmdLinePrintCallback.Execute(cmd->name);
-			Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_NORMAL);
+			Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_BOLD);
+			Print::PrintToCmdLine(cmd->name);
+			Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_NORMAL);
 		#else
 			// No advanced text formatting
-			Print::cmdLinePrintCallback.Execute(cmd->name);
+			Print::PrintToCmdLine(cmd->name);
 		#endif
 
 		// Add tab character
-		Print::cmdLinePrintCallback.Execute("\t");
+		Print::PrintToCmdLine("\t");
 		// Print description
-		Print::cmdLinePrintCallback.Execute(cmd->description);
+		Print::PrintToCmdLine(cmd->description);
 		// \r is enough for PuTTy to format onto a newline also
 		// (adding \n causes it to add two new lines)
-		Print::cmdLinePrintCallback.Execute("\r\n");
+		Print::PrintToCmdLine("\r\n");
 
 		// CMD PARAMETERS
 
-		Print::cmdLinePrintCallback.Execute("Command Parameters:\r\n");
+		Print::PrintToCmdLine("Command Parameters:\r\n");
 
 
 		// Special case if there are no parameters to list
 		if(cmd->numParams == 0)
 		{
-			Print::cmdLinePrintCallback.Execute("\t");
-			Print::cmdLinePrintCallback.Execute("NO PARAMS");
-			Print::cmdLinePrintCallback.Execute("\r\n");
+			Print::PrintToCmdLine("\t");
+			Print::PrintToCmdLine("NO PARAMS");
+			Print::PrintToCmdLine("\r\n");
 		}
 		else
 		{
 			// Print top table row 'header'
 			#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-				Print::cmdLinePrintCallback.Execute(clide_TABLE_HEADER_ROW_COLOUR_CODE);
+				Print::PrintToCmdLine(clide_TABLE_HEADER_ROW_COLOUR_CODE);
 			#endif
-			Print::cmdLinePrintCallback.Execute("\tindex\tdescription\r\n");
+			Print::PrintToCmdLine("\tindex\tdescription\r\n");
 			#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-				Print::cmdLinePrintCallback.Execute(clide_TERM_TEXT_FORMAT_NORMAL);
+				Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_NORMAL);
 			#endif
 			// Iterate through cmd array and print commands
 			uint32_t x;
 			for(x = 0; x < cmd->numParams; x++)
 			{
-				Print::cmdLinePrintCallback.Execute("\t");
+				Print::PrintToCmdLine("\t");
 				char tempBuff[50];
 				snprintf(
 					tempBuff,
 					sizeof(tempBuff),
 					"%" STR(ClidePort_PF_UINT32_T),
 					x);
-				Print::cmdLinePrintCallback.Execute(tempBuff);
+				Print::PrintToCmdLine(tempBuff);
 				// Add tab character
-				Print::cmdLinePrintCallback.Execute("\t");
+				Print::PrintToCmdLine("\t");
 				// Print description
-				Print::cmdLinePrintCallback.Execute(cmd->paramA[x]->description);
+				Print::PrintToCmdLine(cmd->paramA[x]->description);
 				// \r is enough for PuTTy to format onto a newline also
 				// (adding \n causes it to add two new lines)
-				Print::cmdLinePrintCallback.Execute("\r\n");
+				Print::PrintToCmdLine("\r\n");
 			}
 		}
 
 		// CMD OPTIONS
 
-		Print::cmdLinePrintCallback.Execute("Command Options:\r\n");
+		Print::PrintToCmdLine("Command Options:\r\n");
 
 		// Special case if there are no parameters to list
 		if(cmd->numOptions == 0)
 		{
-			Print::cmdLinePrintCallback.Execute("\t");
-			Print::cmdLinePrintCallback.Execute("NO OPTIONS");
-			Print::cmdLinePrintCallback.Execute("\r\n");
+			Print::PrintToCmdLine("\t");
+			Print::PrintToCmdLine("NO OPTIONS");
+			Print::PrintToCmdLine("\r\n");
 		}
 		else
 		{
 			// Print top table row 'header'
 			#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-				// gold = Print::cmdLinePrintCallback.Execute("\x1B[33m");
+				// gold = Print::PrintToCmdLine("\x1B[33m");
 				// Yellow
-				Print::cmdLinePrintCallback.Execute(clide_TABLE_HEADER_ROW_COLOUR_CODE);
+				Print::PrintToCmdLine(clide_TABLE_HEADER_ROW_COLOUR_CODE);
 			#endif
-			Print::cmdLinePrintCallback.Execute("\tshort\tlong\tdescription\r\n");
+			Print::PrintToCmdLine("\tshort\tlong\tdescription\r\n");
 			#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-				Print::cmdLinePrintCallback.Execute("\x1B[0m");
+				Print::PrintToCmdLine("\x1B[0m");
 			#endif
 
 			// Iterate through cmd array and print commands
@@ -310,41 +314,41 @@ namespace Clide
 			for(x = 0; x < cmd->numOptions; x++)
 			{
 				// Print short option
-				Print::cmdLinePrintCallback.Execute("\t");
+				Print::PrintToCmdLine("\t");
 				char tempShortOption[2];
 				tempShortOption[0] = cmd->optionA[x]->shortName;
 				tempShortOption[1] = '\0';
-				Print::cmdLinePrintCallback.Execute(tempShortOption);
+				Print::PrintToCmdLine(tempShortOption);
 
 				// Print long option
-				Print::cmdLinePrintCallback.Execute("\t");
-				Print::cmdLinePrintCallback.Execute(cmd->optionA[x]->longName);
+				Print::PrintToCmdLine("\t");
+				Print::PrintToCmdLine(cmd->optionA[x]->longName);
 				// Add tab character
-				Print::cmdLinePrintCallback.Execute("\t");
+				Print::PrintToCmdLine("\t");
 				// Print description
-				Print::cmdLinePrintCallback.Execute(cmd->optionA[x]->description);
+				Print::PrintToCmdLine(cmd->optionA[x]->description);
 				// \r is enough for PuTTy to format onto a newline also
 				// (adding \n causes it to add two new lines)
-				Print::cmdLinePrintCallback.Execute("\r\n");
+				Print::PrintToCmdLine("\r\n");
 			}
 		}
 
 		// CMD GROUPS
 
-		Print::cmdLinePrintCallback.Execute("Command groups it belongs to:\r\n");
+		Print::PrintToCmdLine("Command groups it belongs to:\r\n");
 
 		// Add tab character
-		Print::cmdLinePrintCallback.Execute("\t");
+		Print::PrintToCmdLine("\t");
 
 		uint32_t x;
 		for(x = 0; x < cmd->GetNumCmdGroups(); x++)
 		{
 			// Print out command group name
-			Print::cmdLinePrintCallback.Execute(cmd->cmdGroupA[x]->name);
+			Print::PrintToCmdLine(cmd->cmdGroupA[x]->name);
 
 			// Add space and comma if not last command group name
 			if(x != cmd->GetNumCmdGroups() - 1)
-				Print::cmdLinePrintCallback.Execute(" ,");
+				Print::PrintToCmdLine(" ,");
 		}
 
 		char tempBuff[50];
@@ -353,7 +357,7 @@ namespace Clide
 				sizeof(tempBuff),
 				" (total = %" STR(ClidePort_PF_UINT32_T) ")\r\n",
 				cmd->GetNumCmdGroups());
-			Print::cmdLinePrintCallback.Execute(tempBuff);
+			Print::PrintToCmdLine(tempBuff);
 
 	}
 

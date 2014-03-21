@@ -44,7 +44,8 @@ namespace Clide
 	RxBuff::RxBuff(Rx* rxController, char endOfCmdChar)
 	{
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)
-			Print::debugPrintCallback.Execute("CLIDE: RxBuff constructor called...\r\n");
+			Print::PrintDebugInfo("CLIDE: RxBuff constructor called...\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 
 		// Initialise class variables
@@ -59,7 +60,8 @@ namespace Clide
 		this->endOfCmdChar = endOfCmdChar;
 
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)
-			Print::debugPrintCallback.Execute("CLIDE: RxBuff constructor finished.\r\n");
+			Print::PrintDebugInfo("CLIDE: RxBuff constructor finished.\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 
 	}
@@ -86,7 +88,7 @@ namespace Clide
 			if(this->buffWritePos >= sizeof(this->buff) - 1)
 			{
 				#if(clide_DEBUG_PRINT_ERROR == 1)
-					Print::debugPrintCallback.Execute("CLIDE: Error. RxBuff::buff is full, not all characters could be written to it!.\r\n");
+					Print::PrintError("CLIDE: Error. RxBuff::buff is full, not all characters could be written to it!.\r\n");
 				#endif
 				// Write null character to end of full buffer
 				this->buff[this->buffWritePos] = '\0';
@@ -97,7 +99,9 @@ namespace Clide
 			if(characters[characterReadPos] == this->endOfCmdChar)
 			{
 				#if(clide_DEBUG_PRINT_VERBOSE == 1)
-					Print::debugPrintCallback.Execute("CLIDE: End of command character detected, calling Rx::Run().\r\n");
+					Print::PrintDebugInfo(
+						"CLIDE: End of command character detected, calling Rx::Run().\r\n",
+						Print::DebugPrintingLevel::VERBOSE);
 				#endif
 
 				// End of command character found! Send this to Rx!
@@ -117,7 +121,7 @@ namespace Clide
 			else	// Character was not the end-of-command character, write to buffer
 			{
 				#if(clide_DEBUG_PRINT_VERBOSE == 1)
-					Print::debugPrintCallback.Execute("CLIDE: Writing to RxBuff::buff.\r\n");
+					Print::PrintDebugInfo("CLIDE: Writing to RxBuff::buff.\r\n", Print::DebugPrintingLevel::VERBOSE);
 				#endif
 
 				this->buff[this->buffWritePos] = characters[characterReadPos];
@@ -132,7 +136,9 @@ namespace Clide
 		}
 
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)
-			Print::debugPrintCallback.Execute("CLIDE: RxBuff::Write() has finished writing chars to RxBuff::buff, no end-of-command character found.\r\n");
+			Print::PrintDebugInfo(
+					"CLIDE: RxBuff::Write() has finished writing chars to RxBuff::buff, no end-of-command character found.\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 
 		// Null character in input detected, write null to buff

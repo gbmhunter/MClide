@@ -2,7 +2,7 @@
 //! @file 			Option.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/01/24
+//! @last-modified 	2014/03/21
 //! @brief 		 	The option class enables used of 'optional' parameters in the command-line interface.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -50,7 +50,8 @@ namespace Clide
 		// Base constructor
 		
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
-			Print::debugPrintCallback.Execute("CLIDE: Base option constructor called.\r\n");
+			Print::PrintDebugInfo("CLIDE: Base option constructor called.\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 		Init(
 			shortName,
@@ -68,7 +69,8 @@ namespace Clide
 		// Simplified constructor. No short name.
 		
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
-			Print::debugPrintCallback.Execute("CLIDE: Simplified option constructor called (no short name).\r\n");
+			Print::PrintDebugInfo("CLIDE: Simplified option constructor called (no short name).\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 		Init(
 			'\0',
@@ -86,7 +88,8 @@ namespace Clide
 		// Simplified constructor. No long name.
 		
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
-			Print::debugPrintCallback.Execute("CLIDE: Simplified option constructor called (no long name).\r\n");
+			Print::PrintDebugInfo("CLIDE: Simplified option constructor called (no long name).\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 		Init(
 			shortName,
@@ -102,7 +105,8 @@ namespace Clide
 	{
 		// Destructor
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
-			Print::debugPrintCallback.Execute("CLIDE: Option destructor called.\r\n");
+			Print::PrintDebugInfo("CLIDE: Option destructor called.\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 		
 		// Free memory
@@ -122,7 +126,8 @@ namespace Clide
 		bool associatedValue)
 	{
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
-			Print::debugPrintCallback.Execute("CLIDE: Option constructor called.\r\n");
+			Print::PrintDebugInfo("CLIDE: Option constructor called.\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif		
 		
 		// Input checks
@@ -136,7 +141,7 @@ namespace Clide
 			{
 				#if(clide_DEBUG_PRINT_ERROR == 1)	
 					// Description too long, do not save it
-					Print::errorPrintCallback.Execute("CLIDE: ERROR: 'Long' option name was too long.\r\n");
+					Print::PrintError("CLIDE: ERROR: 'Long' option name was too long.\r\n");
 				#endif
 				
 				return;
@@ -151,7 +156,7 @@ namespace Clide
 			{
 				#if(clide_DEBUG_PRINT_ERROR == 1)	
 					// Description too long, do not save it
-					Print::errorPrintCallback.Execute("CLIDE: ERROR: Option description was too long.\r\n");
+					Print::PrintError("CLIDE: ERROR: Option description was too long.\r\n");
 				#endif
 				
 				return;
@@ -196,7 +201,8 @@ namespace Clide
 		this->associatedValue = associatedValue;
 		
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
-			Print::debugPrintCallback.Execute("CLIDE: Option constructor finished.\r\n");
+			Print::PrintDebugInfo("CLIDE: Option constructor finished.\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 	}
 

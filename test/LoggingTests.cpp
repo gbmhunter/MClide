@@ -2,7 +2,7 @@
 //! @file 			LoggingTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/01/13
-//! @last-modified 	2014/01/21
+//! @last-modified 	2014/03/21
 //! @brief			Unit tests for checking the logging functionality of the clide-cpp library.
 //! @details
 //!				See README.rst in root dir for more info.
@@ -13,6 +13,7 @@
 
 namespace ClideTest
 {
+/*
 	SUITE(LoggingTests)
 	{
 		using namespace Clide;
@@ -51,7 +52,7 @@ namespace ClideTest
 			// Now make sure this was logged
 			CHECK_EQUAL((int)Rx::LogIds::CMD_NOT_RECOGNISED, (int)rxController.log.logId);
 			
-		}
+		}*/
 		/*
 		TEST(OneOptionThenOneParamRxTest)
 		{
@@ -202,7 +203,7 @@ namespace ClideTest
 			CHECK_EQUAL("param2", cmdTestParam2.value);
 			CHECK_EQUAL(false, cmdTestOption1.isDetected);
 			CHECK_EQUAL(false, cmdTestOption2.isDetected);
-		}*/
+		}
 		
-	} // SUITE(ParamAndOptionTests)
+	} // SUITE(ParamAndOptionTests)*/
 } // namespace ClideTest

@@ -2,7 +2,7 @@
 //! @file 			Print.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/03/19
-//! @last-modified 	2014/01/24
+//! @last-modified 	2014/03/21
 //! @brief 			Contains callbacks for port-specific print operations.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -70,14 +70,43 @@ namespace Clide
 
 		public:
 		
+			enum class DebugPrintingLevel
+			{
+				GENERAL,
+				VERBOSE
+			};
+
+			static bool enableDebugInfoPrinting;
+			static bool enableCmdLinePrinting;
+			static bool enableErrorPrinting;
+
+			static void AssignCallbacks(
+					SlotMachine::Callback<void, const char*> debugPrintCallback,
+					SlotMachine::Callback<void, const char*> cmdLinePrintCallback,
+					SlotMachine::Callback<void, const char*> errorPrintCallback)
+			{
+				Print::debugPrintCallback = debugPrintCallback;
+				Print::cmdLinePrintCallback = cmdLinePrintCallback;
+				Print::errorPrintCallback = errorPrintCallback;
+			}
+
+			static DebugPrintingLevel debugPrintingLevel;
+
+			static void PrintDebugInfo(const char* msg, DebugPrintingLevel debugPrintingLevel);
+			static void PrintError(const char* msg);
+			static void PrintToCmdLine(const char* msg);
+
+		private:
+
 			//! @brief		Callback for debug messages.
 			static SlotMachine::Callback<void, const char*> debugPrintCallback;
 
 			//! @brief		Callback for command-line messages.
 			static SlotMachine::Callback<void, const char*> cmdLinePrintCallback;
-			
+
 			//! @brief		Callback for error messages.
 			static SlotMachine::Callback<void, const char*> errorPrintCallback;
+
 	};
 
 } // namespace Clide

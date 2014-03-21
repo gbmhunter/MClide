@@ -49,7 +49,9 @@ namespace Clide
 	{
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			// Description too long, do not save it
-			Print::debugPrintCallback.Execute("CLIDE: Cmd constructor called.\r\n");
+			Print::PrintDebugInfo(
+				"CLIDE: Cmd constructor called.\r\n",
+				Print::DebugPrintingLevel::VERBOSE);
 		#endif
 
 		// CALLBACK
@@ -65,7 +67,8 @@ namespace Clide
 	{
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			// Description too long, do not save it
-			Print::debugPrintCallback.Execute("CLIDE: Cmd constructor called.\r\n");
+			Print::PrintDebugInfo("CLIDE: Cmd constructor called.\r\n",
+				Print::DebugPrintingLevel::VERBOSE);
 		#endif
 
 		this->methodCallback = methodCallback;
@@ -81,7 +84,8 @@ namespace Clide
 	void Cmd::Init(const char *name, const char *description)
 	{
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)
-			Print::debugPrintCallback.Execute("CLIDE: Cmd::Init() called.\r\n");
+			Print::PrintDebugInfo("CLIDE: Cmd::Init() called.\r\n",
+				Print::DebugPrintingLevel::VERBOSE);
 		#endif
 		
 		// INITIALISATION
@@ -111,7 +115,7 @@ namespace Clide
 		{
 			#if(clide_DEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				Print::errorPrintCallback.Execute("CLIDE: ERROR: Command name was too long.\r\n");
+				Print::PrintError("CLIDE: ERROR: Command name was too long.\r\n");
 			#endif
 			throw "CLIDE: ERROR: Command name was too long.";
 			return;
@@ -132,7 +136,7 @@ namespace Clide
 		{
 			#if(clide_DEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				Print::errorPrintCallback.Execute("CLIDE: ERROR: Command description was too long.\r\n");
+				Print::PrintError("CLIDE: ERROR: Command description was too long.\r\n");
 			#endif
 			throw "CLIDE: ERROR: Command description was too long.";
 			return;
@@ -141,7 +145,7 @@ namespace Clide
 		// HELP
 		#if(clide_ENABLE_AUTO_HELP == 1)
 			#if(clide_DEBUG_PRINT_VERBOSE == 1)
-				Print::debugPrintCallback.Execute("CLIDE: Registering help option.\r\n");
+				Print::PrintDebugInfo("CLIDE: Registering help option.\r\n");
 			#endif
 			// HELP OPTION
 			Option* help = new Option('h', "help", NULL, "Prints help for the command.", false);
@@ -163,7 +167,8 @@ namespace Clide
 
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			// Description too long, do not save it
-			Print::debugPrintCallback.Execute("CLIDE: Cmd constructor finished.\r\n");
+			Print::PrintDebugInfo("CLIDE: Cmd constructor finished.\r\n",
+				Print::DebugPrintingLevel::VERBOSE);
 		#endif
 
 		// COMMAND GROUP OBJECT
@@ -179,7 +184,8 @@ namespace Clide
 	{
 		// Destructor
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
-			Print::debugPrintCallback.Execute("CLIDE: Cmd destructor called.\r\n");
+			Print::PrintDebugInfo("CLIDE: Cmd destructor called.\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 		
 		// Free up parameter and option memory
@@ -191,7 +197,8 @@ namespace Clide
 	{
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 			// Description too long, do not save it
-			Print::debugPrintCallback.Execute("CLIDE: Registering parameter...\r\n");
+			Print::PrintDebugInfo("CLIDE: Registering parameter...\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 
 		//this->numParams = 0;
@@ -203,7 +210,7 @@ namespace Clide
 		{
 			#if(clide_DEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				Print::errorPrintCallback.Execute("CLIDE: ERROR - Malloc failed while registering parameter.\r\n");
+				Print::PrintError("CLIDE: ERROR - Malloc failed while registering parameter.\r\n");
 			#endif
 			return;	
 		}
@@ -221,7 +228,8 @@ namespace Clide
 	{
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 			// Description too long, do not save it
-			Print::debugPrintCallback.Execute("CLIDE: Registering option...\r\n");
+			Print::PrintDebugInfo("CLIDE: Registering option...\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 
 		// Create option pointer at end of option pointer array.
@@ -231,7 +239,7 @@ namespace Clide
 		{
 			#if(clide_DEBUG_PRINT_ERROR == 1)
 				// Description too long, do not save it
-				Print::errorPrintCallback.Execute("CLIDE: ERROR - Malloc failed while registering option.\r\n");
+				Print::PrintError("CLIDE: ERROR - Malloc failed while registering option.\r\n");
 			#endif
 			return;
 		}
@@ -262,7 +270,8 @@ namespace Clide
 					optionA[this->numOptions - 1]->longName);
 			}
 			
-			Print::debugPrintCallback.Execute(Global::debugBuff);
+			Print::PrintDebugInfo(Global::debugBuff,
+					Print::DebugPrintingLevel::VERBOSE);
 			
 		#endif
 	}
@@ -271,7 +280,8 @@ namespace Clide
 	{
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
 			// Description too long, do not save it
-			Print::debugPrintCallback.Execute("CLIDE: Calculating num. of long options...\r\n");
+			Print::PrintDebugInfo("CLIDE: Calculating num. of long options...\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 		
 		uint32_t numLongOptions = 0;
@@ -289,7 +299,8 @@ namespace Clide
 				sizeof(Global::debugBuff),
 				"CLIDE: Num. long options = '%" STR(ClidePort_PF_UINT32_T) "'.\r\n",
 				numLongOptions);
-			Print::debugPrintCallback.Execute(Global::debugBuff);
+			Print::PrintDebugInfo(Global::debugBuff,
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 		
 		return numLongOptions;		
@@ -298,7 +309,8 @@ namespace Clide
 	void Cmd::AddToGroup(CmdGroup *cmdGroup)
 	{
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)
-			Print::debugPrintCallback.Execute("CLIDE: Adding command to a command group...\r\n");
+			Print::PrintDebugInfo("CLIDE: Adding command to a command group...\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 
 		// Create option pointer at end of option pointer array.
@@ -308,7 +320,7 @@ namespace Clide
 		{
 			#if(clide_DEBUG_PRINT_ERROR == 1)
 				// Description too long, do not save it
-				Print::debugPrintCallback.Execute("CLIDE: ERROR - Malloc failed while adding command to command group.\r\n");
+				Print::PrintError("CLIDE: ERROR - Malloc failed while adding command to command group.\r\n");
 			#endif
 			return;
 		}
@@ -320,7 +332,8 @@ namespace Clide
 		this->cmdGroupA[this->numCmdGroups - 1] = cmdGroup;
 
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)
-			Print::debugPrintCallback.Execute("CLIDE: Added command to a command group.\r\n");
+			Print::PrintDebugInfo("CLIDE: Added command to a command group.\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 
 	}

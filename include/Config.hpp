@@ -21,8 +21,8 @@
 
 //=============== DEBUG SWITCHES ============//
 
-#define clide_DEBUG_PRINT_GENERAL		0				//!< Print general debug msgs
-#define clide_DEBUG_PRINT_VERBOSE		0				//!< Print verbose debug msgs
+#define clide_DEBUG_PRINT_GENERAL		1				//!< Print general debug msgs
+#define clide_DEBUG_PRINT_VERBOSE		1				//!< Print verbose debug msgs
 #define clide_DEBUG_PRINT_ERROR			1				//!< Print error debug msgs
 
 //! @brief		This is true if any individual debug print macros are 1.

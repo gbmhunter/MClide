@@ -2,7 +2,7 @@
 //! @file 			Log.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/01/13
-//! @last-modified 	2014/01/14
+//! @last-modified 	2014/03/21
 //! @brief 			A class to create an error object, used for reporting Clide errors.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -35,7 +35,7 @@
 
 namespace Clide
 {
-
+/*
 	enum class Severity
 	{
 		NOTIFICATION,
@@ -101,7 +101,7 @@ namespace Clide
 
 	}
 
-	// none
+	// none*/
 
 } // namespace Clide
 

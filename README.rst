@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/03/21
-- Version: v8.7.3.0
+- Version: v8.7.4.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -299,7 +299,8 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
-v8.7.3.0 2014/02/21 Fixed bug which caused a segmentation fault by setting functionCallback to NULL if not provided to Cmd constructor. Converted the end-of-command character from a macro in Config.hpp to a variable in RxBuff, which is provided in the constructor. Modified existing unit tests accordingly and added new unit tests for specifically testing that the end-of-command char works.
+v8.7.4.0 2014/03/21 Improved Print class by encapsulating all printing calls into functions, and providing a dynamic way of enabling/disabling them, rather than using macros in Config.hpp.
+v8.7.3.0 2014/03/21 Fixed bug which caused a segmentation fault by setting functionCallback to NULL if not provided to Cmd constructor. Converted the end-of-command character from a macro in Config.hpp to a variable in RxBuff, which is provided in the constructor. Modified existing unit tests accordingly and added new unit tests for specifically testing that the end-of-command char works.
 v8.7.2.0 2014/03/21 Added Cmd constructor that accepts a method callback (used to only accept function callbacks). Updated FunctionAndMethodCallbackTests.cpp to reflect this. Added an example in README showing how to use these.
 v8.7.1.0 2014/03/21 Added unit tests for function and method callbacks in test/FunctionAndMethodCallbackTests.cpp.
 v8.7.0.0 2014/03/20 Added support for callbacks to methods (member functions) when a command is recognised, using the Cmd::methodCallback variable. Haven't tested it or added unit tests yet.

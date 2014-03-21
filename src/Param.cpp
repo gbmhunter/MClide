@@ -2,7 +2,7 @@
 //! @file 			Param.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/01/24
+//! @last-modified 	2014/03/21
 //! @brief 			Contains the Param class, which enables the use of required parameters on the command-line interface.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -55,7 +55,8 @@ namespace Clide
 	{
 		// Destructor
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
-			Print::debugPrintCallback.Execute("CLIDE: Parameter destructor called.\r\n");
+			Print::PrintDebugInfo("CLIDE: Parameter destructor called.\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 		
 		// Deallocate memory
@@ -69,7 +70,8 @@ namespace Clide
 	void Param::Init(bool (*callBackFunc)(char *paramVal), const char* description)
 	{
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
-			Print::debugPrintCallback.Execute("CLIDE: Parameter constructor called.\r\n");
+			Print::PrintDebugInfo("CLIDE: Parameter constructor called.\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 
 		// DECRIPTION
@@ -86,7 +88,7 @@ namespace Clide
 		{
 			#if(clide_DEBUG_PRINT_ERROR == 1)	
 				// Description too long, do not save it
-				Print::errorPrintCallback.Execute("CLIDE: ERROR: Parameter description was too long.\r\n");
+				Print::PrintError("CLIDE: ERROR: Parameter description was too long.\r\n");
 			#endif
 		}
 		
