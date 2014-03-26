@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/03/26
-- Version: v8.7.4.1
+- Version: v8.7.5.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -301,6 +301,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.7.5.0 2014/03/26 Fixed example code so that it didn't use private Clide::Print variables and cause compiler errors, closes #117. Added -std=c++0x compiler flag to example code build in the Makefile.
 v8.7.4.1 2014/03/26 Added info to README about enum class errors.
 v8.7.4.0 2014/03/21 Improved Print class by encapsulating all printing calls into functions, and providing a dynamic way of enabling/disabling them, rather than using macros in Config.hpp.
 v8.7.3.0 2014/03/21 Fixed bug which caused a segmentation fault by setting functionCallback to NULL if not provided to Cmd constructor. Converted the end-of-command character from a macro in Config.hpp to a variable in RxBuff, which is provided in the constructor. Modified existing unit tests accordingly and added new unit tests for specifically testing that the end-of-command char works.

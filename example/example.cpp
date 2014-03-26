@@ -2,7 +2,7 @@
 //! @file 			example.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created 		2013/07/04
-//! @last-modified 	2014/01/22
+//! @last-modified 	2014/03/26
 //! @brief 			Example Clide program, designed to be run on Linux.
 //! @details
 //!				See README.rst in root dir for more info.
@@ -37,14 +37,22 @@ public:
 	{
 		std::cout << msg;
 	}
+
+	void PrintError(const char* msg)
+	{
+		std::cout << msg;
+	}
 };
 
 int main()
 {
-	// Configure clide outputs
+	// Configure clide print outputs
 	Printer printer;
-	Clide::Print::debugPrintCallback = SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintDebug);
-	Clide::Print::cmdLinePrintCallback = SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine);
+
+	Clide::Print::AssignCallbacks(
+			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintDebug),
+			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine),
+			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintError));
 
 	// Create a receiver engine
 	Rx rxController;

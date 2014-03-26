@@ -38,7 +38,7 @@ TEST_CC_FLAGS := -Wall -g
 
 EXAMPLE_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard example/*.cpp))
 EXAMPLE_LD_FLAGS := 
-EXAMPLE_CC_FLAGS := -Wall -g
+EXAMPLE_CC_FLAGS := -Wall -g -std=c++0x
 
 .PHONY: depend clean
 
