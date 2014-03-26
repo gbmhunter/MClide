@@ -2,7 +2,7 @@
 //! @file 			UnrecognisedCmdCallbackTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/01/13
-//! @last-modified 	2014/01/21
+//! @last-modified 	2014/03/26
 //! @brief			Unit test for checking that the unrecognised command callback function is actually called when a command is not recognised.
 //! @details
 //!				See README.rst in root dir for more info.
@@ -30,7 +30,7 @@ namespace ClideTest
 		{
 			iWasCalled = true;
 
-			if(strcmp(cmd, "blah blah blah") == 0)
+			if(strcmp(cmd, "blah") == 0)
 				cmdsEqual = true;
 		}
 

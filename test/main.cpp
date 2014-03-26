@@ -2,7 +2,7 @@
 //! @file 			main.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/07/04
-//! @last-modified 	2014/01/21
+//! @last-modified 	2014/03/26
 //! @brief 			Contains main entry point for unit tests.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -16,24 +16,34 @@
 
 class Printer
 {
-public:
-	void PrintDebug(const char* msg)
-	{
-		std::cout << msg;
-	}
+	public:
+		void PrintDebug(const char* msg)
+		{
+			std::cout << msg;
+		}
 
-	void PrintCmdLine(const char* msg)
-	{
-		std::cout << msg;
-	}
+		void PrintCmdLine(const char* msg)
+		{
+			std::cout << msg;
+		}
+
+		void PrintError(const char* msg)
+		{
+			std::cout << msg;
+		}
 };
 
 int main()
 {
+	/*
 	Printer printer;
 
-	//Clide::Print::debugPrintCallback = SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintDebug);
-	//Clide::Print::cmdLinePrintCallback = SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine);
+	// Set up printing
+	Clide::Print::AssignCallbacks(
+			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintDebug),
+			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine),
+			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintError));
+	*/
 
 	return UnitTest::RunAllTests();
 	

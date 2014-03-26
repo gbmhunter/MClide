@@ -27,11 +27,11 @@ namespace ClideTest
 			
 			return true;
 		}
-		
+
 		TEST(BasicRxTest)
 		{
+
 			Rx rxController;
-			Tx txController;
 			
 			Cmd cmdTest("test", &Callback, "A test command.");
 			

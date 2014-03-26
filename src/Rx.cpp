@@ -2,7 +2,7 @@
 //! @file 			Rx.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2012/03/19
-//! @last-modified 	2014/01/21
+//! @last-modified 	2014/01/26
 //! @brief 			Clide RX controller. The main logic of the RX (decoding) part of Clide. Commands can be registered with the controller.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -86,7 +86,12 @@ namespace Clide
 		#if(clide_DEBUG_PRINT_VERBOSE == 1)
 			Print::PrintDebugInfo("CLIDE: Rx constructor finished.\r\n", Print::DebugPrintingLevel::VERBOSE);
 		#endif
-}
+	}
+
+	bool Rx::Run(int argc, char* argv[])
+	{
+		Rx::Run2(argc, argv);
+	}
 
 	bool Rx::Run(char* cmdMsg)
 	{
@@ -118,26 +123,7 @@ namespace Clide
 		
 		//! @brief		Holds the split arguments from the command line
 		//! @todo 		Replace with malloc() calls, remove magic numbers
-		char _args[10][clide_MAX_STRING_LENGTH] = {{0}};
-		
-		char _paramA[10][10] = {{0}};
-		
-		//! @brief		Array of pointers to the arguments
-		char *(_argsPtr[10]);
-		
-		_argsPtr[0] = _args[0];
-		_argsPtr[1] = _args[1];
-		_argsPtr[2] = _args[2];
-		_argsPtr[3] = _args[3];
-		_argsPtr[4] = _args[4];
-		_argsPtr[5] = _args[5];
-		_argsPtr[6] = _args[6];
-		_argsPtr[7] = _args[7];
-		_argsPtr[8] = _args[8];
-		_argsPtr[9] = _args[9];
-		
-		// Clear parameters
-		memset(_paramA, '\0', sizeof(_paramA));
+		char* _args[10] = {0};
 		
 		// Clear args
 		memset(_args, '\0', sizeof(_args));
@@ -186,9 +172,33 @@ namespace Clide
 		// Split packet. First element is command.
 		int numArgs = SplitPacket(cmdMsgCpyPtr, _args);
 		
+		// Call 2nd part of Run()
+		return this->Run2(numArgs, _args);
+
+	}
+
+	int Rx::Run2(uint8_t numArgs, char* _args[])
+	{
+
+		int32_t x;
+
+		//! @brief		Array of pointers to the arguments
+		char *(_argsPtr[10]);
+
+		_argsPtr[0] = _args[0];
+		_argsPtr[1] = _args[1];
+		_argsPtr[2] = _args[2];
+		_argsPtr[3] = _args[3];
+		_argsPtr[4] = _args[4];
+		_argsPtr[5] = _args[5];
+		_argsPtr[6] = _args[6];
+		_argsPtr[7] = _args[7];
+		_argsPtr[8] = _args[8];
+		_argsPtr[9] = _args[9];
+
 		//=============== CHECK COMMAND IS VALID ==================//
 		
-		Cmd* foundCmd = ValidateCmd(_args[0], cmdA, numCmds);
+		Cmd* foundCmd = this->ValidateCmd(_args[0], cmdA, numCmds);
 		
 		// Check for registered command
 		if(foundCmd == NULL)
@@ -225,7 +235,7 @@ namespace Clide
 						tempBuff,
 						sizeof(tempBuff),
 						"error \"Command '%s' not recognised.\"\r\n",
-						cmdMsg);
+						_args[0]);
 					Print::PrintToCmdLine(tempBuff);
 				#endif // #if(clide_ENABLE_AUTO_HELP == 1)
 			}
@@ -238,7 +248,12 @@ namespace Clide
 			// Call callback if assigned
 			if(this->cmdUnrecogCallback.obj != NULL)
 			{
-				this->cmdUnrecogCallback.Execute(cmdMsg);
+				#if(clide_DEBUG_PRINT_VERBOSE == 1)
+					Print::PrintDebugInfo(
+						"CLIDE: .\r\n",
+						Print::DebugPrintingLevel::VERBOSE);
+				#endif
+				this->cmdUnrecogCallback.Execute(_args[0]);
 			}
 
 			#if(clide_DEBUG_PRINT_VERBOSE == 1)
@@ -284,7 +299,7 @@ namespace Clide
 
 			// Print re-arranged arguments
 			uint8_t count = 0;
-			while(*_argsPtr[count] != '\0')
+			while(count < numArgs)
 			{
 				Print::PrintDebugInfo(_argsPtr[count], Print::DebugPrintingLevel::VERBOSE);
 				Print::PrintDebugInfo(", ", Print::DebugPrintingLevel::VERBOSE);
@@ -586,7 +601,7 @@ namespace Clide
 			Print::PrintDebugInfo("CLIDE: Arguments = ", Print::DebugPrintingLevel::VERBOSE);
 			// Print arguments
 			count = 0;
-			while(_args[count][0] != '\0')
+			while(count < numArgs)
 			{
 				Print::PrintDebugInfo(_args[count], Print::DebugPrintingLevel::VERBOSE);
 				Print::PrintDebugInfo(", ", Print::DebugPrintingLevel::VERBOSE);
@@ -597,7 +612,7 @@ namespace Clide
 			Print::PrintDebugInfo("CLIDE: Re-arranged arguments = ", Print::DebugPrintingLevel::VERBOSE);
 			// Print re-arranged arguments
 			count = 0;
-			while(*_argsPtr[count] != '\0')
+			while(count < numArgs)
 			{
 				Print::PrintDebugInfo(_argsPtr[count], Print::DebugPrintingLevel::VERBOSE);
 				Print::PrintDebugInfo(", ", Print::DebugPrintingLevel::VERBOSE);
@@ -687,17 +702,19 @@ namespace Clide
 	//==================================== PRIVATE FUNCTIONS ========================================//
 	//===============================================================================================//
 
-	int Rx::SplitPacket(char* packet, char(*args)[clide_MAX_STRING_LENGTH])
+	int Rx::SplitPacket(char* packet, char* argv[])
 	{
 
 		// Split string into arguments using white space as the seperator
 		char* ptrToArgument = StringSplit::Run(packet, " ");
 		
+		// Keep track of the number of arguments found
 		uint8_t argCount = 0;
+
 		while(ptrToArgument != 0)
 		{
-			// Copy argument into argument array
-			strcpy(args[argCount], ptrToArgument);
+			// Save pointer to start of string
+			argv[argCount] = ptrToArgument;
 			
 			// Repeat. Pass in null as first parameter after first call
 			ptrToArgument = StringSplit::Run(0, " ");
@@ -705,7 +722,7 @@ namespace Clide
 		}
 		
 		// Write 0 to last args element
-		args[argCount][0] = '\0';
+		//args[argCount][0] = '\0';
 		
 		return argCount;
 	}
