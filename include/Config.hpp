@@ -2,7 +2,7 @@
 //! @file 			Config.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/03/20
+//! @last-modified 	2014/03/26
 //! @brief 			Configuration file for Clide.
 //! @details
 //!				See README.rst in repo root dir for more info.
@@ -21,12 +21,8 @@
 
 //=============== DEBUG SWITCHES ============//
 
-#define clide_DEBUG_PRINT_GENERAL		1				//!< Print general debug msgs
-#define clide_DEBUG_PRINT_VERBOSE		1				//!< Print verbose debug msgs
-#define clide_DEBUG_PRINT_ERROR			1				//!< Print error debug msgs
-
-//! @brief		This is true if any individual debug print macros are 1.
-#define clideDEBUG_PRINT_ANY	(clide_DEBUG_PRINT_GENERAL | clide_DEBUG_PRINT_VERBOSE | clide_DEBUG_PRINT_ERROR)
+//! @brief		Set to 1 to enable debug code (including debug message printing) through-out the Clide library. Set to 0 to disable all debug code, which will save memory.
+#define clide_ENABLE_DEBUG_CODE			1
 
 //=============== CALLBACK SWITCHES ============//
 
@@ -37,7 +33,7 @@
 //====================== HELP-RELATED SWITCHES =================//
 
 //! @brief		Set to 1 to enable automatic help generation.
-#define clide_ENABLE_AUTO_HELP			0
+#define clide_ENABLE_AUTO_HELP					0
 
 //! @brief		(char*) The amount of padding before the cmd column when printing help.
 #define config_PADDING_BEFORE_CMD_IN_HELP 		5

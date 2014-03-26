@@ -47,7 +47,7 @@ namespace Clide
 	// Constructor
 	Cmd::Cmd(const char *name, bool (*callBackFunc)(Cmd* foundCmd), const char *description)
 	{
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)
+		#if(clide_ENABLE_DEBUG_CODE == 1)
 			// Description too long, do not save it
 			Print::PrintDebugInfo(
 				"CLIDE: Cmd constructor called.\r\n",
@@ -65,7 +65,7 @@ namespace Clide
 	// Constructor
 	Cmd::Cmd(const char *name, SlotMachine::Callback<void, Cmd*> methodCallback, const char *description)
 	{
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)
+		#if(clide_ENABLE_DEBUG_CODE == 1)
 			// Description too long, do not save it
 			Print::PrintDebugInfo("CLIDE: Cmd constructor called.\r\n",
 				Print::DebugPrintingLevel::VERBOSE);
@@ -83,7 +83,7 @@ namespace Clide
 
 	void Cmd::Init(const char *name, const char *description)
 	{
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)
+		#if(clide_ENABLE_DEBUG_CODE == 1)
 			Print::PrintDebugInfo("CLIDE: Cmd::Init() called.\r\n",
 				Print::DebugPrintingLevel::VERBOSE);
 		#endif
@@ -113,7 +113,7 @@ namespace Clide
 		}
 		else
 		{
-			#if(clide_DEBUG_PRINT_ERROR == 1)	
+			#if(clide_ENABLE_DEBUG_CODE == 1)	
 				// Description too long, do not save it
 				Print::PrintError("CLIDE: ERROR: Command name was too long.\r\n");
 			#endif
@@ -134,7 +134,7 @@ namespace Clide
 		}
 		else
 		{
-			#if(clide_DEBUG_PRINT_ERROR == 1)	
+			#if(clide_ENABLE_DEBUG_CODE == 1)	
 				// Description too long, do not save it
 				Print::PrintError("CLIDE: ERROR: Command description was too long.\r\n");
 			#endif
@@ -144,7 +144,7 @@ namespace Clide
 		
 		// HELP
 		#if(clide_ENABLE_AUTO_HELP == 1)
-			#if(clide_DEBUG_PRINT_VERBOSE == 1)
+			#if(clide_ENABLE_DEBUG_CODE == 1)
 				Print::PrintDebugInfo("CLIDE: Registering help option.\r\n");
 			#endif
 			// HELP OPTION
@@ -165,7 +165,7 @@ namespace Clide
 		// Will be either set to a Clide::Tx or Clide::Rx object
 		this->parentComm = NULL;
 
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)
+		#if(clide_ENABLE_DEBUG_CODE == 1)
 			// Description too long, do not save it
 			Print::PrintDebugInfo("CLIDE: Cmd constructor finished.\r\n",
 				Print::DebugPrintingLevel::VERBOSE);
@@ -183,7 +183,7 @@ namespace Clide
 	Cmd::~Cmd()
 	{
 		// Destructor
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			Print::PrintDebugInfo("CLIDE: Cmd destructor called.\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
 		#endif
@@ -195,7 +195,7 @@ namespace Clide
 	
 	void Cmd::RegisterParam(Param* param)
 	{
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			// Description too long, do not save it
 			Print::PrintDebugInfo("CLIDE: Registering parameter...\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
@@ -208,7 +208,7 @@ namespace Clide
 		
 		if(this->paramA == NULL)
 		{
-			#if(clide_DEBUG_PRINT_ERROR == 1)	
+			#if(clide_ENABLE_DEBUG_CODE == 1)	
 				// Description too long, do not save it
 				Print::PrintError("CLIDE: ERROR - Malloc failed while registering parameter.\r\n");
 			#endif
@@ -226,7 +226,7 @@ namespace Clide
 	// Register option
 	void Cmd::RegisterOption(Option* option)
 	{
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			// Description too long, do not save it
 			Print::PrintDebugInfo("CLIDE: Registering option...\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
@@ -237,7 +237,7 @@ namespace Clide
 		
 		if(this->optionA == NULL)
 		{
-			#if(clide_DEBUG_PRINT_ERROR == 1)
+			#if(clide_ENABLE_DEBUG_CODE == 1)
 				// Description too long, do not save it
 				Print::PrintError("CLIDE: ERROR - Malloc failed while registering option.\r\n");
 			#endif
@@ -250,7 +250,7 @@ namespace Clide
 		// Remember option
 		optionA[this->numOptions - 1] = option;
 		
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			if(optionA[this->numOptions - 1]->shortName != '\0')
 			{
 				snprintf(
@@ -278,7 +278,7 @@ namespace Clide
 
 	uint32_t Cmd::NumLongOptions()
 	{
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			// Description too long, do not save it
 			Print::PrintDebugInfo("CLIDE: Calculating num. of long options...\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
@@ -293,7 +293,7 @@ namespace Clide
 				numLongOptions++;
 		}
 		
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			snprintf(
 				Global::debugBuff,
 				sizeof(Global::debugBuff),
@@ -308,7 +308,7 @@ namespace Clide
 
 	void Cmd::AddToGroup(CmdGroup *cmdGroup)
 	{
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)
+		#if(clide_ENABLE_DEBUG_CODE == 1)
 			Print::PrintDebugInfo("CLIDE: Adding command to a command group...\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
 		#endif
@@ -318,7 +318,7 @@ namespace Clide
 
 		if(this->cmdGroupA == NULL)
 		{
-			#if(clide_DEBUG_PRINT_ERROR == 1)
+			#if(clide_ENABLE_DEBUG_CODE == 1)
 				// Description too long, do not save it
 				Print::PrintError("CLIDE: ERROR - Malloc failed while adding command to command group.\r\n");
 			#endif
@@ -331,7 +331,7 @@ namespace Clide
 		// Remember the given command group
 		this->cmdGroupA[this->numCmdGroups - 1] = cmdGroup;
 
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)
+		#if(clide_ENABLE_DEBUG_CODE == 1)
 			Print::PrintDebugInfo("CLIDE: Added command to a command group.\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
 		#endif

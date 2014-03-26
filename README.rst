@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/03/26
-- Version: v8.8.0.0
+- Version: v8.8.1.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -301,6 +301,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.8.1.0 2014/03/26 Replaced all config_DEBUG... macros with clide_ENABLE_DEBUG_CODE, closes #120. Rx::Run(int argc, char* argv[]) now returns a boolean, closes #122. Got rid of tempBuff variable in Rx::Run(), closes #123.
 v8.8.0.0 2014/03/26 Added Clide::Rx::Run(int argc, char* argv[]) function which supports standard main variables as the input, closes #119. Added appropriate unit tests. Clide::Rx::Run() underwent serious modifications to allow for this. Added ability to turn on and off debug printing while running unit tests from test/main.cpp.
 v8.7.5.0 2014/03/26 Fixed example code so that it didn't use private Clide::Print variables and cause compiler errors, closes #117. Added -std=c++0x compiler flag to example code build in the Makefile.
 v8.7.4.1 2014/03/26 Added info to README about enum class errors.

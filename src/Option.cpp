@@ -49,7 +49,7 @@ namespace Clide
 	{
 		// Base constructor
 		
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			Print::PrintDebugInfo("CLIDE: Base option constructor called.\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
 		#endif
@@ -68,7 +68,7 @@ namespace Clide
 	{	
 		// Simplified constructor. No short name.
 		
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			Print::PrintDebugInfo("CLIDE: Simplified option constructor called (no short name).\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
 		#endif
@@ -87,7 +87,7 @@ namespace Clide
 	{	
 		// Simplified constructor. No long name.
 		
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			Print::PrintDebugInfo("CLIDE: Simplified option constructor called (no long name).\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
 		#endif
@@ -104,7 +104,7 @@ namespace Clide
 	Option::~Option()
 	{
 		// Destructor
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			Print::PrintDebugInfo("CLIDE: Option destructor called.\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
 		#endif
@@ -125,7 +125,7 @@ namespace Clide
 		const char* description,
 		bool associatedValue)
 	{
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			Print::PrintDebugInfo("CLIDE: Option constructor called.\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
 		#endif		
@@ -139,7 +139,7 @@ namespace Clide
 			stringLen = strlen(longName);
 			if(stringLen > clide_MAX_NAME_LENGTH)
 			{
-				#if(clide_DEBUG_PRINT_ERROR == 1)	
+				#if(clide_ENABLE_DEBUG_CODE == 1)	
 					// Description too long, do not save it
 					Print::PrintError("CLIDE: ERROR: 'Long' option name was too long.\r\n");
 				#endif
@@ -154,7 +154,7 @@ namespace Clide
 			stringLen = strlen(description);
 			if(stringLen > clide_MAX_DESCRIPTION_LENGTH)
 			{
-				#if(clide_DEBUG_PRINT_ERROR == 1)	
+				#if(clide_ENABLE_DEBUG_CODE == 1)	
 					// Description too long, do not save it
 					Print::PrintError("CLIDE: ERROR: Option description was too long.\r\n");
 				#endif
@@ -200,7 +200,7 @@ namespace Clide
 		
 		this->associatedValue = associatedValue;
 		
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			Print::PrintDebugInfo("CLIDE: Option constructor finished.\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
 		#endif

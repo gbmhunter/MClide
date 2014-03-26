@@ -54,7 +54,7 @@ namespace Clide
 	Param::~Param()
 	{
 		// Destructor
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			Print::PrintDebugInfo("CLIDE: Parameter destructor called.\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
 		#endif
@@ -69,7 +69,7 @@ namespace Clide
 
 	void Param::Init(bool (*callBackFunc)(char *paramVal), const char* description)
 	{
-		#if(clide_DEBUG_PRINT_VERBOSE == 1)	
+		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			Print::PrintDebugInfo("CLIDE: Parameter constructor called.\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
 		#endif
@@ -86,7 +86,7 @@ namespace Clide
 		}
 		else
 		{
-			#if(clide_DEBUG_PRINT_ERROR == 1)	
+			#if(clide_ENABLE_DEBUG_CODE == 1)	
 				// Description too long, do not save it
 				Print::PrintError("CLIDE: ERROR: Parameter description was too long.\r\n");
 			#endif
