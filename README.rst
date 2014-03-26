@@ -11,8 +11,8 @@ Clide (CommandLineInterfaceDE) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2014/03/21
-- Version: v8.7.4.0
+- Last Modified: 2014/03/26
+- Version: v8.7.4.1
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -291,6 +291,8 @@ FAQ
 2. 	I keep getting weird characters appear in the terminal from text sent from Clide.
 
 	Your terminal probably doesn't support special formatting characters. Set :code:`clide_ENABLE_ADV_TEXT_FORMATTING` to 0 in :code:`Clide.Config.hpp` to disable the special formatting characters.
+	
+3.		I get the error "'Clide::Print::DebugPrintingLevel' is not a class or namespace. You are not compiling C++11, which you need to do, in order to support enum classes. Add the compiler flag "-std=c++11" or "-std=c++0x" to your build process.
 
 
 Changelog
@@ -299,6 +301,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.7.4.1 2014/03/26 Added info to README about enum class errors.
 v8.7.4.0 2014/03/21 Improved Print class by encapsulating all printing calls into functions, and providing a dynamic way of enabling/disabling them, rather than using macros in Config.hpp.
 v8.7.3.0 2014/03/21 Fixed bug which caused a segmentation fault by setting functionCallback to NULL if not provided to Cmd constructor. Converted the end-of-command character from a macro in Config.hpp to a variable in RxBuff, which is provided in the constructor. Modified existing unit tests accordingly and added new unit tests for specifically testing that the end-of-command char works.
 v8.7.2.0 2014/03/21 Added Cmd constructor that accepts a method callback (used to only accept function callbacks). Updated FunctionAndMethodCallbackTests.cpp to reflect this. Added an example in README showing how to use these.
