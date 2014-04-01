@@ -2,7 +2,7 @@
 //! @file 			Rx.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2012/03/19
-//! @last-modified 	2014/03/26
+//! @last-modified 	2014/04/02
 //! @brief 			Clide RX controller. The main logic of the RX (decoding) part of Clide. Commands can be registered with the controller.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -68,6 +68,13 @@ namespace Clide
 			//! @brief		Set to true to silence (not print) an error when a received message is not recognised as a valid command.
 			//! @details	Default is false, as it is usually helpful to show this error.
 			bool silenceCmdNotRecognisedError;
+
+			//! @brief		When set to true, the first element in the argv is ignored by the decoding engine (i.e. is not
+			//!				not considered part of the command). The first element of argv in a standard operating system
+			//!				is the program name (and path) that was typed to run the program, hence you might want this ignored,
+			//!				and treat the second element as the command instead.
+			//! @details	Only applicable when calling Run(int argc, char* argv[]). Defaults to true.
+			bool ignoreFirstArgvElement;
 
 			//===============================================================================================//
 			//======================================= PUBLIC METHODS ========================================//

@@ -11,8 +11,8 @@ Clide (CommandLineInterfaceDE) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
-- Last Modified: 2014/04/01
-- Version: v8.8.2.0
+- Last Modified: 2014/04/02
+- Version: v8.8.3.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -292,7 +292,13 @@ FAQ
 
 	Your terminal probably doesn't support special formatting characters. Set :code:`clide_ENABLE_ADV_TEXT_FORMATTING` to 0 in :code:`Clide.Config.hpp` to disable the special formatting characters.
 	
-3.		I get the error "'Clide::Print::DebugPrintingLevel' is not a class or namespace. You are not compiling C++11, which you need to do, in order to support enum classes. Add the compiler flag "-std=c++11" or "-std=c++0x" to your build process.
+3.	I get the error "'Clide::Print::DebugPrintingLevel' is not a class or namespace. 
+
+	You are not compiling C++11, which you need to do, in order to support enum classes. Add the compiler flag "-std=c++11" or "-std=c++0x" to your build process.
+	
+4.	The first element of the argv is not working correctly.
+
+	Make sure you have set `Rx::ignoreFirstArgvElement` to true or false depending on your application. This variable defaults to true which is suitable for most standard operation systems (including Windows and Linux) which pass in the called program name and path as the first argv element. 
 
 
 Changelog
@@ -301,6 +307,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.8.3.0 2014/04/02 Added ignoreFirstArgvElement variable to Rx class, closes #129. Edited unit tests accordingly. Added info about this to README.
 v8.8.2.0 2014/04/01 Got rid of access to _argPtr[0] thru [4] in Clide::Rx which could access invalid memory, closes #126. Stopped empty argc/argv from crashing Clide, closes #127. Added unit test for empty argc/argv, closes #125.
 v8.8.1.0 2014/03/26 Replaced all config_DEBUG... macros with clide_ENABLE_DEBUG_CODE, closes #120. Rx::Run(int argc, char* argv[]) now returns a boolean, closes #122. Got rid of tempBuff variable in Rx::Run(), closes #123.
 v8.8.0.0 2014/03/26 Added Clide::Rx::Run(int argc, char* argv[]) function which supports standard main variables as the input, closes #119. Added appropriate unit tests. Clide::Rx::Run() underwent serious modifications to allow for this. Added ability to turn on and off debug printing while running unit tests from test/main.cpp.

@@ -2,7 +2,7 @@
 //! @file 			Rx.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2012/03/19
-//! @last-modified 	2014/01/26
+//! @last-modified 	2014/04/02
 //! @brief 			Clide RX controller. The main logic of the RX (decoding) part of Clide. Commands can be registered with the controller.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -38,9 +38,6 @@
 #include "../include/Rx.hpp"
 #include "../include/GetOpt.hpp"
 #include "../include/Log.hpp"
-
-
-
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -78,6 +75,9 @@ namespace Clide
 		// Default is to show this error (helpful to user)
 		this->silenceCmdNotRecognisedError = false;
 
+		// Default is to ignore this element
+		this->ignoreFirstArgvElement = true;
+
 		// Create help function if enabled
 		#if(clide_ENABLE_AUTO_HELP == 1)
 			this->RegisterCmd(this->cmdHelp);
@@ -91,7 +91,10 @@ namespace Clide
 	bool Rx::Run(int argc, char* argv[])
 	{
 		// No need for any pre-processing, pass straight onto Rx::Run2().
-		return Rx::Run2(argc, argv);
+		if(this->ignoreFirstArgvElement)
+			return Rx::Run2(argc - 1, &argv[1]);
+		else
+			return Rx::Run2(argc, argv);
 	}
 
 	bool Rx::Run(char* cmdMsg)

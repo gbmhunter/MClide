@@ -2,7 +2,7 @@
 //! @file 			StandardMainVariablesAsInputTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/03/26
-//! @last-modified 	2014/04/01
+//! @last-modified 	2014/04/02
 //! @brief 			Contains test functions when standard main variables argc and argv variables are used an input.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -29,8 +29,6 @@ namespace ClideTest
 			//Clide::Print::enableCmdLinePrinting = true;
 			//Clide::Print::enableErrorPrinting = true;
 			//Clide::Print::enableDebugInfoPrinting = true;
-
-			std::cout << "Start of empty test...\r\n";
 
 			// Create command
 			Cmd cmdTest("test", &Callback, "A test command.");
@@ -66,6 +64,8 @@ namespace ClideTest
 		{
 			Rx rxController;
 			
+			rxController.ignoreFirstArgvElement = false;
+
 			// Create command
 			Cmd cmdTest("test", &Callback, "A test command.");
 			
@@ -82,6 +82,7 @@ namespace ClideTest
 			
 			// Create standard main variables
 			char* argv[4];
+
 			argv[0] = (char*)"test";
 			argv[1] = (char*)"param1";
 			argv[2] = (char*)"-a";
@@ -101,6 +102,8 @@ namespace ClideTest
 		{
 			Rx rxController;
 			
+			rxController.ignoreFirstArgvElement = false;
+
 			// Create command
 			Cmd cmdTest("test", &Callback, "A test command.");
 			
@@ -135,6 +138,8 @@ namespace ClideTest
 		{
 			Rx rxController;
 			
+			rxController.ignoreFirstArgvElement = false;
+
 			// Create command
 			Cmd cmdTest("test", &Callback, "A test command.");
 			
@@ -179,6 +184,8 @@ namespace ClideTest
 		{
 			Rx rxController;
 			
+			rxController.ignoreFirstArgvElement = false;
+
 			// Create command
 			Cmd cmdTest("test", &Callback, "A test command.");
 			
@@ -223,6 +230,8 @@ namespace ClideTest
 		{
 			Rx rxController;
 			
+			rxController.ignoreFirstArgvElement = false;
+
 			// Create command
 			Cmd cmdTest("test", &Callback, "A test command.");
 			
@@ -277,6 +286,44 @@ namespace ClideTest
 			CHECK_EQUAL("param2", cmdTestParam2.value);
 			CHECK_EQUAL(false, cmdTestOption1.isDetected);
 			CHECK_EQUAL(false, cmdTestOption2.isDetected);
+		}
+
+		TEST(IgnoreFirstElementOfArgvRxTest)
+		{
+			Rx rxController;
+
+			// Rx::ignoreFirstArgvElement should default to true, so don't set it here
+
+			// Create command
+			Cmd cmdTest("test", &Callback, "A test command.");
+
+			// Create parameter
+			Param cmdTestParam("A test parameter.");
+			cmdTest.RegisterParam(&cmdTestParam);
+
+			// Create option
+			Option cmdTestOption('a', NULL, "A test option.");
+			cmdTest.RegisterOption(&cmdTestOption);
+
+			// Register command
+			rxController.RegisterCmd(&cmdTest);
+
+			// Create standard main variables
+			char* argv[5];
+
+			argv[0] = (char*)"thisShouldbeIgnored";
+			argv[1] = (char*)"test";
+			argv[2] = (char*)"param1";
+			argv[3] = (char*)"-a";
+			argv[4] = NULL;
+
+			int argc = 4;
+
+			// Run rx controller
+			rxController.Run(argc, argv);
+
+			CHECK_EQUAL("param1", cmdTestParam.value);
+			CHECK_EQUAL(true, cmdTestOption.isDetected);
 		}
 
 	} // SUITE(ParamAndOptionTests)
