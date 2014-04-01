@@ -2,7 +2,7 @@
 //! @file 			StandardMainVariablesAsInputTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/03/26
-//! @last-modified 	2014/03/26
+//! @last-modified 	2014/04/01
 //! @brief 			Contains test functions when standard main variables argc and argv variables are used an input.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -20,6 +20,46 @@ namespace ClideTest
 		bool Callback(Cmd *cmd)
 		{
 			return true;
+		}
+
+		TEST(EmptyArgvRxTest)
+		{
+			Rx rxController;
+
+			//Clide::Print::enableCmdLinePrinting = true;
+			//Clide::Print::enableErrorPrinting = true;
+			//Clide::Print::enableDebugInfoPrinting = true;
+
+			std::cout << "Start of empty test...\r\n";
+
+			// Create command
+			Cmd cmdTest("test", &Callback, "A test command.");
+
+			// Create parameter
+			Param cmdTestParam("A test parameter.");
+			cmdTest.RegisterParam(&cmdTestParam);
+
+			// Create option
+			Option cmdTestOption('a', NULL, "A test option.");
+			cmdTest.RegisterOption(&cmdTestOption);
+
+			// Register command
+			rxController.RegisterCmd(&cmdTest);
+
+			// Create empty main variables
+			char* argv[1];
+			argv[0] = NULL;
+			int argc = 0;
+
+			// Run rx controller
+			rxController.Run(argc, argv);
+
+			// Make sure the command WAS NOT detected
+			CHECK_EQUAL(false, cmdTestOption.isDetected);
+
+			//Clide::Print::enableCmdLinePrinting = false;
+			//Clide::Print::enableErrorPrinting = false;
+			//Clide::Print::enableDebugInfoPrinting = false;
 		}
 
 		TEST(OneParamThenOneOptionArgvRxTest)

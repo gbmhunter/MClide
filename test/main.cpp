@@ -35,7 +35,7 @@ class Printer
 
 int main()
 {
-	/*
+
 	Printer printer;
 
 	// Set up printing
@@ -43,7 +43,10 @@ int main()
 			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintDebug),
 			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine),
 			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintError));
-	*/
+
+	Clide::Print::enableCmdLinePrinting = false;
+	Clide::Print::enableErrorPrinting = false;
+	Clide::Print::enableDebugInfoPrinting = false;
 
 	return UnitTest::RunAllTests();
 	

@@ -197,15 +197,34 @@ namespace Clide
 		_argsPtr[8] = _args[8];
 		_argsPtr[9] = _args[9];
 
+		//============== CHECK ARGV AND ARGC AGREE WITH EACH OTHER ==============//
+
+		// Check incase the number of arguments passed to Rx::Run was 0
+		if(numArgs == 0)
+		{
+			Print::PrintError("ERROR: Number of arguments passed to Rx::Run was 0.\r\n");
+			return false;
+		}
+
+		// Check there are as many argv variables as numArgs says there is
+		for(x = 0; x < numArgs; x++)
+		{
+			if(_args[x] == NULL)
+			{
+				Print::PrintError("ERROR: Number of non-null variables passed to Rx::Run in argv was not equal to the number argc.\r\n");
+				return false;
+			}
+		}
+
 		//=============== CHECK COMMAND IS VALID ==================//
-		
+
 		Cmd* foundCmd = this->ValidateCmd(_args[0], cmdA, numCmds);
 		
 		// Check for registered command
 		if(foundCmd == NULL)
 		{
 			// Only print this error is user has not silenced it
-			if(silenceCmdNotRecognisedError == false)
+			if(this->silenceCmdNotRecognisedError == false)
 			{
 				char tempBuff[100];
 				// Received command is not registered (aka invalid/unrecognised)
@@ -431,15 +450,6 @@ namespace Clide
 						_argsPtr[GetOpt::optind - 1],
 						numArgs,
 						optionString);
-					Print::PrintError(Global::debugBuff);
-					snprintf (
-						Global::debugBuff,
-						sizeof(Global::debugBuff),
-						"CLIDE: _argsPtr[0] = '%s'. _argsPtr[1] = '%s'. _argsPtr[2] = '%s'. _argsPtr[3] = '%s'.\r\n",
-						_argsPtr[0],
-						_argsPtr[1],
-						_argsPtr[2],
-						_argsPtr[3]);
 					Print::PrintError(Global::debugBuff);
 				#endif
 				
