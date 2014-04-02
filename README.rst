@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/04/02
-- Version: v8.8.9.0
+- Version: v8.8.9.1
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -73,7 +73,7 @@ Uses dynamic memory allocation for creating commands/options/parameters e.t.c. C
 Negative Number And Spaces-In-Parameter Support
 -----------------------------------------------
 
-There will be a time when you need to be able to use negative numbers. Unfortunately, it just happens that the negative sign is usually used to signify an option (e.g. -r). Clide supports negative numbers, along with spaces-within-parameters, by adding the ability to enclose a parameter/option in quotes. Inside the quotes, and special characters are just treated as normal characters, allowing you to do things like:
+There will be a time when you need to be able to use negative numbers. Unfortunately, it just happens that the negative sign is usually used to signify an option (e.g. :code:`-r`). Clide supports negative numbers, along with spaces-within-parameters, by adding the ability to enclose a parameter/option in quotes. Inside the quotes, and special characters are just treated as normal characters, allowing you to do things like:
 
 :code:`set "-123"`
 
@@ -132,6 +132,7 @@ Included Unit Tests
 Clide used the UnitTest++ library to perform unit testing. They are located under :code:`test/`. The UnitTest++ library is included with this repo.
 
 The unit tests check for:
+
 - Empty commands are handled safely
 - Short and long options work correctly
 - Parameters work correclty
@@ -146,6 +147,7 @@ Event-driven Callback Support
 Clide leverages the slotmachine-cpp library to provide event-driven callbacks. slotmachine-cpp supports callbacks to methods (instance functions), without Clide having any previous knowledge about the class (type agnostic).
 
 List of events supported by callbacks:
+
 - Command recognised
 - Command not recognised
 - Help command requested
@@ -193,9 +195,9 @@ Installation
 
 1. Clone the git repo onto your local storage.
 
-2. Run `make all` to compile and run unit tests. Do not worry about Clide error messages being printed when unit tests are run, the unit tests are designed to specifically cause errors to test the response.
+2. Run :code:`make all` to compile and run unit tests. Do not worry about Clide error messages being printed when unit tests are run, the unit tests are designed to specifically cause errors to test the response.
 
-3. To include clide-cpp into your embedded (or otherwise) firmware/software project, copy the repo into your project folder (or other suitable place) and include the file "Clide-IncludeJustMe.hpp" from your C++ code.
+3. To include clide-cpp into your embedded (or otherwise) firmware/software project, copy the repo into your project folder (or other suitable place) and include the file :code:`Clide-IncludeJustMe.hpp` from your C++ code.
 
 
 Dependencies
@@ -295,13 +297,13 @@ FAQ
 
 	Your terminal probably doesn't support special formatting characters. Set :code:`clide_ENABLE_ADV_TEXT_FORMATTING` to 0 in :code:`Clide.Config.hpp` to disable the special formatting characters.
 	
-3.	I get the error "'Clide::Print::DebugPrintingLevel' is not a class or namespace. 
+3.	I get the error :code:'Clide::Print::DebugPrintingLevel' is not a class or namespace. 
 
-	You are not compiling C++11, which you need to do, in order to support enum classes. Add the compiler flag "-std=c++11" or "-std=c++0x" to your build process.
+	You are not compiling C++11, which you need to do, in order to support enum classes. Add the compiler flag :code`-std=c++11` or :code:`-std=c++0x` to your build process.
 	
-4.	The first element of the argv is not working correctly.
+4.	The first element of the :code:`argv` is not working correctly.
 
-	Make sure you have set `Rx::ignoreFirstArgvElement` to true or false depending on your application. This variable defaults to true which is suitable for most standard operation systems (including Windows and Linux) which pass in the called program name and path as the first argv element. 
+	Make sure you have set :code:`Rx::ignoreFirstArgvElement` to :code:`true` or :code:`false` depending on your application. This variable defaults to :code:`true` which is suitable for most standard operation systems (including Windows and Linux) which pass in the called program name and path as the first :code:`argv` element. 
 
 
 Changelog
@@ -310,6 +312,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.8.9.1 2014/04/02 Added code formatting to more text in the README. Fixed bullet points under the section Event-Driven Callback Support in README, closes #128.
 v8.8.9.0 2014/04/02 Converted more of the const char* variables in Clide to std::string's, closes #135. Removed some more count variables that can be replaced with std::vector.size().
 v8.8.8.0 2014/04/02 Converted some of the const char* variables in Clide::Cmd and Clide::Option to std::string's.
 v8.8.7.0 2014/04/02 Removed all count variables that could be replaced with vector.size() instead, closes #134.
