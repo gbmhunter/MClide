@@ -113,7 +113,7 @@ namespace Clide
 
 			//! @brief		Validates command.
 			//! @details	Makes sure cmd is in the registered command list
-			Cmd* ValidateCmd(char* cmdName, Cmd** cmdA, uint8_t numCmds);
+			Cmd* ValidateCmd(char* cmdName, std::vector<Cmd*> cmdA, uint8_t numCmds);
 			
 			//! @brief		Checks for option in registered command
 			Option* ValidateOption(Clide::Cmd *detectedCmd, char *optionName);

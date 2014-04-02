@@ -28,6 +28,7 @@
 #include <stdlib.h>		// realloc(), malloc(), free()
 #include <cctype>		// isalnum() 
 #include <cstring>		// memset()
+#include <vector>
 
 // User library ("lib/") headers
 #include "../lib/slotmachine-cpp/api/Slotmachine.hpp"		//!< Callbacks.
@@ -65,7 +66,7 @@ namespace Clide
 
 			//! @brief		Points to an array of pointers to registered commands
 			//! @details	This is updated everytime RegisterCmd() is called
-			Cmd **cmdA;
+			std::vector<Cmd*> cmdA;
 
 			//! @brief		The number of registered commands
 			//! @details	Incremented everytime RegisterCmd() is called

@@ -2,7 +2,7 @@
 //! @file 			Comm.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/12/18
-//! @last-modified 	2014/03/21
+//! @last-modified 	2014/04/02
 //! @brief			The base communications class. This is extended by both Clide::Tx and Clide::Rx which are the classes manipulated by the user.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -25,7 +25,6 @@
 // User includes
 #include "../include/Config.hpp"
 #include "../include/Global.hpp"
-#include "../include/MemMang.hpp"
 #include "../include/Param.hpp"
 #include "../include/Option.hpp"
 #include "../include/Cmd.hpp"
@@ -63,7 +62,7 @@ namespace Clide
 
 		// Initialise class variables
 		this->numCmds = 0;
-		this->cmdA = NULL;
+		//this->cmdA = NULL;
 
 		// Create a CmdGroup object that all commands will belong to
 		this->cmdGroupAll = new CmdGroup("all", "All commands belong to this group.");
@@ -88,24 +87,25 @@ namespace Clide
 		cmd->AddToGroup(this->cmdGroupAll);
 
 		// Add new pointer to cmd object at end of array
-		cmdA = (Cmd**)MemMang::AppendNewArrayElement(cmdA, numCmds, sizeof(Cmd*));
+		//cmdA = (Cmd**)MemMang::AppendNewArrayElement(cmdA, numCmds, sizeof(Cmd*));
+		cmdA.push_back(cmd);
 
 		// Increment command count
 		numCmds++;
 
 		// Store pointer to cmd in array of pointers (Cmd**)
-		cmdA[numCmds - 1] = cmd;
+		//cmdA[numCmds - 1] = cmd;
 
 	}
 
 	void Comm::RemoveCmd(Cmd* cmd)
 	{
 		// Remove description
-		free(cmd->description);
+		//free(cmd->description);
 		// Remove command from memory
-		free(cmd);
+		//free(cmd);
 		// Decrement command count
-		numCmds--;
+		//numCmds--;
 	}
 
 	// Prints out the help info (for all commands)

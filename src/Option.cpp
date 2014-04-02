@@ -2,7 +2,7 @@
 //! @file 			Option.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/03/21
+//! @last-modified 	2014/04/02
 //! @brief 		 	The option class enables used of 'optional' parameters in the command-line interface.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -22,7 +22,6 @@
 #include <string.h>		// strlen()
 
 // User includes
-#include "../include/MemMang.hpp"
 #include "../include/Config.hpp"
 #include "../include/Print.hpp"
 #include "../include/Option.hpp"

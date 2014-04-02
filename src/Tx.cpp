@@ -2,7 +2,7 @@
 //! @file 			Tx.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2012/03/19
-//! @last-modified 	2014/01/21
+//! @last-modified 	2014/04/02
 //! @brief 			Clide TX controller. The main logic of the TX (sending)	part of Clide.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -23,7 +23,6 @@
 #include <cstring>		// memset()
 
 // User includes
-#include "../include/MemMang.hpp"
 #include "../include/StringSplit.hpp"
 #include "../include/Config.hpp"
 #include "../include/Param.hpp"

@@ -2,7 +2,7 @@
 //! @file 			Clide-Param.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/01/14
+//! @last-modified 	2014/04/02
 //! @brief 		 
 //! @details
 //!				See README.rst in root dir for more info.
@@ -63,7 +63,7 @@ namespace Clide
 			//===============================================================================================//
 			
 			//! @brief		Description of a parameter. Used with the "-h", "--help" flags.
-			const char* description;
+			char* description;
 			
 			//! @brief		String value of parameter. 
 			//! @note		Parameters have no names

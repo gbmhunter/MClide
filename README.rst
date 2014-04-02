@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/04/02
-- Version: v8.8.5.0
+- Version: v8.8.6.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -208,7 +208,8 @@ Dependency             Delivery             Usage
 ====================== ==================== ======================================================================
 <stdio.h>              Standard C library   snprintf()
 <stdlib.h> 	           Standard C library   realloc(), malloc(), calloc(), free()
-<cctype>               Standard C library   isalnum()
+<cctype>               Standard C++ library isalnum()
+<vector>               Standard C++ library std::vector, for holding vectors of commands, parameters and options.
 "SlotMachine.hpp"      /lib/slotmachine-cpp Method callback functionality
 ====================== ==================== ======================================================================
 
@@ -307,6 +308,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.8.6.0 2014/04/02 Removed all refereneces to Clide::MemMang, now uses std::vector and new operator, closes #133. Added <vector> as a dependency in README.
 v8.8.5.0 2014/04/02 paramA, optionA, and cmdGroupA variables in Clide::Rx are now of type std::vector, closes #132.
 v8.8.4.0 2014/04/02 Added unit tests for making sure Clide will work as part of a class, closes #131.
 v8.8.3.0 2014/04/02 Added ignoreFirstArgvElement variable to Rx class, closes #129. Edited unit tests accordingly. Added info about this to README.

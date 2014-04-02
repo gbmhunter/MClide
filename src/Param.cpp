@@ -2,7 +2,7 @@
 //! @file 			Param.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/03/21
+//! @last-modified 	2014/04/02
 //! @brief 			Contains the Param class, which enables the use of required parameters on the command-line interface.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -22,7 +22,6 @@
 #include <string.h>		// strlen()
 
 // User includes
-#include "../include/MemMang.hpp"
 #include "../include/Config.hpp"
 #include "../include/Print.hpp"
 #include "../include/Option.hpp"
@@ -82,7 +81,10 @@ namespace Clide
 		if(stringLen <= clide_MAX_DESCRIPTION_LENGTH)
 		{
 			// Create memory for description and store
-			this->description = MemMang::MallocString(description);
+			//this->description = MemMang::MallocString(description);
+			this->description = new char[stringLen + 1];
+			strcpy(this->description, description);
+
 		}
 		else
 		{

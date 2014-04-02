@@ -28,7 +28,6 @@
 // Clide includes
 #include "../include/Config.hpp"
 #include "../include/Global.hpp"
-#include "../include/MemMang.hpp"
 #include "../include/StringSplit.hpp"
 #include "../include/Param.hpp"
 #include "../include/Option.hpp"
@@ -741,7 +740,7 @@ namespace Clide
 		return argCount;
 	}
 
-	Cmd* Rx::ValidateCmd(char* cmdName, Cmd** cmdA, uint8_t numCmds)
+	Cmd* Rx::ValidateCmd(char* cmdName, std::vector<Cmd*> cmdA, uint8_t numCmds)
 	{
 		uint8_t x = 0;
 		
