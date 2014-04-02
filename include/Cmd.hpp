@@ -2,7 +2,7 @@
 //! @file 			Cmd.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/03/19
-//! @last-modified 	2014/01/14
+//! @last-modified 	2014/04/02
 //! @brief 			Contains the command object, which can be registered with the RX or TX controller (or both).
 //! @details
 //!					See README.rst in root dir for more info.
@@ -30,6 +30,7 @@ namespace Clide
 
 // System headers
 #include <stdint.h>
+#include <vector>
 
 // User libraries
 #include "../lib/slotmachine-cpp/api/Slotmachine.hpp"
@@ -122,14 +123,14 @@ namespace Clide
 			//! @brief		Points to the description. Used when the help command is called.
 			char* description;
 			
-			//! @brief 		Pointer to an array of pointers to command parameters. Parameters are dynamically allocated.
-			Param** paramA;
+			//! @brief 		Vector of pointers to command parameters. Parameters are created external to Clide.
+			std::vector<Param*> paramA;
 			
 			//! @brief		Remembers the number of parameters
 			uint32_t numParams;
 			
-			//! @brief		Pointer to an array of pointers to options. Options are dynamically allocated.
-			Option** optionA;
+			//! @brief		Vector of pointers to options. Options are created external to Clide.
+			std::vector<Option*> optionA;
 			
 			//! @brief		Remembers the number of options
 			uint32_t numOptions;
@@ -152,7 +153,7 @@ namespace Clide
 			Comm* parentComm;
 
 			//! @brief		A pointer to an array of pointers to CmdGroup objects, which signify which command groups this command belongs to.
-			CmdGroup** cmdGroupA;
+			std::vector<CmdGroup*> cmdGroupA;
 
 			uint32_t numCmdGroups;
 

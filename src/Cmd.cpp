@@ -2,7 +2,7 @@
 //! @file 			Cmd.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/03/21
+//! @last-modified 	2014/04/02
 //! @brief 			Command-line style communications protocol
 //! @details
 //!				See README.rst in repo root dir for more info.
@@ -95,8 +95,8 @@ namespace Clide
 		
 		// Set pointers to null. If not NULL, this causes realloc() is exhibit undefined behaviour,
 		// since it expects a previously defined location or NULL
-		this->paramA = NULL;
-		this->optionA = NULL;
+		//this->paramA = NULL;
+		//this->optionA = NULL;
 
 		// NAME
 		
@@ -173,7 +173,7 @@ namespace Clide
 
 		// COMMAND GROUP OBJECT
 
-		this->cmdGroupA = NULL;
+		//this->cmdGroupA = NULL;
 
 		// Start with the command assigned to no command groups
 		this->numCmdGroups = 0;
@@ -189,8 +189,8 @@ namespace Clide
 		#endif
 		
 		// Free up parameter and option memory
-		free(paramA);
-		free(optionA);
+		//free(paramA);
+		//free(optionA);
 	}
 	
 	void Cmd::RegisterParam(Param* param)
@@ -204,8 +204,9 @@ namespace Clide
 		//this->numParams = 0;
 			
 		// MALLOC
-		this->paramA = (Param**)MemMang::AppendNewArrayElement(this->paramA, this->numParams, sizeof(Param*));
-		
+		//this->paramA = (Param**)MemMang::AppendNewArrayElement(this->paramA, this->numParams, sizeof(Param*));
+		this->paramA.push_back(param);
+		/*
 		if(this->paramA == NULL)
 		{
 			#if(clide_ENABLE_DEBUG_CODE == 1)	
@@ -214,12 +215,12 @@ namespace Clide
 			#endif
 			return;	
 		}
-		
+		*/
 		// Increase parameter count
 		this->numParams++;
 		
 		// Remember the pointer
-		paramA[numParams - 1] = param;
+		//paramA[numParams - 1] = param;
 	}
 
 
@@ -233,8 +234,10 @@ namespace Clide
 		#endif
 
 		// Create option pointer at end of option pointer array.
-		this->optionA = (Option**)MemMang::AppendNewArrayElement(this->optionA, this->numOptions, sizeof(Option*));
-		
+		//this->optionA = (Option**)MemMang::AppendNewArrayElement(this->optionA, this->numOptions, sizeof(Option*));
+		this->optionA.push_back(option);
+
+		/*
 		if(this->optionA == NULL)
 		{
 			#if(clide_ENABLE_DEBUG_CODE == 1)
@@ -242,13 +245,13 @@ namespace Clide
 				Print::PrintError("CLIDE: ERROR - Malloc failed while registering option.\r\n");
 			#endif
 			return;
-		}
+		}*/
 
 		// Increase option count
 		this->numOptions++;
 		
 		// Remember option
-		optionA[this->numOptions - 1] = option;
+		//optionA[this->numOptions - 1] = option;
 		
 		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			if(optionA[this->numOptions - 1]->shortName != '\0')
@@ -314,8 +317,10 @@ namespace Clide
 		#endif
 
 		// Create option pointer at end of option pointer array.
-		this->cmdGroupA = (CmdGroup**)MemMang::AppendNewArrayElement(this->cmdGroupA, this->numCmdGroups, sizeof(CmdGroup*));
+		//this->cmdGroupA = (CmdGroup**)MemMang::AppendNewArrayElement(this->cmdGroupA, this->numCmdGroups, sizeof(CmdGroup*));
+		this->cmdGroupA.push_back(cmdGroup);
 
+		/*
 		if(this->cmdGroupA == NULL)
 		{
 			#if(clide_ENABLE_DEBUG_CODE == 1)
@@ -323,13 +328,15 @@ namespace Clide
 				Print::PrintError("CLIDE: ERROR - Malloc failed while adding command to command group.\r\n");
 			#endif
 			return;
-		}
+		}*/
 
-		// Increase option count
+		// Increase command group count
 		this->numCmdGroups++;
 
+		/*
 		// Remember the given command group
 		this->cmdGroupA[this->numCmdGroups - 1] = cmdGroup;
+		*/
 
 		#if(clide_ENABLE_DEBUG_CODE == 1)
 			Print::PrintDebugInfo("CLIDE: Added command to a command group.\r\n",
