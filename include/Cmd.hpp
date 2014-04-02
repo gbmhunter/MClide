@@ -166,7 +166,7 @@ namespace Clide
 			//! @brief		A pointer to an array of pointers to CmdGroup objects, which signify which command groups this command belongs to.
 			std::vector<CmdGroup*> cmdGroupA;
 
-			uint32_t numCmdGroups;
+			//uint32_t numCmdGroups;
 
 		protected:
 

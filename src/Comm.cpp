@@ -130,7 +130,7 @@ namespace Clide
 		else
 		{
 			// Default group if none provided (help)
-			selectedGroup = this->defaultCmdGroup->name;
+			selectedGroup = this->defaultCmdGroup->name.c_str();
 		}
 
 		// Title
@@ -165,10 +165,10 @@ namespace Clide
 		{
 			// Iterate through the command groups for each command
 			uint32_t y;
-			for(y = 0; y < cmdA[x]->numCmdGroups; y++)
+			for(y = 0; y < cmdA[x]->cmdGroupA.size(); y++)
 			{
 				// Check command belongs to requested group
-				if(strcmp(selectedGroup, cmdA[x]->cmdGroupA[y]->name) == 0)
+				if(strcmp(selectedGroup, cmdA[x]->cmdGroupA[y]->name.c_str()) == 0)
 				{
 					snprintf(
 						tempBuff,
@@ -278,7 +278,7 @@ namespace Clide
 				// Add tab character
 				Print::PrintToCmdLine("\t");
 				// Print description
-				Print::PrintToCmdLine(cmd->paramA[x]->description);
+				Print::PrintToCmdLine(cmd->paramA[x]->description.c_str());
 				// \r is enough for PuTTy to format onto a newline also
 				// (adding \n causes it to add two new lines)
 				Print::PrintToCmdLine("\r\n");
@@ -344,7 +344,7 @@ namespace Clide
 		for(x = 0; x < cmd->GetNumCmdGroups(); x++)
 		{
 			// Print out command group name
-			Print::PrintToCmdLine(cmd->cmdGroupA[x]->name);
+			Print::PrintToCmdLine(cmd->cmdGroupA[x]->name.c_str());
 
 			// Add space and comma if not last command group name
 			if(x != cmd->GetNumCmdGroups() - 1)

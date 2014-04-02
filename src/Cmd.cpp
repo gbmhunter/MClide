@@ -174,7 +174,7 @@ namespace Clide
 		//this->cmdGroupA = NULL;
 
 		// Start with the command assigned to no command groups
-		this->numCmdGroups = 0;
+		//this->numCmdGroups = 0;
 
 	}
 
@@ -329,7 +329,7 @@ namespace Clide
 		}*/
 
 		// Increase command group count
-		this->numCmdGroups++;
+		//this->numCmdGroups++;
 
 		/*
 		// Remember the given command group
@@ -345,7 +345,7 @@ namespace Clide
 
 	uint32_t Cmd::GetNumCmdGroups()
 	{
-		return this->numCmdGroups;
+		return this->cmdGroupA.size();
 	}
 
 	CmdGroup* Cmd::GetCmdGroup(uint32_t cmdGroupNum)

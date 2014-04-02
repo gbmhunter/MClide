@@ -22,6 +22,8 @@
 //========================================== INCLUDES ===========================================//
 //===============================================================================================//
 
+#include <string>
+
 #include "Config.hpp"
 
 //===============================================================================================//
@@ -42,11 +44,11 @@ namespace Clide
 			//===============================================================================================//
 			
 			//! @brief		Generic constructor.
-			Param(bool (*callBackFunc)(char *paramVal), const char* description);
+			Param(bool (*callBackFunc)(char *paramVal), std::string description);
 			
 			//! @brief		Simplified constructor.
 			//! @details	Automatically sets the function pointer to NULL.
-			Param(const char* description);
+			Param(std::string description);
 			
 			//! @brief		Destructor.
 			//! @details	Deallocates memory.
@@ -63,7 +65,7 @@ namespace Clide
 			//===============================================================================================//
 			
 			//! @brief		Description of a parameter. Used with the "-h", "--help" flags.
-			char* description;
+			std::string description;
 			
 			//! @brief		String value of parameter. 
 			//! @note		Parameters have no names
@@ -77,7 +79,7 @@ namespace Clide
 		private:
 		
 			//! @brief		Common code for constructors
-			void Init(bool (*callBackFunc)(char *paramVal), const char* description);
+			void Init(bool (*callBackFunc)(char *paramVal), std::string description);
 	};
 
 	//===============================================================================================//

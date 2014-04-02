@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/04/02
-- Version: v8.8.8.0
+- Version: v8.8.9.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -310,6 +310,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.8.9.0 2014/04/02 Converted more of the const char* variables in Clide to std::string's, closes #135. Removed some more count variables that can be replaced with std::vector.size().
 v8.8.8.0 2014/04/02 Converted some of the const char* variables in Clide::Cmd and Clide::Option to std::string's.
 v8.8.7.0 2014/04/02 Removed all count variables that could be replaced with vector.size() instead, closes #134.
 v8.8.6.0 2014/04/02 Removed all refereneces to Clide::MemMang, now uses std::vector and new operator, closes #133. Added <vector> as a dependency in README.

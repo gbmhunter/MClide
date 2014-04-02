@@ -39,13 +39,13 @@ namespace Clide
 	//======================================= PUBLIC METHODS ========================================//
 	//===============================================================================================//
 
-	Param::Param(const char* description)
+	Param::Param(std::string description)
 	{
 		this->Init(NULL, description);
 	}
 
 	// Constructor
-	Param::Param(bool (*callBackFunc)(char *paramVal), const char* description)
+	Param::Param(bool (*callBackFunc)(char *paramVal), std::string description)
 	{
 		this->Init(callBackFunc, description);
 	}
@@ -66,7 +66,7 @@ namespace Clide
 	//====================================== PRIVATE METHODS ========================================//
 	//===============================================================================================//
 
-	void Param::Init(bool (*callBackFunc)(char *paramVal), const char* description)
+	void Param::Init(bool (*callBackFunc)(char *paramVal), std::string description)
 	{
 		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			Print::PrintDebugInfo("CLIDE: Parameter constructor called.\r\n",
@@ -75,16 +75,16 @@ namespace Clide
 
 		// DECRIPTION
 		
-		uint32_t stringLen = strlen(description);
+		//uint32_t stringLen = strlen(description);
 		
 		// Make sure the description isn't to long
-		if(stringLen <= clide_MAX_DESCRIPTION_LENGTH)
+		if(description.length() <= clide_MAX_DESCRIPTION_LENGTH)
 		{
 			// Create memory for description and store
 			//this->description = MemMang::MallocString(description);
-			this->description = new char[stringLen + 1];
-			strcpy(this->description, description);
-
+			//this->description = new char[stringLen + 1];
+			//strcpy(this->description, description);
+			this->description = description;
 		}
 		else
 		{

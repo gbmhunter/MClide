@@ -23,6 +23,8 @@
 //===============================================================================================//
 
 #include <stdint.h>
+#include <string>
+
 #include "Config.hpp"
 #include "Param.hpp"
 #include "Option.hpp"
@@ -46,7 +48,7 @@ namespace Clide
 		//===============================================================================================//
 			
 		//! @brief		Constructor.
-		CmdGroup(const char* name, const char* description);
+		CmdGroup(std::string name, std::string description);
 
 		//===============================================================================================//
 		//========================================= PUBLIC METHODS ======================================//
@@ -60,10 +62,10 @@ namespace Clide
 			
 		//! @brief		The command group name. Used for recognising the command group in command-line input.
 		//! @details
-		const char* name;
+		std::string name;
 		
 		//! @brief		The command group description.
-		const char* description;
+		std::string description;
 
 
 	protected:

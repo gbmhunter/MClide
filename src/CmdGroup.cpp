@@ -41,11 +41,10 @@ namespace Clide
 	//======================================= PUBLIC METHODS ========================================//
 	//===============================================================================================//
 
-	CmdGroup::CmdGroup(const char* name, const char* description)
+	CmdGroup::CmdGroup(std::string name, std::string description)
 	{
 		this->name = name;
 		this->description = description;
-
 	}
 
 	//===============================================================================================//
