@@ -133,9 +133,9 @@ namespace Clide
 		
 		// Reset cmdDetected flag for all commands
 		int32_t x;
-		for(x = 0; x < numCmds; x++)
+		for(x = 0; x < this->cmdA.size(); x++)
 		{
-			cmdA[x]->isDetected = false;
+			this->cmdA[x]->isDetected = false;
 		}
 		
 		// Strip all non-alphanumeric characters from the start of the packet
@@ -220,7 +220,7 @@ namespace Clide
 
 		//=============== CHECK COMMAND IS VALID ==================//
 
-		Cmd* foundCmd = this->ValidateCmd(_args[0], cmdA, numCmds);
+		Cmd* foundCmd = this->ValidateCmd(_args[0], cmdA);
 		
 		// Check for registered command
 		if(foundCmd == NULL)
@@ -308,7 +308,7 @@ namespace Clide
 		
 		// Clear the isDetected for all options registered with incoming cmd
 		// Set true later in function if the option is detected
-		for(x = 0; (uint32_t)x < foundCmd->numOptions; x++)
+		for(x = 0; (uint32_t)x < foundCmd->optionA.size(); x++)
 		{
 			foundCmd->optionA[x]->isDetected = false;
 			foundCmd->optionA[x]->longOptionDetected = 0;
@@ -335,7 +335,7 @@ namespace Clide
 				Global::debugBuff,
 				sizeof(Global::debugBuff),
 				"CLIDE: Num registered options = %" STR(ClidePort_PF_UINT32_T) "\r\n",
-				foundCmd->numOptions); 
+				foundCmd->optionA.size());
 			Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
 		#endif
 		
@@ -405,7 +405,7 @@ namespace Clide
 				#endif
 				
 				// Search for set flag
-				for(x = 0; x < (int32_t)foundCmd->numOptions; x++)
+				for(x = 0; x < (int32_t)foundCmd->optionA.size(); x++)
 				{
 					if(foundCmd->optionA[x]->longOptionDetected == 1)
 					{
@@ -475,7 +475,7 @@ namespace Clide
 			
 			// Only try and validate options if there are registered options for this command,
 			// else skip
-			if(foundCmd->numOptions > 0)
+			if(foundCmd->optionA.size() > 0)
 			{
 				
 				// Check for option
@@ -637,7 +637,7 @@ namespace Clide
 		//============= VALIDATE/PROCESS PARAMETERS =============//
 		
 		// Validate that there are the correct number of parameters
-		if((uint32_t)(numArgs - GetOpt::optind) != foundCmd->numParams)
+		if((uint32_t)(numArgs - GetOpt::optind) != foundCmd->paramA.size())
 		{
 			Print::PrintToCmdLine("error \"Num. of received parameters does not match num. registered for cmd.\"\r\n");
 			#if(clide_ENABLE_DEBUG_CODE == 1)
@@ -648,7 +648,7 @@ namespace Clide
 					"') for cmd '%s' does not match num. registered ('%" STR(ClidePort_PF_UINT32_T) "'). numArgs = '%u'. optind = '%i'.\r\n",
 					(uint32_t)(numArgs - GetOpt::optind),
 					foundCmd->name,
-					foundCmd->numParams,
+					foundCmd->paramA.size(),
 					numArgs,
 					GetOpt::optind);							
 				Print::PrintError(Global::debugBuff);
@@ -660,7 +660,7 @@ namespace Clide
 		}
 		
 		// Copy parameters into cmd string
-		for(x = 0; (uint32_t)x < foundCmd->numParams; x++)
+		for(x = 0; (uint32_t)x < foundCmd->paramA.size(); x++)
 		{
 			strcpy(foundCmd->paramA[x]->value, _argsPtr[GetOpt::optind + x]);
 		}
@@ -740,7 +740,7 @@ namespace Clide
 		return argCount;
 	}
 
-	Cmd* Rx::ValidateCmd(char* cmdName, std::vector<Cmd*> cmdA, uint8_t numCmds)
+	Cmd* Rx::ValidateCmd(char* cmdName, std::vector<Cmd*> cmdA)
 	{
 		uint8_t x = 0;
 		
@@ -753,11 +753,11 @@ namespace Clide
 				Global::debugBuff,
 				sizeof(Global::debugBuff),
 				"CLIDE: Num. registered cmds = %u\r\n",
-				numCmds);
+				cmdA.size());
 			Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
 		#endif
 		
-		for(x = 0; x < numCmds; x++)
+		for(x = 0; x < cmdA.size(); x++)
 		{
 			uint32_t val = strcmp(cmdName, cmdA[x]->name);
 			#if(clide_ENABLE_DEBUG_CODE == 1)
@@ -803,7 +803,7 @@ namespace Clide
 			Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
 		#endif
 		// Iterate through all registered options for detected command
-		for(x = 0; x < detectedCmd->numOptions; x++)
+		for(x = 0; x < detectedCmd->optionA.size(); x++)
 		{
 			// Do not initialise as 0!
 			uint8_t val = 1;
@@ -866,7 +866,7 @@ namespace Clide
 		
 		uint32_t x;
 		uint32_t optionStringPos = 0;
-		for(x = 0; x < cmd->numOptions; x++)
+		for(x = 0; x < cmd->optionA.size(); x++)
 		{
 			// Make sure short name exists
 			if(cmd->optionA[x]->shortName != '\0')
@@ -906,7 +906,7 @@ namespace Clide
 		uint32_t x;
 		uint32_t longOptionIndex = 0;
 		// Iterate through all long-options registered with command
-		for(x = 0; x < cmd->numOptions; x++)
+		for(x = 0; x < cmd->optionA.size(); x++)
 		{
 			// If no long name in option, skip to next one
 			if(cmd->optionA[x]->longName == NULL)

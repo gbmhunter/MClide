@@ -61,7 +61,7 @@ namespace Clide
 		#endif
 
 		// Initialise class variables
-		this->numCmds = 0;
+		//this->numCmds = 0;
 		//this->cmdA = NULL;
 
 		// Create a CmdGroup object that all commands will belong to
@@ -91,7 +91,7 @@ namespace Clide
 		cmdA.push_back(cmd);
 
 		// Increment command count
-		numCmds++;
+		//numCmds++;
 
 		// Store pointer to cmd in array of pointers (Cmd**)
 		//cmdA[numCmds - 1] = cmd;
@@ -161,7 +161,7 @@ namespace Clide
 
 		// Iterate through cmd array and print commands, if they belong to the current command group
 		uint32_t x;
-		for(x = 0; x < numCmds; x++)
+		for(x = 0; x < this->cmdA.size(); x++)
 		{
 			// Iterate through the command groups for each command
 			uint32_t y;
@@ -247,7 +247,7 @@ namespace Clide
 
 
 		// Special case if there are no parameters to list
-		if(cmd->numParams == 0)
+		if(cmd->paramA.size() == 0)
 		{
 			Print::PrintToCmdLine("\t");
 			Print::PrintToCmdLine("NO PARAMS");
@@ -265,7 +265,7 @@ namespace Clide
 			#endif
 			// Iterate through cmd array and print commands
 			uint32_t x;
-			for(x = 0; x < cmd->numParams; x++)
+			for(x = 0; x < cmd->paramA.size(); x++)
 			{
 				Print::PrintToCmdLine("\t");
 				char tempBuff[50];
@@ -290,7 +290,7 @@ namespace Clide
 		Print::PrintToCmdLine("Command Options:\r\n");
 
 		// Special case if there are no parameters to list
-		if(cmd->numOptions == 0)
+		if(cmd->optionA.size() == 0)
 		{
 			Print::PrintToCmdLine("\t");
 			Print::PrintToCmdLine("NO OPTIONS");
@@ -311,7 +311,7 @@ namespace Clide
 
 			// Iterate through cmd array and print commands
 			uint32_t x;
-			for(x = 0; x < cmd->numOptions; x++)
+			for(x = 0; x < cmd->optionA.size(); x++)
 			{
 				// Print short option
 				Print::PrintToCmdLine("\t");

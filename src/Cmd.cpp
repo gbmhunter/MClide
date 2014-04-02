@@ -89,8 +89,8 @@ namespace Clide
 		
 		// INITIALISATION
 		
-		this->numParams = 0;
-		this->numOptions = 0;
+		//this->numParams = 0;
+		//this->numOptions = 0;
 		
 		// Set pointers to null. If not NULL, this causes realloc() is exhibit undefined behaviour,
 		// since it expects a previously defined location or NULL
@@ -216,7 +216,7 @@ namespace Clide
 		}
 		*/
 		// Increase parameter count
-		this->numParams++;
+		//this->numParams++;
 		
 		// Remember the pointer
 		//paramA[numParams - 1] = param;
@@ -247,20 +247,20 @@ namespace Clide
 		}*/
 
 		// Increase option count
-		this->numOptions++;
+		//this->numOptions++;
 		
 		// Remember option
 		//optionA[this->numOptions - 1] = option;
 		
 		#if(clide_ENABLE_DEBUG_CODE == 1)	
-			if(optionA[this->numOptions - 1]->shortName != '\0')
+			if(optionA[this->optionA.size() - 1]->shortName != '\0')
 			{
 				snprintf(
 					Global::debugBuff,
 					sizeof(Global::debugBuff),
 					"CLIDE: Option short name = '%c'. Option long name = '%s'.\r\n",
-					optionA[this->numOptions - 1]->shortName,
-					optionA[this->numOptions - 1]->longName);
+					optionA[this->optionA.size() - 1]->shortName,
+					optionA[this->optionA.size() - 1]->longName);
 			}
 			else
 			{
@@ -269,7 +269,7 @@ namespace Clide
 					sizeof(Global::debugBuff),
 					"CLIDE: Option short name = '%s'. Option long name = '%s'.\r\n",
 					"none",
-					optionA[this->numOptions - 1]->longName);
+					optionA[this->optionA.size() - 1]->longName);
 			}
 			
 			Print::PrintDebugInfo(Global::debugBuff,
@@ -289,7 +289,7 @@ namespace Clide
 		uint32_t numLongOptions = 0;
 		
 		uint32_t x;
-		for(x = 0; x < this->numOptions; x++)
+		for(x = 0; x < this->optionA.size(); x++)
 		{
 			if(this->optionA[x]->longName != NULL)
 				numLongOptions++;

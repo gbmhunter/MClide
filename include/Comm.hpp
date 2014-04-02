@@ -70,7 +70,7 @@ namespace Clide
 
 			//! @brief		The number of registered commands
 			//! @details	Incremented everytime RegisterCmd() is called
-			uint8_t numCmds;
+			//uint8_t numCmds;
 
 			//! @brief		The default command group that will be applied to help requests, if no command group is given.
 			//! @details	Assign this to a command group that you create. When "help" is called with no "-g groupName" option, this will the help group that is printed.

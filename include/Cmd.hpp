@@ -127,13 +127,13 @@ namespace Clide
 			std::vector<Param*> paramA;
 			
 			//! @brief		Remembers the number of parameters
-			uint32_t numParams;
+			//uint32_t numParams;
 			
 			//! @brief		Vector of pointers to options. Options are created external to Clide.
 			std::vector<Option*> optionA;
 			
 			//! @brief		Remembers the number of options
-			uint32_t numOptions;
+			//uint32_t numOptions;
 			
 			//! @brief		Optional callback function for when command is discovered. 
 			//! @details	Called after all callback functions for individual options are executed.
