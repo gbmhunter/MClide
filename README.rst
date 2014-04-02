@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/04/02
-- Version: v8.8.3.0
+- Version: v8.8.4.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -307,6 +307,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.8.4.0 2014/04/02 Added unit tests for making sure Clide will work as part of a class, closes #131.
 v8.8.3.0 2014/04/02 Added ignoreFirstArgvElement variable to Rx class, closes #129. Edited unit tests accordingly. Added info about this to README.
 v8.8.2.0 2014/04/01 Got rid of access to _argPtr[0] thru [4] in Clide::Rx which could access invalid memory, closes #126. Stopped empty argc/argv from crashing Clide, closes #127. Added unit test for empty argc/argv, closes #125.
 v8.8.1.0 2014/03/26 Replaced all config_DEBUG... macros with clide_ENABLE_DEBUG_CODE, closes #120. Rx::Run(int argc, char* argv[]) now returns a boolean, closes #122. Got rid of tempBuff variable in Rx::Run(), closes #123.
