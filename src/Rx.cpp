@@ -420,13 +420,13 @@ namespace Clide
 									Global::debugBuff,
 									sizeof(Global::debugBuff),
 									"CLIDE: Long option '%s' found with optarg '%s'.\r\n",
-									foundCmd->optionA[x]->longName,
+									foundCmd->optionA[x]->longName.c_str(),
 									GetOpt::optarg);
 								Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
 							#endif
 						
 							// Copy option name
-							strcpy(optionName, foundCmd->optionA[x]->longName);
+							strcpy(optionName, foundCmd->optionA[x]->longName.c_str());
 							
 							break;
 						}
@@ -492,7 +492,7 @@ namespace Clide
 									sizeof(Global::debugBuff),
 									"CLIDE: Setting isDetected for option (shortName = '%c', longName = '%s') to 'true'.\r\n",
 									foundOption->shortName,
-									foundOption->longName);							
+									foundOption->longName.c_str());
 							Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
 						}
 						else
@@ -501,7 +501,7 @@ namespace Clide
 									Global::debugBuff,
 									sizeof(Global::debugBuff),
 									"CLIDE: Setting isDetected for option (shortName = 'null', longName = '%s') to 'true'.\r\n",
-									foundOption->longName);							
+									foundOption->longName.c_str());
 							Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
 						}
 					#endif
@@ -647,7 +647,7 @@ namespace Clide
 					"CLIDE: ERROR: Num. of received parameters ('%" STR(ClidePort_PF_UINT32_T)
 					"') for cmd '%s' does not match num. registered ('%" STR(ClidePort_PF_UINT32_T) "'). numArgs = '%u'. optind = '%i'.\r\n",
 					(uint32_t)(numArgs - GetOpt::optind),
-					foundCmd->name,
+					foundCmd->name.c_str(),
 					foundCmd->paramA.size(),
 					numArgs,
 					GetOpt::optind);							
@@ -759,13 +759,13 @@ namespace Clide
 		
 		for(x = 0; x < cmdA.size(); x++)
 		{
-			uint32_t val = strcmp(cmdName, cmdA[x]->name);
+			uint32_t val = strcmp(cmdName, cmdA[x]->name.c_str());
 			#if(clide_ENABLE_DEBUG_CODE == 1)
 				snprintf(
 					Global::debugBuff,
 					sizeof(Global::debugBuff),
 					"CLIDE: Compared name = '%s', compared value = '%" STR(ClidePort_PF_UINT32_T) "'.\r\n",
-					cmdA[x]->name,
+					cmdA[x]->name.c_str(),
 					(uint32_t)val);
 				Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
 			#endif
@@ -826,17 +826,17 @@ namespace Clide
 					Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
 				#endif
 			}	
-			else if(detectedCmd->optionA[x]->longName != NULL)
+			else if(detectedCmd->optionA[x]->longName.length() > 0)
 			{
 				// Option is long
-				val = strcmp(optionName, detectedCmd->optionA[x]->longName);
+				val = strcmp(optionName, detectedCmd->optionA[x]->longName.c_str());
 				#if(clide_ENABLE_DEBUG_CODE == 1)
 					snprintf(
 						Global::debugBuff,
 						sizeof(Global::debugBuff),
 						"CLIDE: Compared received option '%s' with long name '%s'.\r\n",
 						optionName,
-						detectedCmd->optionA[x]->longName);									
+						detectedCmd->optionA[x]->longName.c_str());
 					Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
 				#endif
 			}
@@ -909,7 +909,7 @@ namespace Clide
 		for(x = 0; x < cmd->optionA.size(); x++)
 		{
 			// If no long name in option, skip to next one
-			if(cmd->optionA[x]->longName == NULL)
+			if(cmd->optionA[x]->longName.length() == 0)
 			{
 				#if(clide_ENABLE_DEBUG_CODE == 1)
 					snprintf(
@@ -927,14 +927,14 @@ namespace Clide
 					Global::debugBuff,
 					sizeof(Global::debugBuff),
 					"CLIDE: Option '%s' is a long-option.\r\n",
-					cmd->optionA[x]->longName);
+					cmd->optionA[x]->longName.c_str());
 				Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
 			#endif
 		
 			// Copy all variables to structure.
 			
 			// 1) Name
-			longOptStructA[longOptionIndex].name = cmd->optionA[x]->longName;
+			longOptStructA[longOptionIndex].name = cmd->optionA[x]->longName.c_str();
 			//longOptStructA[0].name = "long1";
 			
 			// 2) Has Argument?

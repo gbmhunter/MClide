@@ -41,10 +41,8 @@ namespace Clide
 	//======================================= PUBLIC METHODS ========================================//
 	//===============================================================================================//
 
-
-
 	// Constructor
-	Cmd::Cmd(const char *name, bool (*callBackFunc)(Cmd* foundCmd), const char *description)
+	Cmd::Cmd(std::string name, bool (*callBackFunc)(Cmd* foundCmd), std::string description)
 	{
 		#if(clide_ENABLE_DEBUG_CODE == 1)
 			// Description too long, do not save it
@@ -62,7 +60,7 @@ namespace Clide
 	}
 
 	// Constructor
-	Cmd::Cmd(const char *name, SlotMachine::Callback<void, Cmd*> methodCallback, const char *description)
+	Cmd::Cmd(std::string name, SlotMachine::Callback<void, Cmd*> methodCallback, std::string description)
 	{
 		#if(clide_ENABLE_DEBUG_CODE == 1)
 			// Description too long, do not save it
@@ -80,13 +78,13 @@ namespace Clide
 		this->Init(name, description);
 	}
 
-	void Cmd::Init(const char *name, const char *description)
+	void Cmd::Init(std::string name, std::string description)
 	{
 		#if(clide_ENABLE_DEBUG_CODE == 1)
 			Print::PrintDebugInfo("CLIDE: Cmd::Init() called.\r\n",
 				Print::DebugPrintingLevel::VERBOSE);
 		#endif
-		
+
 		// INITIALISATION
 		
 		//this->numParams = 0;
@@ -99,16 +97,16 @@ namespace Clide
 
 		// NAME
 		
-		uint32_t descLen = strlen(name);
+		//uint32_t descLen = strlen(name);
 		
 		// Make sure the description isn't to long
-		if(descLen <= clide_MAX_NAME_LENGTH)
+		if(name.length() <= clide_MAX_NAME_LENGTH)
 		{
 			// Create memory for description and store
 			//this->name = (char*)MemMang::MallocString(name);
 
 			// Don't need to allocate memory, just take note of pointer
-			this->name = (char*)name;
+			this->name = name;
 		}
 		else
 		{
@@ -122,14 +120,14 @@ namespace Clide
 		
 		// DECRIPTION
 		
-		descLen = strlen(description);
-		
+		//uint32_t descLen = strlen(description);
+
 		// Make sure the description isn't to long
-		if(descLen <= clide_MAX_DESCRIPTION_LENGTH)
+		if(description.length() <= clide_MAX_DESCRIPTION_LENGTH)
 		{
 			// Create memory for description and store
 			//this->description = MemMang::MallocString(description);
-			this->description = (char*)description;
+			this->description = description;
 		}
 		else
 		{
@@ -142,6 +140,7 @@ namespace Clide
 		}
 		
 		// HELP
+
 		#if(clide_ENABLE_AUTO_HELP == 1)
 			#if(clide_ENABLE_DEBUG_CODE == 1)
 				Print::PrintDebugInfo("CLIDE: Registering help option.\r\n");
@@ -260,7 +259,7 @@ namespace Clide
 					sizeof(Global::debugBuff),
 					"CLIDE: Option short name = '%c'. Option long name = '%s'.\r\n",
 					optionA[this->optionA.size() - 1]->shortName,
-					optionA[this->optionA.size() - 1]->longName);
+					optionA[this->optionA.size() - 1]->longName.c_str());
 			}
 			else
 			{
@@ -269,7 +268,7 @@ namespace Clide
 					sizeof(Global::debugBuff),
 					"CLIDE: Option short name = '%s'. Option long name = '%s'.\r\n",
 					"none",
-					optionA[this->optionA.size() - 1]->longName);
+					optionA[this->optionA.size() - 1]->longName.c_str());
 			}
 			
 			Print::PrintDebugInfo(Global::debugBuff,
@@ -291,7 +290,7 @@ namespace Clide
 		uint32_t x;
 		for(x = 0; x < this->optionA.size(); x++)
 		{
-			if(this->optionA[x]->longName != NULL)
+			if(this->optionA[x]->longName.length() > 0)
 				numLongOptions++;
 		}
 		

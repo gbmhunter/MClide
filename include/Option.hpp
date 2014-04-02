@@ -18,6 +18,8 @@
 #ifndef CLIDE_OPTION_H
 #define CLIDE_OPTION_H
 
+#include <string>
+
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
 //===============================================================================================//
@@ -48,7 +50,7 @@ namespace Clide
 				const char shortName,
 				const char* longName,
 				bool (*callBackFunc)(char *optionVal),
-				const char* description,
+				std::string description,
 				bool associatedValue);
 		
 			//! @brief		Register an option with a command
@@ -57,7 +59,7 @@ namespace Clide
 			//!								Can be set to NULL.
 			//! @details	Overload 1
 			Option(
-				const char* optionName,
+				const char optionName,
 				bool (*callBackFunc)(char *optionVal));
 
 			//! @brief		Simplified constructor. Short name set to NULL, assoicatedValue set to false.
@@ -69,7 +71,7 @@ namespace Clide
 			Option(
 				const char* longName,
 				bool (*callBackFunc)(char *optionVal),
-				const char* description);
+				std::string description);
 			
 			//! @brief		Simplified constructor. Long name set to NULL, assoicatedValue set to false.
 			//! @details	
@@ -80,7 +82,7 @@ namespace Clide
 			Option(
 				const char shortName,
 				bool (*callBackFunc)(char *optionVal),
-				const char* description);
+				std::string description);
 		
 			//! @brief		Destructor.
 			//! @details	Deallocates memory.
@@ -102,10 +104,10 @@ namespace Clide
 		
 			//! @brief		The long name of the option. Optional, but at least 1 of shortName or longName must ne non-null.
 			//! @details	Optional, but at least 1 of shortName or longName must ne non-null.
-			const char* longName;
+			std::string longName;
 			
 			//! @brief		Description of an option. Used with the "-h", "--help" flags.
-			const char* description;
+			std::string description;
 			
 			//! @brief		The value of the option. Assigned to when receiving commands.
 			//! @todo		Change so that dynamically allocated
@@ -135,9 +137,9 @@ namespace Clide
 			//! @brief		All constructors end up calling this function.
 			void Init(
 				const char shortName,
-				const char* longName,
+				std::string longName,
 				bool (*callBackFunc)(char *optionVal),
-				const char* description,
+				std::string description,
 				bool associatedValue);
 
 	};

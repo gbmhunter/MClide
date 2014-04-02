@@ -183,7 +183,7 @@ namespace Clide
 							tempBuff,
 							sizeof(tempBuff),
 							"%-" STR(config_CMD_PADDING_FOR_HELP) "." STR(config_CMD_PADDING_FOR_HELP_MINUS_1) "s",
-							cmdA[x]->name);
+							cmdA[x]->name.c_str());
 						Print::PrintToCmdLine(tempBuff);
 						Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_NORMAL);
 					#else
@@ -194,7 +194,7 @@ namespace Clide
 					// Add tab character
 					//Print::PrintToCmdLine("\t");
 					// Print description
-					Print::PrintToCmdLine(cmdA[x]->description);
+					Print::PrintToCmdLine(cmdA[x]->description.c_str());
 					// \r is enough for PuTTy to format onto a newline also
 					// (adding \n causes it to add two new lines)
 					Print::PrintToCmdLine("\r\n");
@@ -226,7 +226,7 @@ namespace Clide
 		Print::PrintToCmdLine("\t");
 		#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
 			Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_BOLD);
-			Print::PrintToCmdLine(cmd->name);
+			Print::PrintToCmdLine(cmd->name.c_str());
 			Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_NORMAL);
 		#else
 			// No advanced text formatting
@@ -236,7 +236,7 @@ namespace Clide
 		// Add tab character
 		Print::PrintToCmdLine("\t");
 		// Print description
-		Print::PrintToCmdLine(cmd->description);
+		Print::PrintToCmdLine(cmd->description.c_str());
 		// \r is enough for PuTTy to format onto a newline also
 		// (adding \n causes it to add two new lines)
 		Print::PrintToCmdLine("\r\n");
@@ -322,11 +322,11 @@ namespace Clide
 
 				// Print long option
 				Print::PrintToCmdLine("\t");
-				Print::PrintToCmdLine(cmd->optionA[x]->longName);
+				Print::PrintToCmdLine(cmd->optionA[x]->longName.c_str());
 				// Add tab character
 				Print::PrintToCmdLine("\t");
 				// Print description
-				Print::PrintToCmdLine(cmd->optionA[x]->description);
+				Print::PrintToCmdLine(cmd->optionA[x]->description.c_str());
 				// \r is enough for PuTTy to format onto a newline also
 				// (adding \n causes it to add two new lines)
 				Print::PrintToCmdLine("\r\n");

@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/04/02
-- Version: v8.8.7.0
+- Version: v8.8.8.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -210,7 +210,9 @@ Dependency             Delivery             Usage
 <stdlib.h> 	           Standard C library   realloc(), malloc(), calloc(), free()
 <cctype>               Standard C++ library isalnum()
 <vector>               Standard C++ library std::vector, for holding vectors of commands, parameters and options.
+<string>               Standard C++ library std::string for command, parameter and option names/descriptions.
 "SlotMachine.hpp"      /lib/slotmachine-cpp Method callback functionality
+"UnitTest++"           /test/UnitTest++     Unit test framework for Clide.
 ====================== ==================== ======================================================================
 
 Packet Decoding Process (RX)
@@ -308,6 +310,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v8.8.8.0 2014/04/02 Converted some of the const char* variables in Clide::Cmd and Clide::Option to std::string's.
 v8.8.7.0 2014/04/02 Removed all count variables that could be replaced with vector.size() instead, closes #134.
 v8.8.6.0 2014/04/02 Removed all refereneces to Clide::MemMang, now uses std::vector and new operator, closes #133. Added <vector> as a dependency in README.
 v8.8.5.0 2014/04/02 paramA, optionA, and cmdGroupA variables in Clide::Rx are now of type std::vector, closes #132.

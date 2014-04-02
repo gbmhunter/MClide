@@ -31,6 +31,7 @@ namespace Clide
 // System headers
 #include <stdint.h>
 #include <vector>
+#include <string>
 
 // User libraries
 #include "../lib/slotmachine-cpp/api/Slotmachine.hpp"
@@ -68,9 +69,19 @@ namespace Clide
 			//! @param		callBackFunc	The function to call when command is received.
 			//! @param		description		Used when the "help" command or "-h" option is called.
 			Cmd(
-				const char *name,
+				std::string name,
 				bool (*callBackFunc)(Cmd* foundCmd),
-				const char *description);
+				std::string description);
+/*
+			//! @brief		Constructor with function callback
+			//! @param		name			This is the string that is matched with the first argument in
+			//!								a command-line message.
+			//! @param		callBackFunc	The function to call when command is received.
+			//! @param		description		Used when the "help" command or "-h" option is called.
+			Cmd(
+				const char* name,
+				bool (*callBackFunc)(Cmd* foundCmd),
+				const char *description);*/
 
 			//! @brief		Constructor with method callback.
 			//! @param		name			This is the string that is matched with the first argument in
@@ -78,9 +89,9 @@ namespace Clide
 			//! @param		methodCallback	The method to call when command is received.
 			//! @param		description		Used when the "help" command or "-h" option is called.
 			Cmd(
-				const char *name,
+				std::string name,
 				SlotMachine::Callback<void, Cmd*> methodCallback,
-				const char *description);
+				std::string description);
 				
 			//! @brief		Destructor. Deallocates memory.
 			~Cmd();
@@ -118,10 +129,10 @@ namespace Clide
 			
 			//! @brief		The command name. Used for recognising command in command-line input. 
 			//! @details	This must be the first word sent on the command-line, followed by a space.
-			char* name;
+			std::string name;
 			
 			//! @brief		Points to the description. Used when the help command is called.
-			char* description;
+			std::string description;
 			
 			//! @brief 		Vector of pointers to command parameters. Parameters are created external to Clide.
 			std::vector<Param*> paramA;
@@ -166,7 +177,7 @@ namespace Clide
 			//! @brief		Used for constructor shared-code (called by all constructors).
 			//! @details	Initialises everything except the callback, which is done in the calling constructor,
 			//!				depending on whether it is a function or a method.
-			void Init(const char *name, const char *description);
+			void Init(std::string name, std::string description);
 		
 	};
 

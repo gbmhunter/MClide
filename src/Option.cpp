@@ -43,7 +43,7 @@ namespace Clide
 		const char shortName,
 		const char* longName,
 		bool (*callBackFunc)(char *optionVal),
-		const char* description,
+		std::string description,
 		bool associatedValue)
 	{
 		// Base constructor
@@ -52,18 +52,33 @@ namespace Clide
 			Print::PrintDebugInfo("CLIDE: Base option constructor called.\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
 		#endif
-		Init(
-			shortName,
-			longName,
-			callBackFunc,
-			description,
-			associatedValue);
+
+		if(longName == NULL)
+		{
+			Init(
+					shortName,
+					std::string(""),
+					callBackFunc,
+					description,
+					associatedValue);
+		}
+		else
+		{
+			Init(
+					shortName,
+					longName,
+					callBackFunc,
+					description,
+					associatedValue);
+		}
+
+
 	}
 	
 	Option::Option(
 		const char* longName,
 		bool (*callBackFunc)(char *optionVal),
-		const char* description)
+		std::string description)
 	{	
 		// Simplified constructor. No short name.
 		
@@ -82,7 +97,7 @@ namespace Clide
 	Option::Option(
 		const char shortName,
 		bool (*callBackFunc)(char *optionVal),
-		const char* description)
+		std::string description)
 	{	
 		// Simplified constructor. No long name.
 		
@@ -92,14 +107,12 @@ namespace Clide
 		#endif
 		Init(
 			shortName,
-			NULL,
+			std::string(""),
 			callBackFunc,
 			description,
 			false);
 	}
 	
-	
-
 	Option::~Option()
 	{
 		// Destructor
@@ -119,39 +132,30 @@ namespace Clide
 
 	void Option::Init(
 		const char shortName,
-		const char* longName,
+		std::string longName,
 		bool (*callBackFunc)(char *optionVal),
-		const char* description,
+		std::string description,
 		bool associatedValue)
 	{
 		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			Print::PrintDebugInfo("CLIDE: Option constructor called.\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
-		#endif		
+		#endif
 		
-		// Input checks
-		uint32_t stringLen = 0;
-		
-		// Check long name length
-		if(longName != NULL)
+		if(longName.length() > clide_MAX_NAME_LENGTH)
 		{
-			stringLen = strlen(longName);
-			if(stringLen > clide_MAX_NAME_LENGTH)
-			{
-				#if(clide_ENABLE_DEBUG_CODE == 1)	
-					// Description too long, do not save it
-					Print::PrintError("CLIDE: ERROR: 'Long' option name was too long.\r\n");
-				#endif
-				
-				return;
-			}
+			#if(clide_ENABLE_DEBUG_CODE == 1)
+				// Description too long, do not save it
+				Print::PrintError("CLIDE: ERROR: 'Long' option name was too long.\r\n");
+			#endif
+
+			return;
 		}
 		
 		// Check too-long description
-		if(description != NULL)
+		if(description.length())
 		{
-			stringLen = strlen(description);
-			if(stringLen > clide_MAX_DESCRIPTION_LENGTH)
+			if(description.length() > clide_MAX_DESCRIPTION_LENGTH)
 			{
 				#if(clide_ENABLE_DEBUG_CODE == 1)	
 					// Description too long, do not save it
@@ -164,45 +168,46 @@ namespace Clide
 	
 		// NAME
 
+		#if(clide_ENABLE_DEBUG_CODE == 1)
+			Print::PrintDebugInfo("CLIDE: Saving short name.\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
+		#endif
+
 		// Store short name directly (only one char, no memory alloc needed)
 		this->shortName = shortName;
 		
-		// Create memory for long name and store
-		if(longName != NULL)
-		{
-			//this->longName = MemMang::MallocString(longName);
-			this->longName = longName;
-		}
-		else
-			this->longName = NULL;
+		#if(clide_ENABLE_DEBUG_CODE == 1)
+			Print::PrintDebugInfo("CLIDE: Saving long name.\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
+		#endif
+
+		// Copy long name
+		this->longName = longName;
 		
 		// DECRIPTION
 
-		// Create memory for description and store
-		if(description != NULL)
-		{
-			//this->description = MemMang::MallocString(description);
-			this->description = description;
-		}
-		else
-			description = NULL;
+		#if(clide_ENABLE_DEBUG_CODE == 1)
+			Print::PrintDebugInfo("CLIDE: Saving description.\r\n",
+					Print::DebugPrintingLevel::VERBOSE);
+		#endif
+
+		// Copy description
+		this->description = description;
 		
 		// CALLBACK
-		
 		this->callBackFunc = callBackFunc;
 		
 		// DETECTED?
-		
 		this->isDetected = false;
 		
 		// ASSOCIATED VALUE?
-		
 		this->associatedValue = associatedValue;
 		
 		#if(clide_ENABLE_DEBUG_CODE == 1)	
 			Print::PrintDebugInfo("CLIDE: Option constructor finished.\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
 		#endif
+
 	}
 
 } // namespace Clide
