@@ -2,7 +2,7 @@
 //! @file 			Rx.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2012/03/19
-//! @last-modified 	2014/04/02
+//! @last-modified 	2014/04/03
 //! @brief 			Clide RX controller. The main logic of the RX (decoding) part of Clide. Commands can be registered with the controller.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -69,7 +69,7 @@ namespace Clide
 		// Create command for help command (which is currently just a pointer)
 		this->cmdHelp = new Cmd("help", &HelpCmdCallback, "Returns information about all registered commands.");
 
-		this->cmdHelp->RegisterOption(new Option('g', NULL, NULL, "Specifies which group to print help with.", true));
+		this->cmdHelp->RegisterOption(new Option('g', "", NULL, "Specifies which group to print help with.", true));
 
 		// Default is to show this error (helpful to user)
 		this->silenceCmdNotRecognisedError = false;

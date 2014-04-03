@@ -2,7 +2,7 @@
 //! @file 			Option.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/01/14
+//! @last-modified 	2014/04/03
 //! @brief 		 	The option class enables used of 'optional' parameters in the command-line interface.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -48,19 +48,10 @@ namespace Clide
 			//! @param		associatedValue	Set to true if option has an associated value
 			Option(
 				const char shortName,
-				const char* longName,
+				std::string longName,
 				bool (*callBackFunc)(char *optionVal),
 				std::string description,
 				bool associatedValue);
-		
-			//! @brief		Register an option with a command
-			//! @param		optionName		The character to look for in the command-line string.
-			//! @param		callBackFunc	Call-back function which is called when option is discovered.
-			//!								Can be set to NULL.
-			//! @details	Overload 1
-			Option(
-				const char optionName,
-				bool (*callBackFunc)(char *optionVal));
 
 			//! @brief		Simplified constructor. Short name set to NULL, assoicatedValue set to false.
 			//! @details	
@@ -69,7 +60,7 @@ namespace Clide
 			//!								Can be set to NULL.
 			//! @param		description		Used when help is requested.
 			Option(
-				const char* longName,
+				std::string longName,
 				bool (*callBackFunc)(char *optionVal),
 				std::string description);
 			

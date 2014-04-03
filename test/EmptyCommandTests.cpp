@@ -2,7 +2,7 @@
 //! @file 			EmptyCommandTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/07/04
-//! @last-modified 	2014/01/21
+//! @last-modified 	2014/04/03
 //! @brief 			Contains test functions for Clide command options with negative numbers.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -27,7 +27,7 @@ namespace ClideTest
 			Rx rxController;
 			
 			Cmd cmdTest("test", &Callback, "A test command.");
-			Option testOption('a', NULL, NULL, "A test option.", true);
+			Option testOption('a', "", NULL, "A test option.", true);
 			
 			// Register option
 			cmdTest.RegisterOption(&testOption);

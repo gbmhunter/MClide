@@ -2,7 +2,7 @@
 //! @file 			Option.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/04/02
+//! @last-modified 	2014/04/03
 //! @brief 		 	The option class enables used of 'optional' parameters in the command-line interface.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -41,7 +41,7 @@ namespace Clide
 
 	Option::Option(
 		const char shortName,
-		const char* longName,
+		std::string longName,
 		bool (*callBackFunc)(char *optionVal),
 		std::string description,
 		bool associatedValue)
@@ -53,30 +53,16 @@ namespace Clide
 					Print::DebugPrintingLevel::VERBOSE);
 		#endif
 
-		if(longName == NULL)
-		{
-			Init(
-					shortName,
-					std::string(""),
-					callBackFunc,
-					description,
-					associatedValue);
-		}
-		else
-		{
-			Init(
-					shortName,
-					longName,
-					callBackFunc,
-					description,
-					associatedValue);
-		}
-
-
+		Init(
+				shortName,
+				longName,
+				callBackFunc,
+				description,
+				associatedValue);
 	}
 	
 	Option::Option(
-		const char* longName,
+		std::string longName,
 		bool (*callBackFunc)(char *optionVal),
 		std::string description)
 	{	
