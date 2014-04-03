@@ -2,7 +2,7 @@
 //! @file 			Comm.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/12/18
-//! @last-modified 	2014/04/02
+//! @last-modified 	2014/04/03
 //! @brief			The base communications class. This is extended by both Clide::Tx and Clide::Rx which are the classes manipulated by the user.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -126,7 +126,7 @@ namespace Clide
 
 		if(cmd->optionA[1]->isDetected == true)
 			// Group option has been provided with help command (help -g groupName)
-			selectedGroup = cmd->optionA[1]->value;
+			selectedGroup = cmd->optionA[1]->value.c_str();
 		else
 		{
 			// Default group if none provided (help)

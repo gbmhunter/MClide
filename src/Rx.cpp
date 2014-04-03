@@ -549,7 +549,7 @@ namespace Clide
 										GetOpt::optarg);
 									Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
 								#endif
-								strcpy(foundOption->value, GetOpt::optarg);
+								foundOption->value = std::string(GetOpt::optarg);
 							}
 							else
 							{
