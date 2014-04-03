@@ -2,7 +2,7 @@
 //! @file 			Clide-Param.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/04/02
+//! @last-modified 	2014/04/03
 //! @brief 		 
 //! @details
 //!				See README.rst in root dir for more info.
@@ -69,7 +69,7 @@ namespace Clide
 			
 			//! @brief		String value of parameter. 
 			//! @note		Parameters have no names
-			char value[clide_MAX_STRING_LENGTH];
+			std::string value;
 			
 			//! @brief		Optional callback function for when parameter is discovered.
 			//! @details	Function is called before the callback function for the command that it 

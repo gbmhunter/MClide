@@ -662,7 +662,7 @@ namespace Clide
 		// Copy parameters into cmd string
 		for(x = 0; (uint32_t)x < foundCmd->paramA.size(); x++)
 		{
-			strcpy(foundCmd->paramA[x]->value, _argsPtr[GetOpt::optind + x]);
+			foundCmd->paramA[x]->value = std::string(_argsPtr[GetOpt::optind + x]);
 		}
 		
 		#if(clide_ENABLE_DEBUG_CODE == 1)

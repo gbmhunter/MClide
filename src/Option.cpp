@@ -127,30 +127,6 @@ namespace Clide
 			Print::PrintDebugInfo("CLIDE: Option constructor called.\r\n",
 					Print::DebugPrintingLevel::VERBOSE);
 		#endif
-		
-		if(longName.length() > clide_MAX_NAME_LENGTH)
-		{
-			#if(clide_ENABLE_DEBUG_CODE == 1)
-				// Description too long, do not save it
-				Print::PrintError("CLIDE: ERROR: 'Long' option name was too long.\r\n");
-			#endif
-
-			return;
-		}
-		
-		// Check too-long description
-		if(description.length())
-		{
-			if(description.length() > clide_MAX_DESCRIPTION_LENGTH)
-			{
-				#if(clide_ENABLE_DEBUG_CODE == 1)	
-					// Description too long, do not save it
-					Print::PrintError("CLIDE: ERROR: Option description was too long.\r\n");
-				#endif
-				
-				return;
-			}
-		}
 	
 		// NAME
 

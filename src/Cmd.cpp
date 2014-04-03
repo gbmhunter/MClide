@@ -85,59 +85,13 @@ namespace Clide
 				Print::DebugPrintingLevel::VERBOSE);
 		#endif
 
-		// INITIALISATION
-		
-		//this->numParams = 0;
-		//this->numOptions = 0;
-		
-		// Set pointers to null. If not NULL, this causes realloc() is exhibit undefined behaviour,
-		// since it expects a previously defined location or NULL
-		//this->paramA = NULL;
-		//this->optionA = NULL;
-
 		// NAME
-		
-		//uint32_t descLen = strlen(name);
-		
-		// Make sure the description isn't to long
-		if(name.length() <= clide_MAX_NAME_LENGTH)
-		{
-			// Create memory for description and store
-			//this->name = (char*)MemMang::MallocString(name);
 
-			// Don't need to allocate memory, just take note of pointer
-			this->name = name;
-		}
-		else
-		{
-			#if(clide_ENABLE_DEBUG_CODE == 1)	
-				// Description too long, do not save it
-				Print::PrintError("CLIDE: ERROR: Command name was too long.\r\n");
-			#endif
-			throw "CLIDE: ERROR: Command name was too long.";
-			return;
-		}
+		this->name = name;
 		
 		// DECRIPTION
 		
-		//uint32_t descLen = strlen(description);
-
-		// Make sure the description isn't to long
-		if(description.length() <= clide_MAX_DESCRIPTION_LENGTH)
-		{
-			// Create memory for description and store
-			//this->description = MemMang::MallocString(description);
-			this->description = description;
-		}
-		else
-		{
-			#if(clide_ENABLE_DEBUG_CODE == 1)	
-				// Description too long, do not save it
-				Print::PrintError("CLIDE: ERROR: Command description was too long.\r\n");
-			#endif
-			throw "CLIDE: ERROR: Command description was too long.";
-			return;
-		}
+		this->description = description;
 		
 		// HELP
 
@@ -168,13 +122,6 @@ namespace Clide
 			Print::PrintDebugInfo("CLIDE: Cmd constructor finished.\r\n",
 				Print::DebugPrintingLevel::VERBOSE);
 		#endif
-
-		// COMMAND GROUP OBJECT
-
-		//this->cmdGroupA = NULL;
-
-		// Start with the command assigned to no command groups
-		//this->numCmdGroups = 0;
 
 	}
 

@@ -2,7 +2,7 @@
 //! @file 			Config.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/03/26
+//! @last-modified 	2014/04/03
 //! @brief 			Configuration file for Clide.
 //! @details
 //!				See README.rst in repo root dir for more info.
@@ -41,16 +41,6 @@
 //! @brief		(char*) The amount of padding given to the command name column when printing help.
 #define config_CMD_PADDING_FOR_HELP				15
 #define config_CMD_PADDING_FOR_HELP_MINUS_1		14			//!< Make sure this is always (config_CMD_PADDING_FOR_HELP - 1)
-
-//! @brief		Sets the maximum string length for a single command, parameter, or option name/option value
-//! @todo 		Use dynamic allocation, so not required.
-#define clide_MAX_STRING_LENGTH			(20u)
-
-//! @brief		Maximum length for the cmd name
-#define clide_MAX_NAME_LENGTH			(20u)
-
-//! @brief		Maximum length for the cmd description
-#define clide_MAX_DESCRIPTION_LENGTH		(100u)
 
 //! @brief		The size of the debug buffer.
 //! @details	All writes use snprintf() so should be safe if too small.
