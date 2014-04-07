@@ -232,6 +232,35 @@ namespace Clide
 		// Check incase the number of arguments passed to Rx::Run was 0
 		if(numArgs == 0)
 		{
+			#if(clide_ENABLE_AUTO_HELP == 1)
+				char tempBuff[100];
+				// Help exists, so tell user that they could type help to get a list of available commands.
+				#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
+					// Special formatting
+					snprintf(
+						tempBuff,
+						sizeof(tempBuff),
+						"error \"Command was empty. Type %shelp%s to see a list of all the commands.\"\r\n",
+						clide_TERM_TEXT_FORMAT_BOLD,
+						clide_TERM_TEXT_FORMAT_NORMAL);
+					Print::PrintToCmdLine(tempBuff);
+				#else
+					// No special formatting
+					snprintf(
+						tempBuff,
+						sizeof(tempBuff),
+						"error \"Command was empty. Type help to see a list of all the commands.\"\r\n");
+					Print::PrintToCmdLine(tempBuff);
+				#endif
+			#else
+				// No automatic help, so don't tell the user about something that doesn't exist
+				snprintf(
+					tempBuff,
+					sizeof(tempBuff),
+					"error \"Command was empty.\"\r\n",
+					_args[0]);
+				Print::PrintToCmdLine(tempBuff);
+			#endif // #if(clide_ENABLE_AUTO_HELP == 1)
 			Print::PrintError("ERROR: Number of arguments passed to Rx::Run was 0.\r\n");
 			return false;
 		}
