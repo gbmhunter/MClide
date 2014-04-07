@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
+#include <limits>
 
 #include "../api/Clide.hpp"
 
@@ -54,8 +55,8 @@ int main()
 			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine),
 			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintError));
 
-	Clide::Print::enableDebugInfoPrinting = true;
-	Clide::Print::enableErrorPrinting = true;
+	Clide::Print::enableDebugInfoPrinting = false;
+	Clide::Print::enableErrorPrinting = false;
 	Clide::Print::enableCmdLinePrinting = true;
 
 	// Create a receiver engine
@@ -133,9 +134,11 @@ int main()
 		char inputMsg[30];
 
 		cin.get(inputMsg, 30);
-		cin.ignore();
+		cin.clear();
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		// Run rx controller
 		rxController.Run(inputMsg);
+
 	}
 }

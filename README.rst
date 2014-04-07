@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/04/07
-- Version: v8.8.13.0
+- Version: v8.8.14.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -312,6 +312,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v8.8.14.0 2014/04/07 Example code now does not print debug info. Added 'Type help to see a list...' info to the 'Received command contained no alpha-numeric...' error message, closes #145. Fixed code getting trapped in loop with blank message when running example code, closes #144.
 v8.8.13.0 2014/04/07 'Num. of received parameters does not match...' error now prints values, closes #140. Stopped example code from printing debug info, closes #141. Set clide_ENABLE_AUTO_HELP to 1, closes #142. Fixed segmentation fault when running help from example code program, closes #143.
 v8.8.12.0 2014/04/03 Clide::Param::value is now a std::string, closes #138. Removed command/option/parameter name/description length restrictions, closes #139. Adjusted unit tests accordingly.
 v8.8.11.0 2014/04/03 Clide::Option::value is now a std::string, closes #137.

@@ -144,17 +144,45 @@ namespace Clide
 			// Check for null string terminator
 			if(cmdMsgCpyPtr[0] == '\0')
 			{
-				Print::PrintToCmdLine("error \"Received command contained no alpha-numeric characters.\"\r\n");
-				#if(clide_ENABLE_DEBUG_CODE == 1)
-					Print::PrintDebugInfo(
-						"CLIDE: WARNING: Received command contained no alpha-numeric characters.\r\n",
-						Print::DebugPrintingLevel::GENERAL);
-				#endif
-				#if(clide_ENABLE_DEBUG_CODE == 1)
-					Print::PrintDebugInfo(
-						"CLIDE: Rx::Run() finished. Returning false.\r\n",
-						Print::DebugPrintingLevel::VERBOSE);
-				#endif
+
+				#if(clide_ENABLE_AUTO_HELP == 1)
+					// Help exists, so tell user that they could type help to get a list of available commands.
+					char tempBuff[200];
+					#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
+						// Special formatting
+						snprintf(
+							tempBuff,
+							sizeof(tempBuff),
+							"error \"Received command contained no alpha-numeric characters. "
+							"Type %shelp%s to see a list of all the commands.\"\r\n",
+							clide_TERM_TEXT_FORMAT_BOLD,
+							clide_TERM_TEXT_FORMAT_NORMAL);
+						Print::PrintToCmdLine(tempBuff);
+					#else
+						// No special formatting
+						snprintf(
+							tempBuff,
+							sizeof(tempBuff),
+							"error \"Received command contained no alpha-numeric characters. "
+							"Type help to see a list of all the commands.\"\r\n");
+						Print::PrintToCmdLine(tempBuff);
+					#endif
+				#else // #if(clide_ENABLE_AUTO_HELP == 1)
+					Print::PrintToCmdLine("error \"Received command contained no alpha-numeric characters.\"\r\n");
+					#if(clide_ENABLE_DEBUG_CODE == 1)
+						Print::PrintDebugInfo(
+							"CLIDE: WARNING: Received command contained no alpha-numeric characters.\r\n",
+							Print::DebugPrintingLevel::GENERAL);
+					#endif
+					#if(clide_ENABLE_DEBUG_CODE == 1)
+						Print::PrintDebugInfo(
+							"CLIDE: Rx::Run() finished. Returning false.\r\n",
+							Print::DebugPrintingLevel::VERBOSE);
+					#endif
+				#endif // #if(clide_ENABLE_AUTO_HELP == 1)
+
+
+
 				return false;
 			} 
 			
