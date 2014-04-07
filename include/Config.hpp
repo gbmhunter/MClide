@@ -2,7 +2,7 @@
 //! @file 			Config.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/04/03
+//! @last-modified 	2014/04/07
 //! @brief 			Configuration file for Clide.
 //! @details
 //!				See README.rst in repo root dir for more info.
@@ -33,7 +33,7 @@
 //====================== HELP-RELATED SWITCHES =================//
 
 //! @brief		Set to 1 to enable automatic help generation.
-#define clide_ENABLE_AUTO_HELP					0
+#define clide_ENABLE_AUTO_HELP					1
 
 //! @brief		(char*) The amount of padding before the cmd column when printing help.
 #define config_PADDING_BEFORE_CMD_IN_HELP 		5

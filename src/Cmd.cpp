@@ -2,7 +2,7 @@
 //! @file 			Cmd.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/04/02
+//! @last-modified 	2014/04/07
 //! @brief 			Command-line style communications protocol
 //! @details
 //!				See README.rst in repo root dir for more info.
@@ -97,7 +97,7 @@ namespace Clide
 
 		#if(clide_ENABLE_AUTO_HELP == 1)
 			#if(clide_ENABLE_DEBUG_CODE == 1)
-				Print::PrintDebugInfo("CLIDE: Registering help option.\r\n");
+				Print::PrintDebugInfo("CLIDE: Registering help option.\r\n", Print::DebugPrintingLevel::GENERAL);
 			#endif
 			// HELP OPTION
 			Option* help = new Option('h', "help", NULL, "Prints help for the command.", false);

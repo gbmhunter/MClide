@@ -2,7 +2,7 @@
 //! @file 			Rx.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2012/03/19
-//! @last-modified 	2014/04/03
+//! @last-modified 	2014/04/07
 //! @brief 			Clide RX controller. The main logic of the RX (decoding) part of Clide. Commands can be registered with the controller.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -238,7 +238,7 @@ namespace Clide
 							tempBuff,
 							sizeof(tempBuff),
 							"error \"Command '%s' not recognised. Type %shelp%s to see a list of all the commands.\"\r\n",
-							cmdMsg,
+							_args[0],
 							clide_TERM_TEXT_FORMAT_BOLD,
 							clide_TERM_TEXT_FORMAT_NORMAL);
 						Print::PrintToCmdLine(tempBuff);
@@ -248,7 +248,7 @@ namespace Clide
 							tempBuff,
 							sizeof(tempBuff),
 							"error \"Command '%s' not recognised. Type help to see a list of all the commands.\"\r\n",
-							cmdMsg);
+							_args[0]);
 						Print::PrintToCmdLine(tempBuff);
 					#endif
 				#else
@@ -334,7 +334,7 @@ namespace Clide
 			snprintf(
 				Global::debugBuff,
 				sizeof(Global::debugBuff),
-				"CLIDE: Num registered options = %" STR(ClidePort_PF_UINT32_T) "\r\n",
+				"CLIDE: Num registered options = %zu\r\n",
 				foundCmd->optionA.size());
 			Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
 		#endif
@@ -639,13 +639,21 @@ namespace Clide
 		// Validate that there are the correct number of parameters
 		if((uint32_t)(numArgs - GetOpt::optind) != foundCmd->paramA.size())
 		{
-			Print::PrintToCmdLine("error \"Num. of received parameters does not match num. registered for cmd.\"\r\n");
+			char tempBuff[100];
+			snprintf(
+					tempBuff,
+					sizeof(tempBuff),
+					"error \"Num. of received parameters ('%" STR(ClidePort_PF_UINT32_T)
+					"') does not match num. registered for cmd ('%zu').\"\r\n",
+					numArgs - GetOpt::optind,
+					foundCmd->paramA.size());
+			Print::PrintToCmdLine(tempBuff);
 			#if(clide_ENABLE_DEBUG_CODE == 1)
 				snprintf (
 					Global::debugBuff,
 					sizeof(Global::debugBuff),
 					"CLIDE: ERROR: Num. of received parameters ('%" STR(ClidePort_PF_UINT32_T)
-					"') for cmd '%s' does not match num. registered ('%" STR(ClidePort_PF_UINT32_T) "'). numArgs = '%u'. optind = '%i'.\r\n",
+					"') for cmd '%s' does not match num. registered ('%zu'). numArgs = '%u'. optind = '%i'.\r\n",
 					(uint32_t)(numArgs - GetOpt::optind),
 					foundCmd->name.c_str(),
 					foundCmd->paramA.size(),
@@ -752,7 +760,7 @@ namespace Clide
 			snprintf(
 				Global::debugBuff,
 				sizeof(Global::debugBuff),
-				"CLIDE: Num. registered cmds = %u\r\n",
+				"CLIDE: Num. registered cmds = %zu\r\n",
 				cmdA.size());
 			Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
 		#endif
