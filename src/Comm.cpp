@@ -135,6 +135,8 @@ namespace Clide
 				selectedGroup = cmd->optionA[1]->value.c_str();
 		}
 
+		//============= DETERMINE IF HELP HEADER IS TO BE PRINTED ===========//
+
 		// Set to false if the --no-header option is provided to the help command
 		bool printHeader = true;
 

@@ -104,15 +104,21 @@ namespace Clide
 			//! @brief		Register a parameter with a cmd.
 			//! @param		param	Parameter to register.
 			void RegisterParam(Param* param);
-			
-			Param* GetParamByName(std::string paramName);
 
 			//! @brief		Register a option with a cmd.
 			//! @param		option	Option to register.
 			void RegisterOption(Option* option);
 			
+			//! @brief		Use to find a particular option which has been registered with the command.
+			//! @param		shortOptionName		The short option name to look for.
+			//! @returns	A pointer to the option if it finds a match, otherwise nullptr.
+			//! @sa			FindOptionByLongName
 			Option* FindOptionByShortName(char shortOptionName);
 
+			//! @brief		Use to find a particular option which has been registered with the command.
+			//! @param		longOptionName		The long option name to look for.
+			//! @returns	A pointer to the option if it finds a match, otherwise nullptr.
+			//! @sa			FindOptionByShortName
 			Option* FindOptionByLongName(std::string longOptionName);
 
 			//! @brief		Returns the number of options registered to the command which have long option names.

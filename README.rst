@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/05/16
-- Version: v8.10.0.0
+- Version: v8.10.1.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -98,7 +98,7 @@ Easy To Experiment With
 
 Clide comes with a Makefle with automatic dependcy tracking and example code which is automatically built on running the command :code:`make` from the root directory of the repo.
 
-Once compiled, this example code can be run by typing :code:`example/example.elf`.
+Once compiled, this example code can be run by typing :code:`example/example.elf`. A few example commands with associated parameter and options have been registered for you to experiment with.
 
 Automatic Help Generation With Command Grouping
 -----------------------------------------------
@@ -144,7 +144,7 @@ The unit tests check for:
 Event-driven Callback Support
 -----------------------------
 
-Clide leverages the slotmachine-cpp library to provide event-driven callbacks. slotmachine-cpp supports callbacks to methods (instance functions), without Clide having any previous knowledge about the class (type agnostic).
+Clide leverages the :code:`slotmachine-cpp` library to provide event-driven callbacks. :code:`slotmachine-cpp` supports callbacks to methods (instance functions), without Clide having any previous knowledge about the class (type agnostic).
 
 List of events supported by callbacks:
 
@@ -197,7 +197,7 @@ Installation
 
 2. Run :code:`make all` to compile and run unit tests. Do not worry about Clide error messages being printed when unit tests are run, the unit tests are designed to specifically cause errors to test the response.
 
-3. To include clide-cpp into your embedded (or otherwise) firmware/software project, copy the repo into your project folder (or other suitable place) and include the file :code:`Clide-IncludeJustMe.hpp` from your C++ code.
+3. To include clide-cpp into your embedded (or otherwise) firmware/software project, copy the repo into your project folder (or other suitable place), include the file :code:`api/Clide.hpp` from your C++ code, and make sure all the .cpp files in :code:`src/` are built and linked as part of the project.
 
 
 Dependencies
@@ -245,7 +245,7 @@ Limitations
 Usage
 =====
 
-This is a basic example. See "example/" or "test/" for more examples. In main.c add...
+This is a basic example. See :code:`example/` or :code:`test/` for more examples. In :code:`main.c` add...
 
 ::
 
@@ -291,7 +291,14 @@ FAQ
 
 1. 	I call :code:`Clide::Rx::Run()`, and no errors occur, but nothing happens. 
 
-	You probably have not set-up the callbacks. The crucial one to set-up is :code:`Clide::Print::cmdLinePrintCallback`, which is called every time a message needs to be printed back to the command-line.
+	You probably have not set-up the callbacks. The crucial one to set-up is :code:`Clide::Print::AssignCallbacks(...)`, which is called every time a message needs to be printed back to the command-line.
+	
+	Here is an example::
+	
+		Clide::Print::AssignCallbacks(
+			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintDebug),
+			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine),
+			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintError));
 
 2. 	I keep getting weird characters appear in the terminal from text sent from Clide.
 
@@ -312,7 +319,8 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
-v8.10.0.0 2014/05/15 Added ability to supress the printing of the help header, with the long option '--no-header' to the 'help' command, closes #155. Made internal commands use functions that find options by name rather than numeral indexing, closes #154.
+v8.10.1.0 2014/05/16 Added comments to 'FindOptionBy..()' functions, closes #156. Removed unused and undefined function declarations. Updated FAQ 1 in README to reflect the new way of assigning callbacks, closes #118.
+v8.10.0.0 2014/05/16 Added ability to supress the printing of the help header, with the long option '--no-header' to the 'help' command, closes #155. Made internal commands use functions that find options by name rather than numeral indexing, closes #154.
 v8.9.0.0  2014/05/16 You can now find options by short or long name using the functions 'Cmd::GetOptionByShortName()' and 'Cmd::GetOptionByLongName' respectively, closes #153. Added '/test/OptionSearchByShortNameTests.cpp' and '/test/OptionSearchByLongNameTests.cpp'.
 v8.8.15.0 2014/04/07 Rx::Run2() now prints message to command line if argc/argv are 0/empty, closes #146.
 v8.8.14.0 2014/04/07 Example code now does not print debug info. Added 'Type help to see a list...' info to the 'Received command contained no alpha-numeric...' error message, closes #145. Fixed code getting trapped in loop with blank message when running example code, closes #144.
