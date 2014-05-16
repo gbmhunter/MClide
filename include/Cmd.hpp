@@ -2,7 +2,7 @@
 //! @file 			Cmd.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/03/19
-//! @last-modified 	2014/04/02
+//! @last-modified 	2014/05/16
 //! @brief 			Contains the command object, which can be registered with the RX or TX controller (or both).
 //! @details
 //!					See README.rst in root dir for more info.
@@ -105,10 +105,16 @@ namespace Clide
 			//! @param		param	Parameter to register.
 			void RegisterParam(Param* param);
 			
+			Param* GetParamByName(std::string paramName);
+
 			//! @brief		Register a option with a cmd.
 			//! @param		option	Option to register.
 			void RegisterOption(Option* option);
 			
+			Option* FindOptionByShortName(char shortOptionName);
+
+			Option* FindOptionByLongName(std::string longOptionName);
+
 			//! @brief		Returns the number of options registered to the command which have long option names.
 			//! @returns	Number of options with long options names (i.e. longName != NULL).
 			uint32_t NumLongOptions();

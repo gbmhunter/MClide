@@ -2,7 +2,7 @@
 //! @file 			Cmd.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/04/07
+//! @last-modified 	2014/05/16
 //! @brief 			Command-line style communications protocol
 //! @details
 //!				See README.rst in repo root dir for more info.
@@ -168,7 +168,6 @@ namespace Clide
 		//paramA[numParams - 1] = param;
 	}
 
-
 	// Register option
 	void Cmd::RegisterOption(Option* option)
 	{
@@ -222,6 +221,30 @@ namespace Clide
 					Print::DebugPrintingLevel::VERBOSE);
 			
 		#endif
+	}
+
+	Option* Cmd::FindOptionByShortName(char shortOptionName)
+	{
+		for(uint32_t x = 0; x < this->optionA.size(); x++)
+		{
+			if(this->optionA[x]->shortName == shortOptionName)
+				return this->optionA[x];
+		}
+
+		// Option must of not been found, so return NULL
+		return NULL;
+	}
+
+	Option* Cmd::FindOptionByLongName(std::string longOptionName)
+	{
+		for(uint32_t x = 0; x < this->optionA.size(); x++)
+		{
+			if(this->optionA[x]->longName == longOptionName)
+				return this->optionA[x];
+		}
+
+		// Option must of not been found, so return NULL
+		return NULL;
 	}
 
 	uint32_t Cmd::NumLongOptions()

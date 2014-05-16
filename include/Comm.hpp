@@ -2,7 +2,7 @@
 //! @file 			Comm.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/12/18
-//! @last-modified 	2014/04/02
+//! @last-modified 	2014/05/16
 //! @brief			The base communications class. This is extended by both Clide::Tx and Clide::Rx which are the classes manipulated by the user.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -52,6 +52,7 @@ namespace Clide
 
 	//! @brief		Callback function for help command.
 	//! @details	This does not belong to a class, so that it can be passed as a generic callback function, just like any other command.
+	//! @note		Threadsafe, re-entrant
 	bool HelpCmdCallback(Cmd *cmd);
 
 	//! @brief The base communications class. This is extended by both Clide::Tx and Clide::Rx which are the classes manipulated by the user.

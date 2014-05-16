@@ -2,7 +2,7 @@
 //! @file 			Rx.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2012/03/19
-//! @last-modified 	2014/04/02
+//! @last-modified 	2014/05/16
 //! @brief 			Clide RX controller. The main logic of the RX (decoding) part of Clide. Commands can be registered with the controller.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -80,7 +80,10 @@ namespace Clide
 			//======================================= PUBLIC METHODS ========================================//
 			//===============================================================================================//
 
-			//! @brief		Default constructor
+			//! @brief		Base constructor
+			Rx(bool enableHelpNoHeaderOption);
+
+			//! @brief		Simplified constructor.
 			Rx();
 
 			//! @brief		Runs the algorithm. Call this with the received command msg (array of characters).
@@ -101,12 +104,15 @@ namespace Clide
 			//================================== PRIVATE VARIABLES/STRUCTURES ===============================//
 			//===============================================================================================//
 
-
+			//! @brief		Pointer to automatically created (in Rx constructor) help command.
 			Cmd *cmdHelp;
 
 			//===============================================================================================//
 			//======================================= PRIVATE METHODS =======================================//
 			//===============================================================================================//
+
+			//! @brief		Initialisation method called by all of Rx constructors.
+			void Init(bool enableHelpNoHeaderOption);
 
 			//! @brief		Internal run command, called by the public Run() functions after some specific processing.
 			int Run2(uint8_t numArgs, char* _args[]);

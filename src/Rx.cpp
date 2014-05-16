@@ -2,7 +2,7 @@
 //! @file 			Rx.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2012/03/19
-//! @last-modified 	2014/04/07
+//! @last-modified 	2014/05/16
 //! @brief 			Clide RX controller. The main logic of the RX (decoding) part of Clide. Commands can be registered with the controller.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -52,39 +52,15 @@ namespace Clide
 	//====================================== PUBLIC METHODS ========================================//
 	//===============================================================================================//
 
-	// Constructor
+	Rx::Rx(bool enableHelpNoHeaderOption)
+	{
+		this->Init(enableHelpNoHeaderOption);
+	}
+
 	Rx::Rx()
 	{
-		#if(clide_ENABLE_DEBUG_CODE == 1)
-			Print::PrintDebugInfo("CLIDE: Rx constructor called...\r\n", Print::DebugPrintingLevel::VERBOSE);
-		#endif
-
-		// Initialise class variables
-		
-		#if(clide_ENABLE_DEBUG_CODE == 1)
-			// Enable getopt() to print error messages
-			GetOpt::opterr = 1;
-		#endif
-
-		// Create command for help command (which is currently just a pointer)
-		this->cmdHelp = new Cmd("help", &HelpCmdCallback, "Returns information about all registered commands.");
-
-		this->cmdHelp->RegisterOption(new Option('g', "", NULL, "Specifies which group to print help with.", true));
-
-		// Default is to show this error (helpful to user)
-		this->silenceCmdNotRecognisedError = false;
-
-		// Default is to ignore this element
-		this->ignoreFirstArgvElement = true;
-
-		// Create help function if enabled
-		#if(clide_ENABLE_AUTO_HELP == 1)
-			this->RegisterCmd(this->cmdHelp);
-		#endif
-
-		#if(clide_ENABLE_DEBUG_CODE == 1)
-			Print::PrintDebugInfo("CLIDE: Rx constructor finished.\r\n", Print::DebugPrintingLevel::VERBOSE);
-		#endif
+		// Default setting for enableHelpNoHeaderOption is false
+		this->Init(false);
 	}
 
 	bool Rx::Run(int argc, char* argv[])
@@ -779,6 +755,48 @@ namespace Clide
 	//===============================================================================================//
 	//==================================== PRIVATE FUNCTIONS ========================================//
 	//===============================================================================================//
+
+	// Constructor
+	void Rx::Init(bool enableHelpNoHeaderOption)
+	{
+		#if(clide_ENABLE_DEBUG_CODE == 1)
+			Print::PrintDebugInfo("CLIDE: Rx::Init() called...\r\n", Print::DebugPrintingLevel::VERBOSE);
+		#endif
+
+		// Initialise class variables
+
+		#if(clide_ENABLE_DEBUG_CODE == 1)
+			// Enable getopt() to print error messages
+			GetOpt::opterr = 1;
+		#endif
+
+		// Create command for help command (which is currently just a pointer)
+		this->cmdHelp = new Cmd("help", &HelpCmdCallback, "Returns information about all registered commands.");
+
+		this->cmdHelp->RegisterOption(new Option('g', "", NULL, "Specifies which group to print help with.", true));
+
+		if(enableHelpNoHeaderOption)
+		{
+			// Register --help-no-header option
+			this->cmdHelp->RegisterOption(new Option(NULL, "--help-no-header", NULL, "Prints the help with no header.", false));
+		}
+
+		// Default is to show this error (helpful to user)
+		this->silenceCmdNotRecognisedError = false;
+
+		// Default is to ignore this element
+		this->ignoreFirstArgvElement = true;
+
+		// Create help function if enabled
+		#if(clide_ENABLE_AUTO_HELP == 1)
+			this->RegisterCmd(this->cmdHelp);
+		#endif
+
+		#if(clide_ENABLE_DEBUG_CODE == 1)
+			Print::PrintDebugInfo("CLIDE: Rx constructor finished.\r\n", Print::DebugPrintingLevel::VERBOSE);
+		#endif
+	}
+
 
 	int Rx::SplitPacket(char* packet, char* argv[])
 	{
