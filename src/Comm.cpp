@@ -2,7 +2,7 @@
 //! @file 			Comm.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/12/18
-//! @last-modified 	2014/04/07
+//! @last-modified 	2014/05/16
 //! @brief			The base communications class. This is extended by both Clide::Tx and Clide::Rx which are the classes manipulated by the user.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -124,40 +124,56 @@ namespace Clide
 		// Points to the selected group
 		const char* selectedGroup;
 
-		if(cmd->optionA[1]->isDetected == true)
-			// Group option has been provided with help command (help -g groupName)
-			selectedGroup = cmd->optionA[1]->value.c_str();
-		else
+		// Default group if none provided (help)
+		selectedGroup = this->defaultCmdGroup->name.c_str();
+
+		//if(cmd->optionA[1]->isDetected == true)
+		if(cmd->FindOptionByShortName('g') != nullptr)
 		{
-			// Default group if none provided (help)
-			selectedGroup = this->defaultCmdGroup->name.c_str();
+			if(cmd->FindOptionByShortName('g')->isDetected)
+				// Group option has been provided with help command (help -g groupName)
+				selectedGroup = cmd->optionA[1]->value.c_str();
 		}
 
-		// Title
-		Print::PrintToCmdLine("********** LIST OF COMMANDS ***********\r\n");
-		Print::PrintToCmdLine("Showing commands for user group: " clide_TERM_TEXT_FORMAT_BOLD);
-		Print::PrintToCmdLine(selectedGroup);
-		Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_NORMAL "\r\n");
+		// Set to false if the --no-header option is provided to the help command
+		bool printHeader = true;
 
-		#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-			Print::PrintToCmdLine(clide_TABLE_HEADER_ROW_COLOUR_CODE);
-			Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_BOLD);
-		#endif
+		// First check to make sure the option is registered with the command
+		if(cmd->FindOptionByLongName(config_NO_HELP_HEADER_OPTION_NAME) != nullptr)
+		{
+			if(cmd->FindOptionByLongName(config_NO_HELP_HEADER_OPTION_NAME)->isDetected)
+				// In this case, we don't want to print a help header!
+				printHeader = false;
+		}
 
-		// Prints command name and description, with padding and truncation if required.
-		snprintf(
-			tempBuff,
-			sizeof(tempBuff),
-			"%-" STR(config_PADDING_BEFORE_CMD_IN_HELP) "s%-" STR(config_CMD_PADDING_FOR_HELP) "s%s\r\n",
-			"",
-			"cmd",
-			"description");
-		Print::PrintToCmdLine(tempBuff);
+		// Print header if not set to false above
+		if(printHeader)
+		{
+			// Title
+			Print::PrintToCmdLine("********** LIST OF COMMANDS ***********\r\n");
+			Print::PrintToCmdLine("Showing commands for user group: " clide_TERM_TEXT_FORMAT_BOLD);
+			Print::PrintToCmdLine(selectedGroup);
+			Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_NORMAL "\r\n");
 
-		#if(clide_ENABLE_ADV_TEXT_FORMATTING)
-			Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_NORMAL);
-		#endif
+			#if(clide_ENABLE_ADV_TEXT_FORMATTING)
+				Print::PrintToCmdLine(clide_TABLE_HEADER_ROW_COLOUR_CODE);
+				Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_BOLD);
+			#endif
 
+			// Prints command name and description, with padding and truncation if required.
+			snprintf(
+				tempBuff,
+				sizeof(tempBuff),
+				"%-" STR(config_PADDING_BEFORE_CMD_IN_HELP) "s%-" STR(config_CMD_PADDING_FOR_HELP) "s%s\r\n",
+				"",
+				"cmd",
+				"description");
+			Print::PrintToCmdLine(tempBuff);
+
+			#if(clide_ENABLE_ADV_TEXT_FORMATTING)
+				Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_NORMAL);
+			#endif
+		}
 
 		// Iterate through cmd array and print commands, if they belong to the current command group
 		uint32_t x;

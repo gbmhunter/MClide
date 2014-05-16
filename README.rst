@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/03/19
 - Last Modified: 2014/05/16
-- Version: v8.9.0.0
+- Version: v8.10.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -312,6 +312,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v8.10.0.0 2014/05/15 Added ability to supress the printing of the help header, with the long option '--no-header' to the 'help' command, closes #155. Made internal commands use functions that find options by name rather than numeral indexing, closes #154.
 v8.9.0.0  2014/05/16 You can now find options by short or long name using the functions 'Cmd::GetOptionByShortName()' and 'Cmd::GetOptionByLongName' respectively, closes #153. Added '/test/OptionSearchByShortNameTests.cpp' and '/test/OptionSearchByLongNameTests.cpp'.
 v8.8.15.0 2014/04/07 Rx::Run2() now prints message to command line if argc/argv are 0/empty, closes #146.
 v8.8.14.0 2014/04/07 Example code now does not print debug info. Added 'Type help to see a list...' info to the 'Received command contained no alpha-numeric...' error message, closes #145. Fixed code getting trapped in loop with blank message when running example code, closes #144.

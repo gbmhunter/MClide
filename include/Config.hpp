@@ -2,7 +2,7 @@
 //! @file 			Config.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2013/04/02
-//! @last-modified 	2014/04/07
+//! @last-modified 	2014/05/16
 //! @brief 			Configuration file for Clide.
 //! @details
 //!				See README.rst in repo root dir for more info.
@@ -41,6 +41,9 @@
 //! @brief		(char*) The amount of padding given to the command name column when printing help.
 #define config_CMD_PADDING_FOR_HELP				15
 #define config_CMD_PADDING_FOR_HELP_MINUS_1		14			//!< Make sure this is always (config_CMD_PADDING_FOR_HELP - 1)
+
+//! @brief		(char*) The name of the option which prevents the help header from being printed when the help command is called.
+#define config_NO_HELP_HEADER_OPTION_NAME		"no-header"
 
 //! @brief		The size of the debug buffer.
 //! @details	All writes use snprintf() so should be safe if too small.

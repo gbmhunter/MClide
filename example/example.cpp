@@ -2,7 +2,7 @@
 //! @file 			example.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created 		2013/07/04
-//! @last-modified 	2014/04/07
+//! @last-modified 	2014/05/16
 //! @brief 			Example Clide program, designed to be run on Linux.
 //! @details
 //!				See README.rst in root dir for more info.
@@ -59,8 +59,9 @@ int main()
 	Clide::Print::enableErrorPrinting = false;
 	Clide::Print::enableCmdLinePrinting = true;
 
-	// Create a receiver engine
-	Rx rxController;
+	// Create a receiver engine, adding the option to
+	// print the help with no header
+	Rx rxController(true);
 
 	//============ EXAMPLE COMMAND 1 ===============//
 

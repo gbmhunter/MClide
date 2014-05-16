@@ -778,7 +778,8 @@ namespace Clide
 		if(enableHelpNoHeaderOption)
 		{
 			// Register --help-no-header option
-			this->cmdHelp->RegisterOption(new Option(NULL, "--help-no-header", NULL, "Prints the help with no header.", false));
+			this->cmdHelp->RegisterOption(
+					new Option(NULL, config_NO_HELP_HEADER_OPTION_NAME, NULL, "Prints the help with no header.", false));
 		}
 
 		// Default is to show this error (helpful to user)
