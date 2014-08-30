@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
 - Created: 2012/03/19
 - Last Modified: 2014/08/30
-- Version: v8.10.2.0
+- Version: v9.0.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -319,6 +319,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v9.0.0.0  2014/08/30 First commit in work to update Makefile so it automatically downloads/builds dependencies.
 v8.10.2.0 2014/08/30 Renamed 'Clide-Cpp' to 'ClideCpp', closes #159. Changed all references of 'www.cladlab.com' to 'www.mbedded.ninja', closes #160.
 v8.10.1.0 2014/05/16 Added comments to 'FindOptionBy..()' functions, closes #156. Removed unused and undefined function declarations. Updated FAQ 1 in README to reflect the new way of assigning callbacks, closes #118.
 v8.10.0.0 2014/05/16 Added ability to supress the printing of the help header, with the long option '--no-header' to the 'help' command, closes #155. Made internal commands use functions that find options by name rather than numeral indexing, closes #154.

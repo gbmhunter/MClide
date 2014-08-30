@@ -42,12 +42,38 @@ EXAMPLE_CC_FLAGS := -Wall -g -std=c++0x
 
 .PHONY: depend clean
 
+
 # All
 all: clideLib test example
 	
 	# Run unit tests:
 	@./test/ClideTest.elf
 
+# The relative path of the root folder that contains all modules
+moduleDir := "../"
+# The file to read dependencies from
+file := package.json
+name := $(moduleDir)
+name += $(shell cat ${file} | jq '.name')
+repo := $(shell cat ${file} | jq '.repo')
+
+# Get rid of space in name
+null      :=
+SPACE     := $(null) $(null)
+name := $(subst $(SPACE),$(null),$(name))
+
+
+deps:
+	@echo $(name)
+	@echo $(repo)
+	if [ -d "$(name)" ]; then \
+	echo "slotmachine-cpp found"; \
+	else \
+	echo "slotmachine-cpp not found"; \
+	git clone $(repo) $(name); \
+	fi \
+	
+	
 #======== CLIDE LIB ==========	
 
 clideLib : $(SRC_OBJ_FILES)
