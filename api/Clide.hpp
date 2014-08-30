@@ -1,6 +1,6 @@
 //!
 //! @file 			Clide.hpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013/04/02
 //! @last-modified 	2014/01/21
 //! @brief 			This header file includes all files necessary for the user to use the Clide library.

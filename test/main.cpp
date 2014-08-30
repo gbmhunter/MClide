@@ -1,6 +1,6 @@
 //!
 //! @file 			main.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013/07/04
 //! @last-modified 	2014/03/26
 //! @brief 			Contains main entry point for unit tests.

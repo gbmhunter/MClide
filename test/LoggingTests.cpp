@@ -1,6 +1,6 @@
 //!
 //! @file 			LoggingTests.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2014/01/13
 //! @last-modified 	2014/03/21
 //! @brief			Unit tests for checking the logging functionality of the clide-cpp library.

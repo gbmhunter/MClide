@@ -1,6 +1,6 @@
 //!
 //! @file 			UnrecognisedCmdCallbackTests.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2014/01/13
 //! @last-modified 	2014/03/26
 //! @brief			Unit test for checking that the unrecognised command callback function is actually called when a command is not recognised.

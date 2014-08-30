@@ -1,6 +1,6 @@
 //!
 //! @file 			RxBuffEndOfCmdCharTests.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2014/03/21
 //! @last-modified 	2014/03/21
 //! @brief 			Contains functions which test that the end-of-command char variable in the RxBuff object works.

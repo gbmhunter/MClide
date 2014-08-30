@@ -1,6 +1,6 @@
 //!
 //! @file 			StringSplit.hpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013/04/10
 //! @last-modified 	2014/01/14
 //! @brief 			Features a string split function which ignores delimiters inside quotation marks.

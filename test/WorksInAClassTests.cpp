@@ -1,6 +1,6 @@
 //!
 //! @file 			WorksInAClassTests.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2014/04/02
 //! @last-modified 	2014/04/02
 //! @brief 			Contains tests to make sure Clide works when used as part of a class.

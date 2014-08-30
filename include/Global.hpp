@@ -1,6 +1,6 @@
 //!
 //! @file 			Global.hpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013/04/02
 //! @last-modified 	2014/01/14
 //! @brief 		 	Contains global functions and variables used by many Clide classes.

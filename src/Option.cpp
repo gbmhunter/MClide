@@ -1,6 +1,6 @@
 //!
 //! @file 			Option.hpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013/04/02
 //! @last-modified 	2014/04/03
 //! @brief 		 	The option class enables used of 'optional' parameters in the command-line interface.

@@ -1,6 +1,6 @@
 //!
 //! @file 			GetOpt.hpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013/03/19
 //! @last-modified 	2014/01/14
 //! @brief 			Header file for the getopt() function.

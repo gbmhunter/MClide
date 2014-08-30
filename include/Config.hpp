@@ -1,6 +1,6 @@
 //!
 //! @file 			Config.hpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013/04/02
 //! @last-modified 	2014/05/16
 //! @brief 			Configuration file for Clide.

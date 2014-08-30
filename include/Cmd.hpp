@@ -1,6 +1,6 @@
 //!
 //! @file 			Cmd.hpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013/03/19
 //! @last-modified 	2014/05/16
 //! @brief 			Contains the command object, which can be registered with the RX or TX controller (or both).

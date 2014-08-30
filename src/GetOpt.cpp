@@ -1,6 +1,6 @@
 //!
 //! @file 				GetOpt.cpp
-//! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2013/03/19
 //! @last-modified 		2014/03/21
 //! @brief 				Clide's own getopt() function. It was decided not to reply on the standard C version of this as the implementation varied between "standard" C libraries.

@@ -1,6 +1,6 @@
 //!
 //! @file 			DscriptionTests.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2014/01/24
 //! @last-modified 	2014/04/03
 //! @brief 			Contains test functions for Clide command, parameter and option descriptions.

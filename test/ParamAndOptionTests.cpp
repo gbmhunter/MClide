@@ -1,6 +1,6 @@
 //!
 //! @file 			ParamsAndOptionTests.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013/07/04
 //! @last-modified 	2014/01/21
 //! @brief 			Contains test functions for Clide command parameters and options in the same command.

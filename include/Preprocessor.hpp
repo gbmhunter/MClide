@@ -1,6 +1,6 @@
 //!
 //! @file 			Preprocessor.hpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2014/01/24
 //! @last-modified 	2014/01/24
 //! @brief 		 	Contains helpful preprocessor definitions and macros.

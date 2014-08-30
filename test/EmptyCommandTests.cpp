@@ -1,6 +1,6 @@
 //!
 //! @file 			EmptyCommandTests.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013/07/04
 //! @last-modified 	2014/04/03
 //! @brief 			Contains test functions for Clide command options with negative numbers.

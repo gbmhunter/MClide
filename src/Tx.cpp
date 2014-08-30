@@ -1,6 +1,6 @@
 //!
 //! @file 			Tx.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2012/03/19
 //! @last-modified 	2014/04/02
 //! @brief 			Clide TX controller. The main logic of the TX (sending)	part of Clide.

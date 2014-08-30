@@ -1,6 +1,6 @@
 //!
 //! @file 			example.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created 		2013/07/04
 //! @last-modified 	2014/05/16
 //! @brief 			Example Clide program, designed to be run on Linux.

@@ -1,9 +1,9 @@
 #
 # @file 			Makefile
-# @author 			Geoffrey Hunter <gbmhunter@gmail.com> (wwww.cladlab.com)
+# @author 			Geoffrey Hunter <gbmhunter@gmail.com> (wwww.mbedded.ninja)
 # @edited 			n/a
 # @created			2013/08/29
-# @last-modified 	2014/01/24
+# @last-modified 	2014/08/30
 # @brief 			Makefile for Linux-based make, to compile Clide library, example and run unit test code.
 # @details
 #					See README in repo root dir for more info.

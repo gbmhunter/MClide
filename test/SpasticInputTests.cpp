@@ -1,6 +1,6 @@
 //!
 //! @file 			SpasticInputTests.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013/07/04
 //! @last-modified 	2014/01/21
 //! @brief 			Contains test functions for stressing the input with spastic characters. The idea here is just to make sure no unexpected characters can cause Rx.Run() to crash.

@@ -1,6 +1,6 @@
 //!
 //! @file 			RxBuffStringTests.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2014/01/09
 //! @last-modified 	2014/03/21
 //! @brief 			Contains string test functions for the RxBuff object.

@@ -1,6 +1,6 @@
 //!
 //! @file 			MultipleSpacesBetweenArgumentsTests.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013/07/12
 //! @last-modified 	2014/01/21
 //! @brief 			Contains test functions for Clide commands with multiple spaces between arguments.

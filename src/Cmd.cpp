@@ -1,6 +1,6 @@
 //!
 //! @file 			Cmd.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013/04/02
 //! @last-modified 	2014/05/16
 //! @brief 			Command-line style communications protocol

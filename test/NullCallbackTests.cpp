@@ -1,6 +1,6 @@
 //!
 //! @file 			NullCallbackTests.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2014/01/21
 //! @last-modified 	2014/01/21
 //! @brief 			Contains test functions for if the command callback function is NULL.

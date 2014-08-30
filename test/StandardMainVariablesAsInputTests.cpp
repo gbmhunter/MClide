@@ -1,6 +1,6 @@
 //!
 //! @file 			StandardMainVariablesAsInputTests.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2014/03/26
 //! @last-modified 	2014/04/02
 //! @brief 			Contains test functions when standard main variables argc and argv variables are used an input.

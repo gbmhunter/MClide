@@ -1,6 +1,6 @@
 //!
 //! @file				Print.cpp
-//! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2012/03/19
 //! @last-modified		2014/03/21
 //! @brief 				Contains callbacks for port-specific print operations.

@@ -1,6 +1,6 @@
 //!
 //! @file 			OptionFindByLongNameTests.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2014/05/16
 //! @last-modified 	2014/05/16
 //! @brief 			Contains test functions for finding options by their long name.
