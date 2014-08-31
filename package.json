@@ -1,8 +1,15 @@
-{
+[{
   "name": "slotmachine-cpp",
-  "version": "1.1.2.1",
-  "repo": "https://github.com/mbedded-ninja/slotmachine-cpp",
-  "description": "Slot machine.",
-  "keywords": ["slots", "signals"],
-  "license": "MIT"
-}
+  "repo": "http://github.com/mbedded-ninja/slotmachine-cpp",
+  "headerOnly" : "yes",
+  "buildCmds" :
+		[{ "buildCmd" : "make"}]
+},
+{
+  "name": "UnitTest++",
+  "repo": "http://github.com/unittest-cpp/unittest-cpp",
+  "headerOnly" : "no",
+  "buildCmds" :
+		[{ "buildCmd" : "cmake ."},
+		{ "buildCmd" : "make"}]
+}]

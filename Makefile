@@ -49,30 +49,6 @@ all: clideLib test example
 	# Run unit tests:
 	@./test/ClideTest.elf
 
-# The relative path of the root folder that contains all modules
-moduleDir := "../"
-# The file to read dependencies from
-file := package.json
-name := $(moduleDir)
-name += $(shell cat ${file} | jq '.name')
-repo := $(shell cat ${file} | jq '.repo')
-
-# Get rid of space in name
-null      :=
-SPACE     := $(null) $(null)
-name := $(subst $(SPACE),$(null),$(name))
-
-
-deps:
-	@echo $(name)
-	@echo $(repo)
-	if [ -d "$(name)" ]; then \
-	echo "slotmachine-cpp found"; \
-	else \
-	echo "slotmachine-cpp not found"; \
-	git clone $(repo) $(name); \
-	fi \
-	
 	
 #======== CLIDE LIB ==========	
 
@@ -83,7 +59,7 @@ clideLib : $(SRC_OBJ_FILES)
 # Generic rule for src object files
 src/%.o: src/%.cpp
 	# Compiling src/ files
-	$(COMPILE.c) -MD -o $@ $<
+	$(COMPILE.c) $(DEP_LIB_PATHS) $(DEP_LIBS) $(DEP_INCLUDE_PATHS) -MD -o $@ $<
 	-@cp $*.d $*.P >/dev/null 2>&1; \
 	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
 		-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \
@@ -95,14 +71,14 @@ src/%.o: src/%.cpp
 # ======== TEST ========
 	
 # Compiles unit test code
-test : $(TEST_OBJ_FILES) | clideLib unitTestLib
+test : $(TEST_OBJ_FILES) | clideLib
 	# Compiling unit test code
-	g++ $(TEST_LD_FLAGS) -o ./test/ClideTest.elf $(TEST_OBJ_FILES) -L./test/UnitTest++ -lUnitTest++ -L./ -lClide
+	g++ $(TEST_LD_FLAGS) -o ./test/ClideTest.elf $(TEST_OBJ_FILES)  $(DEP_LIB_PATHS) $(DEP_LIBS) $(DEP_INCLUDE_PATHS) -L./ -lClide
 
 # Generic rule for test object files
 test/%.o: test/%.cpp
-	# Compiling src/ files
-	$(COMPILE.c) -MD -o $@ $<
+	# Compiling test/ files
+	$(COMPILE.c) $(DEP_LIB_PATHS) $(DEP_LIBS) $(DEP_INCLUDE_PATHS) -MD -o $@ $<
 	-@cp $*.d $*.P >/dev/null 2>&1; \
 	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
 		-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \
@@ -110,9 +86,6 @@ test/%.o: test/%.cpp
 
 -include $(TEST_OBJ_FILES:.o=.d)
 	
-unitTestLib:
-	# Compile UnitTest++ library (has it's own Makefile)
-	$(MAKE) -C ./test/UnitTest++/ all
 	
 # ===== EXAMPLE ======
 
@@ -128,8 +101,7 @@ example/%.o: example/%.cpp
 # ====== CLEANING ======
 	
 clean: clean-ut clean-clide
-	# Clean UnitTest++ library (has it's own Makefile)
-	$(MAKE) -C ./test/UnitTest++/ clean
+
 	
 clean-ut:
 	@echo " Cleaning test object files..."; $(RM) ./test/*.o
