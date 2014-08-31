@@ -1,8 +1,8 @@
 //!
 //! @file 			Cmd.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2013/03/19
-//! @last-modified 	2014/05/16
+//! @created		2013-03-19
+//! @last-modified 	2014-08-31
 //! @brief 			Contains the command object, which can be registered with the RX or TX controller (or both).
 //! @details
 //!					See README.rst in root dir for more info.
@@ -34,7 +34,7 @@ namespace Clide
 #include <string>
 
 // User libraries
-#include "../lib/slotmachine-cpp/api/Slotmachine.hpp"
+#include "slotmachine-cpp/api/Slotmachine.hpp"
 
 // User headers
 #include "Config.hpp"		//!< Config options

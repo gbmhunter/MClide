@@ -1,8 +1,8 @@
 //!
 //! @file 			Rx.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2012/03/19
-//! @last-modified 	2014/05/16
+//! @created		2012-03-19
+//! @last-modified 	2014-08-31
 //! @brief 			Clide RX controller. The main logic of the RX (decoding) part of Clide. Commands can be registered with the controller.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -23,7 +23,7 @@
 #include <cstring>		// memset()
 
 // User library includes
-#include "../lib/slotmachine-cpp/api/Slotmachine.hpp"
+#include "slotmachine-cpp/api/Slotmachine.hpp"
 
 // Clide includes
 #include "../include/Config.hpp"

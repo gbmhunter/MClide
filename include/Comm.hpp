@@ -1,8 +1,8 @@
 //!
 //! @file 			Comm.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2013/12/18
-//! @last-modified 	2014/05/16
+//! @created		2013-12-18
+//! @last-modified 	2014-08-31
 //! @brief			The base communications class. This is extended by both Clide::Tx and Clide::Rx which are the classes manipulated by the user.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -30,8 +30,8 @@
 #include <cstring>		// memset()
 #include <vector>
 
-// User library ("lib/") headers
-#include "../lib/slotmachine-cpp/api/Slotmachine.hpp"		//!< Callbacks.
+// User libraries
+#include "slotmachine-cpp/api/Slotmachine.hpp"		//!< Callbacks.
 
 // Forward declaration
 class Comm;

@@ -40,6 +40,10 @@ EXAMPLE_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard example/*.cpp))
 EXAMPLE_LD_FLAGS := 
 EXAMPLE_CC_FLAGS := -Wall -g -std=c++0x
 
+DEP_LIB_PATHS := -L ../UnitTest++
+DEP_LIBS := -l UnitTest++
+DEP_INCLUDE_PATHS := -I../
+
 .PHONY: depend clean
 
 
@@ -96,7 +100,7 @@ example : $(EXAMPLE_OBJ_FILES) clideLib
 	
 # Generic rule for test object files
 example/%.o: example/%.cpp
-	g++ $(EXAMPLE_CC_FLAGS) -c -o $@ $<
+	g++ $(EXAMPLE_CC_FLAGS) $(DEP_INCLUDE_PATHS) -c -o $@ $<
 	
 # ====== CLEANING ======
 	

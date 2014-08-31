@@ -1,8 +1,8 @@
 //!
 //! @file 			Cmd.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2013/04/02
-//! @last-modified 	2014/05/16
+//! @created		2013-04-02
+//! @last-modified 	2014-08-31
 //! @brief 			Command-line style communications protocol
 //! @details
 //!				See README.rst in repo root dir for more info.

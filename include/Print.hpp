@@ -1,8 +1,8 @@
 //!
 //! @file 			Print.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2013/03/19
-//! @last-modified 	2014/03/21
+//! @created		2013-03-19
+//! @last-modified 	2014-08-31
 //! @brief 			Contains callbacks for port-specific print operations.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -18,7 +18,7 @@
 #ifndef CLIDE_PRINT_H
 #define CLIDE_PRINT_H
 
-#include "../lib/slotmachine-cpp/api/Slotmachine.hpp"		//!< Callbacks.
+#include "slotmachine-cpp/api/Slotmachine.hpp"		//!< Callbacks.
 
 #include "Preprocessor.hpp"									//!< STR() macro
 

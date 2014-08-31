@@ -1,8 +1,8 @@
 //!
 //! @file 			Clide.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2013/04/02
-//! @last-modified 	2014/01/21
+//! @created		2013-04-02
+//! @last-modified 	2014-08-31
 //! @brief 			This header file includes all files necessary for the user to use the Clide library.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -19,7 +19,7 @@
 #define CLIDE_CLIDE_H
 
 // User libraries
-#include "../lib/slotmachine-cpp/api/Slotmachine.hpp"
+#include "slotmachine-cpp/api/Slotmachine.hpp"
 
 // Clide includes
 #include "../include/Tx.hpp"
