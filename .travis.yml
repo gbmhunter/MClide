@@ -2,6 +2,9 @@ language: cpp
 compiler:
   - gcc
 install:
+  - sudo apt-get update 
+  - sudo apt-get upgrade 
+  - sudo apt-get install flex bison
   - git clone https://github.com/stedolan/jq.git
   - cd jq
   - autoreconf -i
