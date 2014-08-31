@@ -1,4 +1,6 @@
 language: cpp
 compiler:
   - gcc
-script: ./build.sh
+script: 
+	- chmod -R 777 ./build.sh
+	- ./build.sh
