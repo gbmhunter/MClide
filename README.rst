@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
 - Created: 2012-03-19
 - Last Modified: 2014-08-31
-- Version: v9.2.0.0
+- Version: v9.2.1.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -319,6 +319,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v9.2.1.0  2014/08/31 Added TravisCI config info to download/build dependencies.
 v9.2.0.0  2014/08/31 Reverted back to standard Makefile build, removed build.sh and package.json file.
 v9.1.7.0  2014/08/31 Attempt 2 at getting jq installed from TravisCI config file. 
 v9.1.6.0  2014/08/31 jq is now installed from TravisCI config file. 
