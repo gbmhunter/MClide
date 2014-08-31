@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
 - Created: 2012-03-19
 - Last Modified: 2014-08-31
-- Version: v9.1.0.0
+- Version: v9.1.1.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -319,6 +319,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v9.1.1.0  2014/08/31 Changed TravisCI script variable to call './build.sh' instead of make, closes #162.
 v9.1.0.0  2014/08/31 Added 'build.sh' to handle the downloading of dependencies. Currently downloads UnitTest++ and slotmachine-cpp and correctly adds compiler flags for the build to work correctly. Some values still hardcoded into build.sh, this is only a first draft. Removed dependencies from 'test/' and 'lib/' as these are now downloaded automatically by this script.
 v9.0.0.0  2014/08/30 First commit in work to update Makefile so it automatically downloads/builds dependencies.
 v8.10.2.0 2014/08/30 Renamed 'Clide-Cpp' to 'ClideCpp', closes #159. Changed all references of 'www.cladlab.com' to 'www.mbedded.ninja', closes #160.
