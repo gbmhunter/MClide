@@ -1,6 +1,13 @@
 language: cpp
 compiler:
   - gcc
+install:
+  - git clone https://github.com/stedolan/jq.git
+  - cd jq
+  - autoreconf -i
+  - ./configure
+  - make
+  - sudo make install
 script: 
   - chmod -R 777 ./build.sh
   - ./build.sh

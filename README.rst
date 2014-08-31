@@ -319,6 +319,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v9.1.6.0  2014/08/31 Installing jq from TravisCI config file. 
 v9.1.5.0  2014/08/31 Attempt five at calling './build.sh' from TravisCI config file.
 v9.1.4.0  2014/08/31 Attempt four at calling './build.sh' from TravisCI config file.
 v9.1.3.0  2014/08/31 Attempt three at calling './build.sh' from TravisCI config file.
