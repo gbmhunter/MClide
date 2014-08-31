@@ -40,7 +40,7 @@ EXAMPLE_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard example/*.cpp))
 EXAMPLE_LD_FLAGS := 
 EXAMPLE_CC_FLAGS := -Wall -g -std=c++0x
 
-DEP_LIB_PATHS := -L ../UnitTest++
+DEP_LIB_PATHS := -L ../unittest-cpp
 DEP_LIBS := -l UnitTest++
 DEP_INCLUDE_PATHS := -I../
 
