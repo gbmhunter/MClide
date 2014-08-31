@@ -1,8 +1,8 @@
 //!
 //! @file 			main.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2013/07/04
-//! @last-modified 	2014/03/26
+//! @created		2013-07-04
+//! @last-modified 	2014-08-31
 //! @brief 			Contains main entry point for unit tests.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -12,7 +12,7 @@
 #include "../api/Clide.hpp"
 
 #include "unittest-cpp/UnitTest++/UnitTest++.h"
-#include "UnitTest++/UnitTest++/TestReporterStdout.h"
+#include "unittest-cpp/UnitTest++/TestReporterStdout.h"
 
 class Printer
 {

@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
 - Created: 2012-03-19
 - Last Modified: 2014-08-31
-- Version: v9.2.4.0
+- Version: v9.2.5.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -319,6 +319,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v9.2.5.0  2014/08/31 Fixed incorrect include in 'test/main.cpp'.
 v9.2.4.0  2014/08/31 Updated includes to UnitTest++ library to match GitHub repo name.
 v9.2.3.0  2014/08/31 TravisCI install script now reverts back to ClideCpp dir before calling make.
 v9.2.2.0  2014/08/31 2nd attempt at adding TravisCI config info to download/build dependencies.
