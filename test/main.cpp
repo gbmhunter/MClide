@@ -11,7 +11,7 @@
 
 #include "../api/Clide.hpp"
 
-#include "UnitTest++/UnitTest++/UnitTest++.h"
+#include "unittest-cpp/UnitTest++/UnitTest++.h"
 #include "UnitTest++/UnitTest++/TestReporterStdout.h"
 
 class Printer

@@ -9,7 +9,7 @@
 
 #include "../api/Clide.hpp"
 
-#include "UnitTest++/UnitTest++/UnitTest++.h"
+#include "unittest-cpp/UnitTest++/UnitTest++.h"
 
 namespace ClideTest
 {
