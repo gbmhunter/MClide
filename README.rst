@@ -12,7 +12,7 @@ Clide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
 - Created: 2012-03-19
 - Last Modified: 2014-09-14
-- Version: v9.3.0.0
+- Version: v9.3.1.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -319,6 +319,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v9.3.1.0  2014-09-14 Added build matrix to .travis.yml, which will hopefully fix the build error.
 v9.3.0.0  2014-09-14 Fixed name in README from 'ClideCpp' to 'MClide'. Removed dependence on slotmachine-cpp, MClide now depends on MCallbacks an downloads it into the parent directory, closes #161. Replaced UnitTestCpp with the MUnitTest module, and made all unit test names unique to be compatible with it, closes #164. Makefile now downloads and builds all dependencies.
 v9.2.6.0  2014-08-31 Fixed incorrect path to UnitTest++ in the Makefile.
 v9.2.5.0  2014-08-31 Fixed incorrect include in 'test/main.cpp'.
