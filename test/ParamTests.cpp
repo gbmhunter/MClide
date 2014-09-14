@@ -1,112 +1,114 @@
 //!
 //! @file 			ParamTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2013/07/04
-//! @last-modified 	2014/01/21
+//! @created		2013-07-04
+//! @last-modified 	2014-09-14
 //! @brief 			Contains test functions for Clide command parameters.
 //! @details
 //!					See README.rst in root dir for more info.
 
+//===== SYSTEM LIBRARIES =====//
 #include <stdio.h>
 
-#include "../api/Clide.hpp"
+//====== USER LIBRARIES =====//
+#include "MUnitTest/api/MUnitTestApi.hpp"
 
-#include "unittest-cpp/UnitTest++/UnitTest++.h"
+//===== USER SOURCE =====//
+#include "../api/MClideApi.hpp"
 
-namespace ClideTest
+namespace MClideTest
 {
-	SUITE(ParamTests)
+
+	using namespace Clide;
+
+	Cmd *_cmd = NULL;
+
+	static bool Callback(Cmd *cmd)
 	{
-		using namespace Clide;
+		_cmd = cmd;
 
-		Cmd *_cmd = NULL;
+		return true;
+	}
 
-		bool Callback(Cmd *cmd)
-		{
-			_cmd = cmd; 
-			
-			return true;
-		}
+	MTEST(BasicRxTest)
+	{
 
-		TEST(BasicRxTest)
-		{
+		Rx rxController;
 
-			Rx rxController;
-			
-			Cmd cmdTest("test", &Callback, "A test command.");
-			
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
-			
-			// Create fake input buffer
-			char rxBuff[50] = "test";
-			
-			_cmd = NULL;
-			
-			// Run rx controller
-			rxController.Run(rxBuff);
-			
-			if(_cmd != NULL)
-				CHECK_EQUAL(true, _cmd->isDetected);
-			else
-				CHECK(false);
-		}
+		Cmd cmdTest("test", &Callback, "A test command.");
 
+		// Register command
+		rxController.RegisterCmd(&cmdTest);
+
+		// Create fake input buffer
+		char rxBuff[50] = "test";
+
+		_cmd = NULL;
+
+		// Run rx controller
+		rxController.Run(rxBuff);
+
+		if(_cmd != NULL)
+			CHECK_EQUAL(true, _cmd->isDetected);
+		else
+			CHECK(false);
+	}
+
+
+	MTEST(OneParamRxTest)
+	{
+		Rx rxController;
+		Tx txController;
+
+		Cmd cmdTest("test", &Callback, "A test command.");
+		Param cmdTestParam("A test parameter");
+		cmdTest.RegisterParam(&cmdTestParam);
+
+		// Register command
+		rxController.RegisterCmd(&cmdTest);
+
+		// Create fake input buffer
+		char rxBuff[50] = "test param1";
+
+		_cmd = NULL;
+
+		// Run rx controller
+		rxController.Run(rxBuff);
+
+		if(_cmd != NULL)
+			CHECK_EQUAL(true, _cmd->isDetected);
+		else
+			CHECK(false);
+	}
+
+	MTEST(TwoParamRxTest)
+	{
+		Rx rxController;
+		Tx txController;
+
+		Cmd cmdTest("test", &Callback, "A test command.");
+
+		Param cmdTestParam1("Test parameter 1");
+		cmdTest.RegisterParam(&cmdTestParam1);
+
+		Param cmdTestParam2("Test parameter 2");
+		cmdTest.RegisterParam(&cmdTestParam2);
+
+		// Register command
+		rxController.RegisterCmd(&cmdTest);
+
+		// Create fake input buffer
+		char rxBuff[50] = "test param1 param2";
+
+		_cmd = NULL;
 		
-		TEST(OneParamRxTest)
-		{
-			Rx rxController;
-			Tx txController;
-			
-			Cmd cmdTest("test", &Callback, "A test command.");
-			Param cmdTestParam("A test parameter");
-			cmdTest.RegisterParam(&cmdTestParam);
-			
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
-			
-			// Create fake input buffer
-			char rxBuff[50] = "test param1";
-			
-			_cmd = NULL;
-			
-			// Run rx controller
-			rxController.Run(rxBuff);
-			
-			if(_cmd != NULL)
-				CHECK_EQUAL(true, _cmd->isDetected);
-			else
-				CHECK(false);
-		}
+		// Run rx controller
+		rxController.Run(rxBuff);
 		
-		TEST(TwoParamRxTest)
-		{
-			Rx rxController;
-			Tx txController;
-			
-			Cmd cmdTest("test", &Callback, "A test command.");
-			
-			Param cmdTestParam1("Test parameter 1");
-			cmdTest.RegisterParam(&cmdTestParam1);
-			
-			Param cmdTestParam2("Test parameter 2");
-			cmdTest.RegisterParam(&cmdTestParam2);
-			
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
-			
-			// Create fake input buffer
-			char rxBuff[50] = "test param1 param2";
-			
-			_cmd = NULL;
-			
-			// Run rx controller
-			rxController.Run(rxBuff);
-			
-			if(_cmd != NULL)
-				CHECK_EQUAL(true, _cmd->isDetected);
-			else
-				CHECK(false);
-		}	
-	} // SUITE(ParamTests)
-} // namespace ClideTest
+		if(_cmd != NULL)
+			CHECK_EQUAL(true, _cmd->isDetected);
+		else
+			CHECK(false);
+	}
+
+} // namespace MClideTest

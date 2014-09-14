@@ -1,30 +1,35 @@
 //!
 //! @file 			LoggingTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2014/01/13
-//! @last-modified 	2014/03/21
+//! @created		2014-01-13
+//! @last-modified 	2014-09-14
 //! @brief			Unit tests for checking the logging functionality of the clide-cpp library.
 //! @details
 //!				See README.rst in root dir for more info.
 
-#include "../api/Clide.hpp"
+//===== SYSTEM LIBRARIES =====//
+// none
 
-#include "unittest-cpp/UnitTest++/UnitTest++.h"
+//====== USER LIBRARIES =====//
+#include "MUnitTest/api/MUnitTestApi.hpp"
 
-namespace ClideTest
+//===== USER SOURCE =====//
+#include "../api/MClideApi.hpp"
+
+namespace MClideTest
 {
 /*
 	SUITE(LoggingTests)
 	{
 		using namespace Clide;
 
-		bool Callback(Cmd *cmd)
+		static bool Callback(Cmd *cmd)
 		{
 			return true;
 		}
 
 
-		TEST(BasicLoggingTest)
+		MTEST(BasicLoggingTest)
 		{
 			Rx rxController;
 			Tx txController;
@@ -54,7 +59,7 @@ namespace ClideTest
 			
 		}*/
 		/*
-		TEST(OneOptionThenOneParamRxTest)
+		MTEST(OneOptionThenOneParamRxTest)
 		{
 			Rx rxController;
 			Tx txController;
@@ -83,7 +88,7 @@ namespace ClideTest
 			CHECK_EQUAL(true, cmdTestOption.isDetected);
 		}
 		
-		TEST(TwoParamTwoOptionRxTest1)
+		MTEST(TwoParamTwoOptionRxTest1)
 		{
 			Rx rxController;
 			Tx txController;
@@ -120,7 +125,7 @@ namespace ClideTest
 			CHECK_EQUAL(true, cmdTestOption2.isDetected);
 		}
 		
-		TEST(TwoParamTwoOptionRxTest2)
+		MTEST(TwoParamTwoOptionRxTest2)
 		{
 			Rx rxController;
 			Tx txController;
@@ -157,7 +162,7 @@ namespace ClideTest
 			CHECK_EQUAL(true, cmdTestOption2.isDetected);
 		}
 		
-		TEST(TwoParamTwoOptionRxTest3)
+		MTEST(TwoParamTwoOptionRxTest3)
 		{
 			Rx rxController;
 			Tx txController;
@@ -206,4 +211,4 @@ namespace ClideTest
 		}
 		
 	} // SUITE(ParamAndOptionTests)*/
-} // namespace ClideTest
+} // namespace MClideTest

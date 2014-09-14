@@ -19,7 +19,7 @@
 #define CLIDE_CLIDE_H
 
 // User libraries
-#include "slotmachine-cpp/api/Slotmachine.hpp"
+#include "MCallbacks/api/MCallbacksApi.hpp"
 
 // Clide includes
 #include "../include/Tx.hpp"

@@ -1,17 +1,22 @@
 //!
 //! @file 			UnrecognisedCmdCallbackTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2014/01/13
-//! @last-modified 	2014/03/26
+//! @created		2014-01-13
+//! @last-modified 	2014-03-26
 //! @brief			Unit test for checking that the unrecognised command callback function is actually called when a command is not recognised.
 //! @details
 //!				See README.rst in root dir for more info.
 
-#include "../api/Clide.hpp"
+//===== SYSTEM LIBRARIES =====//
+#include <stdio.h>
 
-#include "unittest-cpp/UnitTest++/UnitTest++.h"
+//====== USER LIBRARIES =====//
+#include "MUnitTest/api/MUnitTestApi.hpp"
 
-namespace ClideTest
+//===== USER SOURCE =====//
+#include "../api/MClideApi.hpp"
+
+namespace MClideTest
 {
 	class ClassWithFunction
 	{
@@ -36,76 +41,74 @@ namespace ClideTest
 
 	};
 
-	SUITE(UnrecognisedCmdCallbackTests)
+
+	using namespace Clide;
+
+	bool CmdCallback(Cmd *cmd)
 	{
-		using namespace Clide;
+		return true;
+	}
 
-		bool CmdCallback(Cmd *cmd)
-		{
-			return true;
-		}
+	MTEST(UnrecognisedCmdCallbackTest)
+	{
+		Rx rxController;
 
-		TEST(UnrecognisedCmdCallbackTest)
-		{
-			Rx rxController;
+		ClassWithFunction classWithFunction;
 
-			ClassWithFunction classWithFunction;
+		MCallbacks::CallbackGen<ClassWithFunction, void, char*> callBack(&classWithFunction, &ClassWithFunction::TryAndCallMe);
 
-			SlotMachine::CallbackGen<ClassWithFunction, void, char*> callBack(&classWithFunction, &ClassWithFunction::TryAndCallMe);
+		// Register callback function
+		rxController.cmdUnrecogCallback = callBack;
 
-			// Register callback function
-			rxController.cmdUnrecogCallback = callBack;
+		// Create fake input buffer
+		char rxBuff[50] = "blah blah blah";
 
-			// Create fake input buffer
-			char rxBuff[50] = "blah blah blah";
+		// Run rx controller
+		rxController.Run(rxBuff);
 
-			// Run rx controller
-			rxController.Run(rxBuff);
+		// Now make sure the callback was called
+		CHECK_EQUAL(true, classWithFunction.iWasCalled);
 
-			// Now make sure the callback was called
-			CHECK_EQUAL(true, classWithFunction.iWasCalled);
-			
-			// Make sure the cmds were equal
-			CHECK_EQUAL(true, classWithFunction.cmdsEqual);
+		// Make sure the cmds were equal
+		CHECK_EQUAL(true, classWithFunction.cmdsEqual);
 
-		}
+	}
 
-		TEST(RecognisedCmdWithCallbackTest)
-		{
-			Rx rxController;
+	MTEST(RecognisedCmdWithCallbackTest)
+	{
+		Rx rxController;
 
-			ClassWithFunction classWithFunction;
+		ClassWithFunction classWithFunction;
 
-			SlotMachine::CallbackGen<ClassWithFunction, void, char*> callBack(&classWithFunction, &ClassWithFunction::TryAndCallMe);
+		MCallbacks::CallbackGen<ClassWithFunction, void, char*> callBack(&classWithFunction, &ClassWithFunction::TryAndCallMe);
 
-			// Register callback function
-			rxController.cmdUnrecogCallback = callBack;
+		// Register callback function
+		rxController.cmdUnrecogCallback = callBack;
 
-			// Create command
-			Cmd cmdTest("test", &CmdCallback, "A test command.");
+		// Create command
+		Cmd cmdTest("test", &CmdCallback, "A test command.");
 
-			// Create parameter
-			Param cmdTestParam("A test parameter.");
-			cmdTest.RegisterParam(&cmdTestParam);
+		// Create parameter
+		Param cmdTestParam("A test parameter.");
+		cmdTest.RegisterParam(&cmdTestParam);
 
-			// Create option
-			Option cmdTestOption('a', NULL, "A test option.");
-			cmdTest.RegisterOption(&cmdTestOption);
+		// Create option
+		Option cmdTestOption('a', NULL, "A test option.");
+		cmdTest.RegisterOption(&cmdTestOption);
 
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
+		// Register command
+		rxController.RegisterCmd(&cmdTest);
 
-			// Create fake input buffer
-			char rxBuff[50] = "test param1 -a";
+		// Create fake input buffer
+		char rxBuff[50] = "test param1 -a";
 
-			// Run rx controller
-			rxController.Run(rxBuff);
+		// Run rx controller
+		rxController.Run(rxBuff);
 
-			// Now the command should of been recognised, and the callback function NOT called,
-			// so make sure they are still false
-			CHECK_EQUAL(false, classWithFunction.iWasCalled);
+		// Now the command should of been recognised, and the callback function NOT called,
+		// so make sure they are still false
+		CHECK_EQUAL(false, classWithFunction.iWasCalled);
 
-		}
+	}
 
-	} // SUITE(NotRecognisedCmdCallbackTests)
-} // namespace ClideTest
+} // namespace MClideTest

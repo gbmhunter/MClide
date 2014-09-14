@@ -12,7 +12,7 @@
 #include <string>
 #include <limits>
 
-#include "../api/Clide.hpp"
+#include "../api/MClideApi.hpp"
 
 using namespace Clide;
 using namespace std;
@@ -21,7 +21,7 @@ using namespace std;
 CmdGroup cmdGroupUser("user", "Commands are suitable for the user.");
 CmdGroup cmdGroupDev("dev", "Commands are suitable for the developer.");
 
-bool Callback(Cmd *cmd)
+static bool Callback(Cmd *cmd)
 {
 	return true;
 }
@@ -51,9 +51,9 @@ int main()
 	Printer printer;
 
 	Clide::Print::AssignCallbacks(
-			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintDebug),
-			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine),
-			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintError));
+			MCallbacks::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintDebug),
+			MCallbacks::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine),
+			MCallbacks::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintError));
 
 	Clide::Print::enableDebugInfoPrinting = false;
 	Clide::Print::enableErrorPrinting = false;

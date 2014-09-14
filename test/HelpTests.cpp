@@ -1,150 +1,153 @@
 //!
 //! @file 			HelpTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2014/01/07
-//! @last-modified 	2014/01/21
-//! @brief 			Contains test functions for Clide help.
+//! @created		2014-01-07
+//! @last-modified 	2014-09-14
+//! @brief 			Contains test functions for MClide help.
 //! @details
 //!					See README.rst in root dir for more info.
 
-#include "../api/Clide.hpp"
+//===== SYSTEM LIBRARIES =====//
+// none
 
-#include "unittest-cpp/UnitTest++/UnitTest++.h"
+//====== USER LIBRARIES =====//
+#include "MUnitTest/api/MUnitTestApi.hpp"
 
-namespace ClideTest
+//===== USER SOURCE =====//
+#include "../api/MClideApi.hpp"
+
+namespace MClideTest
 {
-	SUITE(HelpTests)
+
+	using namespace Clide;
+
+	static bool Callback(Cmd *cmd)
 	{
-		using namespace Clide;
+		return true;
+	}
 
-		bool Callback(Cmd *cmd)
-		{
-			return true;
-		}
+	MTEST(HelpNoDefaultTest)
+	{
+		Rx rxController;
+		Tx txController;
 
-		TEST(HelpNoDefaultTest)
-		{
-			Rx rxController;
-			Tx txController;
-			
-			CmdGroup cmdGroupUser("user", "Commands are suitable for the user.");
-			CmdGroup cmdGroupDev("dev", "Commands are suitable for the developer.");
+		CmdGroup cmdGroupUser("user", "Commands are suitable for the user.");
+		CmdGroup cmdGroupDev("dev", "Commands are suitable for the developer.");
 
-			// Create command
-			Cmd cmdTest("test", &Callback, "A test command.");
-			
-			// Create parameter
-			Param cmdTestParam("A test parameter.");
-			cmdTest.RegisterParam(&cmdTestParam);
-			
-			// Create option
-			Option cmdTestOption('a', NULL, "A test option.");
-			cmdTest.RegisterOption(&cmdTestOption);
-			
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
+		// Create command
+		Cmd cmdTest("test", &Callback, "A test command.");
 
-			// Create fake input buffer
-			char rxBuff[50] = "help";
-			
-			// Run rx controller
-			rxController.Run(rxBuff);
-			
-		}
+		// Create parameter
+		Param cmdTestParam("A test parameter.");
+		cmdTest.RegisterParam(&cmdTestParam);
+
+		// Create option
+		Option cmdTestOption('a', NULL, "A test option.");
+		cmdTest.RegisterOption(&cmdTestOption);
+
+		// Register command
+		rxController.RegisterCmd(&cmdTest);
+
+		// Create fake input buffer
+		char rxBuff[50] = "help";
+
+		// Run rx controller
+		rxController.Run(rxBuff);
 		
-		TEST(HelpNoGroupsAtAllTest)
-		{
-			Rx rxController;
+	}
 
-			// Create command
-			Cmd cmdTest("test", &Callback, "A test command.");
+	MTEST(HelpNoGroupsAtAllTest)
+	{
+		Rx rxController;
 
-			// Create parameter
-			Param cmdTestParam("A test parameter.");
-			cmdTest.RegisterParam(&cmdTestParam);
+		// Create command
+		Cmd cmdTest("test", &Callback, "A test command.");
 
-			// Create option
-			Option cmdTestOption('a', NULL, "A test option.");
-			cmdTest.RegisterOption(&cmdTestOption);
+		// Create parameter
+		Param cmdTestParam("A test parameter.");
+		cmdTest.RegisterParam(&cmdTestParam);
 
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
+		// Create option
+		Option cmdTestOption('a', NULL, "A test option.");
+		cmdTest.RegisterOption(&cmdTestOption);
 
-			// Create fake input buffer
-			char rxBuff[50] = "help";
+		// Register command
+		rxController.RegisterCmd(&cmdTest);
 
-			// Run rx controller
-			rxController.Run(rxBuff);
+		// Create fake input buffer
+		char rxBuff[50] = "help";
 
-		}
+		// Run rx controller
+		rxController.Run(rxBuff);
 
-		TEST(HelpGroupsTest)
-		{
-			Rx rxController;
-			Tx txController;
-			
-			CmdGroup cmdGroupUser("user", "Commands are suitable for the user.");
-			CmdGroup cmdGroupDev("dev", "Commands are suitable for the developer.");
+	}
 
-			// Create command
-			Cmd cmdTest("test", &Callback, "A test command.");
-			
-			// Create parameter
-			Param cmdTestParam("A test parameter.");
-			cmdTest.RegisterParam(&cmdTestParam);
-			
-			// Create option
-			Option cmdTestOption('a', NULL, "A test option.");
-			cmdTest.RegisterOption(&cmdTestOption);
-			
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
-			
-			// Setup default command group
-			rxController.defaultCmdGroup = &cmdGroupUser;
+	MTEST(HelpGroupsTest)
+	{
+		Rx rxController;
+		Tx txController;
 
-			// Create fake input buffer
-			char rxBuff[50] = "help";
-			
-			// Run rx controller
-			rxController.Run(rxBuff);
-			
-			//CHECK_EQUAL("param1", cmdTestParam.value);
-			//CHECK_EQUAL(true, cmdTestOption.isDetected);
-		}
+		CmdGroup cmdGroupUser("user", "Commands are suitable for the user.");
+		CmdGroup cmdGroupDev("dev", "Commands are suitable for the developer.");
+
+		// Create command
+		Cmd cmdTest("test", &Callback, "A test command.");
+
+		// Create parameter
+		Param cmdTestParam("A test parameter.");
+		cmdTest.RegisterParam(&cmdTestParam);
+
+		// Create option
+		Option cmdTestOption('a', NULL, "A test option.");
+		cmdTest.RegisterOption(&cmdTestOption);
+
+		// Register command
+		rxController.RegisterCmd(&cmdTest);
+
+		// Setup default command group
+		rxController.defaultCmdGroup = &cmdGroupUser;
+
+		// Create fake input buffer
+		char rxBuff[50] = "help";
+
+		// Run rx controller
+		rxController.Run(rxBuff);
 		
-		TEST(HelpGroupsWithSelectionTest)
-		{
-			Rx rxController;
-			Tx txController;
+		//CHECK_EQUAL("param1", cmdTestParam.value);
+		//CHECK_EQUAL(true, cmdTestOption.isDetected);
+	}
 
-			CmdGroup cmdGroupUser("user", "Commands are suitable for the user.");
-			CmdGroup cmdGroupDev("dev", "Commands are suitable for the developer.");
+	MTEST(HelpGroupsWithSelectionTest)
+	{
+		Rx rxController;
+		Tx txController;
 
-			// Create command
-			Cmd cmdTest("test", &Callback, "A test command.");
+		CmdGroup cmdGroupUser("user", "Commands are suitable for the user.");
+		CmdGroup cmdGroupDev("dev", "Commands are suitable for the developer.");
 
-			// Create parameter
-			Param cmdTestParam("A test parameter.");
-			cmdTest.RegisterParam(&cmdTestParam);
+		// Create command
+		Cmd cmdTest("test", &Callback, "A test command.");
 
-			// Create option
-			Option cmdTestOption('a', NULL, "A test option.");
-			cmdTest.RegisterOption(&cmdTestOption);
+		// Create parameter
+		Param cmdTestParam("A test parameter.");
+		cmdTest.RegisterParam(&cmdTestParam);
 
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
+		// Create option
+		Option cmdTestOption('a', NULL, "A test option.");
+		cmdTest.RegisterOption(&cmdTestOption);
 
-			// Setup default command group
-			rxController.defaultCmdGroup = &cmdGroupUser;
+		// Register command
+		rxController.RegisterCmd(&cmdTest);
 
-			// Request for help, with specified group "user"
-			char rxBuff[50] = "help -g user";
+		// Setup default command group
+		rxController.defaultCmdGroup = &cmdGroupUser;
 
-			// Run rx controller
-			rxController.Run(rxBuff);
+		// Request for help, with specified group "user"
+		char rxBuff[50] = "help -g user";
 
-		}
+		// Run rx controller
+		rxController.Run(rxBuff);
 
-	} // SUITE(HelpTests)
-} // namespace ClideTest
+	}
+
+} // namespace MClideTest

@@ -60,7 +60,7 @@ namespace Clide
 	}
 
 	// Constructor
-	Cmd::Cmd(std::string name, SlotMachine::Callback<void, Cmd*> methodCallback, std::string description)
+	Cmd::Cmd(std::string name, MCallbacks::Callback<void, Cmd*> methodCallback, std::string description)
 	{
 		#if(clide_ENABLE_DEBUG_CODE == 1)
 			// Description too long, do not save it

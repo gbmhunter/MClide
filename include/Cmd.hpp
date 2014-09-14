@@ -34,7 +34,7 @@ namespace Clide
 #include <string>
 
 // User libraries
-#include "slotmachine-cpp/api/Slotmachine.hpp"
+#include "MCallbacks/api/MCallbacksApi.hpp"
 
 // User headers
 #include "Config.hpp"		//!< Config options
@@ -90,7 +90,7 @@ namespace Clide
 			//! @param		description		Used when the "help" command or "-h" option is called.
 			Cmd(
 				std::string name,
-				SlotMachine::Callback<void, Cmd*> methodCallback,
+				MCallbacks::Callback<void, Cmd*> methodCallback,
 				std::string description);
 				
 			//! @brief		Destructor. Deallocates memory.
@@ -163,7 +163,7 @@ namespace Clide
 			bool (*functionCallback)(Cmd* foundCmd);
 			
 			//! @brief		Method (member function) callback for when the command is detected.
-			SlotMachine::Callback<void, Cmd*> methodCallback;
+			MCallbacks::Callback<void, Cmd*> methodCallback;
 
 			//! @brief		True if command was detected the last time Rx.Run() was called.
 			//! @details	You can use this for basic determination if a command was received,

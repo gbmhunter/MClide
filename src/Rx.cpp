@@ -23,7 +23,7 @@
 #include <cstring>		// memset()
 
 // User library includes
-#include "slotmachine-cpp/api/Slotmachine.hpp"
+#include "MCallbacks/api/MCallbacksApi.hpp"
 
 // Clide includes
 #include "../include/Config.hpp"

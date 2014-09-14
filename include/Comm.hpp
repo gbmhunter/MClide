@@ -31,7 +31,7 @@
 #include <vector>
 
 // User libraries
-#include "slotmachine-cpp/api/Slotmachine.hpp"		//!< Callbacks.
+#include "MCallbacks/api/MCallbacksApi.hpp"		//!< Callbacks.
 
 // Forward declaration
 class Comm;
@@ -81,11 +81,11 @@ namespace Clide
 
 			//! @brief		This gives you the ability to provide a callback function that is called when a command is not recognised.
 			//! @details	This is essentially an event handler. All callback functions associated with recognised commands are part of the command objects themselves. The callbacks one and only input parameter is the null-terminated command string that it did not recognise.
-			SlotMachine::Callback<void, char*> cmdUnrecogCallback;
+			MCallbacks::Callback<void, char*> cmdUnrecogCallback;
 
 			//! @brief		This callback gives you the ability to perform an action if the help command is requested.
 			//! @details
-			SlotMachine::Callback<void, char*> generalHelpRequestedCallback;
+			MCallbacks::Callback<void, char*> generalHelpRequestedCallback;
 
 			//===============================================================================================//
 			//======================================= PUBLIC METHODS ========================================//

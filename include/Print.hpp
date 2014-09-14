@@ -18,7 +18,7 @@
 #ifndef CLIDE_PRINT_H
 #define CLIDE_PRINT_H
 
-#include "slotmachine-cpp/api/Slotmachine.hpp"		//!< Callbacks.
+#include "MCallbacks/api/MCallbacksApi.hpp"		//!< Callbacks.
 
 #include "Preprocessor.hpp"									//!< STR() macro
 
@@ -81,9 +81,9 @@ namespace Clide
 			static bool enableErrorPrinting;
 
 			static void AssignCallbacks(
-					SlotMachine::Callback<void, const char*> debugPrintCallback,
-					SlotMachine::Callback<void, const char*> cmdLinePrintCallback,
-					SlotMachine::Callback<void, const char*> errorPrintCallback)
+					MCallbacks::Callback<void, const char*> debugPrintCallback,
+					MCallbacks::Callback<void, const char*> cmdLinePrintCallback,
+					MCallbacks::Callback<void, const char*> errorPrintCallback)
 			{
 				Print::debugPrintCallback = debugPrintCallback;
 				Print::cmdLinePrintCallback = cmdLinePrintCallback;
@@ -99,13 +99,13 @@ namespace Clide
 		private:
 
 			//! @brief		Callback for debug messages.
-			static SlotMachine::Callback<void, const char*> debugPrintCallback;
+			static MCallbacks::Callback<void, const char*> debugPrintCallback;
 
 			//! @brief		Callback for command-line messages.
-			static SlotMachine::Callback<void, const char*> cmdLinePrintCallback;
+			static MCallbacks::Callback<void, const char*> cmdLinePrintCallback;
 
 			//! @brief		Callback for error messages.
-			static SlotMachine::Callback<void, const char*> errorPrintCallback;
+			static MCallbacks::Callback<void, const char*> errorPrintCallback;
 
 	};
 

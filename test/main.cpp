@@ -2,17 +2,20 @@
 //! @file 			main.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013-07-04
-//! @last-modified 	2014-08-31
+//! @last-modified 	2014-09-14
 //! @brief 			Contains main entry point for unit tests.
 //! @details
 //!					See README.rst in root dir for more info.
 
+
+//===== SYSTEM LIBRARIES =====//
 #include <stdio.h>
 
-#include "../api/Clide.hpp"
+//====== USER LIBRARIES =====//
+#include "MUnitTest/api/MUnitTestApi.hpp"
 
-#include "unittest-cpp/UnitTest++/UnitTest++.h"
-#include "unittest-cpp/UnitTest++/TestReporterStdout.h"
+//===== USER SOURCE =====//
+#include "../api/MClideApi.hpp"
 
 class Printer
 {
@@ -40,16 +43,16 @@ int main()
 
 	// Set up printing
 	Clide::Print::AssignCallbacks(
-			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintDebug),
-			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine),
-			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintError));
+			MCallbacks::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintDebug),
+			MCallbacks::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine),
+			MCallbacks::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintError));
 
 	Clide::Print::enableCmdLinePrinting = false;
 	Clide::Print::enableErrorPrinting = false;
 	Clide::Print::enableDebugInfoPrinting = false;
 
-	return UnitTest::RunAllTests();
-	
+	return MbeddedNinja::TestRegister::RunAllTests();
+	/*
 	try
     {
         UnitTest::TestReporterStdout reporter;
@@ -66,6 +69,6 @@ int main()
     {
          printf("%s", e.what());
          // If you are feeling mad (not in main) you could rethrow! 
-    }
+    }*/
 	
 }

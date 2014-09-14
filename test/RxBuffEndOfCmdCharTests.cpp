@@ -1,131 +1,134 @@
 //!
 //! @file 			RxBuffEndOfCmdCharTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2014/03/21
-//! @last-modified 	2014/03/21
+//! @created		2014-03-21
+//! @last-modified 	2014-09-14
 //! @brief 			Contains functions which test that the end-of-command char variable in the RxBuff object works.
 //! @details
 //!					See README.rst in root dir for more info.
 
-#include "../api/Clide.hpp"
+//===== SYSTEM LIBRARIES =====//
+#include <stdio.h>
 
-#include "unittest-cpp/UnitTest++/UnitTest++.h"
+//====== USER LIBRARIES =====//
+#include "MUnitTest/api/MUnitTestApi.hpp"
 
-namespace ClideTest
+//===== USER SOURCE =====//
+#include "../api/MClideApi.hpp"
+
+namespace MClideTest
 {
-	SUITE(RxBuffEndOfCmdCharTests)
+
+	using namespace Clide;
+
+	static bool Callback(Cmd *cmd)
 	{
-		using namespace Clide;
+		return true;
+	}
 
-		bool Callback(Cmd *cmd)
-		{
-			return true;
-		}
+	MTEST(CarriageReturnTest)
+	{
+		Rx rxController;
 
-		TEST(CarriageReturnTest)
-		{
-			Rx rxController;
+		// Create RxBuff object for taking the characters
+		RxBuff rxBuff(&rxController, '\r');
 
-			// Create RxBuff object for taking the characters
-			RxBuff rxBuff(&rxController, '\r');
+		// Create command
+		Cmd cmdTest("test", &Callback, "A test command.");
 
-			// Create command
-			Cmd cmdTest("test", &Callback, "A test command.");
+		// Create parameter
+		Param cmdTestParam("A test parameter.");
+		cmdTest.RegisterParam(&cmdTestParam);
 
-			// Create parameter
-			Param cmdTestParam("A test parameter.");
-			cmdTest.RegisterParam(&cmdTestParam);
+		// Create option
+		Option cmdTestOption('a', NULL, "A test option.");
+		cmdTest.RegisterOption(&cmdTestOption);
 
-			// Create option
-			Option cmdTestOption('a', NULL, "A test option.");
-			cmdTest.RegisterOption(&cmdTestOption);
+		// Register command
+		rxController.RegisterCmd(&cmdTest);
 
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
+		// Create some input and write it to RxBuff
+		rxBuff.WriteString((char*)"test param1 -a\r");
 
-			// Create some input and write it to RxBuff
-			rxBuff.WriteString((char*)"test param1 -a\r");
+		// Check that the command was processed successfully
+		CHECK_EQUAL("param1", cmdTestParam.value);
+		CHECK_EQUAL(true, cmdTestOption.isDetected);
+	}
 
-			// Check that the command was processed successfully
-			CHECK_EQUAL("param1", cmdTestParam.value);
-			CHECK_EQUAL(true, cmdTestOption.isDetected);
-		}
+	MTEST(NewLineTest)
+	{
+		Rx rxController;
 
-		TEST(NewLineTest)
-		{
-			Rx rxController;
-			
-			// Create RxBuff object for taking the characters
-			RxBuff rxBuff(&rxController, '\n');
+		// Create RxBuff object for taking the characters
+		RxBuff rxBuff(&rxController, '\n');
 
-			// Create command
-			Cmd cmdTest("test", &Callback, "A test command.");
-			
-			// Create parameter
-			Param cmdTestParam("A test parameter.");
-			cmdTest.RegisterParam(&cmdTestParam);
-			
-			// Create option
-			Option cmdTestOption('a', NULL, "A test option.");
-			cmdTest.RegisterOption(&cmdTestOption);
-			
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
-			
-			// Create some input and write it to RxBuff
-			rxBuff.WriteString((char*)"hghgjkghg\ntest param1 -a\njfjjjhfhg\n");
-			
-			// Check that the command was processed successfully
-			CHECK_EQUAL("param1", cmdTestParam.value);
-			CHECK_EQUAL(true, cmdTestOption.isDetected);
-		}
+		// Create command
+		Cmd cmdTest("test", &Callback, "A test command.");
+
+		// Create parameter
+		Param cmdTestParam("A test parameter.");
+		cmdTest.RegisterParam(&cmdTestParam);
+
+		// Create option
+		Option cmdTestOption('a', NULL, "A test option.");
+		cmdTest.RegisterOption(&cmdTestOption);
+
+		// Register command
+		rxController.RegisterCmd(&cmdTest);
+
+		// Create some input and write it to RxBuff
+		rxBuff.WriteString((char*)"hghgjkghg\ntest param1 -a\njfjjjhfhg\n");
 		
-		TEST(ZCharTest)
-		{
-			Rx rxController;
+		// Check that the command was processed successfully
+		CHECK_EQUAL("param1", cmdTestParam.value);
+		CHECK_EQUAL(true, cmdTestOption.isDetected);
+	}
 
-			// Create RxBuff object for taking the characters
-			RxBuff rxBuff(&rxController, 'z');
+	MTEST(ZCharTest)
+	{
+		Rx rxController;
 
-			// Create command
-			Cmd cmd1("test1", &Callback, "A test command.");
+		// Create RxBuff object for taking the characters
+		RxBuff rxBuff(&rxController, 'z');
 
-			// Create parameter
-			Param cmd1Param("A test parameter.");
-			cmd1.RegisterParam(&cmd1Param);
+		// Create command
+		Cmd cmd1("test1", &Callback, "A test command.");
 
-			// Create option
-			Option cmd1Option('a', NULL, "A test option.");
-			cmd1.RegisterOption(&cmd1Option);
+		// Create parameter
+		Param cmd1Param("A test parameter.");
+		cmd1.RegisterParam(&cmd1Param);
 
-			// Register command
-			rxController.RegisterCmd(&cmd1);
+		// Create option
+		Option cmd1Option('a', NULL, "A test option.");
+		cmd1.RegisterOption(&cmd1Option);
 
-			// Create command
-			Cmd cmd2("test2", &Callback, "A test command.");
+		// Register command
+		rxController.RegisterCmd(&cmd1);
 
-			// Create parameter
-			Param cmd2Param("A test parameter.");
-			cmd2.RegisterParam(&cmd2Param);
+		// Create command
+		Cmd cmd2("test2", &Callback, "A test command.");
 
-			// Create option
-			Option cmd2Option('a', NULL, "A test option.");
-			cmd2.RegisterOption(&cmd2Option);
+		// Create parameter
+		Param cmd2Param("A test parameter.");
+		cmd2.RegisterParam(&cmd2Param);
 
-			// Register command
-			rxController.RegisterCmd(&cmd2);
+		// Create option
+		Option cmd2Option('a', NULL, "A test option.");
+		cmd2.RegisterOption(&cmd2Option);
 
-			// Create input for both commands and write it to RxBuff
-			rxBuff.WriteString((char*)"test1 param1 -aztest2 param1 -az");
+		// Register command
+		rxController.RegisterCmd(&cmd2);
 
-			// Check that the command was processed successfully
-			CHECK_EQUAL("param1", cmd1Param.value);
-			CHECK_EQUAL(true, cmd1Option.isDetected);
+		// Create input for both commands and write it to RxBuff
+		rxBuff.WriteString((char*)"test1 param1 -aztest2 param1 -az");
 
-			CHECK_EQUAL("param1", cmd2Param.value);
-			CHECK_EQUAL(true, cmd2Option.isDetected);
+		// Check that the command was processed successfully
+		CHECK_EQUAL("param1", cmd1Param.value);
+		CHECK_EQUAL(true, cmd1Option.isDetected);
 
-		}
+		CHECK_EQUAL("param1", cmd2Param.value);
+		CHECK_EQUAL(true, cmd2Option.isDetected);
+
+	}
 		
-	} // SUITE(RxBuffTests)
-} // namespace ClideTest
+} // namespace MClideTest

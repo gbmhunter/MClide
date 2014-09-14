@@ -1,55 +1,59 @@
 //!
 //! @file 			EmptyCommandTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2013/07/04
-//! @last-modified 	2014/04/03
-//! @brief 			Contains test functions for Clide command options with negative numbers.
+//! @created		2013-07-04
+//! @last-modified 	2014-09-14
+//! @brief 			Contains test functions for MClide command options with negative numbers.
 //! @details
 //!					See README.rst in root dir for more info.
 
-#include "../api/Clide.hpp"
+//===== SYSTEM LIBRARIES =====//
+// none
 
-#include "unittest-cpp/UnitTest++/UnitTest++.h"
+//====== USER LIBRARIES =====//
+#include "MUnitTest/api/MUnitTestApi.hpp"
 
-namespace ClideTest
+//===== USER SOURCE =====//
+#include "../api/MClideApi.hpp"
+
+namespace MClideTest
 {
-	SUITE(EmptyCommandTests)
-	{
-		using namespace Clide;
 
-		bool Callback(Cmd *cmd)
-		{	
-			return true;
-		}
-		
-		TEST(EmptyCommandTest)
-		{
-			Rx rxController;
-			
-			Cmd cmdTest("test", &Callback, "A test command.");
-			Option testOption('a', "", NULL, "A test option.", true);
-			
-			// Register option
-			cmdTest.RegisterOption(&testOption);
-			
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
-			
-			// Create fake input buffer
-			char rxBuff1[50] = "";
-			
-			// Run rx controller
-			rxController.Run(rxBuff1);
-			
-			CHECK_EQUAL(false, testOption.isDetected);
-			
-			// Create fake input buffer
-			char rxBuff2[50] = "test";
-			
-			// Run rx controller
-			rxController.Run(rxBuff2);
-			
-			CHECK_EQUAL(false, testOption.isDetected);
-		}
-	} // SUITE(EmptyCommandTests)
-} // namespace ClideTest
+	using namespace Clide;
+
+	static bool Callback(Cmd *cmd)
+	{
+		return true;
+	}
+
+	MTEST(EmptyCommandTest)
+	{
+		Rx rxController;
+
+		Cmd cmdTest("test", &Callback, "A test command.");
+		Option testOption('a', "", NULL, "A test option.", true);
+
+		// Register option
+		cmdTest.RegisterOption(&testOption);
+
+		// Register command
+		rxController.RegisterCmd(&cmdTest);
+
+		// Create fake input buffer
+		char rxBuff1[50] = "";
+
+		// Run rx controller
+		rxController.Run(rxBuff1);
+
+		CHECK_EQUAL(false, testOption.isDetected);
+
+		// Create fake input buffer
+		char rxBuff2[50] = "test";
+
+		// Run rx controller
+		rxController.Run(rxBuff2);
+
+		CHECK_EQUAL(false, testOption.isDetected);
+	}
+
+} // namespace MClideTest

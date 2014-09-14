@@ -34,9 +34,9 @@ namespace Clide
 	//======================================= PUBLIC METHODS ========================================//
 	//===============================================================================================//
 
-	SlotMachine::Callback<void, const char*> Print::debugPrintCallback;
-	SlotMachine::Callback<void, const char*> Print::cmdLinePrintCallback;
-	SlotMachine::Callback<void, const char*> Print::errorPrintCallback;
+	MCallbacks::Callback<void, const char*> Print::debugPrintCallback;
+	MCallbacks::Callback<void, const char*> Print::cmdLinePrintCallback;
+	MCallbacks::Callback<void, const char*> Print::errorPrintCallback;
 
 	bool Print::enableDebugInfoPrinting = true;
 	bool Print::enableCmdLinePrinting = true;

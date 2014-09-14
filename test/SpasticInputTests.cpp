@@ -1,102 +1,105 @@
 //!
 //! @file 			SpasticInputTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2013/07/04
-//! @last-modified 	2014/01/21
+//! @created		2013-07-04
+//! @last-modified 	2014-09-14
 //! @brief 			Contains test functions for stressing the input with spastic characters. The idea here is just to make sure no unexpected characters can cause Rx.Run() to crash.
 //! @details
 //!					See README.rst in root dir for more info.
 
-#include "../api/Clide.hpp"
+//===== SYSTEM LIBRARIES =====//
+#include <stdio.h>
 
-#include "unittest-cpp/UnitTest++/UnitTest++.h"
+//====== USER LIBRARIES =====//
+#include "MUnitTest/api/MUnitTestApi.hpp"
 
-namespace ClideTest
+//===== USER SOURCE =====//
+#include "../api/MClideApi.hpp"
+
+namespace MClideTest
 {
-	SUITE(SpasticInputTests)
+
+	using namespace Clide;
+
+	static Cmd *_cmd = NULL;
+
+	static bool Callback(Cmd *cmd)
 	{
-		using namespace Clide;
+		_cmd = cmd;
 
-		static Cmd *_cmd = NULL;
+		return true;
+	}
 
-		bool Callback(Cmd *cmd)
-		{
-			_cmd = cmd; 
-			
-			return true;
-		}
+	MTEST(SpasticInputTest1)
+	{
 
-		TEST(SpasticInputTest1)
-		{
-			
-			Rx rxController;
-			Tx txController;
-			
-			Cmd cmdTest("test", &Callback, "A test command.");
-			
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
-			
-			// Create fake input buffer
-			char rxBuff[50] = "test !@#";
-			
-			_cmd = NULL;
-			
-			// Run rx controller
-			rxController.Run(rxBuff);
-			
-			// Just check to make sure execution gets to
-			// this point
-			CHECK(true);
-		}
+		Rx rxController;
+		Tx txController;
+
+		Cmd cmdTest("test", &Callback, "A test command.");
+
+		// Register command
+		rxController.RegisterCmd(&cmdTest);
+
+		// Create fake input buffer
+		char rxBuff[50] = "test !@#";
+
+		_cmd = NULL;
+
+		// Run rx controller
+		rxController.Run(rxBuff);
+
+		// Just check to make sure execution gets to
+		// this point
+		CHECK(true);
+	}
+
+	MTEST(SpasticInputTest2)
+	{
+
+		Rx rxController;
+		Tx txController;
+
+		Cmd cmdTest("test", &Callback, "A test command.");
+
+		// Register command
+		rxController.RegisterCmd(&cmdTest);
+
+		// Create fake input buffer
+		char rxBuff[50] = "!34 !@#";
+
+		_cmd = NULL;
+
+		// Run rx controller
+		rxController.Run(rxBuff);
+
+		// Just check to make sure execution gets to
+		// this point
+		CHECK(true);
+	}
+
+	MTEST(SpasticInputTest3)
+	{
+
+		Rx rxController;
+		Tx txController;
+
+		Cmd cmdTest("test", &Callback, "A test command.");
+
+		// Register command
+		rxController.RegisterCmd(&cmdTest);
+
+		// Create fake input buffer
+		char rxBuff[50] = "#$^ &*()";
+
+		_cmd = NULL;
 		
-		TEST(SpasticInputTest2)
-		{
-			
-			Rx rxController;
-			Tx txController;
-			
-			Cmd cmdTest("test", &Callback, "A test command.");
-			
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
-			
-			// Create fake input buffer
-			char rxBuff[50] = "!34 !@#";
-			
-			_cmd = NULL;
-			
-			// Run rx controller
-			rxController.Run(rxBuff);
-			
-			// Just check to make sure execution gets to
-			// this point
-			CHECK(true);
-		}
+		// Run rx controller
+		rxController.Run(rxBuff);
 		
-		TEST(SpasticInputTest3)
-		{
-			
-			Rx rxController;
-			Tx txController;
-			
-			Cmd cmdTest("test", &Callback, "A test command.");
-			
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
-			
-			// Create fake input buffer
-			char rxBuff[50] = "#$^ &*()";
-			
-			_cmd = NULL;
-			
-			// Run rx controller
-			rxController.Run(rxBuff);
-			
-			// Just check to make sure execution gets to
-			// this point
-			CHECK(true);
-		}
+		// Just check to make sure execution gets to
+		// this point
+		CHECK(true);
+	}
 		
-	} // SUITE(OptionTests)
-} // namespace ClideTest
+} // namespace MClideTest

@@ -1,53 +1,56 @@
 //!
 //! @file 			NullCallbackTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2014/01/21
-//! @last-modified 	2014/01/21
+//! @created		2014-01-21
+//! @last-modified 	2014-09-14
 //! @brief 			Contains test functions for if the command callback function is NULL.
 //! @details
 //!					See README.rst in root dir for more info.
 
-#include "../api/Clide.hpp"
+//===== SYSTEM LIBRARIES =====//
+// none
 
-#include "unittest-cpp/UnitTest++/UnitTest++.h"
+//====== USER LIBRARIES =====//
+#include "MUnitTest/api/MUnitTestApi.hpp"
 
-namespace ClideTest
+//===== USER SOURCE =====//
+#include "../api/MClideApi.hpp"
+
+namespace MClideTest
 {
-	SUITE(NullCallbackTests)
+
+	using namespace Clide;
+
+	MTEST(NullCmdCallbackTest)
 	{
-		using namespace Clide;
+		Rx rxController;
 
-		TEST(NullCmdCallbackTest)
-		{
-			Rx rxController;
+		// Create command, make the callback NULL
+		Cmd cmdTest("test", NULL, "A test command.");
 
-			// Create command, make the callback NULL
-			Cmd cmdTest("test", NULL, "A test command.");
+		// Create parameter
+		Param cmdTestParam("A test parameter.");
+		cmdTest.RegisterParam(&cmdTestParam);
 
-			// Create parameter
-			Param cmdTestParam("A test parameter.");
-			cmdTest.RegisterParam(&cmdTestParam);
+		// Create option
+		Option cmdTestOption('a', NULL, "A test option.");
+		cmdTest.RegisterOption(&cmdTestOption);
 
-			// Create option
-			Option cmdTestOption('a', NULL, "A test option.");
-			cmdTest.RegisterOption(&cmdTestOption);
+		// Register command
+		rxController.RegisterCmd(&cmdTest);
 
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
+		// Create some input start the RX processing
+		// If program makes it past this point, then
+		// the NULL function pointer was handled correctly
+		// Create fake input buffer
+		char rxBuff[50] = "test param1 -a";
 
-			// Create some input start the RX processing
-			// If program makes it past this point, then
-			// the NULL function pointer was handled correctly
-			// Create fake input buffer
-			char rxBuff[50] = "test param1 -a";
+		// Run rx controller
+		rxController.Run(rxBuff);
 
-			// Run rx controller
-			rxController.Run(rxBuff);
-
-			// Check that the command was processed successfully
-			CHECK_EQUAL("param1", cmdTestParam.value);
-			CHECK_EQUAL(true, cmdTestOption.isDetected);
-		}
+		// Check that the command was processed successfully
+		CHECK_EQUAL("param1", cmdTestParam.value);
+		CHECK_EQUAL(true, cmdTestOption.isDetected);
+	}
 		
-	} // SUITE(NullCallbackTests)
-} // namespace ClideTest
+} // namespace MClideTest
