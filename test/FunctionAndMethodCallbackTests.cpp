@@ -49,7 +49,7 @@ namespace MClideTest
 		// Run rx controller, this should call the cmd callback
 		rxController.Run(rxBuff);
 
-		CHECK_EQUAL(true, _functionCallbackCalled);
+		CHECK_EQUAL(_functionCallbackCalled, true);
 	}
 
 	// Method callback
@@ -90,7 +90,7 @@ namespace MClideTest
 		// Run rx controller, this should call the cmd callback
 		rxController.Run(rxBuff);
 
-		CHECK_EQUAL(true, myCallbackClass._methodCallbackCalled);
+		CHECK_EQUAL(myCallbackClass._methodCallbackCalled, true);
 	}
 		
 } // namespace MClideTest

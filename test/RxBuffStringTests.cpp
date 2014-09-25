@@ -51,8 +51,8 @@ namespace MClideTest
 		rxBuff.WriteString((char*)"test param1 -a\r");
 
 		// Check that the command was processed successfully
-		CHECK_EQUAL("param1", cmdTestParam.value);
-		CHECK_EQUAL(true, cmdTestOption.isDetected);
+		CHECK_EQUAL(cmdTestParam.value, "param1");
+		CHECK_EQUAL(cmdTestOption.isDetected, true);
 	}
 
 	MTEST(OneCommandWithJunkEitherSideRxBuffTest)
@@ -80,8 +80,8 @@ namespace MClideTest
 		rxBuff.WriteString((char*)"hghgjkghg\rtest param1 -a\rjfjjjhfhg");
 		
 		// Check that the command was processed successfully
-		CHECK_EQUAL("param1", cmdTestParam.value);
-		CHECK_EQUAL(true, cmdTestOption.isDetected);
+		CHECK_EQUAL(cmdTestParam.value, "param1");
+		CHECK_EQUAL(cmdTestOption.isDetected, true);
 	}
 
 	MTEST(TwoCommandsRxBuffTest)
@@ -123,11 +123,11 @@ namespace MClideTest
 		rxBuff.WriteString((char*)"test1 param1 -a\rtest2 param1 -a\r");
 
 		// Check that the command was processed successfully
-		CHECK_EQUAL("param1", cmd1Param.value);
-		CHECK_EQUAL(true, cmd1Option.isDetected);
+		CHECK_EQUAL(cmd1Param.value, "param1");
+		CHECK_EQUAL(cmd1Option.isDetected, true);
 
-		CHECK_EQUAL("param1", cmd2Param.value);
-		CHECK_EQUAL(true, cmd2Option.isDetected);
+		CHECK_EQUAL(cmd2Param.value, "param1");
+		CHECK_EQUAL(cmd2Option.isDetected, true);
 
 	}
 
@@ -170,11 +170,11 @@ namespace MClideTest
 		rxBuff.WriteString((char*)"kf kfkfkf\rtest1 param1 -a\r\r\rhgjghfhjd h dhhhd dh\rtest2 param1 -a\r\rffhjfjh");
 
 		// Check that the command was processed successfully
-		CHECK_EQUAL("param1", cmd1Param.value);
-		CHECK_EQUAL(true, cmd1Option.isDetected);
+		CHECK_EQUAL(cmd1Param.value, "param1");
+		CHECK_EQUAL(cmd1Option.isDetected, true);
 
-		CHECK_EQUAL("param1", cmd2Param.value);
-		CHECK_EQUAL(true, cmd2Option.isDetected);
+		CHECK_EQUAL(cmd2Param.value, "param1");
+		CHECK_EQUAL(cmd2Option.isDetected, true);
 
 	}
 

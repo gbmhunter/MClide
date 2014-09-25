@@ -47,7 +47,7 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(rxBuff);
 
-		CHECK_EQUAL(true, callbackCalled);
+		CHECK_EQUAL(callbackCalled, true);
 	}
 
 	MTEST(LongCmdDescriptionTest)
@@ -76,7 +76,7 @@ namespace MClideTest
 			//std::cout << msg << endl;
 		}
 
-		CHECK_EQUAL(true, callbackCalled);
+		CHECK_EQUAL(callbackCalled, true);
 	}
 
 	MTEST(EmptyParamDescriptionTest)
@@ -105,8 +105,8 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(rxBuff);
 
-		CHECK_EQUAL(true, callbackCalled);
-		CHECK_EQUAL("param1", cmdTestParam.value);
+		CHECK_EQUAL(callbackCalled, true);
+		CHECK_EQUAL(cmdTestParam.value, "param1");
 	}
 
 	MTEST(LongParamDescriptionTest)
@@ -131,8 +131,8 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(rxBuff);
 
-		CHECK_EQUAL(true, callbackCalled);
-		CHECK_EQUAL("param1", cmdTestParam.value);
+		CHECK_EQUAL(callbackCalled, true);
+		CHECK_EQUAL(cmdTestParam.value, "param1");
 	}
 
 	MTEST(EmptyOptionDescriptionTest)
@@ -157,9 +157,9 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(rxBuff);
 
-		CHECK_EQUAL(true, callbackCalled);
+		CHECK_EQUAL(callbackCalled, true);
 		// Even though description is empty, option should still be recognised
-		CHECK_EQUAL(true, cmdTestOption.isDetected);
+		CHECK_EQUAL(cmdTestOption.isDetected, true);
 	}
 
 } // namespace MClideTest

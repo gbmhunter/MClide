@@ -67,10 +67,10 @@ namespace MClideTest
 		rxController.Run(rxBuff);
 
 		// Now make sure the callback was called
-		CHECK_EQUAL(true, classWithFunction.iWasCalled);
+		CHECK_EQUAL(classWithFunction.iWasCalled, true);
 
 		// Make sure the cmds were equal
-		CHECK_EQUAL(true, classWithFunction.cmdsEqual);
+		CHECK_EQUAL(classWithFunction.cmdsEqual, true);
 
 	}
 
@@ -107,7 +107,7 @@ namespace MClideTest
 
 		// Now the command should of been recognised, and the callback function NOT called,
 		// so make sure they are still false
-		CHECK_EQUAL(false, classWithFunction.iWasCalled);
+		CHECK_EQUAL(classWithFunction.iWasCalled, false);
 
 	}
 

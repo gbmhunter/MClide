@@ -57,7 +57,7 @@ namespace MClideTest
 		rxController.Run(argc, argv);
 
 		// Make sure the command WAS NOT detected
-		CHECK_EQUAL(false, cmdTestOption.isDetected);
+		CHECK_EQUAL(cmdTestOption.isDetected, false);
 
 		//Clide::Print::enableCmdLinePrinting = false;
 		//Clide::Print::enableErrorPrinting = false;
@@ -97,8 +97,8 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(argc, argv);
 
-		CHECK_EQUAL("param1", cmdTestParam.value);
-		CHECK_EQUAL(true, cmdTestOption.isDetected);
+		CHECK_EQUAL(cmdTestParam.value, "param1");
+		CHECK_EQUAL(cmdTestOption.isDetected, true);
 	}
 
 
@@ -134,8 +134,8 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(argc, argv);
 
-		CHECK_EQUAL("param1", cmdTestParam.value);
-		CHECK_EQUAL(true, cmdTestOption.isDetected);
+		CHECK_EQUAL(cmdTestParam.value, "param1");
+		CHECK_EQUAL(cmdTestOption.isDetected, true);
 	}
 
 	MTEST(TwoParamTwoOptionArgvRxTest1)
@@ -178,10 +178,10 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(argc, argv);
 
-		CHECK_EQUAL("param1", cmdTestParam1.value);
-		CHECK_EQUAL("param2", cmdTestParam2.value);
-		CHECK_EQUAL(true, cmdTestOption1.isDetected);
-		CHECK_EQUAL(true, cmdTestOption2.isDetected);
+		CHECK_EQUAL(cmdTestParam1.value, "param1");
+		CHECK_EQUAL(cmdTestParam2.value, "param2");
+		CHECK_EQUAL(cmdTestOption1.isDetected, true);
+		CHECK_EQUAL(cmdTestOption2.isDetected, true);
 	}
 
 	MTEST(TwoParamTwoOptionArgvRxTest2)
@@ -224,10 +224,10 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(argc, argv);
 
-		CHECK_EQUAL("param1", cmdTestParam1.value);
-		CHECK_EQUAL("param2", cmdTestParam2.value);
-		CHECK_EQUAL(true, cmdTestOption1.isDetected);
-		CHECK_EQUAL(true, cmdTestOption2.isDetected);
+		CHECK_EQUAL(cmdTestParam1.value, "param1");
+		CHECK_EQUAL(cmdTestParam2.value, "param2");
+		CHECK_EQUAL(cmdTestOption1.isDetected, true);
+		CHECK_EQUAL(cmdTestOption2.isDetected, true);
 	}
 
 	MTEST(TwoParamTwoOptionArgvRxTest3)
@@ -270,10 +270,10 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(argc, argv);
 
-		CHECK_EQUAL("param1", cmdTestParam1.value);
-		CHECK_EQUAL("param2", cmdTestParam2.value);
-		CHECK_EQUAL(true, cmdTestOption1.isDetected);
-		CHECK_EQUAL(true, cmdTestOption2.isDetected);
+		CHECK_EQUAL(cmdTestParam1.value, "param1");
+		CHECK_EQUAL(cmdTestParam2.value, "param2");
+		CHECK_EQUAL(cmdTestOption1.isDetected, true);
+		CHECK_EQUAL(cmdTestOption2.isDetected, true);
 
 		// Create standard main variables
 		argv[0] = (char*)"test";
@@ -286,10 +286,10 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(argc, argv);
 
-		CHECK_EQUAL("param1", cmdTestParam1.value);
-		CHECK_EQUAL("param2", cmdTestParam2.value);
-		CHECK_EQUAL(false, cmdTestOption1.isDetected);
-		CHECK_EQUAL(false, cmdTestOption2.isDetected);
+		CHECK_EQUAL(cmdTestParam1.value, "param1");
+		CHECK_EQUAL(cmdTestParam2.value, "param2");
+		CHECK_EQUAL(cmdTestOption1.isDetected, false);
+		CHECK_EQUAL(cmdTestOption2.isDetected, false);
 	}
 
 	MTEST(IgnoreFirstElementOfArgvRxTest)
@@ -326,8 +326,8 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(argc, argv);
 
-		CHECK_EQUAL("param1", cmdTestParam.value);
-		CHECK_EQUAL(true, cmdTestOption.isDetected);
+		CHECK_EQUAL(cmdTestParam.value, "param1");
+		CHECK_EQUAL(cmdTestOption.isDetected, true);
 	}
 
 } // namespace MClideTest

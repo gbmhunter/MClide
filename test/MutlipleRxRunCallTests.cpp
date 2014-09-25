@@ -53,9 +53,9 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(rxBuff1);
 
-		CHECK_EQUAL("param1", cmdTestParam.value);
-		CHECK_EQUAL(true, cmdTestOption1.isDetected);
-		CHECK_EQUAL(false, cmdTestOption2.isDetected);
+		CHECK_EQUAL(cmdTestParam.value, "param1");
+		CHECK_EQUAL(cmdTestOption1.isDetected, true);
+		CHECK_EQUAL(cmdTestOption2.isDetected, false);
 
 		// Create fake input buffer
 		char rxBuff2[50] = "test param1 --topt";
@@ -63,9 +63,9 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(rxBuff2);
 
-		CHECK_EQUAL("param1", cmdTestParam.value);
-		CHECK_EQUAL(false, cmdTestOption1.isDetected);
-		CHECK_EQUAL(true, cmdTestOption2.isDetected);
+		CHECK_EQUAL(cmdTestParam.value, "param1");
+		CHECK_EQUAL(cmdTestOption1.isDetected, false);
+		CHECK_EQUAL(cmdTestOption2.isDetected, true);
 
 		// Create fake input buffer
 		char rxBuff3[50] = "test param1";
@@ -73,9 +73,9 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(rxBuff3);
 
-		CHECK_EQUAL("param1", cmdTestParam.value);
-		CHECK_EQUAL(false, cmdTestOption1.isDetected);
-		CHECK_EQUAL(false, cmdTestOption2.isDetected);
+		CHECK_EQUAL(cmdTestParam.value, "param1");
+		CHECK_EQUAL(cmdTestOption1.isDetected, false);
+		CHECK_EQUAL(cmdTestOption2.isDetected, false);
 
 		// Create fake input buffer
 		char rxBuff4[50] = "test --topt -a param1";
@@ -83,9 +83,9 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(rxBuff4);
 		
-		CHECK_EQUAL("param1", cmdTestParam.value);
-		CHECK_EQUAL(true, cmdTestOption1.isDetected);
-		CHECK_EQUAL(true, cmdTestOption2.isDetected);
+		CHECK_EQUAL(cmdTestParam.value, "param1");
+		CHECK_EQUAL(cmdTestOption1.isDetected, true);
+		CHECK_EQUAL(cmdTestOption2.isDetected, true);
 	}
 
 } // namespace MClideTest

@@ -56,8 +56,8 @@ namespace MClideTest
 		}
 
 		// Check that the command was processed successfully
-		CHECK_EQUAL("param1", cmdTestParam.value);
-		CHECK_EQUAL(true, cmdTestOption.isDetected);
+		CHECK_EQUAL(cmdTestParam.value, "param1");
+		CHECK_EQUAL(cmdTestOption.isDetected, true);
 	}
 
 	MTEST(OneCommandWithJunkEitherSideRxBuffCharTest)
@@ -91,8 +91,8 @@ namespace MClideTest
 		}
 		
 		// Check that the command was processed successfully
-		CHECK_EQUAL("param1", cmdTestParam.value);
-		CHECK_EQUAL(true, cmdTestOption.isDetected);
+		CHECK_EQUAL(cmdTestParam.value, "param1");
+		CHECK_EQUAL(cmdTestOption.isDetected, true);
 	}
 
 	MTEST(TwoCommandsRxBuffCharTest)
@@ -140,11 +140,11 @@ namespace MClideTest
 		}
 
 		// Check that the command was processed successfully
-		CHECK_EQUAL("param1", cmd1Param.value);
-		CHECK_EQUAL(true, cmd1Option.isDetected);
+		CHECK_EQUAL(cmd1Param.value, "param1");
+		CHECK_EQUAL(cmd1Option.isDetected, true);
 
-		CHECK_EQUAL("param1", cmd2Param.value);
-		CHECK_EQUAL(true, cmd2Option.isDetected);
+		CHECK_EQUAL(cmd2Param.value, "param1");
+		CHECK_EQUAL(cmd2Option.isDetected, true);
 
 	}
 
@@ -193,11 +193,11 @@ namespace MClideTest
 		}
 
 		// Check that the command was processed successfully
-		CHECK_EQUAL("param1", cmd1Param.value);
-		CHECK_EQUAL(true, cmd1Option.isDetected);
+		CHECK_EQUAL(cmd1Param.value, "param1");
+		CHECK_EQUAL(cmd1Option.isDetected, true);
 
-		CHECK_EQUAL("param1", cmd2Param.value);
-		CHECK_EQUAL(true, cmd2Option.isDetected);
+		CHECK_EQUAL(cmd2Param.value, "param1");
+		CHECK_EQUAL(cmd2Option.isDetected, true);
 
 	}
 

@@ -113,8 +113,8 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(rxBuff);
 		
-		//CHECK_EQUAL("param1", cmdTestParam.value);
-		//CHECK_EQUAL(true, cmdTestOption.isDetected);
+		//CHECK_EQUAL(cmdTestParam.value, "param1");
+		//CHECK_EQUAL(cmdTestOption.isDetected, true);
 	}
 
 	MTEST(HelpGroupsWithSelectionTest)

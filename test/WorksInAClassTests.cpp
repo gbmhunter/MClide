@@ -72,9 +72,9 @@ namespace MClideTest
 
 		myTestClass.Run();
 
-		CHECK_EQUAL("param1", myTestClass.cmdTestParam.value);
-		CHECK_EQUAL(true, myTestClass.cmdTestOption.isDetected);
-		CHECK_EQUAL(true, myTestClass.callbackCalled);
+		CHECK_EQUAL(myTestClass.cmdTestParam.value, "param1");
+		CHECK_EQUAL(myTestClass.cmdTestOption.isDetected, true);
+		CHECK_EQUAL(myTestClass.callbackCalled, true);
 	}
 		
 } // namespace MClideTest

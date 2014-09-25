@@ -54,7 +54,7 @@ namespace MClideTest
 		rxController.Run(rxBuff);
 
 		if(_cmd != NULL)
-			CHECK_EQUAL(true, testOption.isDetected);
+			CHECK_EQUAL(testOption.isDetected, true);
 		else
 			CHECK(false);
 			
@@ -87,8 +87,8 @@ namespace MClideTest
 		
 		if(_cmd != NULL)
 		{
-			CHECK_EQUAL(true, testOption1.isDetected);
-			CHECK_EQUAL(true, testOption2.isDetected);
+			CHECK_EQUAL(testOption1.isDetected, true);
+			CHECK_EQUAL(testOption2.isDetected, true);
 		}
 		else
 			CHECK(false);
@@ -122,8 +122,8 @@ namespace MClideTest
 
 		if(_cmd != NULL)
 		{
-			CHECK_EQUAL(true, testOption1.isDetected);
-			CHECK_EQUAL(false, testOption2.isDetected);
+			CHECK_EQUAL(testOption1.isDetected, true);
+			CHECK_EQUAL(testOption2.isDetected, false);
 		}
 		else
 			CHECK(false);

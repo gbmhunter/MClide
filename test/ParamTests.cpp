@@ -49,7 +49,7 @@ namespace MClideTest
 		rxController.Run(rxBuff);
 
 		if(_cmd != NULL)
-			CHECK_EQUAL(true, _cmd->isDetected);
+			CHECK_EQUAL(_cmd->isDetected, true);
 		else
 			CHECK(false);
 	}
@@ -76,7 +76,7 @@ namespace MClideTest
 		rxController.Run(rxBuff);
 
 		if(_cmd != NULL)
-			CHECK_EQUAL(true, _cmd->isDetected);
+			CHECK_EQUAL(_cmd->isDetected, true);
 		else
 			CHECK(false);
 	}
@@ -106,7 +106,7 @@ namespace MClideTest
 		rxController.Run(rxBuff);
 		
 		if(_cmd != NULL)
-			CHECK_EQUAL(true, _cmd->isDetected);
+			CHECK_EQUAL(_cmd->isDetected, true);
 		else
 			CHECK(false);
 	}

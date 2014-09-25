@@ -52,10 +52,10 @@ namespace MClideTest
 			char rxBuff[50] = "blah blah blah";
 			
 			// Run rx controller
-			CHECK_EQUAL(false, rxController.Run(rxBuff));
+			CHECK_EQUAL(rxController.Run(rxBuff), false);
 
 			// Now make sure this was logged
-			CHECK_EQUAL((int)Rx::LogIds::CMD_NOT_RECOGNISED, (int)rxController.log.logId);
+			CHECK_EQUAL((int)rxController.log.logId, (int)Rx::LogIds::CMD_NOT_RECOGNISED);
 			
 		}*/
 		/*
@@ -84,8 +84,8 @@ namespace MClideTest
 			// Run rx controller
 			rxController.Run(rxBuff);
 			
-			CHECK_EQUAL("param1", cmdTestParam.value);
-			CHECK_EQUAL(true, cmdTestOption.isDetected);
+			CHECK_EQUAL(cmdTestParam.value, "param1");
+			CHECK_EQUAL(cmdTestOption.isDetected, true);
 		}
 		
 		MTEST(TwoParamTwoOptionRxTest1)
@@ -119,10 +119,10 @@ namespace MClideTest
 			// Run rx controller
 			rxController.Run(rxBuff);
 			
-			CHECK_EQUAL("param1", cmdTestParam1.value);
-			CHECK_EQUAL("param2", cmdTestParam2.value);
-			CHECK_EQUAL(true, cmdTestOption1.isDetected);
-			CHECK_EQUAL(true, cmdTestOption2.isDetected);
+			CHECK_EQUAL(cmdTestParam1.value, "param1");
+			CHECK_EQUAL(cmdTestParam2.value, "param2");
+			CHECK_EQUAL(cmdTestOption1.isDetected, true);
+			CHECK_EQUAL(cmdTestOption2.isDetected, true);
 		}
 		
 		MTEST(TwoParamTwoOptionRxTest2)
@@ -156,10 +156,10 @@ namespace MClideTest
 			// Run rx controller
 			rxController.Run(rxBuff);
 			
-			CHECK_EQUAL("param1", cmdTestParam1.value);
-			CHECK_EQUAL("param2", cmdTestParam2.value);
-			CHECK_EQUAL(true, cmdTestOption1.isDetected);
-			CHECK_EQUAL(true, cmdTestOption2.isDetected);
+			CHECK_EQUAL(cmdTestParam1.value, "param1");
+			CHECK_EQUAL(cmdTestParam2.value, "param2");
+			CHECK_EQUAL(cmdTestOption1.isDetected, true);
+			CHECK_EQUAL(cmdTestOption2.isDetected, true);
 		}
 		
 		MTEST(TwoParamTwoOptionRxTest3)
@@ -193,10 +193,10 @@ namespace MClideTest
 			// Run rx controller
 			rxController.Run(rxBuff1);
 			
-			CHECK_EQUAL("param1", cmdTestParam1.value);
-			CHECK_EQUAL("param2", cmdTestParam2.value);
-			CHECK_EQUAL(true, cmdTestOption1.isDetected);
-			CHECK_EQUAL(true, cmdTestOption2.isDetected);
+			CHECK_EQUAL(cmdTestParam1.value, "param1");
+			CHECK_EQUAL(cmdTestParam2.value, "param2");
+			CHECK_EQUAL(cmdTestOption1.isDetected, true);
+			CHECK_EQUAL(cmdTestOption2.isDetected, true);
 			
 			// Create fake input buffer
 			char rxBuff2[50] = "test param1 param2";
@@ -204,10 +204,10 @@ namespace MClideTest
 			// Run rx controller
 			rxController.Run(rxBuff2);
 			
-			CHECK_EQUAL("param1", cmdTestParam1.value);
-			CHECK_EQUAL("param2", cmdTestParam2.value);
-			CHECK_EQUAL(false, cmdTestOption1.isDetected);
-			CHECK_EQUAL(false, cmdTestOption2.isDetected);
+			CHECK_EQUAL(cmdTestParam1.value, "param1");
+			CHECK_EQUAL(cmdTestParam2.value, "param2");
+			CHECK_EQUAL(cmdTestOption1.isDetected, false);
+			CHECK_EQUAL(cmdTestOption2.isDetected, false);
 		}
 		
 	} // SUITE(ParamAndOptionTests)*/

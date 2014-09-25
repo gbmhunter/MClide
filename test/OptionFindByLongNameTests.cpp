@@ -51,7 +51,7 @@ namespace MClideTest
 		if(returnedOption == nullptr)
 			CHECK(false);
 		else
-			CHECK_EQUAL(true, returnedOption->isDetected);
+			CHECK_EQUAL(returnedOption->isDetected, true);
 	}
 
 	MTEST(TwoPosOptionFindByLongNameTest)
@@ -84,14 +84,14 @@ namespace MClideTest
 		if(returnedOption == nullptr)
 			CHECK(false);
 		else
-			CHECK_EQUAL(true, returnedOption->isDetected);
+			CHECK_EQUAL(returnedOption->isDetected, true);
 
 		returnedOption = cmdTest.FindOptionByLongName("optb");
 
 		if(returnedOption == nullptr)
 			CHECK(false);
 		else
-			CHECK_EQUAL(true, returnedOption->isDetected);
+			CHECK_EQUAL(returnedOption->isDetected, true);
 	}
 
 	MTEST(OnePosOneNegOptionFindByNameTest)
@@ -124,7 +124,7 @@ namespace MClideTest
 		if(returnedOption == nullptr)
 			CHECK(false);
 		else
-			CHECK_EQUAL(true, returnedOption->isDetected);
+			CHECK_EQUAL(returnedOption->isDetected, true);
 
 		returnedOption = cmdTest.FindOptionByLongName("optb");
 
@@ -132,7 +132,7 @@ namespace MClideTest
 			CHECK(false);
 		else
 			// Should of not been detected
-			CHECK_EQUAL(false, returnedOption->isDetected);
+			CHECK_EQUAL(returnedOption->isDetected, false);
 	}
 
 	MTEST(FindNonexistantOptionByLongNameTest)

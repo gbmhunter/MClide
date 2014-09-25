@@ -44,7 +44,7 @@ namespace MClideTest
 		rxController.Run(rxBuff1);
 
 		// Make sure cmd1 is true, cmd2 is false
-		CHECK_EQUAL(true, cmdTest1.isDetected);
+		CHECK_EQUAL(cmdTest1.isDetected, true);
 	}
 
 	MTEST(IsDetectedGetsResetTest)
@@ -66,8 +66,8 @@ namespace MClideTest
 		rxController.Run(rxBuff1);
 
 		// Make sure cmd1 is true, cmd2 is false
-		CHECK_EQUAL(true, cmdTest1.isDetected);
-		CHECK_EQUAL(false, cmdTest2.isDetected);
+		CHECK_EQUAL(cmdTest1.isDetected, true);
+		CHECK_EQUAL(cmdTest2.isDetected, false);
 
 		// Create input buffer
 		char rxBuff2[50] = "test2";
@@ -76,8 +76,8 @@ namespace MClideTest
 		rxController.Run(rxBuff2);
 
 		// Make sure cmd1 is false, cmd2 is true
-		CHECK_EQUAL(false, cmdTest1.isDetected);
-		CHECK_EQUAL(true, cmdTest2.isDetected);
+		CHECK_EQUAL(cmdTest1.isDetected, false);
+		CHECK_EQUAL(cmdTest2.isDetected, true);
 
 		// TEST ALL CMDS ARE CLEARED
 
@@ -88,8 +88,8 @@ namespace MClideTest
 		rxController.Run(rxBuff3);
 
 		// Make sure cmd1 is false, cmd2 is true
-		CHECK_EQUAL(false, cmdTest1.isDetected);
-		CHECK_EQUAL(false, cmdTest2.isDetected);
+		CHECK_EQUAL(cmdTest1.isDetected, false);
+		CHECK_EQUAL(cmdTest2.isDetected, false);
 	}
 
 } // namespace MClideTest

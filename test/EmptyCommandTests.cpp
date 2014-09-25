@@ -45,7 +45,7 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(rxBuff1);
 
-		CHECK_EQUAL(false, testOption.isDetected);
+		CHECK_EQUAL(testOption.isDetected, false);
 
 		// Create fake input buffer
 		char rxBuff2[50] = "test";
@@ -53,7 +53,7 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(rxBuff2);
 
-		CHECK_EQUAL(false, testOption.isDetected);
+		CHECK_EQUAL(testOption.isDetected, false);
 	}
 
 } // namespace MClideTest

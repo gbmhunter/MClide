@@ -43,8 +43,8 @@ namespace MClideTest
 		rxController.Run("test param1 -a");
 
 		// Check that the command was processed successfully
-		CHECK_EQUAL("param1", cmdTestParam.value);
-		CHECK_EQUAL(true, cmdTestOption.isDetected);
+		CHECK_EQUAL(cmdTestParam.value, "param1");
+		CHECK_EQUAL(cmdTestOption.isDetected, true);
 	}
 		
 } // namespace MClideTest

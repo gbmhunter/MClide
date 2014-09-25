@@ -46,8 +46,8 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(rxBuff);
 
-		CHECK_EQUAL(true, testOption.isDetected);
-		CHECK_EQUAL("optVal", testOption.value);
+		CHECK_EQUAL(testOption.isDetected, true);
+		CHECK_EQUAL(testOption.value, "optVal");
 	}
 
 	MTEST(TwoPosLongOptionWithValuesTest)
@@ -72,10 +72,10 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(rxBuff);
 		
-		CHECK_EQUAL(true, testOption1.isDetected);
-		CHECK_EQUAL("optVal1", testOption1.value);
-		CHECK_EQUAL(true, testOption2.isDetected);
-		CHECK_EQUAL("optVal2", testOption2.value);
+		CHECK_EQUAL(testOption1.isDetected, true);
+		CHECK_EQUAL(testOption1.value, "optVal1");
+		CHECK_EQUAL(testOption2.isDetected, true);
+		CHECK_EQUAL(testOption2.value, "optVal2");
 	}
 			
 	MTEST(OnePosOneNegOptionWithValuesTest)
@@ -100,9 +100,9 @@ namespace MClideTest
 		// Run rx controller
 		rxController.Run(rxBuff);
 		
-		CHECK_EQUAL(true, testOption1.isDetected);
-		CHECK_EQUAL("optVal1", testOption1.value);
-		CHECK_EQUAL(false, testOption2.isDetected);
+		CHECK_EQUAL(testOption1.isDetected, true);
+		CHECK_EQUAL(testOption1.value, "optVal1");
+		CHECK_EQUAL(testOption2.isDetected, false);
 	}
 		
 } // namespace MClideTest
