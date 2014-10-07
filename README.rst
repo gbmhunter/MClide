@@ -12,7 +12,7 @@ MClide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
 - Created: 2012-03-19
 - Last Modified: 2014-10-07
-- Version: v9.3.3.0
+- Version: v9.3.4.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -29,15 +29,11 @@ MClide (CommandLineInterfaceDE) Library
 Description
 ===========
 
-A command-line style communication interface designed to make it easy to send messages and
-data between two micro-controllers, a microcontroller and computer, or two computers, via
-a serial interface that supports ASCII characters (e.g. UART, I2C, SPI).
+A command-line style communication interface designed to make it easy to send messages and data between two micro-controllers, a microcontroller and computer, or two computers, via a serial interface that supports ASCII characters (e.g. UART, I2C, SPI).
 
-Two functionally identical Clide projects exist, this one written in C++ for an embedded system (MClide),
-and the other one (Cs-Clide) written in C# for running on a PC (clide-cs).
+Two functionally identical MClide projects exist, this one written in C++ for an embedded system (MClide), and the other one (Cs-Clide) written in C# for running on a PC (clide-cs).
 
-Uses a both human readable and computer readable format (POSIX.2 command-line style, with
-GNU extensions) for easy implementation and debugging. 
+Uses a both human readable and computer readable format (POSIX.2 command-line style, with GNU extensions) for easy implementation and debugging. 
 
 Useful for working with and controlling embedded systems.
 
@@ -50,10 +46,7 @@ An example message takes the format of
 
 	set-speed -rpm 2000\n
 
-where set-speed is the command name, "-rpm" is an optional argument that specifies
-that the value is in rpm, "2000" is a non-optional parameter which specifies the
-speed, and "\n" is the new-line character which signifies the end of a message
-(which is normally inserted automatically by command-lines when enter is pressed).
+where set-speed is the command name, "-rpm" is an optional argument that specifies that the value is in rpm, "2000" is a non-optional parameter which specifies the speed, and "\n" is the new-line character which signifies the end of a message (which is normally inserted automatically by command-lines when enter is pressed).
 
 Another which uses long options is:
 
@@ -73,7 +66,7 @@ Uses dynamic memory allocation for creating commands/options/parameters e.t.c. C
 Negative Number And Spaces-In-Parameter Support
 -----------------------------------------------
 
-There will be a time when you need to be able to use negative numbers. Unfortunately, it just happens that the negative sign is usually used to signify an option (e.g. :code:`-r`). Clide supports negative numbers, along with spaces-within-parameters, by adding the ability to enclose a parameter/option in quotes. Inside the quotes, and special characters are just treated as normal characters, allowing you to do things like:
+There will be a time when you need to be able to use negative numbers. Unfortunately, it just happens that the negative sign is usually used to signify an option (e.g. :code:`-r`). MClide supports negative numbers, along with spaces-within-parameters, by adding the ability to enclose a parameter/option in quotes. Inside the quotes, and special characters are just treated as normal characters, allowing you to do things like:
 
 :code:`set "-123"`
 
@@ -82,21 +75,21 @@ which will treat -123 as a single parameter, not the options 1, 2, 3.
 Portable (Platform Agnostic)
 ----------------------------
 
-Clide can be used with ease on both Linux and embedded systems. All platform-specific operations are handled via callbacks that you provide the functionality for (e.g. printing to the command line and printing debug information). These callbacks exist in Print.hpp/.cpp.
+MClide can be used with ease on both Linux and embedded systems. All platform-specific operations are handled via callbacks that you provide the functionality for (e.g. printing to the command line and printing debug information). These callbacks exist in Print.hpp/.cpp.
 
-Clide does not use RTTI (e.g. :code:`dynamic_cast()`), allowing it to be used on a larger range of embedded systems.
+MClide does not use RTTI (e.g. :code:`dynamic_cast()`), allowing it to be used on a larger range of embedded systems.
 
-Clide is not dependant on the :code:`getopt_long()` function from the standard C-library, it has it's own version.
+MClide is not dependant on the :code:`getopt_long()` function from the standard C-library, it has it's own version.
 
 Easy Including
 --------------
 
-Before writing code using Clide as a library, you only need to include the single header file called :code:`Clide.hpp` which is found in :code:`api/`.
+Before writing code using MClide as a library, you only need to include the single header file called :code:`MClideApi.hpp` which is found in :code:`api/`.
 
 Easy To Experiment With
 -----------------------
 
-Clide comes with a Makefle with automatic dependcy tracking and example code which is automatically built on running the command :code:`make` from the root directory of the repo.
+MClide comes with a Makefle with automatic dependcy tracking and example code which is automatically built on running the command :code:`make` from the root directory of the repo.
 
 Once compiled, this example code can be run by typing :code:`example/example.elf`. A few example commands with associated parameter and options have been registered for you to experiment with.
 
@@ -105,9 +98,9 @@ Automatic Help Generation With Command Grouping
 
 Automatic support for the "help" command, and :bash:`-h`, :bash:`--help` flags for every other registered command. Help descriptions are saved as member variables of the respective command/option/parameter objects. No special support other UNIX commands such as :bash:`man`, :bash:`whatis` or :bash:`info`. 
 
-To enable automatic help generation, just set the macro :code:`clide_ENABLE_AUTO_HELP` to 1 in :code:`Clide-Config.hpp`.
+To enable automatic help generation, just set the macro :code:`clide_ENABLE_AUTO_HELP` to 1 in :code:`include/Config.hpp`.
 
-Sometimes, you do not wish to display all available commands to the user. clide-cpp supports command group, in where you can assign each command to specific groups. The help command supports a "-g groupName" option, which will only print help for commands registered in that group.
+Sometimes, you do not wish to display all available commands to the user. MClide supports command group, in where you can assign each command to specific groups. The help command supports a "-g groupName" option, which will only print help for commands registered in that group.
 
 E.g.
 
@@ -121,7 +114,7 @@ and
 Advanced Terminal Text Formatting
 ---------------------------------
 
-clide-cpp supports advanced terminal text formatting (e.g. coloured, bold, underlined or italized text) by way of the `ASCII escape codes <http://en.wikipedia.org/wiki/ANSI_escape_code>`_. These codes are supported by many popular shells. They have been tested and confirmed to work with the bash shell.
+MClide supports advanced terminal text formatting (e.g. coloured, bold, underlined or italized text) by way of the `ASCII escape codes <http://en.wikipedia.org/wiki/ANSI_escape_code>`_. These codes are supported by many popular shells. They have been tested and confirmed to work with the bash shell.
 
 To enable advanced text formatting, set the :code:`clide_ENABLE_ADV_TEXT_FORMATTING` macro in Clide-Config.hpp to 1. There are other macros in this file to control the colours.
 
@@ -129,9 +122,7 @@ To enable advanced text formatting, set the :code:`clide_ENABLE_ADV_TEXT_FORMATT
 Included Unit Tests
 -------------------
 
-Clide used the UnitTest++ library to perform unit testing. They are located under :code:`test/`. The UnitTest++ library is included with this repo.
-
-The unit tests check for:
+MClide used the MUnitTest module to perform unit testing. The unit tests are located under :code:`test/`. The unit tests check for:
 
 - Empty commands are handled safely
 - Short and long options work correctly
@@ -144,7 +135,7 @@ The unit tests check for:
 Event-driven Callback Support
 -----------------------------
 
-Clide leverages the :code:`slotmachine-cpp` library to provide event-driven callbacks. :code:`slotmachine-cpp` supports callbacks to methods (instance functions), without Clide having any previous knowledge about the class (type agnostic).
+MClide leverages the :code:`MSlotMachine` library to provide event-driven callbacks. :code:`MSlotMachine` supports callbacks to methods (instance functions), without MClide having any previous knowledge about the class (type agnostic).
 
 List of events supported by callbacks:
 
@@ -189,7 +180,7 @@ Callbacks are generated in the following manner:
 Exceptions
 ----------
 
-O.K., so clide-cpp uses exceptions, but you say it's meant for embedded systems? I choose to use exceptions after I ran into the problem with the fact a object constructor could fail, and you can't return an error code. It was either implement exceptions or use the 'zombie object' approach. I choose exceptions because they a better suited to solve the problem. If you have an issue with this, please let me know (create a GitHub issue).
+O.K., so MClide uses exceptions, but you say it's meant for embedded systems? I choose to use exceptions after I ran into the problem with the fact a object constructor could fail, and you can't return an error code. It was either implement exceptions or use the 'zombie object' approach. I choose exceptions because they a better suited to solve the problem. If you have an issue with this, please let me know (create a GitHub issue).
 
 Installation
 ============
@@ -214,6 +205,7 @@ Dependency             Delivery             Usage
 <cctype>               Standard C++ library isalnum()
 <vector>               Standard C++ library std::vector, for holding vectors of commands, parameters and options.
 <string>               Standard C++ library std::string for command, parameter and option names/descriptions.
+<cinttypes>            Standard C library   PRIu8, PRIu32, e.t.c.
 MCallbacks             External repo        Method callback functionality
 MUnitTest              External repo        Unit test framework for MClide.
 ====================== ==================== ======================================================================
@@ -252,7 +244,7 @@ This is a basic example. See :code:`example/` or :code:`test/` for more examples
 
 	#include "MClide/api/MClideApi.hpp"
 
-	using namespace MbeddedNinja::MClide;
+	using namespace MbeddedNinja::MClideNs;
 
 	// Create RX Clide object
 	Rx rxController;
@@ -290,13 +282,13 @@ This is a basic example. See :code:`example/` or :code:`test/` for more examples
 FAQ
 ===
 
-1. 	I call :code:`MClide::Rx::Run()`, and no errors occur, but nothing happens. 
+1. 	I call :code:`MClideNs::Rx::Run()`, and no errors occur, but nothing happens. 
 
 	You probably have not set-up the callbacks. The crucial one to set-up is :code:`MClide::Print::AssignCallbacks(...)`, which is called every time a message needs to be printed back to the command-line.
 	
 	Here is an example::
 	
-		Clide::Print::AssignCallbacks(
+		MClideNs::Print::AssignCallbacks(
 			MCallbacks::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintDebug),
 			MCallbacks::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine),
 			MCallbacks::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintError));
@@ -320,6 +312,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v9.3.4.0  2014-10-07 Replaced all usages of printf() type specifiers such as 'i' and 'lu' with the portable types defines in <cinttypes>, closes #167.
 v9.3.3.0  2014-10-07 Removed 'include/Log.hpp', closes #168. Wrapped all code in MbeddedNinja namespace, closes #165.
 v9.3.2.0  2014-09-25 Fixed all unit tests so they fit the format 'CHECK_EQUAL(actual, expected)'. Many have actual and expected around the wrong way, closes #166.
 v9.3.1.0  2014-09-14 Added build matrix to .travis.yml, which will hopefully fix the build error.

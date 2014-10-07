@@ -15,12 +15,12 @@
 //========================================= INCLUDES ============================================//
 //===============================================================================================//
 
-// System includes
-#include <stdio.h>		// snprintf()
+//===== SYSTEM LIBRARIES =====//
+//#include <stdio.h>		// snprintf()
 #include <stdlib.h>		// realloc(), malloc(), free()
 #include <cctype>		// isalnum() 
 
-// User includes
+//===== USER SOURCE =====//
 #include "../include/Print.hpp"
 
 

@@ -21,6 +21,7 @@
 #include <stdlib.h>		// realloc(), malloc(), free()
 #include <cctype>		// isalnum() 
 #include <cstring>		// memset()
+#include <cinttypes>	// PRIu32
 
 //===== USER SOURCE =====//
 #include "../include/Config.hpp"
@@ -290,7 +291,7 @@ namespace MbeddedNinja
 					snprintf(
 						tempBuff,
 						sizeof(tempBuff),
-						"%" STR(ClidePort_PF_UINT32_T),
+						"%" PRIu32,
 						x);
 					Print::PrintToCmdLine(tempBuff);
 					// Add tab character
@@ -373,7 +374,7 @@ namespace MbeddedNinja
 				snprintf(
 					tempBuff,
 					sizeof(tempBuff),
-					" (total = %" STR(ClidePort_PF_UINT32_T) ")\r\n",
+					" (total = %" PRIu32 ")\r\n",
 					cmd->GetNumCmdGroups());
 				Print::PrintToCmdLine(tempBuff);
 

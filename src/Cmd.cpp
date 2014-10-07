@@ -21,6 +21,7 @@
 #include <stdlib.h>		// realloc(), malloc(), free()
 #include <cctype>		// isalnum() 
 #include <string.h>		// strlen()
+#include <cinttypes>	// PRIu32
 
 //===== USER SOURCE =====//
 #include "../include/Config.hpp"
@@ -267,7 +268,7 @@ namespace MbeddedNinja
 				snprintf(
 					Global::debugBuff,
 					sizeof(Global::debugBuff),
-					"CLIDE: Num. long options = '%" STR(ClidePort_PF_UINT32_T) "'.\r\n",
+					"CLIDE: Num. long options = '%" PRIu32 "'.\r\n",
 					numLongOptions);
 				Print::PrintDebugInfo(Global::debugBuff,
 						Print::DebugPrintingLevel::VERBOSE);

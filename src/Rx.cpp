@@ -21,6 +21,7 @@
 #include <stdlib.h>		// realloc(), malloc(), free()
 #include <cctype>		// isalnum() 
 #include <cstring>		// memset()
+#include <cinttypes>	// PRIu8, PRIu32, e.t.c
 
 //===== USER LIBRARIES =====//
 #include "MCallbacks/api/MCallbacksApi.hpp"
@@ -324,7 +325,7 @@ namespace MbeddedNinja
 				snprintf(
 					Global::debugBuff,
 					sizeof(Global::debugBuff),
-					"CLIDE: Num arguments = %i\r\n",
+					"CLIDE: Num arguments = %" PRIu8 "\r\n",
 					numArgs);
 				Print::PrintDebugInfo(
 					Global::debugBuff,
@@ -479,7 +480,7 @@ namespace MbeddedNinja
 						snprintf (
 							Global::debugBuff,
 							sizeof(Global::debugBuff),
-							"CLIDE: ERROR: getopt_long() returned '?'. Did not recognise received option '%s' or missing option value. Num args = '%u'. Option string = '%s'.\r\n",
+							"CLIDE: ERROR: getopt_long() returned '?'. Did not recognise received option '%s' or missing option value. Num args = '%" PRIu8 "'. Option string = '%s'.\r\n",
 							_argsPtr[GetOpt::optind - 1],
 							numArgs,
 							optionString);
@@ -674,7 +675,7 @@ namespace MbeddedNinja
 				snprintf(
 						tempBuff,
 						sizeof(tempBuff),
-						"error \"Num. of received parameters ('%" STR(ClidePort_PF_UINT32_T)
+						"error \"Num. of received parameters ('%" PRIu8
 						"') does not match num. registered for cmd ('%zu').\"\r\n",
 						numArgs - GetOpt::optind,
 						foundCmd->paramA.size());
@@ -684,7 +685,7 @@ namespace MbeddedNinja
 						Global::debugBuff,
 						sizeof(Global::debugBuff),
 						"CLIDE: ERROR: Num. of received parameters ('%" STR(ClidePort_PF_UINT32_T)
-						"') for cmd '%s' does not match num. registered ('%zu'). numArgs = '%u'. optind = '%i'.\r\n",
+						"') for cmd '%s' does not match num. registered ('%zu'). numArgs = '%" PRIu8 "'. optind = '%i'.\r\n",
 						(uint32_t)(numArgs - GetOpt::optind),
 						foundCmd->name.c_str(),
 						foundCmd->paramA.size(),
@@ -846,7 +847,7 @@ namespace MbeddedNinja
 					snprintf(
 						Global::debugBuff,
 						sizeof(Global::debugBuff),
-						"CLIDE: Compared name = '%s', compared value = '%" STR(ClidePort_PF_UINT32_T) "'.\r\n",
+						"CLIDE: Compared name = '%s', compared value = '%" PRIu32 "'.\r\n",
 						cmdA[x]->name.c_str(),
 						(uint32_t)val);
 					Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
