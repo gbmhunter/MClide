@@ -1,8 +1,8 @@
 //!
 //! @file 			Param.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2013/04/02
-//! @last-modified 	2014/04/03
+//! @created		2013-04-02
+//! @last-modified 	2014-10-07
 //! @brief 			Contains the Param class, which enables the use of required parameters on the command-line interface.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -15,13 +15,13 @@
 //========================================= INCLUDES ============================================//
 //===============================================================================================//
 
-// System includes
+//===== SYSTEM LIBRARIES =====//
 #include <stdio.h>		// snprintf()
 #include <stdlib.h>		// realloc(), malloc(), free()
 #include <cctype>		// isalnum() 
 #include <string.h>		// strlen()
 
-// User includes
+//===== USER SOURCE =====//
 #include "../include/Config.hpp"
 #include "../include/Print.hpp"
 #include "../include/Option.hpp"
@@ -32,55 +32,60 @@
 //======================================== NAMESPACE ============================================//
 //===============================================================================================//
 
-namespace Clide
+namespace MbeddedNinja
 {
-
-	//===============================================================================================//
-	//======================================= PUBLIC METHODS ========================================//
-	//===============================================================================================//
-
-	Param::Param(std::string description)
+	namespace MClideNs
 	{
-		this->Init(NULL, description);
-	}
-
-	// Constructor
-	Param::Param(bool (*callBackFunc)(char *paramVal), std::string description)
-	{
-		this->Init(callBackFunc, description);
-	}
 	
-	Param::~Param()
-	{
-		// Destructor
-		#if(clide_ENABLE_DEBUG_CODE == 1)	
-			Print::PrintDebugInfo("CLIDE: Parameter destructor called.\r\n",
-					Print::DebugPrintingLevel::VERBOSE);
-		#endif
+		//===============================================================================================//
+		//======================================= PUBLIC METHODS ========================================//
+		//===============================================================================================//
+
+		Param::Param(std::string description)
+		{
+			this->Init(NULL, description);
+		}
+
+		// Constructor
+		Param::Param(bool (*callBackFunc)(char *paramVal), std::string description)
+		{
+			this->Init(callBackFunc, description);
+		}
 		
-		// Deallocate memory
-		//free(this->description);
-	}
+		Param::~Param()
+		{
+			// Destructor
+			#if(clide_ENABLE_DEBUG_CODE == 1)
+				Print::PrintDebugInfo("CLIDE: Parameter destructor called.\r\n",
+						Print::DebugPrintingLevel::VERBOSE);
+			#endif
 
-	//===============================================================================================//
-	//====================================== PRIVATE METHODS ========================================//
-	//===============================================================================================//
+			// Deallocate memory
+			//free(this->description);
+		}
 
-	void Param::Init(bool (*callBackFunc)(char *paramVal), std::string description)
-	{
-		#if(clide_ENABLE_DEBUG_CODE == 1)	
-			Print::PrintDebugInfo("CLIDE: Parameter constructor called.\r\n",
-					Print::DebugPrintingLevel::VERBOSE);
-		#endif
+		//===============================================================================================//
+		//====================================== PRIVATE METHODS ========================================//
+		//===============================================================================================//
 
-		// DECRIPTION
-		
-		this->description = description;
+		void Param::Init(bool (*callBackFunc)(char *paramVal), std::string description)
+		{
+			#if(clide_ENABLE_DEBUG_CODE == 1)
+				Print::PrintDebugInfo("CLIDE: Parameter constructor called.\r\n",
+						Print::DebugPrintingLevel::VERBOSE);
+			#endif
 
-		// CALLBACK
-		
-		// Save call back function
-		this->callBackFunc = callBackFunc;
-	}
+			// DECRIPTION
 
-} // namespace Clide
+			this->description = description;
+
+			// CALLBACK
+
+			// Save call back function
+			this->callBackFunc = callBackFunc;
+		}
+
+	} // namespace MClide
+} // namespace MbeddedNinja
+
+// EOF

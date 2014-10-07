@@ -2,17 +2,17 @@
 MClide
 ======
 
---------------------------------------
-Clide (CommandLineInterfaceDE) Library
---------------------------------------
+---------------------------------------
+MClide (CommandLineInterfaceDE) Library
+---------------------------------------
 
 .. image:: https://api.travis-ci.org/mbedded-ninja/MClide.png?branch=master   
 	:target: https://travis-ci.org/mbedded-ninja/MClide
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
 - Created: 2012-03-19
-- Last Modified: 2014-09-25
-- Version: v9.3.2.0
+- Last Modified: 2014-10-07
+- Version: v9.3.3.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -164,7 +164,8 @@ Callbacks are generated in the following manner:
 	// Class with a method to use as callback
 	class CallbackClass
 	{
-	public:
+		public:
+		
 		void Callback(Cmd *cmd)
 		{
 			this->_methodCallbackCalled = true;
@@ -249,9 +250,9 @@ This is a basic example. See :code:`example/` or :code:`test/` for more examples
 
 ::
 
-	#include "api/Clide.hpp"
+	#include "MClide/api/MClideApi.hpp"
 
-	using namespace Clide;
+	using namespace MbeddedNinja::MClide;
 
 	// Create RX Clide object
 	Rx rxController;
@@ -289,9 +290,9 @@ This is a basic example. See :code:`example/` or :code:`test/` for more examples
 FAQ
 ===
 
-1. 	I call :code:`Clide::Rx::Run()`, and no errors occur, but nothing happens. 
+1. 	I call :code:`MClide::Rx::Run()`, and no errors occur, but nothing happens. 
 
-	You probably have not set-up the callbacks. The crucial one to set-up is :code:`Clide::Print::AssignCallbacks(...)`, which is called every time a message needs to be printed back to the command-line.
+	You probably have not set-up the callbacks. The crucial one to set-up is :code:`MClide::Print::AssignCallbacks(...)`, which is called every time a message needs to be printed back to the command-line.
 	
 	Here is an example::
 	
@@ -300,11 +301,11 @@ FAQ
 			MCallbacks::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine),
 			MCallbacks::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintError));
 
-2. 	I keep getting weird characters appear in the terminal from text sent from Clide.
+2. 	I keep getting weird characters appear in the terminal from text sent from MClide.
 
-	Your terminal probably doesn't support special formatting characters. Set :code:`clide_ENABLE_ADV_TEXT_FORMATTING` to 0 in :code:`Clide.Config.hpp` to disable the special formatting characters.
+	Your terminal probably doesn't support special formatting characters. Set :code:`clide_ENABLE_ADV_TEXT_FORMATTING` to 0 in :code:`Config.hpp` to disable the special formatting characters.
 	
-3.	I get the error :code:'Clide::Print::DebugPrintingLevel' is not a class or namespace. 
+3.	I get the error :code:'MClide::Print::DebugPrintingLevel' is not a class or namespace. 
 
 	You are not compiling C++11, which you need to do, in order to support enum classes. Add the compiler flag :code`-std=c++11` or :code:`-std=c++0x` to your build process.
 	
@@ -319,6 +320,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v9.3.3.0  2014-10-07 Removed 'include/Log.hpp', closes #168. Wrapped all code in MbeddedNinja namespace, closes #165.
 v9.3.2.0  2014-09-25 Fixed all unit tests so they fit the format 'CHECK_EQUAL(actual, expected)'. Many have actual and expected around the wrong way, closes #166.
 v9.3.1.0  2014-09-14 Added build matrix to .travis.yml, which will hopefully fix the build error.
 v9.3.0.0  2014-09-14 Fixed name in README from 'ClideCpp' to 'MClide'. Removed dependence on slotmachine-cpp, MClide now depends on MCallbacks an downloads it into the parent directory, closes #161. Replaced UnitTestCpp with the MUnitTest module, and made all unit test names unique to be compatible with it, closes #164. Makefile now downloads and builds all dependencies.

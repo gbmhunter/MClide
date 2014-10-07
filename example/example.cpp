@@ -1,9 +1,9 @@
 //!
 //! @file 			example.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created 		2013/07/04
-//! @last-modified 	2014/05/16
-//! @brief 			Example Clide program, designed to be run on Linux.
+//! @created 		2013-07-04
+//! @last-modified 	2014-10-07
+//! @brief 			Example MClide program, designed to be run on Linux.
 //! @details
 //!				See README.rst in root dir for more info.
 
@@ -14,7 +14,7 @@
 
 #include "../api/MClideApi.hpp"
 
-using namespace Clide;
+using namespace MbeddedNinja::MClideNs;
 using namespace std;
 
 // Create two command groups
@@ -50,14 +50,14 @@ int main()
 	// Configure clide print outputs
 	Printer printer;
 
-	Clide::Print::AssignCallbacks(
+	Print::AssignCallbacks(
 			MCallbacks::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintDebug),
 			MCallbacks::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine),
 			MCallbacks::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintError));
 
-	Clide::Print::enableDebugInfoPrinting = false;
-	Clide::Print::enableErrorPrinting = false;
-	Clide::Print::enableCmdLinePrinting = true;
+	Print::enableDebugInfoPrinting = false;
+	Print::enableErrorPrinting = false;
+	Print::enableCmdLinePrinting = true;
 
 	// Create a receiver engine, adding the option to
 	// print the help with no header

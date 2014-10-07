@@ -1,9 +1,9 @@
 //!
 //! @file 			Config.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2013/04/02
-//! @last-modified 	2014/05/16
-//! @brief 			Configuration file for Clide.
+//! @created		2013-04-02
+//! @last-modified 	2014-10-07
+//! @brief 			Configuration file for MClide.
 //! @details
 //!				See README.rst in repo root dir for more info.
 
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef CLIDE_CONFIG_H
-#define CLIDE_CONFIG_H
+#ifndef MCLIDE_CONFIG_H
+#define MCLIDE_CONFIG_H
 
 
 //=============== DEBUG SWITCHES ============//
@@ -70,6 +70,6 @@
 #define clide_RX_BUFF_SIZE					(256u)
 		
 
-#endif	// #ifndef CLIDE_CONFIG_H
+#endif	// #ifndef MCLIDE_CONFIG_H
 
 // EOF

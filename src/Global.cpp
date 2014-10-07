@@ -1,9 +1,9 @@
 //!
 //! @file 			Global.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2013/04/02
-//! @last-modified 	2014/01/21
-//! @brief 		 	Contains global functions and variables used by many Clide classes.
+//! @created		2013-04-02
+//! @last-modified 	2014-10-07
+//! @brief 		 	Contains global functions and variables used by many MClide classes.
 //! @details
 //!					See README.rst in repo root dir for more info.
 
@@ -15,9 +15,6 @@
 //========================================= INCLUDES ============================================//
 //===============================================================================================//
 
-// System includes
-
-
 // User includes
 #include "../include/Config.hpp"
 #include "../include/Global.hpp"
@@ -26,15 +23,20 @@
 //======================================== NAMESPACE ============================================//
 //===============================================================================================//
 
-namespace Clide
+namespace MbeddedNinja
 {
+	namespace MClideNs
+	{
 
-	char Global::debugBuff[clide_DEBUG_BUFF_SIZE] = {0};
+		char Global::debugBuff[clide_DEBUG_BUFF_SIZE] = {0};
 
-	//===============================================================================================//
-	//====================================== PRIVATE METHODS ========================================//
-	//===============================================================================================//
+		//===============================================================================================//
+		//====================================== PRIVATE METHODS ========================================//
+		//===============================================================================================//
 
-	// none
+		// none
 
-} // namespace Clide
+	} // namespace MClide
+} // namespace MbeddedNinja
+
+// EOF

@@ -2,7 +2,7 @@
 //! @file 			HelpTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2014-01-07
-//! @last-modified 	2014-09-14
+//! @last-modified 	2014-10-07
 //! @brief 			Contains test functions for MClide help.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -16,10 +16,10 @@
 //===== USER SOURCE =====//
 #include "../api/MClideApi.hpp"
 
+using namespace MbeddedNinja::MClideNs;
+
 namespace MClideTest
 {
-
-	using namespace Clide;
 
 	static bool Callback(Cmd *cmd)
 	{

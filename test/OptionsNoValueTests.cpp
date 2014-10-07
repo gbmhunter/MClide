@@ -2,7 +2,7 @@
 //! @file 			OptionsNoValueTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013-07-04
-//! @last-modified 	2014-09014
+//! @last-modified 	2014-10-07
 //! @brief 			Contains test functions for Clide command options.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -16,10 +16,10 @@
 //===== USER SOURCE =====//
 #include "../api/MClideApi.hpp"
 
+using namespace MbeddedNinja::MClideNs;
+
 namespace MClideTest
 {
-
-	using namespace Clide;
 
 	static Cmd *_cmd = NULL;
 

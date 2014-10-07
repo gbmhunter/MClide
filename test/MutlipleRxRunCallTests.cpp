@@ -2,8 +2,8 @@
 //! @file 			MultipleRxRunCallTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013-07-04
-//! @last-modified 	2014-09-14
-//! @brief 			Contains test functions for mutliple calls to MClide::Rx.Run().
+//! @last-modified 	2014-10-07
+//! @brief 			Contains test functions for multiple calls to MClide::Rx.Run().
 //! @details
 //!					See README.rst in root dir for more info.
 
@@ -16,10 +16,10 @@
 //===== USER SOURCE =====//
 #include "../api/MClideApi.hpp"
 
+using namespace MbeddedNinja::MClideNs;
+
 namespace MClideTest
 {
-
-	using namespace Clide;
 
 	static bool Callback(Cmd *cmd)
 	{

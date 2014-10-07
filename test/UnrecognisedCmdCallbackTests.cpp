@@ -2,7 +2,7 @@
 //! @file 			UnrecognisedCmdCallbackTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2014-01-13
-//! @last-modified 	2014-03-26
+//! @last-modified 	2014-10-07
 //! @brief			Unit test for checking that the unrecognised command callback function is actually called when a command is not recognised.
 //! @details
 //!				See README.rst in root dir for more info.
@@ -16,11 +16,14 @@
 //===== USER SOURCE =====//
 #include "../api/MClideApi.hpp"
 
+using namespace MbeddedNinja::MClideNs;
+
 namespace MClideTest
 {
 	class ClassWithFunction
 	{
-	public:
+		public:
+
 		bool iWasCalled;
 		bool cmdsEqual;
 
@@ -41,8 +44,6 @@ namespace MClideTest
 
 	};
 
-
-	using namespace Clide;
 
 	bool CmdCallback(Cmd *cmd)
 	{

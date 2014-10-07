@@ -2,7 +2,7 @@
 //! @file 			RxBuffStringTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2014-01-09
-//! @last-modified 	2014-09-14
+//! @last-modified 	2014-10-07
 //! @brief 			Contains string test functions for the RxBuff object.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -16,10 +16,10 @@
 //===== USER SOURCE =====//
 #include "../api/MClideApi.hpp"
 
+using namespace MbeddedNinja::MClideNs;
+
 namespace MClideTest
 {
-
-	using namespace Clide;
 
 	static bool Callback(Cmd *cmd)
 	{

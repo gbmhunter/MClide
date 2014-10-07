@@ -1,8 +1,8 @@
 //!
 //! @file 			Tx.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2012/03/19
-//! @last-modified 	2014/04/02
+//! @created		2012-03-19
+//! @last-modified 	2014-10-07
 //! @brief 			Clide TX controller. The main logic of the TX (sending)	part of Clide.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -31,24 +31,24 @@
 #include "../include/Print.hpp"
 #include "../include/Tx.hpp"
 
-//===============================================================================================//
-//======================================== NAMESPACE ============================================//
-//===============================================================================================//
 
-namespace Clide
+namespace MbeddedNinja
 {
-
-	using namespace std;
-
-	//===============================================================================================//
-	//=================================== METHOD DEFINITIONS ========================================//
-	//===============================================================================================//
-
-	// Constructor
-	Tx::Tx()
+	namespace MClideNs
 	{
-		// Nothing to initialise, all done in Clide::Comm (base class) initialiser.
-	}
 	
+		using namespace std;
 
-} // namespace Clide
+		//===============================================================================================//
+		//=================================== METHOD DEFINITIONS ========================================//
+		//===============================================================================================//
+
+		// Constructor
+		Tx::Tx()
+		{
+			// Nothing to initialise, all done in Clide::Comm (base class) initialiser.
+		}
+
+
+	} // namespace MClide
+} // namespace MbeddedNinja

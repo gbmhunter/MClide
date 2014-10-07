@@ -1,8 +1,8 @@
 //!
 //! @file 			StringSplit.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created		2013/04/10
-//! @last-modified 	2014/01/21
+//! @created		2013-04-10
+//! @last-modified 	2014-10-07
 //! @brief 			Features a string split function which ignores delimiters inside quotation marks.
 //! @details	
 //!					See README.rst in repo root dir for more information.
@@ -22,130 +22,108 @@
 #include "../include/Print.hpp"
 #include "../include/StringSplit.hpp"
 
-//===============================================================================================//
-//======================================== NAMESPACE ============================================//
-//===============================================================================================//
 
-namespace Clide
+namespace MbeddedNinja
 {
-
-	//===============================================================================================//
-	//==================================== PRIVATE DEFINES ==========================================//
-	//===============================================================================================//
-
-	// none
-
-	//===============================================================================================//
-	//=================================== PRIVATE TYPEDEF's =========================================//
-	//===============================================================================================//
-
-	// none
-
-	//===============================================================================================//
-	//============================= PRIVATE VARIABLES/STRUCTURES ====================================//
-	//===============================================================================================//
-
-	// none
-
-	//===============================================================================================//
-	//================================== PRIVATE FUNCTION PROTOTYPES ================================//
-	//===============================================================================================//
-
-	// none
-
-	//===============================================================================================//
-	//===================================== PUBLIC FUNCTIONS ========================================//
-	//===============================================================================================//
-
-
-	char* StringSplit::Run(char *s, const char *delim)
+	namespace MClideNs
 	{
-		static char *last;
 
-		return Int(s, delim, &last, '\"');
-	}
+		//===============================================================================================//
+		//===================================== PUBLIC FUNCTIONS ========================================//
+		//===============================================================================================//
 
 
-	char* StringSplit::Int(char *s, const char *delim, char **last, char delimiterNull)
-	{
-		char *spanp;
-		char c, sc;
-		char *tok;
-		bool delimitersNulled = false;
-
-		// Return if null
-		if (s == NULL && (s = *last) == NULL)
-			return (NULL);
-
-		
-		 // Skip (span) leading delimiters (s += strspn(s, delim), sort of).
-		 
-		RESTART:
-		
-		// Get character
-		c = *s++;
-		
-		// Iterates through delimiters
-		// spanp initially = first delim
-		// Goes until delim string = null
-		for (spanp = (char *)delim; (sc = *spanp++) != 0;) 
+		char* StringSplit::Run(char *s, const char *delim)
 		{
-			// Compare with delimiters
-			if (c == sc)
-				goto RESTART;
-			else if (c == delimiterNull)
-				delimitersNulled = !delimitersNulled;
+			static char *last;
+
+			return Int(s, delim, &last, '\"');
 		}
 
-		// Leading delimiters removed, see if next character is null
-		if (c == 0)
-		{		
-			// No non-delimiter characters
-			*last = NULL;
-			return (NULL);
-		}
-		
-		// Remember string position - 1 since s has already been incremented
-		tok = s - 1;
-		
-		
-		// Scan token (scan for delimiters: s += strcspn(s, delim), sort of).
-		//Note that delim must have one NUL; we stop if we see that, too.
-		for (;;)
+
+		char* StringSplit::Int(char *s, const char *delim, char **last, char delimiterNull)
 		{
-			// Go to next character in string
+			char *spanp;
+			char c, sc;
+			char *tok;
+			bool delimitersNulled = false;
+
+			// Return if null
+			if (s == NULL && (s = *last) == NULL)
+				return (NULL);
+
+
+			 // Skip (span) leading delimiters (s += strspn(s, delim), sort of).
+
+			RESTART:
+
+			// Get character
 			c = *s++;
 			
-			if(c == delimiterNull)
-				delimitersNulled = !delimitersNulled;
-			
-			if(!delimitersNulled)
+			// Iterates through delimiters
+			// spanp initially = first delim
+			// Goes until delim string = null
+			for (spanp = (char *)delim; (sc = *spanp++) != 0;)
 			{
-				// Check each delimiter
-				spanp = (char *)delim;
-				do 
-				{
-					// Assign sc as first delimiter to check for,
-					// and then compare with the character
-					if ((sc = *spanp++) == c) 
-					{
-						if (c == 0)
-							s = NULL;
-						else
-							s[-1] = 0;
-						*last = s;
-						return (tok);
-					}
-				} while (sc != 0);
+				// Compare with delimiters
+				if (c == sc)
+					goto RESTART;
+				else if (c == delimiterNull)
+					delimitersNulled = !delimitersNulled;
 			}
+
+			// Leading delimiters removed, see if next character is null
+			if (c == 0)
+			{
+				// No non-delimiter characters
+				*last = NULL;
+				return (NULL);
+			}
+
+			// Remember string position - 1 since s has already been incremented
+			tok = s - 1;
+
+			
+			// Scan token (scan for delimiters: s += strcspn(s, delim), sort of).
+			//Note that delim must have one NUL; we stop if we see that, too.
+			for (;;)
+			{
+				// Go to next character in string
+				c = *s++;
+
+				if(c == delimiterNull)
+					delimitersNulled = !delimitersNulled;
+
+				if(!delimitersNulled)
+				{
+					// Check each delimiter
+					spanp = (char *)delim;
+					do
+					{
+						// Assign sc as first delimiter to check for,
+						// and then compare with the character
+						if ((sc = *spanp++) == c)
+						{
+							if (c == 0)
+								s = NULL;
+							else
+								s[-1] = 0;
+							*last = s;
+							return (tok);
+						}
+					} while (sc != 0);
+				}
+			}
+			// NOTREACHED
 		}
-		// NOTREACHED 
-	}
 
-	//===============================================================================================//
-	//==================================== PRIVATE FUNCTIONS ========================================//
-	//===============================================================================================//
+		//===============================================================================================//
+		//==================================== PRIVATE FUNCTIONS ========================================//
+		//===============================================================================================//
 
-	// none
+		// none
 
-} // namespace PowerString
+	} // namespace MClide
+} // namespace MbeddedNinja
+
+// EOF
