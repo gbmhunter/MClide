@@ -2,7 +2,7 @@
 //! @file 			Param.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013-04-02
-//! @last-modified 	2014-10-07
+//! @last-modified 	2014-10-08
 //! @brief 		 
 //! @details
 //!				See README.rst in root dir for more info.
@@ -34,8 +34,10 @@ namespace MbeddedNinja
 //========================================== INCLUDES ===========================================//
 //===============================================================================================//
 
-#include <string>
+//===== SYSTEM LIBRARIES =====//
+#include <MString/api/MStringApi.hpp>
 
+//===== USER SOURCE =====//
 #include "Config.hpp"
 
 //===============================================================================================//
@@ -58,11 +60,11 @@ namespace MbeddedNinja
 				//===============================================================================================//
 
 				//! @brief		Generic constructor.
-				Param(bool (*callBackFunc)(char *paramVal), std::string description);
+				Param(bool (*callBackFunc)(char *paramVal), MString description);
 
 				//! @brief		Simplified constructor.
 				//! @details	Automatically sets the function pointer to NULL.
-				Param(std::string description);
+				Param(MString description);
 
 				//! @brief		Destructor.
 				//! @details	Deallocates memory.
@@ -79,11 +81,11 @@ namespace MbeddedNinja
 				//===============================================================================================//
 
 				//! @brief		Description of a parameter. Used with the "-h", "--help" flags.
-				std::string description;
+				MString description;
 
 				//! @brief		String value of parameter.
 				//! @note		Parameters have no names
-				std::string value;
+				MString value;
 
 				//! @brief		Optional callback function for when parameter is discovered.
 				//! @details	Function is called before the callback function for the command that it
@@ -93,7 +95,7 @@ namespace MbeddedNinja
 			private:
 			
 				//! @brief		Common code for constructors
-				void Init(bool (*callBackFunc)(char *paramVal), std::string description);
+				void Init(bool (*callBackFunc)(char *paramVal), MString description);
 		};
 
 		//===============================================================================================//

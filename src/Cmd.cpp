@@ -42,7 +42,7 @@ namespace MbeddedNinja
 		//===============================================================================================//
 
 		// Constructor
-		Cmd::Cmd(std::string name, bool (*callBackFunc)(Cmd* foundCmd), std::string description)
+		Cmd::Cmd(MString name, bool (*callBackFunc)(Cmd* foundCmd), MString description)
 		{
 			#if(clide_ENABLE_DEBUG_CODE == 1)
 				// Description too long, do not save it
@@ -60,7 +60,7 @@ namespace MbeddedNinja
 		}
 
 		// Constructor
-		Cmd::Cmd(std::string name, MCallbacks::Callback<void, Cmd*> methodCallback, std::string description)
+		Cmd::Cmd(MString name, MCallbacks::Callback<void, Cmd*> methodCallback, MString description)
 		{
 			#if(clide_ENABLE_DEBUG_CODE == 1)
 				// Description too long, do not save it
@@ -78,7 +78,7 @@ namespace MbeddedNinja
 			this->Init(name, description);
 		}
 	
-		void Cmd::Init(std::string name, std::string description)
+		void Cmd::Init(MString name, MString description)
 		{
 			#if(clide_ENABLE_DEBUG_CODE == 1)
 				Print::PrintDebugInfo("CLIDE: Cmd::Init() called.\r\n",
@@ -205,7 +205,7 @@ namespace MbeddedNinja
 						sizeof(Global::debugBuff),
 						"CLIDE: Option short name = '%c'. Option long name = '%s'.\r\n",
 						optionA[this->optionA.size() - 1]->shortName,
-						optionA[this->optionA.size() - 1]->longName.c_str());
+						optionA[this->optionA.size() - 1]->longName.cStr);
 				}
 				else
 				{
@@ -214,7 +214,7 @@ namespace MbeddedNinja
 						sizeof(Global::debugBuff),
 						"CLIDE: Option short name = '%s'. Option long name = '%s'.\r\n",
 						"none",
-						optionA[this->optionA.size() - 1]->longName.c_str());
+						optionA[this->optionA.size() - 1]->longName.cStr);
 				}
 
 				Print::PrintDebugInfo(Global::debugBuff,
@@ -235,7 +235,7 @@ namespace MbeddedNinja
 			return NULL;
 		}
 
-		Option* Cmd::FindOptionByLongName(std::string longOptionName)
+		Option* Cmd::FindOptionByLongName(MString longOptionName)
 		{
 			for(uint32_t x = 0; x < this->optionA.size(); x++)
 			{
@@ -260,7 +260,7 @@ namespace MbeddedNinja
 			uint32_t x;
 			for(x = 0; x < this->optionA.size(); x++)
 			{
-				if(this->optionA[x]->longName.length() > 0)
+				if(this->optionA[x]->longName.GetLength() > 0)
 					numLongOptions++;
 			}
 

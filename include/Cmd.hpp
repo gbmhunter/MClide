@@ -2,7 +2,7 @@
 //! @file 			Cmd.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013-03-19
-//! @last-modified 	2014-10-07
+//! @last-modified 	2014-10-08
 //! @brief 			Contains the command object, which can be registered with the RX or TX controller (or both).
 //! @details
 //!					See README.rst in root dir for more info.
@@ -34,20 +34,22 @@ namespace MbeddedNinja
 //========================================== INCLUDES ===========================================//
 //===============================================================================================//
 
-// System headers
+//===== SYSTEM LIBRARIES =====//
 #include <stdint.h>
 #include <vector>
-#include <string>
 
-// User libraries
+//===== USER LIBRARIES =====//
 #include "MCallbacks/api/MCallbacksApi.hpp"
+#include "MString/api/MStringApi.hpp"
 
-// User headers
+//===== USER SOURCE =====//
 #include "Config.hpp"		//!< Config options
 #include "Param.hpp"		//!< For the Param() object
 #include "Option.hpp"		//!< For the Option() object
 #include "Comm.hpp"    		//!< Used for save a reference to the parent comm object in each cmd object.
 #include "CmdGroup.hpp"
+
+using namespace MbeddedNinja;
 
 namespace MbeddedNinja
 {
@@ -73,9 +75,9 @@ namespace MbeddedNinja
 				//! @param		callBackFunc	The function to call when command is received.
 				//! @param		description		Used when the "help" command or "-h" option is called.
 				Cmd(
-					std::string name,
+					MString name,
 					bool (*callBackFunc)(Cmd* foundCmd),
-					std::string description);
+					MString description);
 	/*
 				//! @brief		Constructor with function callback
 				//! @param		name			This is the string that is matched with the first argument in
@@ -93,9 +95,9 @@ namespace MbeddedNinja
 				//! @param		methodCallback	The method to call when command is received.
 				//! @param		description		Used when the "help" command or "-h" option is called.
 				Cmd(
-					std::string name,
+					MString name,
 					MCallbacks::Callback<void, Cmd*> methodCallback,
-					std::string description);
+					MString description);
 
 				//! @brief		Destructor. Deallocates memory.
 				~Cmd();
@@ -123,7 +125,7 @@ namespace MbeddedNinja
 				//! @param		longOptionName		The long option name to look for.
 				//! @returns	A pointer to the option if it finds a match, otherwise nullptr.
 				//! @sa			FindOptionByShortName
-				Option* FindOptionByLongName(std::string longOptionName);
+				Option* FindOptionByLongName(MString longOptionName);
 
 				//! @brief		Returns the number of options registered to the command which have long option names.
 				//! @returns	Number of options with long options names (i.e. longName != NULL).
@@ -145,10 +147,10 @@ namespace MbeddedNinja
 
 				//! @brief		The command name. Used for recognising command in command-line input.
 				//! @details	This must be the first word sent on the command-line, followed by a space.
-				std::string name;
+				MString name;
 
 				//! @brief		Points to the description. Used when the help command is called.
-				std::string description;
+				MString description;
 
 				//! @brief 		Vector of pointers to command parameters. Parameters are created external to Clide.
 				std::vector<Param*> paramA;
@@ -193,7 +195,7 @@ namespace MbeddedNinja
 				//! @brief		Used for constructor shared-code (called by all constructors).
 				//! @details	Initialises everything except the callback, which is done in the calling constructor,
 				//!				depending on whether it is a function or a method.
-				void Init(std::string name, std::string description);
+				void Init(MString name, MString description);
 			
 		};
 

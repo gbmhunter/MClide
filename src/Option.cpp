@@ -40,9 +40,9 @@ namespace MbeddedNinja
 
 		Option::Option(
 			const char shortName,
-			std::string longName,
+			MString longName,
 			bool (*callBackFunc)(char *optionVal),
-			std::string description,
+			MString description,
 			bool associatedValue)
 		{
 			// Base constructor
@@ -61,9 +61,9 @@ namespace MbeddedNinja
 		}
 
 		Option::Option(
-			std::string longName,
+			MString longName,
 			bool (*callBackFunc)(char *optionVal),
-			std::string description)
+			MString description)
 		{
 			// Simplified constructor. No short name.
 
@@ -82,7 +82,7 @@ namespace MbeddedNinja
 		Option::Option(
 			const char shortName,
 			bool (*callBackFunc)(char *optionVal),
-			std::string description)
+			MString description)
 		{
 			// Simplified constructor. No long name.
 
@@ -92,7 +92,7 @@ namespace MbeddedNinja
 			#endif
 			Init(
 				shortName,
-				std::string(""),
+				MString(""),
 				callBackFunc,
 				description,
 				false);
@@ -117,9 +117,9 @@ namespace MbeddedNinja
 	
 		void Option::Init(
 			const char shortName,
-			std::string longName,
+			MString longName,
 			bool (*callBackFunc)(char *optionVal),
-			std::string description,
+			MString description,
 			bool associatedValue)
 		{
 			#if(clide_ENABLE_DEBUG_CODE == 1)

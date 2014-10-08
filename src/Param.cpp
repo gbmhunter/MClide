@@ -41,13 +41,13 @@ namespace MbeddedNinja
 		//======================================= PUBLIC METHODS ========================================//
 		//===============================================================================================//
 
-		Param::Param(std::string description)
+		Param::Param(MString description)
 		{
 			this->Init(NULL, description);
 		}
 
 		// Constructor
-		Param::Param(bool (*callBackFunc)(char *paramVal), std::string description)
+		Param::Param(bool (*callBackFunc)(char *paramVal), MString description)
 		{
 			this->Init(callBackFunc, description);
 		}
@@ -68,7 +68,7 @@ namespace MbeddedNinja
 		//====================================== PRIVATE METHODS ========================================//
 		//===============================================================================================//
 
-		void Param::Init(bool (*callBackFunc)(char *paramVal), std::string description)
+		void Param::Init(bool (*callBackFunc)(char *paramVal), MString description)
 		{
 			#if(clide_ENABLE_DEBUG_CODE == 1)
 				Print::PrintDebugInfo("CLIDE: Parameter constructor called.\r\n",

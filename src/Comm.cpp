@@ -2,7 +2,7 @@
 //! @file 			Comm.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013-12-18
-//! @last-modified 	2014-10-07
+//! @last-modified 	2014-10-08
 //! @brief			The base communications class. This is extended by both Clide::Tx and Clide::Rx which are the classes manipulated by the user.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -125,14 +125,14 @@ namespace MbeddedNinja
 			const char* selectedGroup;
 
 			// Default group if none provided (help)
-			selectedGroup = this->defaultCmdGroup->name.c_str();
+			selectedGroup = this->defaultCmdGroup->name.cStr;
 
 			//if(cmd->optionA[1]->isDetected == true)
 			if(cmd->FindOptionByShortName('g') != nullptr)
 			{
 				if(cmd->FindOptionByShortName('g')->isDetected)
 					// Group option has been provided with help command (help -g groupName)
-					selectedGroup = cmd->optionA[1]->value.c_str();
+					selectedGroup = cmd->optionA[1]->value.cStr;
 			}
 
 			//============= DETERMINE IF HELP HEADER IS TO BE PRINTED ===========//
@@ -186,7 +186,7 @@ namespace MbeddedNinja
 				for(y = 0; y < cmdA[x]->cmdGroupA.size(); y++)
 				{
 					// Check command belongs to requested group
-					if(strcmp(selectedGroup, cmdA[x]->cmdGroupA[y]->name.c_str()) == 0)
+					if(strcmp(selectedGroup, cmdA[x]->cmdGroupA[y]->name.cStr) == 0)
 					{
 						snprintf(
 							tempBuff,
@@ -201,7 +201,7 @@ namespace MbeddedNinja
 								tempBuff,
 								sizeof(tempBuff),
 								"%-" STR(config_CMD_PADDING_FOR_HELP) "." STR(config_CMD_PADDING_FOR_HELP_MINUS_1) "s",
-								cmdA[x]->name.c_str());
+								cmdA[x]->name.cStr);
 							Print::PrintToCmdLine(tempBuff);
 							Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_NORMAL);
 						#else
@@ -212,7 +212,7 @@ namespace MbeddedNinja
 						// Add tab character
 						//Print::PrintToCmdLine("\t");
 						// Print description
-						Print::PrintToCmdLine(cmdA[x]->description.c_str());
+						Print::PrintToCmdLine(cmdA[x]->description.cStr);
 						// \r is enough for PuTTy to format onto a newline also
 						// (adding \n causes it to add two new lines)
 						Print::PrintToCmdLine("\r\n");
@@ -245,7 +245,7 @@ namespace MbeddedNinja
 			Print::PrintToCmdLine("\t");
 			#if(clide_ENABLE_ADV_TEXT_FORMATTING == 1)
 				Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_BOLD);
-				Print::PrintToCmdLine(cmd->name.c_str());
+				Print::PrintToCmdLine(cmd->name.cStr);
 				Print::PrintToCmdLine(clide_TERM_TEXT_FORMAT_NORMAL);
 			#else
 				// No advanced text formatting
@@ -255,7 +255,7 @@ namespace MbeddedNinja
 			// Add tab character
 			Print::PrintToCmdLine("\t");
 			// Print description
-			Print::PrintToCmdLine(cmd->description.c_str());
+			Print::PrintToCmdLine(cmd->description.cStr);
 			// \r is enough for PuTTy to format onto a newline also
 			// (adding \n causes it to add two new lines)
 			Print::PrintToCmdLine("\r\n");
@@ -297,7 +297,7 @@ namespace MbeddedNinja
 					// Add tab character
 					Print::PrintToCmdLine("\t");
 					// Print description
-					Print::PrintToCmdLine(cmd->paramA[x]->description.c_str());
+					Print::PrintToCmdLine(cmd->paramA[x]->description.cStr);
 					// \r is enough for PuTTy to format onto a newline also
 					// (adding \n causes it to add two new lines)
 					Print::PrintToCmdLine("\r\n");
@@ -341,11 +341,11 @@ namespace MbeddedNinja
 
 					// Print long option
 					Print::PrintToCmdLine("\t");
-					Print::PrintToCmdLine(cmd->optionA[x]->longName.c_str());
+					Print::PrintToCmdLine(cmd->optionA[x]->longName.cStr);
 					// Add tab character
 					Print::PrintToCmdLine("\t");
 					// Print description
-					Print::PrintToCmdLine(cmd->optionA[x]->description.c_str());
+					Print::PrintToCmdLine(cmd->optionA[x]->description.cStr);
 					// \r is enough for PuTTy to format onto a newline also
 					// (adding \n causes it to add two new lines)
 					Print::PrintToCmdLine("\r\n");
@@ -363,7 +363,7 @@ namespace MbeddedNinja
 			for(x = 0; x < cmd->GetNumCmdGroups(); x++)
 			{
 				// Print out command group name
-				Print::PrintToCmdLine(cmd->cmdGroupA[x]->name.c_str());
+				Print::PrintToCmdLine(cmd->cmdGroupA[x]->name.cStr);
 
 				// Add space and comma if not last command group name
 				if(x != cmd->GetNumCmdGroups() - 1)

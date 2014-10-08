@@ -40,7 +40,7 @@ namespace MbeddedNinja
 		//======================================= PUBLIC METHODS ========================================//
 		//===============================================================================================//
 
-		CmdGroup::CmdGroup(std::string name, std::string description)
+		CmdGroup::CmdGroup(MString name, MString description)
 		{
 			this->name = name;
 			this->description = description;

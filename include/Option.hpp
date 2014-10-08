@@ -34,7 +34,8 @@ namespace MbeddedNinja
 //========================================== INCLUDES ===========================================//
 //===============================================================================================//
 
-#include <string>
+//===== USER LIBRARIES =====//
+#include "MString/api/MStringApi.hpp"
 
 namespace MbeddedNinja
 {
@@ -62,9 +63,9 @@ namespace MbeddedNinja
 				//! @param		associatedValue	Set to true if option has an associated value
 				Option(
 					const char shortName,
-					std::string longName,
+					MString longName,
 					bool (*callBackFunc)(char *optionVal),
-					std::string description,
+					MString description,
 					bool associatedValue);
 
 				//! @brief		Simplified constructor. Short name set to NULL, assoicatedValue set to false.
@@ -74,9 +75,9 @@ namespace MbeddedNinja
 				//!								Can be set to NULL.
 				//! @param		description		Used when help is requested.
 				Option(
-					std::string longName,
+					MString longName,
 					bool (*callBackFunc)(char *optionVal),
-					std::string description);
+					MString description);
 
 				//! @brief		Simplified constructor. Long name set to NULL, assoicatedValue set to false.
 				//! @details
@@ -87,7 +88,7 @@ namespace MbeddedNinja
 				Option(
 					const char shortName,
 					bool (*callBackFunc)(char *optionVal),
-					std::string description);
+					MString description);
 			
 				//! @brief		Destructor.
 				//! @details	Deallocates memory.
@@ -109,14 +110,14 @@ namespace MbeddedNinja
 			
 				//! @brief		The long name of the option. Optional, but at least 1 of shortName or longName must ne non-null.
 				//! @details	Optional, but at least 1 of shortName or longName must ne non-null.
-				std::string longName;
+				MString longName;
 
 				//! @brief		Description of an option. Used with the "-h", "--help" flags.
-				std::string description;
+				MString description;
 
 				//! @brief		The value of the option. Assigned to when receiving commands.
 				//! @todo		Change so that dynamically allocated
-				std::string value;
+				MString value;
 
 				//! @brief		Optional callback function for when option is discovered.
 				//! @details	Function is called before the callback function for the command that it
@@ -142,9 +143,9 @@ namespace MbeddedNinja
 				//! @brief		All constructors end up calling this function.
 				void Init(
 					const char shortName,
-					std::string longName,
+					MString longName,
 					bool (*callBackFunc)(char *optionVal),
-					std::string description,
+					MString description,
 					bool associatedValue);
 
 		};

@@ -59,7 +59,7 @@ namespace MbeddedNinja
 			//===============================================================================================//
 
 			//! @brief		Constructor.
-			CmdGroup(std::string name, std::string description);
+			CmdGroup(MString name, MString description);
 			
 			//===============================================================================================//
 			//======================================= PUBLIC VARIABLES ======================================//
@@ -67,10 +67,10 @@ namespace MbeddedNinja
 
 			//! @brief		The command group name. Used for recognising the command group in command-line input.
 			//! @details
-			std::string name;
+			MString name;
 			
 			//! @brief		The command group description.
-			std::string description;
+			MString description;
 
 
 			protected:

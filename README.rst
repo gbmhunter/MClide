@@ -11,8 +11,8 @@ MClide (CommandLineInterfaceDE) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
 - Created: 2012-03-19
-- Last Modified: 2014-10-07
-- Version: v9.3.4.0
+- Last Modified: 2014-10-08
+- Version: v9.4.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -122,7 +122,7 @@ To enable advanced text formatting, set the :code:`clide_ENABLE_ADV_TEXT_FORMATT
 Included Unit Tests
 -------------------
 
-MClide used the MUnitTest module to perform unit testing. The unit tests are located under :code:`test/`. The unit tests check for:
+MClide uses the MUnitTest module to perform unit testing. The unit tests are located under :code:`test/`. The unit tests check for:
 
 - Empty commands are handled safely
 - Short and long options work correctly
@@ -204,9 +204,9 @@ Dependency             Delivery             Usage
 <stdlib.h> 	           Standard C library   realloc(), malloc(), calloc(), free()
 <cctype>               Standard C++ library isalnum()
 <vector>               Standard C++ library std::vector, for holding vectors of commands, parameters and options.
-<string>               Standard C++ library std::string for command, parameter and option names/descriptions.
 <cinttypes>            Standard C library   PRIu8, PRIu32, e.t.c.
 MCallbacks             External repo        Method callback functionality
+MString                External repo        MString for command, parameter and option names/descriptions.
 MUnitTest              External repo        Unit test framework for MClide.
 ====================== ==================== ======================================================================
 
@@ -312,6 +312,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v9.4.0.0  2014-10-08 Reworked Clide module to use MString (embedded compatible string) rather than std::string, closes #158.
 v9.3.4.0  2014-10-07 Replaced all usages of printf() type specifiers such as 'i' and 'lu' with the portable types defines in <cinttypes>, closes #167.
 v9.3.3.0  2014-10-07 Removed 'include/Log.hpp', closes #168. Wrapped all code in MbeddedNinja namespace, closes #165.
 v9.3.2.0  2014-09-25 Fixed all unit tests so they fit the format 'CHECK_EQUAL(actual, expected)'. Many have actual and expected around the wrong way, closes #166.
@@ -340,12 +341,12 @@ v8.9.0.0  2014-05-16 You can now find options by short or long name using the fu
 v8.8.15.0 2014-04-07 Rx::Run2() now prints message to command line if argc/argv are 0/empty, closes #146.
 v8.8.14.0 2014-04-07 Example code now does not print debug info. Added 'Type help to see a list...' info to the 'Received command contained no alpha-numeric...' error message, closes #145. Fixed code getting trapped in loop with blank message when running example code, closes #144.
 v8.8.13.0 2014-04-07 'Num. of received parameters does not match...' error now prints values, closes #140. Stopped example code from printing debug info, closes #141. Set clide_ENABLE_AUTO_HELP to 1, closes #142. Fixed segmentation fault when running help from example code program, closes #143.
-v8.8.12.0 2014-04-03 Clide::Param::value is now a std::string, closes #138. Removed command/option/parameter name/description length restrictions, closes #139. Adjusted unit tests accordingly.
-v8.8.11.0 2014-04-03 Clide::Option::value is now a std::string, closes #137.
-v8.8.10.0 2014-04-03 Clide::Option's long name is now a std::string, closes #136. Fixed relevant unit tests and code in core files.
+v8.8.12.0 2014-04-03 Clide::Param::value is now a MString, closes #138. Removed command/option/parameter name/description length restrictions, closes #139. Adjusted unit tests accordingly.
+v8.8.11.0 2014-04-03 Clide::Option::value is now a MString, closes #137.
+v8.8.10.0 2014-04-03 Clide::Option's long name is now a MString, closes #136. Fixed relevant unit tests and code in core files.
 v8.8.9.1  2014-04-02 Added code formatting to more text in the README. Fixed bullet points under the section Event-Driven Callback Support in README, closes #128.
-v8.8.9.0  2014-04-02 Converted more of the const char* variables in Clide to std::string's, closes #135. Removed some more count variables that can be replaced with std::vector.size().
-v8.8.8.0  2014-04-02 Converted some of the const char* variables in Clide::Cmd and Clide::Option to std::string's.
+v8.8.9.0  2014-04-02 Converted more of the const char* variables in Clide to MString's, closes #135. Removed some more count variables that can be replaced with std::vector.size().
+v8.8.8.0  2014-04-02 Converted some of the const char* variables in Clide::Cmd and Clide::Option to MString's.
 v8.8.7.0  2014-04-02 Removed all count variables that could be replaced with vector.size() instead, closes #134.
 v8.8.6.0  2014-04-02 Removed all refereneces to Clide::MemMang, now uses std::vector and new operator, closes #133. Added <vector> as a dependency in README.
 v8.8.5.0  2014-04-02 paramA, optionA, and cmdGroupA variables in Clide::Rx are now of type std::vector, closes #132.

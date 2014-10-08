@@ -3,7 +3,7 @@
 # @author 			Geoffrey Hunter <gbmhunter@gmail.com> (wwww.mbedded.ninja)
 # @edited 			n/a
 # @created			2013-08-29
-# @last-modified 	2014-09-14
+# @last-modified 	2014-10-08
 # @brief 			Makefile for Linux-based make, to compile MClide library, example and run unit test code.
 # @details
 #					See README in repo root dir for more info.
@@ -13,8 +13,8 @@ SRC_CC_FLAGS := -Wall -g -c -std=c++11
 SRC_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard src/*.cpp))
 SRC_LD_FLAGS := 
 
-DEP_LIB_PATHS := -L ../MAssert -L ../MUnitTest -L ../MCallbacks
-DEP_LIBS := -l MAssert -l MUnitTest -l MCallbacks
+DEP_LIB_PATHS := -L ../MAssert -L ../MUnitTest -L ../MCallbacks -L ../MString
+DEP_LIBS := -l MAssert -l MUnitTest -l MCallbacks -l MString
 DEP_INCLUDE_PATHS := -I../
 
 TEST_COMPILER := g++
@@ -69,7 +69,10 @@ deps :
 	git clone https://github.com/mbedded-ninja/MCallbacks ../MCallbacks; \
 	fi;
 	$(MAKE) -C ../MCallbacks/ all
-	
+	if [ ! -d ../MString ]; then \
+	git clone https://github.com/mbedded-ninja/MString ../MString; \
+	fi;
+	$(MAKE) -C ../MString/ all
 	
 # ======== TEST ========
 	
@@ -95,7 +98,7 @@ test/%.o: test/%.cpp
 # Compiles example code
 example : $(EXAMPLE_OBJ_FILES) src
 	# Compiling example code
-	g++ $(EXAMPLE_LD_FLAGS) -o ./example/example.elf $(EXAMPLE_OBJ_FILES) -L./ -lMClide
+	g++ $(EXAMPLE_LD_FLAGS) -o ./example/example.elf $(EXAMPLE_OBJ_FILES) -L./ -lMClide  $(DEP_LIB_PATHS) $(DEP_LIBS) $(DEP_INCLUDE_PATHS)
 	
 # Generic rule for test object files
 example/%.o: example/%.cpp
@@ -120,6 +123,7 @@ clean-deps:
 	$(MAKE) -C ../MUnitTest/ clean
 	$(MAKE) -C ../MAssert/ clean
 	$(MAKE) -C ../MCallbacks/ clean
+	$(MAKE) -C ../MString/ clean
 	
 clean-ut:
 	@echo " Cleaning test object files..."; $(RM) ./test/*.o
