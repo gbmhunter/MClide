@@ -100,12 +100,12 @@ namespace MbeddedNinja
 					Print::PrintDebugInfo("CLIDE: Registering help option.\r\n", Print::DebugPrintingLevel::GENERAL);
 				#endif
 				// HELP OPTION
-				Option* help = new Option('h', "help", NULL, "Prints help for the command.", false);
+				this->help = new Option('h', "help", NULL, "Prints help for the command.", false);
 
-				if(help == NULL)
+				if(!this->help)
 					throw "CLIDE: ERROR: malloc() for help option failed in Clide::Cmd constructor.";
 
-				this->RegisterOption(help);
+				this->RegisterOption(this->help);
 			#endif
 
 			// DETECTED FLAG
@@ -133,9 +133,10 @@ namespace MbeddedNinja
 						Print::DebugPrintingLevel::VERBOSE);
 			#endif
 
-			// Free up parameter and option memory
-			//free(paramA);
-			//free(optionA);
+			#if(clide_ENABLE_AUTO_HELP == 1)
+				delete this->help;
+			#endif
+
 		}
 		
 		void Cmd::RegisterParam(Param* param)
@@ -150,7 +151,7 @@ namespace MbeddedNinja
 
 			// MALLOC
 			//this->paramA = (Param**)MemMang::AppendNewArrayElement(this->paramA, this->numParams, sizeof(Param*));
-			this->paramA.push_back(param);
+			this->paramA.Append(param);
 			/*
 			if(this->paramA == NULL)
 			{
@@ -179,7 +180,7 @@ namespace MbeddedNinja
 
 			// Create option pointer at end of option pointer array.
 			//this->optionA = (Option**)MemMang::AppendNewArrayElement(this->optionA, this->numOptions, sizeof(Option*));
-			this->optionA.push_back(option);
+			this->optionA.Append(option);
 
 			/*
 			if(this->optionA == NULL)
@@ -198,14 +199,14 @@ namespace MbeddedNinja
 			//optionA[this->numOptions - 1] = option;
 			
 			#if(clide_ENABLE_DEBUG_CODE == 1)
-				if(optionA[this->optionA.size() - 1]->shortName != '\0')
+				if(optionA[this->optionA.Size() - 1]->shortName != '\0')
 				{
 					snprintf(
 						Global::debugBuff,
 						sizeof(Global::debugBuff),
 						"CLIDE: Option short name = '%c'. Option long name = '%s'.\r\n",
-						optionA[this->optionA.size() - 1]->shortName,
-						optionA[this->optionA.size() - 1]->longName.cStr);
+						optionA[this->optionA.Size() - 1]->shortName,
+						optionA[this->optionA.Size() - 1]->longName.cStr);
 				}
 				else
 				{
@@ -214,7 +215,7 @@ namespace MbeddedNinja
 						sizeof(Global::debugBuff),
 						"CLIDE: Option short name = '%s'. Option long name = '%s'.\r\n",
 						"none",
-						optionA[this->optionA.size() - 1]->longName.cStr);
+						optionA[this->optionA.Size() - 1]->longName.cStr);
 				}
 
 				Print::PrintDebugInfo(Global::debugBuff,
@@ -225,7 +226,7 @@ namespace MbeddedNinja
 
 		Option* Cmd::FindOptionByShortName(char shortOptionName)
 		{
-			for(uint32_t x = 0; x < this->optionA.size(); x++)
+			for(uint32_t x = 0; x < this->optionA.Size(); x++)
 			{
 				if(this->optionA[x]->shortName == shortOptionName)
 					return this->optionA[x];
@@ -237,7 +238,7 @@ namespace MbeddedNinja
 
 		Option* Cmd::FindOptionByLongName(MString longOptionName)
 		{
-			for(uint32_t x = 0; x < this->optionA.size(); x++)
+			for(uint32_t x = 0; x < this->optionA.Size(); x++)
 			{
 				if(this->optionA[x]->longName == longOptionName)
 					return this->optionA[x];
@@ -258,7 +259,7 @@ namespace MbeddedNinja
 			uint32_t numLongOptions = 0;
 
 			uint32_t x;
-			for(x = 0; x < this->optionA.size(); x++)
+			for(x = 0; x < this->optionA.Size(); x++)
 			{
 				if(this->optionA[x]->longName.GetLength() > 0)
 					numLongOptions++;
@@ -286,7 +287,7 @@ namespace MbeddedNinja
 
 			// Create option pointer at end of option pointer array.
 			//this->cmdGroupA = (CmdGroup**)MemMang::AppendNewArrayElement(this->cmdGroupA, this->numCmdGroups, sizeof(CmdGroup*));
-			this->cmdGroupA.push_back(cmdGroup);
+			this->cmdGroupA.Append(cmdGroup);
 
 			/*
 			if(this->cmdGroupA == NULL)
@@ -315,7 +316,7 @@ namespace MbeddedNinja
 
 		uint32_t Cmd::GetNumCmdGroups()
 		{
-			return this->cmdGroupA.size();
+			return this->cmdGroupA.Size();
 		}
 
 		CmdGroup* Cmd::GetCmdGroup(uint32_t cmdGroupNum)

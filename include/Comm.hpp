@@ -2,7 +2,7 @@
 //! @file 			Comm.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013-12-18
-//! @last-modified 	2014-10-07
+//! @last-modified 	2014-10-09
 //! @brief			The base communications class. This is extended by both Clide::Tx and Clide::Rx which are the classes manipulated by the user.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -77,7 +77,7 @@ namespace MbeddedNinja
 
 				//! @brief		Points to an array of pointers to registered commands
 				//! @details	This is updated everytime RegisterCmd() is called
-				std::vector<Cmd*> cmdA;
+				MVector<Cmd*> cmdA;
 
 				//! @brief		The number of registered commands
 				//! @details	Incremented everytime RegisterCmd() is called
@@ -102,8 +102,8 @@ namespace MbeddedNinja
 				//======================================= PUBLIC METHODS ========================================//
 				//===============================================================================================//
 
-				//! @brief 		Constructor
-				Comm();
+				//! @brief		Destructor.
+				~Comm();
 
 				//! @brief 		Prints out the help info.
 				void PrintHelp(Cmd* cmd);
@@ -127,7 +127,8 @@ namespace MbeddedNinja
 
 			protected:
 
-
+			//! @brief 		Constructor.
+			Comm();
 
 		};
 	} // namespace MClide

@@ -11,8 +11,8 @@ MClide (CommandLineInterfaceDE) Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
 - Created: 2012-03-19
-- Last Modified: 2014-10-08
-- Version: v9.4.0.0
+- Last Modified: 2014-10-09
+- Version: v9.4.1.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -203,11 +203,11 @@ Dependency             Delivery             Usage
 <stdio.h>              Standard C library   snprintf()
 <stdlib.h> 	           Standard C library   realloc(), malloc(), calloc(), free()
 <cctype>               Standard C++ library isalnum()
-<vector>               Standard C++ library std::vector, for holding vectors of commands, parameters and options.
 <cinttypes>            Standard C library   PRIu8, PRIu32, e.t.c.
 MCallbacks             External repo        Method callback functionality
 MString                External repo        MString for command, parameter and option names/descriptions.
 MUnitTest              External repo        Unit test framework for MClide.
+MVector                External repo        MVector, for holding vectors of commands, parameters and options.
 ====================== ==================== ======================================================================
 
 Packet Decoding Process (RX)
@@ -312,6 +312,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v9.4.1.0  2014-10-09 Stopped using <vector> and using the microcontroller friendly MVector module instead, closes #169. Fixed memory leak, 'Option* help = new Option('h', 'help', NULL, 'Prints help for the command.', false)' at src/Cmd.cpp: 103, closes #171. Fixed memory leak, 'this->cmdHelp = new Cmd('help', &HelpCmdCallback, 'Returns information about all registered commands.')' on src/Rx.Cpp: 774 is never freed, closes #170. Fixed memory leak, new CmdGroup() called in Comm constructor but never freed, closes #151.
 v9.4.0.0  2014-10-08 Reworked Clide module to use MString (embedded compatible string) rather than std::string, closes #158.
 v9.3.4.0  2014-10-07 Replaced all usages of printf() type specifiers such as 'i' and 'lu' with the portable types defines in <cinttypes>, closes #167.
 v9.3.3.0  2014-10-07 Removed 'include/Log.hpp', closes #168. Wrapped all code in MbeddedNinja namespace, closes #165.
@@ -345,11 +346,11 @@ v8.8.12.0 2014-04-03 Clide::Param::value is now a MString, closes #138. Removed 
 v8.8.11.0 2014-04-03 Clide::Option::value is now a MString, closes #137.
 v8.8.10.0 2014-04-03 Clide::Option's long name is now a MString, closes #136. Fixed relevant unit tests and code in core files.
 v8.8.9.1  2014-04-02 Added code formatting to more text in the README. Fixed bullet points under the section Event-Driven Callback Support in README, closes #128.
-v8.8.9.0  2014-04-02 Converted more of the const char* variables in Clide to MString's, closes #135. Removed some more count variables that can be replaced with std::vector.size().
+v8.8.9.0  2014-04-02 Converted more of the const char* variables in Clide to MString's, closes #135. Removed some more count variables that can be replaced with MVector.size().
 v8.8.8.0  2014-04-02 Converted some of the const char* variables in Clide::Cmd and Clide::Option to MString's.
 v8.8.7.0  2014-04-02 Removed all count variables that could be replaced with vector.size() instead, closes #134.
-v8.8.6.0  2014-04-02 Removed all refereneces to Clide::MemMang, now uses std::vector and new operator, closes #133. Added <vector> as a dependency in README.
-v8.8.5.0  2014-04-02 paramA, optionA, and cmdGroupA variables in Clide::Rx are now of type std::vector, closes #132.
+v8.8.6.0  2014-04-02 Removed all refereneces to Clide::MemMang, now uses MVector and new operator, closes #133. Added <vector> as a dependency in README.
+v8.8.5.0  2014-04-02 paramA, optionA, and cmdGroupA variables in Clide::Rx are now of type MVector, closes #132.
 v8.8.4.0  2014-04-02 Added unit tests for making sure Clide will work as part of a class, closes #131.
 v8.8.3.0  2014-04-02 Added ignoreFirstArgvElement variable to Rx class, closes #129. Edited unit tests accordingly. Added info about this to README.
 v8.8.2.0  2014-04-01 Got rid of access to _argPtr[0] thru [4] in Clide::Rx which could access invalid memory, closes #126. Stopped empty argc/argv from crashing Clide, closes #127. Added unit test for empty argc/argv, closes #125.

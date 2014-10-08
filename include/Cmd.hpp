@@ -2,7 +2,7 @@
 //! @file 			Cmd.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013-03-19
-//! @last-modified 	2014-10-08
+//! @last-modified 	2014-10-09
 //! @brief 			Contains the command object, which can be registered with the RX or TX controller (or both).
 //! @details
 //!					See README.rst in root dir for more info.
@@ -36,11 +36,11 @@ namespace MbeddedNinja
 
 //===== SYSTEM LIBRARIES =====//
 #include <stdint.h>
-#include <vector>
 
 //===== USER LIBRARIES =====//
 #include "MCallbacks/api/MCallbacksApi.hpp"
 #include "MString/api/MStringApi.hpp"
+#include "MVector/api/MVectorApi.hpp"
 
 //===== USER SOURCE =====//
 #include "Config.hpp"		//!< Config options
@@ -153,13 +153,13 @@ namespace MbeddedNinja
 				MString description;
 
 				//! @brief 		Vector of pointers to command parameters. Parameters are created external to Clide.
-				std::vector<Param*> paramA;
+				MVector<Param*> paramA;
 
 				//! @brief		Remembers the number of parameters
 				//uint32_t numParams;
 
 				//! @brief		Vector of pointers to options. Options are created external to Clide.
-				std::vector<Option*> optionA;
+				MVector<Option*> optionA;
 
 				//! @brief		Remembers the number of options
 				//uint32_t numOptions;
@@ -182,7 +182,7 @@ namespace MbeddedNinja
 				Comm* parentComm;
 
 				//! @brief		A pointer to an array of pointers to CmdGroup objects, which signify which command groups this command belongs to.
-				std::vector<CmdGroup*> cmdGroupA;
+				MVector<CmdGroup*> cmdGroupA;
 
 				//uint32_t numCmdGroups;
 
@@ -196,6 +196,10 @@ namespace MbeddedNinja
 				//! @details	Initialises everything except the callback, which is done in the calling constructor,
 				//!				depending on whether it is a function or a method.
 				void Init(MString name, MString description);
+
+				#if(clide_ENABLE_AUTO_HELP == 1)
+					Option * help;
+				#endif
 			
 		};
 

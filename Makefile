@@ -3,27 +3,27 @@
 # @author 			Geoffrey Hunter <gbmhunter@gmail.com> (wwww.mbedded.ninja)
 # @edited 			n/a
 # @created			2013-08-29
-# @last-modified 	2014-10-08
+# @last-modified 	2014-10-09
 # @brief 			Makefile for Linux-based make, to compile MClide library, example and run unit test code.
 # @details
 #					See README in repo root dir for more info.
 
 SRC_COMPILER := g++
-SRC_CC_FLAGS := -Wall -g -c -std=c++11
+SRC_CC_FLAGS := -Wall -g -c -O0 -std=c++11
 SRC_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard src/*.cpp))
 SRC_LD_FLAGS := 
 
-DEP_LIB_PATHS := -L ../MAssert -L ../MUnitTest -L ../MCallbacks -L ../MString
-DEP_LIBS := -l MAssert -l MUnitTest -l MCallbacks -l MString
+DEP_LIB_PATHS := -L ../MAssert -L ../MUnitTest -L ../MCallbacks -L ../MString -L ../MVector
+DEP_LIBS := -l MAssert -l MUnitTest -l MCallbacks -l MString -l MVector
 DEP_INCLUDE_PATHS := -I../
 
 TEST_COMPILER := g++
-TEST_CC_FLAGS := -Wall -g -c -std=c++11
+TEST_CC_FLAGS := -Wall -g -c -O0 -std=c++11
 TEST_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard test/*.cpp))
 TEST_LD_FLAGS := 
 
 EXAMPLE_COMPILER := g++
-EXAMPLE_CC_FLAGS := -Wall -g -c -std=c++11
+EXAMPLE_CC_FLAGS := -Wall -g -c -O0 -std=c++11
 EXAMPLE_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard example/*.cpp))
 EXAMPLE_LD_FLAGS := 
 
@@ -45,7 +45,7 @@ src : deps $(SRC_OBJ_FILES)
 # Generic rule for src object files
 src/%.o: src/%.cpp
 	# Compiling src/ files
-	$(SRC_COMPILER) $(SRC_CC_FLAGS) $(DEP_LIB_PATHS) $(DEP_LIBS) $(DEP_INCLUDE_PATHS) -MD -o $@ $<
+	$(SRC_COMPILER) $(SRC_CC_FLAGS) $(DEP_INCLUDE_PATHS) -MD -o $@ $<
 	-@cp $*.d $*.P >/dev/null 2>&1; \
 	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
 		-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \
@@ -73,18 +73,22 @@ deps :
 	git clone https://github.com/mbedded-ninja/MString ../MString; \
 	fi;
 	$(MAKE) -C ../MString/ all
+	if [ ! -d ../MVector ]; then \
+	git clone https://github.com/mbedded-ninja/MVector ../MVector; \
+	fi;
+	$(MAKE) -C ../MVector/ all
 	
 # ======== TEST ========
 	
 # Compiles unit test code
 test : deps $(TEST_OBJ_FILES) | src
 	# Compiling unit test code
-	g++ $(TEST_LD_FLAGS) -o ./test/Tests.elf $(TEST_OBJ_FILES)  $(DEP_LIB_PATHS) $(DEP_LIBS) $(DEP_INCLUDE_PATHS) -L./ -lMClide
+	g++ $(TEST_LD_FLAGS) -o ./test/Tests.elf $(TEST_OBJ_FILES) -L./ -lMClide $(DEP_LIB_PATHS) $(DEP_LIBS) $(DEP_INCLUDE_PATHS) 
 
 # Generic rule for test object files
 test/%.o: test/%.cpp
 	# Compiling test/ files
-	$(TEST_COMPILER) $(TEST_CC_FLAGS) $(DEP_LIB_PATHS) $(DEP_LIBS) $(DEP_INCLUDE_PATHS) -MD -o $@ $<
+	$(TEST_COMPILER) $(TEST_CC_FLAGS) $(DEP_INCLUDE_PATHS) -MD -o $@ $<
 	-@cp $*.d $*.P >/dev/null 2>&1; \
 	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
 		-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \
@@ -124,6 +128,7 @@ clean-deps:
 	$(MAKE) -C ../MAssert/ clean
 	$(MAKE) -C ../MCallbacks/ clean
 	$(MAKE) -C ../MString/ clean
+	$(MAKE) -C ../MVector/ clean
 	
 clean-ut:
 	@echo " Cleaning test object files..."; $(RM) ./test/*.o

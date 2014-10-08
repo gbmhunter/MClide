@@ -2,7 +2,7 @@
 //! @file 			Comm.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013-12-18
-//! @last-modified 	2014-10-08
+//! @last-modified 	2014-10-09
 //! @brief			The base communications class. This is extended by both Clide::Tx and Clide::Rx which are the classes manipulated by the user.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -22,6 +22,9 @@
 #include <cctype>		// isalnum() 
 #include <cstring>		// memset()
 #include <cinttypes>	// PRIu32
+
+//===== USER LIBRARIES =====//
+#include "MVector/api/MVectorApi.hpp"
 
 //===== USER SOURCE =====//
 #include "../include/Config.hpp"
@@ -77,6 +80,12 @@ namespace MbeddedNinja
 			#endif
 		}
 
+		Comm::~Comm()
+		{
+			// Free memory allocated in constructor
+			delete this->cmdGroupAll;
+		}
+
 		void Comm::RegisterCmd(Cmd* cmd)
 		{
 			// Save this Rx object as the parent object for this command. This is used
@@ -88,7 +97,7 @@ namespace MbeddedNinja
 
 			// Add new pointer to cmd object at end of array
 			//cmdA = (Cmd**)MemMang::AppendNewArrayElement(cmdA, numCmds, sizeof(Cmd*));
-			cmdA.push_back(cmd);
+			cmdA.Append(cmd);
 
 			// Increment command count
 			//numCmds++;
@@ -179,11 +188,11 @@ namespace MbeddedNinja
 
 			// Iterate through cmd array and print commands, if they belong to the current command group
 			uint32_t x;
-			for(x = 0; x < this->cmdA.size(); x++)
+			for(x = 0; x < this->cmdA.Size(); x++)
 			{
 				// Iterate through the command groups for each command
 				uint32_t y;
-				for(y = 0; y < cmdA[x]->cmdGroupA.size(); y++)
+				for(y = 0; y < cmdA[x]->cmdGroupA.Size(); y++)
 				{
 					// Check command belongs to requested group
 					if(strcmp(selectedGroup, cmdA[x]->cmdGroupA[y]->name.cStr) == 0)
@@ -266,7 +275,7 @@ namespace MbeddedNinja
 
 
 			// Special case if there are no parameters to list
-			if(cmd->paramA.size() == 0)
+			if(cmd->paramA.Size() == 0)
 			{
 				Print::PrintToCmdLine("\t");
 				Print::PrintToCmdLine("NO PARAMS");
@@ -284,7 +293,7 @@ namespace MbeddedNinja
 				#endif
 				// Iterate through cmd array and print commands
 				uint32_t x;
-				for(x = 0; x < cmd->paramA.size(); x++)
+				for(x = 0; x < cmd->paramA.Size(); x++)
 				{
 					Print::PrintToCmdLine("\t");
 					char tempBuff[50];
@@ -309,7 +318,7 @@ namespace MbeddedNinja
 			Print::PrintToCmdLine("Command Options:\r\n");
 
 			// Special case if there are no parameters to list
-			if(cmd->optionA.size() == 0)
+			if(cmd->optionA.Size() == 0)
 			{
 				Print::PrintToCmdLine("\t");
 				Print::PrintToCmdLine("NO OPTIONS");
@@ -330,7 +339,7 @@ namespace MbeddedNinja
 
 				// Iterate through cmd array and print commands
 				uint32_t x;
-				for(x = 0; x < cmd->optionA.size(); x++)
+				for(x = 0; x < cmd->optionA.Size(); x++)
 				{
 					// Print short option
 					Print::PrintToCmdLine("\t");

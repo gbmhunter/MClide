@@ -25,6 +25,7 @@
 
 //===== USER LIBRARIES =====//
 #include "MCallbacks/api/MCallbacksApi.hpp"
+#include "MVector/api/MVectorApi.hpp"
 
 //===== USER SOURCE =====//
 #include "../include/Config.hpp"
@@ -108,7 +109,7 @@ namespace MbeddedNinja
 
 			// Reset cmdDetected flag for all commands
 			int32_t x;
-			for(x = 0; x < this->cmdA.size(); x++)
+			for(x = 0; x < this->cmdA.Size(); x++)
 			{
 				this->cmdA[x]->isDetected = false;
 			}
@@ -340,7 +341,7 @@ namespace MbeddedNinja
 
 			// Clear the isDetected for all options registered with incoming cmd
 			// Set true later in function if the option is detected
-			for(x = 0; (uint32_t)x < foundCmd->optionA.size(); x++)
+			for(x = 0; (uint32_t)x < foundCmd->optionA.Size(); x++)
 			{
 				foundCmd->optionA[x]->isDetected = false;
 				foundCmd->optionA[x]->longOptionDetected = 0;
@@ -367,7 +368,7 @@ namespace MbeddedNinja
 					Global::debugBuff,
 					sizeof(Global::debugBuff),
 					"CLIDE: Num registered options = %zu\r\n",
-					foundCmd->optionA.size());
+					foundCmd->optionA.Size());
 				Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
 			#endif
 
@@ -437,7 +438,7 @@ namespace MbeddedNinja
 					#endif
 
 					// Search for set flag
-					for(x = 0; x < (int32_t)foundCmd->optionA.size(); x++)
+					for(x = 0; x < (int32_t)foundCmd->optionA.Size(); x++)
 					{
 						if(foundCmd->optionA[x]->longOptionDetected == 1)
 						{
@@ -507,7 +508,7 @@ namespace MbeddedNinja
 				
 				// Only try and validate options if there are registered options for this command,
 				// else skip
-				if(foundCmd->optionA.size() > 0)
+				if(foundCmd->optionA.Size() > 0)
 				{
 
 					// Check for option
@@ -669,7 +670,7 @@ namespace MbeddedNinja
 			//============= VALIDATE/PROCESS PARAMETERS =============//
 
 			// Validate that there are the correct number of parameters
-			if((uint32_t)(numArgs - GetOpt::optind) != foundCmd->paramA.size())
+			if((uint32_t)(numArgs - GetOpt::optind) != foundCmd->paramA.Size())
 			{
 				char tempBuff[100];
 				snprintf(
@@ -678,7 +679,7 @@ namespace MbeddedNinja
 						"error \"Num. of received parameters ('%" PRIu8
 						"') does not match num. registered for cmd ('%zu').\"\r\n",
 						numArgs - GetOpt::optind,
-						foundCmd->paramA.size());
+						foundCmd->paramA.Size());
 				Print::PrintToCmdLine(tempBuff);
 				#if(clide_ENABLE_DEBUG_CODE == 1)
 					snprintf (
@@ -688,7 +689,7 @@ namespace MbeddedNinja
 						"') for cmd '%s' does not match num. registered ('%zu'). numArgs = '%" PRIu8 "'. optind = '%i'.\r\n",
 						(uint32_t)(numArgs - GetOpt::optind),
 						foundCmd->name.cStr,
-						foundCmd->paramA.size(),
+						foundCmd->paramA.Size(),
 						numArgs,
 						GetOpt::optind);
 					Print::PrintError(Global::debugBuff);
@@ -700,7 +701,7 @@ namespace MbeddedNinja
 			}
 
 			// Copy parameters into cmd string
-			for(x = 0; (uint32_t)x < foundCmd->paramA.size(); x++)
+			for(x = 0; (uint32_t)x < foundCmd->paramA.Size(); x++)
 			{
 				foundCmd->paramA[x]->value = MString(_argsPtr[GetOpt::optind + x]);
 			}
@@ -771,8 +772,8 @@ namespace MbeddedNinja
 
 			// Create command for help command (which is currently just a pointer)
 			this->cmdHelp = new Cmd("help", &HelpCmdCallback, "Returns information about all registered commands.");
-
-			this->cmdHelp->RegisterOption(new Option('g', "", NULL, "Specifies which group to print help with.", true));
+			this->cmdHelpOption = new Option('g', "", NULL, "Specifies which group to print help with.", true);
+			this->cmdHelp->RegisterOption(this->cmdHelpOption);
 
 			if(enableHelpNoHeaderOption)
 			{
@@ -795,6 +796,14 @@ namespace MbeddedNinja
 			#if(clide_ENABLE_DEBUG_CODE == 1)
 				Print::PrintDebugInfo("CLIDE: Rx constructor finished.\r\n", Print::DebugPrintingLevel::VERBOSE);
 			#endif
+		}
+
+		Rx::~Rx()
+		{
+			// Free the help command
+			delete this->cmdHelp;
+
+			delete this->cmdHelpOption;
 		}
 
 
@@ -823,7 +832,7 @@ namespace MbeddedNinja
 			return argCount;
 		}
 
-		Cmd* Rx::ValidateCmd(char* cmdName, std::vector<Cmd*> cmdA)
+		Cmd* Rx::ValidateCmd(char* cmdName, MVector<Cmd*> cmdA)
 		{
 			uint8_t x = 0;
 			
@@ -836,11 +845,11 @@ namespace MbeddedNinja
 					Global::debugBuff,
 					sizeof(Global::debugBuff),
 					"CLIDE: Num. registered cmds = %zu\r\n",
-					cmdA.size());
+					cmdA.Size());
 				Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
 			#endif
 
-			for(x = 0; x < cmdA.size(); x++)
+			for(x = 0; x < cmdA.Size(); x++)
 			{
 				uint32_t val = strcmp(cmdName, cmdA[x]->name.cStr);
 				#if(clide_ENABLE_DEBUG_CODE == 1)
@@ -886,7 +895,7 @@ namespace MbeddedNinja
 				Print::PrintDebugInfo(Global::debugBuff, Print::DebugPrintingLevel::VERBOSE);
 			#endif
 			// Iterate through all registered options for detected command
-			for(x = 0; x < detectedCmd->optionA.size(); x++)
+			for(x = 0; x < detectedCmd->optionA.Size(); x++)
 			{
 				// Do not initialise as 0!
 				uint8_t val = 1;
@@ -949,7 +958,7 @@ namespace MbeddedNinja
 
 			uint32_t x;
 			uint32_t optionStringPos = 0;
-			for(x = 0; x < cmd->optionA.size(); x++)
+			for(x = 0; x < cmd->optionA.Size(); x++)
 			{
 				// Make sure short name exists
 				if(cmd->optionA[x]->shortName != '\0')
@@ -989,7 +998,7 @@ namespace MbeddedNinja
 			uint32_t x;
 			uint32_t longOptionIndex = 0;
 			// Iterate through all long-options registered with command
-			for(x = 0; x < cmd->optionA.size(); x++)
+			for(x = 0; x < cmd->optionA.Size(); x++)
 			{
 				// If no long name in option, skip to next one
 				if(cmd->optionA[x]->longName.GetLength() == 0)
