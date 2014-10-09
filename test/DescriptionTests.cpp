@@ -52,29 +52,22 @@ namespace MClideTest
 
 	MTEST(LongCmdDescriptionTest)
 	{
-		try
-		{
-			Rx rxController;
 
-			// Create command with empty description
-			Cmd cmdTest("test", &Callback, "This is a super super super super super long command description! It is very long indeed. And getting longer as we speak!");
+		Rx rxController;
 
-			// Register command
-			rxController.RegisterCmd(&cmdTest);
+		// Create command with empty description
+		Cmd cmdTest("test", &Callback, "This is a super super super super super long command description! It is very long indeed. And getting longer as we speak!");
 
-			// Create fake input buffer
-			char rxBuff[50] = "test";
+		// Register command
+		rxController.RegisterCmd(&cmdTest);
 
-			callbackCalled = false;
+		// Create fake input buffer
+		char rxBuff[50] = "test";
 
-			// Run rx controller
-			rxController.Run(rxBuff);
-		}
-		catch(const char* msg)
-		{
-			// Since this is a unit test, don't print to stdout
-			//std::cout << msg << endl;
-		}
+		callbackCalled = false;
+
+		// Run rx controller
+		rxController.Run(rxBuff);
 
 		CHECK_EQUAL(callbackCalled, true);
 	}

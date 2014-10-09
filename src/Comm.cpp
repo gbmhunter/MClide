@@ -25,6 +25,7 @@
 
 //===== USER LIBRARIES =====//
 #include "MVector/api/MVectorApi.hpp"
+#include "MAssert/api/MAssertApi.hpp"
 
 //===== USER SOURCE =====//
 #include "../include/Config.hpp"
@@ -69,6 +70,8 @@ namespace MbeddedNinja
 
 			// Create a CmdGroup object that all commands will belong to
 			this->cmdGroupAll = new CmdGroup("all", "All commands belong to this group.");
+
+			M_ASSERT(this->cmdGroupAll);
 
 			// Default command group points to "all", so that if this is not reassigned, when "help"
 			// is called, all commands will be printed.

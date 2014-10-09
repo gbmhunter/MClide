@@ -2,7 +2,7 @@
 //! @file 			Rx.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2012-03-19
-//! @last-modified 	2014-10-07
+//! @last-modified 	2014-10-09
 //! @brief 			MClide RX controller. The main logic of the RX (decoding) part of MClide. Commands can be registered with the controller.
 //! @details
 //!					See README.rst in repo root dir for more info.
@@ -26,6 +26,7 @@
 //===== USER LIBRARIES =====//
 #include "MCallbacks/api/MCallbacksApi.hpp"
 #include "MVector/api/MVectorApi.hpp"
+#include "MAssert/api/MAssertApi.hpp"
 
 //===== USER SOURCE =====//
 #include "../include/Config.hpp"
@@ -45,7 +46,6 @@ namespace MbeddedNinja
 	namespace MClideNs
 	{
 
-
 		using namespace std;
 
 		//===============================================================================================//
@@ -61,6 +61,13 @@ namespace MbeddedNinja
 		{
 			// Default setting for enableHelpNoHeaderOption is false
 			this->Init(false);
+		}
+
+		Rx::~Rx()
+		{
+			// Free the help command and the help option
+			delete this->cmdHelp;
+			delete this->cmdHelpOption;
 		}
 
 		bool Rx::Run(int argc, char* argv[])
@@ -772,7 +779,11 @@ namespace MbeddedNinja
 
 			// Create command for help command (which is currently just a pointer)
 			this->cmdHelp = new Cmd("help", &HelpCmdCallback, "Returns information about all registered commands.");
+			M_ASSERT(this->cmdHelp);
+
 			this->cmdHelpOption = new Option('g', "", NULL, "Specifies which group to print help with.", true);
+			M_ASSERT(this->cmdHelpOption);
+
 			this->cmdHelp->RegisterOption(this->cmdHelpOption);
 
 			if(enableHelpNoHeaderOption)
@@ -797,15 +808,6 @@ namespace MbeddedNinja
 				Print::PrintDebugInfo("CLIDE: Rx constructor finished.\r\n", Print::DebugPrintingLevel::VERBOSE);
 			#endif
 		}
-
-		Rx::~Rx()
-		{
-			// Free the help command
-			delete this->cmdHelp;
-
-			delete this->cmdHelpOption;
-		}
-
 
 		int Rx::SplitPacket(char* packet, char* argv[])
 		{

@@ -12,7 +12,7 @@ MClide (CommandLineInterfaceDE) Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
 - Created: 2012-03-19
 - Last Modified: 2014-10-09
-- Version: v9.4.1.0
+- Version: v9.4.2.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -29,13 +29,13 @@ MClide (CommandLineInterfaceDE) Library
 Description
 ===========
 
-A command-line style communication interface designed to make it easy to send messages and data between two micro-controllers, a microcontroller and computer, or two computers, via a serial interface that supports ASCII characters (e.g. UART, I2C, SPI).
+MClide is a command-line style communication interface designed to make it easy to send messages and data between two micro-controllers, a microcontroller and computer, or two computers, via a serial interface that supports ASCII characters (e.g. UART, I2C, SPI).
 
 Two functionally identical MClide projects exist, this one written in C++ for an embedded system (MClide), and the other one (Cs-Clide) written in C# for running on a PC (clide-cs).
 
 Uses a both human readable and computer readable format (POSIX.2 command-line style, with GNU extensions) for easy implementation and debugging. 
 
-Useful for working with and controlling embedded systems.
+Useful for working with and controlling embedded systems. Does not use or rely on exceptions.
 
 Standard UNIX Style Commands (and long options)
 -----------------------------------------------
@@ -61,7 +61,7 @@ Supports long options (GNU extension to the POSIX.2 standard).
 Powerful
 --------
 
-Uses dynamic memory allocation for creating commands/options/parameters e.t.c. Command data is stored in a contiguous block
+Uses dynamic memory allocation for creating commands/options/parameters e.t.c. Command data is stored in a contiguous block.
 
 Negative Number And Spaces-In-Parameter Support
 -----------------------------------------------
@@ -79,7 +79,7 @@ MClide can be used with ease on both Linux and embedded systems. All platform-sp
 
 MClide does not use RTTI (e.g. :code:`dynamic_cast()`), allowing it to be used on a larger range of embedded systems.
 
-MClide is not dependant on the :code:`getopt_long()` function from the standard C-library, it has it's own version.
+MClide is not dependant on the :code:`getopt_long()` function from the standard C-library (which I found to work slightly differently on different platforms), it has it's own version.
 
 Easy Including
 --------------
@@ -176,11 +176,8 @@ Callbacks are generated in the following manner:
 		"A test command.");
 		
 	// Now the method myCallbackCallback.Callback() will be called when the command "test" is received!
+	
 
-Exceptions
-----------
-
-O.K., so MClide uses exceptions, but you say it's meant for embedded systems? I choose to use exceptions after I ran into the problem with the fact a object constructor could fail, and you can't return an error code. It was either implement exceptions or use the 'zombie object' approach. I choose exceptions because they a better suited to solve the problem. If you have an issue with this, please let me know (create a GitHub issue).
 
 Installation
 ============
@@ -312,6 +309,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v9.4.2.0  2014-10-09 Stopped using exceptions, closes #172.
 v9.4.1.0  2014-10-09 Stopped using <vector> and using the microcontroller friendly MVector module instead, closes #169. Fixed memory leak, 'Option* help = new Option('h', 'help', NULL, 'Prints help for the command.', false)' at src/Cmd.cpp: 103, closes #171. Fixed memory leak, 'this->cmdHelp = new Cmd('help', &HelpCmdCallback, 'Returns information about all registered commands.')' on src/Rx.Cpp: 774 is never freed, closes #170. Fixed memory leak, new CmdGroup() called in Comm constructor but never freed, closes #151.
 v9.4.0.0  2014-10-08 Reworked Clide module to use MString (embedded compatible string) rather than std::string, closes #158.
 v9.3.4.0  2014-10-07 Replaced all usages of printf() type specifiers such as 'i' and 'lu' with the portable types defines in <cinttypes>, closes #167.

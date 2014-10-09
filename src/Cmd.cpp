@@ -2,7 +2,7 @@
 //! @file 			Cmd.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2013-04-02
-//! @last-modified 	2014-10-07
+//! @last-modified 	2014-10-09
 //! @brief 			Command-line style communications protocol
 //! @details
 //!				See README.rst in repo root dir for more info.
@@ -22,6 +22,9 @@
 #include <cctype>		// isalnum() 
 #include <string.h>		// strlen()
 #include <cinttypes>	// PRIu32
+
+//===== USER LIBRARIES =====//
+#include "MAssert/api/MAssertApi.hpp"
 
 //===== USER SOURCE =====//
 #include "../include/Config.hpp"
@@ -102,8 +105,7 @@ namespace MbeddedNinja
 				// HELP OPTION
 				this->help = new Option('h', "help", NULL, "Prints help for the command.", false);
 
-				if(!this->help)
-					throw "CLIDE: ERROR: malloc() for help option failed in Clide::Cmd constructor.";
+				M_ASSERT(this->help);
 
 				this->RegisterOption(this->help);
 			#endif
